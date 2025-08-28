@@ -24,6 +24,7 @@ plugins:
 # Auteur (utilisé dans JSON-LD)
 author:
   name: "BODET Martial"
+  enterprise : "ABM"
   job_title: "Consultant Freelance Talend & Power BI"
   email: "contact@tondomaine.fr"
   url: "https://username.github.io"
