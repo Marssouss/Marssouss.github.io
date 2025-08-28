@@ -1,0 +1,36 @@
+---
+---
+
+@import "minima";
+
+/* Images & galerie */
+img { max-width: 100%; height: auto; }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.gallery-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fafafa;
+}
+.gallery-item img { display: block; width: 100%; height: auto; }
+.gallery-item figcaption {
+  font-size: .9rem; color: #6b7280; padding: 8px 10px;
+}
+
+/* Lightbox (dialog natif) */
+#lightbox {
+  border: none; padding: 0; width: min(92vw, 1200px);
+  background: transparent;
+}
+#lightbox::backdrop { background: rgba(0,0,0,.6); }
+#lightbox-img { display:block; width:100%; height:auto; background:#000; }
+.lb-close {
+  position:absolute; right: 8px; top: 8px; z-index:2;
+  border:none; border-radius:10px; padding:.4rem .6rem; cursor:pointer;
+}
+#lightbox p { margin: 8px 0 0; color: #e5e7eb; text-align:center; }

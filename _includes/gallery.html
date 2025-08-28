@@ -1,0 +1,25 @@
+{% assign imgs = include.images %}
+<link rel="preload" as="script" href="{{ '/assets/js/lightbox.js' | relative_url }}">
+<div class="gallery-grid">
+  {% for item in imgs %}
+  <figure class="gallery-item">
+    <a href="{{ item.src | relative_url }}" data-lg="{{ forloop.index0 }}">
+      <picture>
+        {% if item.webp %}
+          <source srcset="{{ item.webp | relative_url }}" type="image/webp">
+        {% endif %}
+        <img src="{{ item.src | relative_url }}" alt="{{ item.alt | escape }}" loading="lazy" width="{{ item.w | default: 1600 }}" height="{{ item.h | default: 900 }}">
+      </picture>
+    </a>
+    {% if item.caption %}<figcaption>{{ item.caption }}</figcaption>{% endif %}
+  </figure>
+  {% endfor %}
+</div>
+
+<dialog id="lightbox" aria-label="Agrandissement image">
+  <button class="lb-close" aria-label="Fermer">✕</button>
+  <img id="lightbox-img" alt="">
+  <p id="lightbox-cap"></p>
+</dialog>
+
+<script defer src="{{ '/assets/js/lightbox.js' | relative_url }}"></script>

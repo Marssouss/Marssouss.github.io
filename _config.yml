@@ -1,6 +1,32 @@
 title: "Mon Site"
-description: "Blog technique et projets."
+description: "Blog + portfolio avec galerie d'images."
+url: "https://tonpseudo.github.io" # change si domaine custom
+baseurl: "" # laisser vide pour repo utilisateur. Pour repo projet: "/mon-site"
+
 theme: minima
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-feed
+
+author:
+  name: "Ton Nom"
+  email: "contact@tondomaine.com"
+
+# SEO-tag
+twitter_username: ""   # optionnel
+github_username: "tonpseudo"
+
+# Build
+markdown: kramdown
+kramdown:
+  input: GFM
+
+# Collections par défaut
+defaults:
+  - scope: { path: "" }
+    values:
+      layout: "page"
+  - scope: { path: "", type: "posts" }
+    values:
+      layout: "post"
