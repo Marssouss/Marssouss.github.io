@@ -1,6 +1,6 @@
 title: "Mon Site"
 description: "Blog + portfolio avec galerie d'images."
-url: "https://tonpseudo.github.io" # change si domaine custom
+url: "https://Marssouss.github.io" # change si domaine custom
 baseurl: "" # laisser vide pour repo utilisateur. Pour repo projet: "/mon-site"
 
 theme: minima
@@ -15,7 +15,7 @@ author:
 
 # SEO-tag
 twitter_username: ""   # optionnel
-github_username: "tonpseudo"
+github_username: "Marssouss"
 
 # Build
 markdown: kramdown
@@ -30,3 +30,14 @@ defaults:
   - scope: { path: "", type: "posts" }
     values:
       layout: "post"
+
+minima:
+  social_links:
+    github: tonpseudo
+  nav:
+    - title: "Accueil"
+      url: /
+    - title: "Blog"
+      url: /blog/
+    - title: "Galerie"
+      url: /gallery/
