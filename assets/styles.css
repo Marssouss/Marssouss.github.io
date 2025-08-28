@@ -73,3 +73,9 @@ main{max-width:1100px; margin:auto; padding:2rem 1rem}
 .modal[hidden]{display:none}
 .modal__dialog{background:var(--bg); border:1px solid var(--border); border-radius:1rem; width:min(900px,90vw); height:min(80vh,700px); padding:0; overflow:hidden}
 .modal__close{position:absolute; margin:.5rem; right:1rem; background:none; color:var(--fg); font-size:1.8rem; border:none; cursor:pointer}
+
+.hero__content { order: 1; }
+.hero__img { order: 2; max-width: 100%; border-radius: 1rem; border:1px solid var(--border); }
+@media (max-width:900px){
+  .hero__img{ margin-top: 1rem; }
+}

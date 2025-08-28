@@ -6,7 +6,7 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
 
 <section class="hero section">
   <div>
-    <h1>{{ site.author.name }}<h1>
+    <h1>{{ site.author.name }}</h1>
     <h2>Freelance Talend & Power Bi</h2>
     <p class="lead">J’aide les équipes Data à livrer <strong>des pipelines robustes</strong> et <strong>des dashboards clairs</strong> : Talend (ETL/ESB), modélisation DAX, gouvernance Power BI.</p>
     <div class="actions">
@@ -19,7 +19,11 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
       <div class="kpi"><strong>J+5</strong><br/>mise en prod typique</div>
     </div>
   </div>
-  <img src="/assets/img/og-image.png" alt="Visualisation de données moderne" loading="lazy">
+  <img
+    class="hero__img"
+    src="{{ '/assets/img/og-image.png' | relative_url }}" 
+    alt="Pipeline Talend et barres Power BI"
+    loading="lazy">
 </section>
 
 <section id="services" class="section">
