@@ -75,7 +75,6 @@ main{max-width:1100px; margin:auto; padding:2rem 1rem}
 .modal__close{position:absolute; margin:.5rem; right:1rem; background:none; color:var(--fg); font-size:1.8rem; border:none; cursor:pointer}
 
 .hero__content { order: 1; }
-.hero__img { order: 2; max-width: 100%; border-radius: 1rem; border:1px solid var(--border); }
 @media (max-width:900px){
   .hero__img{ margin-top: 1rem; }
 }
@@ -96,4 +95,24 @@ main{ max-width: 1280px; } /* + largeur desktop */
   border-radius: 1rem;
   border: 1px solid var(--border);
   display: block;
+}
+
+/* HERO : image SVG en background, grande et responsive */
+@media (min-width: 980px){
+  .hero{ grid-template-columns: 1fr 1.35fr; } /* + d'espace pour l'image */
+}
+@media (min-width: 1280px){
+  .hero{ grid-template-columns: 1fr 1.6fr; }  /* encore plus large */
+}
+
+.hero__viz{
+  width: 100%;
+  aspect-ratio: 16 / 9;             /* assure la hauteur */
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: 50% 50%;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }

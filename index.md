@@ -19,11 +19,12 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
       <div class="kpi"><strong>J+5</strong><br/>mise en prod typique</div>
     </div>
   </div>
-  <img
-    class="hero__img"
-    src="{{ '/assets/img/og-image.png' | relative_url }}"  
-    alt="Pipeline Talend et barres Power BI"
-    loading="lazy">
+<div
+  class="hero__viz"
+  style="--hero-image: url('{{ '/assets/img/hero-data.svg' | relative_url }}');"
+  role="img"
+  aria-label="Pipeline Talend et barres Power BI">
+</div>
 </section>
 
 <section id="services" class="section">
