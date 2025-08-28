@@ -1,14 +1,21 @@
-<!-- _layouts/default.html -->
 <!doctype html>
-<html lang="{{ site.lang | default: 'fr' }}">
+<html lang="fr">
 <head>
-  {% include head.html %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% if page.title %}{{ page.title }} • {{ site.title | default: "Freelance Talend & Power BI" }}{% else %}{{ site.title | default: "Freelance Talend & Power BI" }}{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url | replace:'index.html','' }}" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <!-- CSS/JS -->
+  <link rel="stylesheet" href="{{ '/assets/styles.css' | relative_url }}">
+  <script defer src="{{ '/assets/script.js' | relative_url }}"></script>
 </head>
 <body>
-  {% include header.html %}
+  {% if site.nav_include %}{% include {{ site.nav_include }} %}{% endif %}
   <main id="main" tabindex="-1">
     {{ content }}
   </main>
-  {% include footer.html %}
 </body>
 </html>

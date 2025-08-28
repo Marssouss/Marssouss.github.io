@@ -13,7 +13,7 @@ timezone: Europe/Paris
 
 
 
-theme: minima
+theme: null
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
