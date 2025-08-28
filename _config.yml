@@ -1,0 +1,6 @@
+title: "Mon Site"
+description: "Blog technique et projets."
+theme: minima
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
