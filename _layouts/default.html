@@ -1,0 +1,14 @@
+<!-- _layouts/default.html -->
+<!doctype html>
+<html lang="{{ site.lang | default: 'fr' }}">
+<head>
+  {% include head.html %}
+</head>
+<body>
+  {% include header.html %}
+  <main id="main" tabindex="-1">
+    {{ content }}
+  </main>
+  {% include footer.html %}
+</body>
+</html>

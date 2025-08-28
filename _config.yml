@@ -1,7 +1,17 @@
-title: "ABM"
-description: "ABM Automatisation et BI"
-url: "https://tonpseudo.github.io" # change si domaine custom
-baseurl: "" # pour repo utilisateur. Pour repo projet: "/mon-site"
+# Exclusions
+exclude:
+  - README.md
+  - node_modules
+
+title: "Martial BODET • Freelance Talend & Power BI"
+tagline: "Intégration de données, pipelines Talend, dashboards Power BI"
+description: "Freelance Talend & Power BI : intégrations robustes, pipelines ETL, modélisation DAX, rapports interactifs. Interventions rapides, orientées résultats."
+url: "https://username.github.io" # remplace si domaine custom
+baseurl: "" # ne rien mettre pour username.github.io
+lang: fr
+timezone: Europe/Paris
+
+
 
 theme: minima
 plugins:
@@ -9,9 +19,16 @@ plugins:
   - jekyll-seo-tag
   - jekyll-feed
 
+# Auteur (utilisé dans JSON-LD)
 author:
-  name: "Martial BODET"
-  email: "contact@tondomaine.com"
+  name: "Ton Nom"
+  job_title: "Consultant Freelance Talend & Power BI"
+  email: "contact@tondomaine.fr"
+  url: "https://username.github.io"
+  sameAs:
+    - "https://www.linkedin.com/in/tonprofil/"
+    - "https://github.com/username"
+
 
 # Navigation du thème minima
 minima:

@@ -1,73 +1,68 @@
 ---
-layout: portfolio
-title: "Accueil"
-description: "Portfolio & Projets"
+layout: default
+title: Accueil
+description: Freelance Talend & Power BI – intégrations de données, pipelines ETL, modélisation DAX et dashboards performants. Disponibilité rapide, résultats mesurables.
 ---
 
-<!-- TODO : 
-    - Changer l'email
-    - Changer le Github
-    - Rajouter les porjet sur le github
-    - Rajouter une integration Callendly
-    - Refaire les textes
-
- -->
-<section class="hero container">
-  <h1>Bonjour, je suis <span class="accent">Martial BODET</span></h1>
-  <p>Spécialiste en Data | Automatisation | BI.</p>
-  <p>J’aide à construire des outils fiables et rapides, notamment via la technologie Talend.</p>
-
-  <p>
-    <a class="btn" href="#projects">Voir mes projets</a>
-    <a class="btn ghost" href="https://github.com/tonpseudo" rel="noopener" target="_blank">GitHub</a>
-  </p>
+<section class="hero section">
+  <div>
+    <h1>Freelance <span class="badge">Talend</span> & <span class="badge">Power BI</span></h1>
+    <p class="lead">J’aide les équipes Data à livrer <strong>des pipelines robustes</strong> et <strong>des dashboards clairs</strong> : Talend (ETL/ESB), modélisation DAX, gouvernance Power BI.</p>
+    <div class="actions">
+      <a class="btn cta" href="#services">Voir mes services</a>
+      <button class="btn" data-calendly>Réserver un créneau</button>
+    </div>
+    <div class="kpis" style="margin-top:1rem">
+      <div class="kpi"><strong>50%+</strong><br/>réduction du temps de refresh</div>
+      <div class="kpi"><strong>99.9%</strong><br/>taux de succès pipeline</div>
+      <div class="kpi"><strong>J+5</strong><br/>mise en prod typique</div>
+    </div>
+  </div>
+  <img src="/assets/hero-data.png" alt="Visualisation de données moderne" loading="lazy">
 </section>
 
-<main class="container">
-  <section id="about">
-    <h2>À propos</h2>
-    <p>Developpeur Talend certifié depuis 5 ans, j'ai eu l'occasion de travailler avec des clients de differente taille, et donc de reflechir a different enjeux.</p>
-    <p>Pour moi, une donnée propre et structurée et la clef de voute de chaque entreprise.</p>
-    <ul class="badges">
-      <li>Talend/Talaxie (DI/BD/ESB)</li>
-      <li>Power Bi</li>
-      <li>Power Automate</li>
-    </ul>
-  </section>
+<section id="services" class="section">
+  <h2>Services</h2>
+  <div class="grid cols-3">
+    <div class="card">
+      <h3>Talend • ETL/ESB</h3>
+      <p>Jobs, orchestrations, connexions (FTP/SFTP, REST, DB), gestion d’erreurs, logs, monitoring, packaging.</p>
+      <p><span class="badge">Talend Studio</span> <span class="badge">CI/CD</span> <span class="badge">Best Practices</span></p>
+    </div>
+    <div class="card">
+      <h3>Power BI • Modélisation & DAX</h3>
+      <p>Schémas en étoile, mesures DAX, RLS, incrémental refresh, performance analyzer.</p>
+      <p><span class="badge">Power BI Service</span> <span class="badge">Governance</span></p>
+    </div>
+    <div class="card">
+      <h3>Data Ops • Qualité & Perf</h3>
+      <p>Observabilité pipelines, tests de données, alerting, optimisation SQL, tuning refresh.</p>
+      <p><span class="badge">Monitoring</span> <span class="badge">SLAs</span></p>
+    </div>
+  </div>
+</section>
 
-  <section id="projects">
-    <h2>Projets récents</h2>
-    <article class="card">
-      <img src="https://via.placeholder.com/800x420" alt="Aperçu du projet Alpha" loading="lazy" width="800" height="420">
-      <div>
-        <h3>Projet Alpha</h3>
-        <p>Brève description du projet, objectif et stack.</p>
-        <p>
-          <a class="btn tiny" href="https://github.com/tonpseudo/projet-alpha" target="_blank" rel="noopener">Code</a>
-          <a class="btn tiny ghost" href="#" aria-disabled="true">Demo</a>
-        </p>
-      </div>
-    </article>
-    <article class="card">
-      <img src="https://via.placeholder.com/800x420" alt="Aperçu du projet Beta" loading="lazy" width="800" height="420">
-      <div>
-        <h3>Projet Beta</h3>
-        <p>Un autre projet : problématique, solution et impact.</p>
-        <p>
-          <a class="btn tiny" href="https://github.com/tonpseudo/projet-beta" target="_blank" rel="noopener">Code</a>
-        </p>
-      </div>
-    </article>
-  </section>
+<section class="section">
+  <h2>Réalisations récentes</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>Migration ETL Talend → Cloud</h3>
+      <p class="lead">–30% coûts infra, +40% débit. Mise en place d’orchestrations, alertes et reprise sur incident.</p>
+      <a class="btn" href="/portfolio.html">Voir les projets</a>
+    </div>
+    <div class="card">
+      <h3>Power BI • Finance Ops</h3>
+      <p class="lead">Modèle DAX gouverné, RLS multi-pays, temps de chargement < 3s, refresh incrémental.</p>
+      <a class="btn" href="/portfolio.html">Voir les projets</a>
+    </div>
+  </div>
+</section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Disponible pour missions freelance et collaborations.</p>
-    <ul class="links">
-    <!-- A changer l'email -->
-      <li><a href="mailto:contact@tondomaine.com">contact@tondomaine.com</a></li>
-      <li><a href="https://www.linkedin.com/in/martial-bodet/" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="https://github.com/tonpseudo" target="_blank" rel="noopener">GitHub</a></li>
-    </ul>
-  </section>
-</main>
+<section id="contact" class="section">
+  <h2>Contact</h2>
+  <p class="lead">Parlons de vos flux Talend et de vos tableaux de bord Power BI.</p>
+  <div class="actions">
+    <a class="btn cta" href="mailto:{{ site.author.email }}">Me contacter</a>
+    <button class="btn" data-calendly>Réserver un créneau</button>
+  </div>
+</section>
