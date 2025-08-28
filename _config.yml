@@ -1,7 +1,7 @@
 title: "Mon Site"
-description: "Blog + portfolio avec galerie d'images."
-url: "https://Marssouss.github.io" # change si domaine custom
-baseurl: "" # laisser vide pour repo utilisateur. Pour repo projet: "/mon-site"
+description: "Portfolio + blog Jekyll avec galerie d'images."
+url: "https://tonpseudo.github.io" # change si domaine custom
+baseurl: "" # pour repo utilisateur. Pour repo projet: "/mon-site"
 
 theme: minima
 plugins:
@@ -13,27 +13,8 @@ author:
   name: "Ton Nom"
   email: "contact@tondomaine.com"
 
-# SEO-tag
-twitter_username: ""   # optionnel
-github_username: "Marssouss"
-
-# Build
-markdown: kramdown
-kramdown:
-  input: GFM
-
-# Collections par défaut
-defaults:
-  - scope: { path: "" }
-    values:
-      layout: "page"
-  - scope: { path: "", type: "posts" }
-    values:
-      layout: "post"
-
+# Navigation du thème minima
 minima:
-  social_links:
-    github: tonpseudo
   nav:
     - title: "Accueil"
       url: /
@@ -41,3 +22,19 @@ minima:
       url: /blog/
     - title: "Galerie"
       url: /gallery/
+    - title: "Contact"
+      url: /contact/ # crée la page plus tard si tu veux
+
+# Markdown
+markdown: kramdown
+kramdown:
+  input: GFM
+
+# Layouts par défaut
+defaults:
+  - scope: { path: "" }
+    values:
+      layout: "page"
+  - scope: { path: "", type: "posts" }
+    values:
+      layout: "post"
