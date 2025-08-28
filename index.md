@@ -21,7 +21,7 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
   </div>
   <img
     class="hero__img"
-    src="{{ '/assets/img/hero-data.svg' | relative_url }}"  
+    src="{{ '/assets/img/og-image.png' | relative_url }}"  
     alt="Pipeline Talend et barres Power BI"
     loading="lazy">
 </section>
