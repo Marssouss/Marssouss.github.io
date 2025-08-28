@@ -4,9 +4,19 @@ title: "Accueil"
 description: "Portfolio & Projets"
 ---
 
+<!-- TODO : 
+    - Changer l'email
+    - Changer le Github
+    - Rajouter les porjet sur le github
+    - Rajouter une integration Callendly
+    - Refaire les textes
+
+ -->
 <section class="hero container">
-  <h1>Bonjour, je suis <span class="accent">Ton Nom</span></h1>
-  <p>Développeur • Data • Automatisation. J’aide à construire des outils fiables et rapides.</p>
+  <h1>Bonjour, je suis <span class="accent">Martial BODET</span></h1>
+  <p>Spécialiste en Data | Automatisation | BI.</p>
+  <p>J’aide à construire des outils fiables et rapides, notamment via la technologie Talend.</p>
+
   <p>
     <a class="btn" href="#projects">Voir mes projets</a>
     <a class="btn ghost" href="https://github.com/tonpseudo" rel="noopener" target="_blank">GitHub</a>
@@ -16,9 +26,12 @@ description: "Portfolio & Projets"
 <main class="container">
   <section id="about">
     <h2>À propos</h2>
-    <p>Courte bio. Compétences clés, stack préférée, missions types.</p>
+    <p>Developpeur Talend certifié depuis 5 ans, j'ai eu l'occasion de travailler avec des clients de differente taille, et donc de reflechir a different enjeux.</p>
+    <p>Pour moi, une donnée propre et structurée et la clef de voute de chaque entreprise.</p>
     <ul class="badges">
-      <li>HTML5/CSS3</li><li>JavaScript</li><li>Jekyll</li><li>SEO</li>
+      <li>Talend/Talaxie (DI/BD/ESB)</li>
+      <li>Power Bi</li>
+      <li>Power Automate</li>
     </ul>
   </section>
 
@@ -35,7 +48,6 @@ description: "Portfolio & Projets"
         </p>
       </div>
     </article>
-
     <article class="card">
       <img src="https://via.placeholder.com/800x420" alt="Aperçu du projet Beta" loading="lazy" width="800" height="420">
       <div>
@@ -50,10 +62,11 @@ description: "Portfolio & Projets"
 
   <section id="contact">
     <h2>Contact</h2>
-    <p>Dispo pour missions freelance et collaborations.</p>
+    <p>Disponible pour missions freelance et collaborations.</p>
     <ul class="links">
+    <!-- A changer l'email -->
       <li><a href="mailto:contact@tondomaine.com">contact@tondomaine.com</a></li>
-      <li><a href="https://www.linkedin.com/in/tonprofil/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://www.linkedin.com/in/martial-bodet/" target="_blank" rel="noopener">LinkedIn</a></li>
       <li><a href="https://github.com/tonpseudo" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
   </section>
