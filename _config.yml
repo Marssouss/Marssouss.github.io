@@ -1,5 +1,5 @@
-title: "Mon Site"
-description: "Portfolio + blog Jekyll avec galerie d'images."
+title: "ABM"
+description: "ABM Automatisation et BI"
 url: "https://tonpseudo.github.io" # change si domaine custom
 baseurl: "" # pour repo utilisateur. Pour repo projet: "/mon-site"
 
@@ -10,7 +10,7 @@ plugins:
   - jekyll-feed
 
 author:
-  name: "Ton Nom"
+  name: "Martial BODET"
   email: "contact@tondomaine.com"
 
 # Navigation du thème minima
