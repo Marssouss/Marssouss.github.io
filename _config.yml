@@ -10,6 +10,8 @@ url: "https://username.github.io" # remplace si domaine custom
 baseurl: "" # ne rien mettre pour username.github.io
 lang: fr
 timezone: Europe/Paris
+nav_include: nav.html               # optionnel, si tu veux inclure nav.html
+
 
 
 
@@ -21,7 +23,7 @@ plugins:
 
 # Auteur (utilisé dans JSON-LD)
 author:
-  name: "Ton Nom"
+  name: "BODET Martial"
   job_title: "Consultant Freelance Talend & Power BI"
   email: "contact@tondomaine.fr"
   url: "https://username.github.io"
@@ -29,18 +31,6 @@ author:
     - "https://www.linkedin.com/in/tonprofil/"
     - "https://github.com/username"
 
-
-# Navigation du thème minima
-minima:
-  nav:
-    - title: "Accueil"
-      url: /
-    - title: "Blog"
-      url: /blog/
-    - title: "Galerie"
-      url: /gallery/
-    - title: "Contact"
-      url: /contact/ # crée la page plus tard si tu veux
 
 # Markdown
 markdown: kramdown
