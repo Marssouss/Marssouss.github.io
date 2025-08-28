@@ -19,7 +19,7 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
       <div class="kpi"><strong>J+5</strong><br/>mise en prod typique</div>
     </div>
   </div>
-  <img src="/assets/img/hero-data.svg" alt="Visualisation de données moderne" loading="lazy">
+  <img src="/assets/img/og-image.png" alt="Visualisation de données moderne" loading="lazy">
 </section>
 
 <section id="services" class="section">
