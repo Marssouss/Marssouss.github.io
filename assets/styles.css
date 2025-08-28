@@ -79,3 +79,21 @@ main{max-width:1100px; margin:auto; padding:2rem 1rem}
 @media (max-width:900px){
   .hero__img{ margin-top: 1rem; }
 }
+
+/* --- HERO : image plus grande à droite --- */
+main{ max-width: 1280px; } /* + largeur desktop */
+@media (min-width: 980px){
+  .hero{ grid-template-columns: .9fr 1.1fr; } /* + d’espace pour l’image */
+}
+@media (min-width: 1280px){
+  .hero{ grid-template-columns: 1fr 1.3fr; }  /* encore plus large sur grands écrans */
+}
+
+.hero__img{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  display: block;
+}
