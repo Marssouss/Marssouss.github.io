@@ -27,11 +27,9 @@ author:
   name: "BODET Martial"
   enterprise : "ABM"
   job_title: "Consultant Freelance Talend & Power BI"
-  email: "contact@tondomaine.fr"
+  email: "contact@tondomaine.fr" 
   url: "https://username.github.io"
-  sameAs:
-    - "https://www.linkedin.com/in/tonprofil/"
-    - "https://github.com/username"
+  linkedin:"https://www.linkedin.com/in/martial-bodet/"
 
 
 # Markdown
