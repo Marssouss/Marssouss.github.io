@@ -6,46 +6,121 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
 
 <section class="hero section">
   <div>
-    <h1>{{ site.author.name }}</h1>
+    <h1>Je suis {{ site.author.name }}</h1>
     <h2>Freelance Talend & Power Bi</h2>
-    <p class="lead">J’aide les équipes Data à livrer <strong>des pipelines robustes</strong> et <strong>des dashboards clairs</strong> : Talend (ETL/ESB), modélisation DAX, gouvernance Power BI.</p>
+<p class="lead">
+  Passionné par la data, je mets mon expertise au service de vos besoins spécifiques : 
+  conception et maintien de flux automatisés, intégration ETL/ESB et visualisation claire. 
+  Convaincu qu’une donnée <strong>propre</strong>, <strong>au bon endroit</strong> et <strong>contrôlée</strong> 
+  est la clé, je vous aide à bâtir des pipelines évolutifs et des dashboards fiables pour tirer 
+  pleinement parti de la puissance de votre entreprise.
+</p>
     <div class="actions">
       <a class="btn cta" href="#services">Voir mes services</a>
       <button class="btn" data-calendly>Réserver un créneau</button>
     </div>
-    <div class="kpis" style="margin-top:1rem">
-      <div class="kpi"><strong>50%+</strong><br/>réduction du temps de refresh</div>
-      <div class="kpi"><strong>99.9%</strong><br/>taux de succès pipeline</div>
-      <div class="kpi"><strong>J+5</strong><br/>mise en prod typique</div>
-    </div>
+<div class="kpis">
+  <div class="kpi">
+    <strong>Fiabilité</strong>
+    <p>Des process propres et opérationnels rapidement</p>
   </div>
-<div
-  class="hero__viz"
-  style="--hero-image: url('{{ '/assets/img/hero-data.svg' | relative_url }}');"
-  role="img"
-  aria-label="Pipeline Talend et barres Power BI">
+  <div class="kpi">
+    <strong>Evolutivité</strong>
+    <p>Procédures de modification et livraison optimales</p>
+  </div>
+  <div class="kpi">
+    <strong>Conformité</strong>
+    <p>Respect des règles métiers et de gouvernance</p>
+  </div>
+  <div class="kpi">
+    <strong>Robustesse</strong>
+    <p>Reprise automatique et monitoring continu</p>
+  </div>
+  <div class="kpi">
+    <strong>Performance</strong>
+    <p>Chargements rapides et dashboards fluides</p>
+  </div>
+  <div class="kpi">
+    <strong>Sécurité</strong>
+    <p>Accès contrôlés et données protégées</p>
+  </div>
 </div>
+
+  </div>
 </section>
 
 <section id="services" class="section">
   <h2>Services</h2>
-  <div class="grid cols-3">
-    <div class="card">
-      <h3>Talend • ETL/ESB</h3>
-      <p>Jobs, orchestrations, connexions (FTP/SFTP, REST, DB), gestion d’erreurs, logs, monitoring, packaging.</p>
-      <p><span class="badge">Talend Studio</span> <span class="badge">CI/CD</span> <span class="badge">Best Practices</span></p>
-    </div>
-    <div class="card">
-      <h3>Power BI • Modélisation & DAX</h3>
-      <p>Schémas en étoile, mesures DAX, RLS, incrémental refresh, performance analyzer.</p>
-      <p><span class="badge">Power BI Service</span> <span class="badge">Governance</span></p>
-    </div>
-    <div class="card">
-      <h3>Data Ops • Qualité & Perf</h3>
-      <p>Observabilité pipelines, tests de données, alerting, optimisation SQL, tuning refresh.</p>
-      <p><span class="badge">Monitoring</span> <span class="badge">SLAs</span></p>
-    </div>
-  </div>
+    <div class="grid cols-4">
+
+<div class="card">
+  <h3>Automatisation & Orchestration</h3>
+  <p>
+    Évitez les tâches manuelles chronophages. Je conçois des orchestrations fiables : 
+    planification des traitements, enchaînement des jobs, gestion des dépendances 
+    et notifications en cas d’incident. Objectif : des flux prévisibles, des SLA 
+    respectés et une exploitation sereine.
+  </p>
+  <p>
+    <span class="badge">CI/CD</span>
+    <span class="badge">Scheduling</span>
+    <span class="badge">Monitoring</span>
+    <span class="badge">Alerte et suivit</span>
+  </p>
+</div>
+
+<div class="card">
+  <h3>Migration de systèmes</h3>
+  <p>
+    Vous souhaitez changer d’ERP, de site web ou de solution métier ? 
+    Une migration réussie, c’est préserver l’historique, sécuriser vos données 
+    et mettre en valeur ce qui a du sens pour votre entreprise, sans perdre 
+    la moindre information.
+  </p>
+  <p>
+    <span class="badge">Migration</span> 
+    <span class="badge">Historique</span> 
+    <span class="badge">ETL/ESB</span> 
+    <span class="badge">Mise en conformitée</span>
+  </p>
+</div>
+
+<div class="card">
+  <h3>Interconnexion d’applications • ETL/ESB</h3>
+  <p>
+    Marre d’avoir des doublons de données dans trois logiciels différents ? 
+    Faites-les communiquer entre eux ! 
+    Une donnée unique répercutée sur l’ensemble de votre système, 
+    c’est l’assurance d’un référentiel propre et sans erreur. 
+    Résultat : un gain de temps, d’argent, et surtout la possibilité 
+    d’exploiter vos données en toute confiance.
+  </p>
+  <p>
+    <span class="badge">Interconnexion</span> 
+    <span class="badge">Valoralisation</span> 
+    <span class="badge">API/Connecteurs</span> 
+    <span class="badge">Interopérabilité</span>
+  </p>
+</div>
+
+<div class="card">
+  <h3>Qualité & Performance des données</h3>
+  <p>
+    Vos dashboards mettent trop de temps à se charger ? 
+    Vos équipes doutent parfois de la fiabilité des chiffres ?  
+    Mettre en place un suivi de la qualité et des performances, 
+    c’est s’assurer de données justes, exploitables et disponibles 
+    au bon moment.  
+    Un pilotage serein passe par des pipelines contrôlés, 
+    des alertes proactives et une optimisation continue.
+  </p>
+  <p>
+    <span class="badge">Observabilité</span> 
+    <span class="badge">Tests automatisés</span> 
+    <span class="badge">SLAs</span> 
+    <span class="badge">Optimisation</span>
+  </p>
+</div>
 </section>
 
 <section class="section">
