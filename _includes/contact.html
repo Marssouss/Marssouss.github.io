@@ -2,41 +2,63 @@
   <h2 id="contact-title">Contact</h2>
   <p class="lead">Parlons de vos flux Talend et de vos tableaux de bord Power BI.</p>
 
-  <!-- Formulaire AJAX (Formspree) -->
-  <form class="contact-form" id="contactForm">
-    <label>
-      <span>Nom</span>
-      <input type="text" name="name" required>
-    </label>
+  <div class="grid cols-2 contact-grid">
+    <!-- Colonne 1 : Formulaire -->
+    <div>
+      <form class="contact-form" id="contactForm"
+            data-endpoint="https://formspree.io/f/XXXXXXXX"> <!-- ← remplace par ton ID Formspree -->
+        <label>
+          <span>Nom</span>
+          <input type="text" name="name" required>
+        </label>
 
-    <label>
-      <span>Email</span>
-      <input type="email" name="email" required>
-    </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required>
+        </label>
 
-    <label>
-      <span>Objet</span>
-      <input type="text" name="subject" placeholder="Ex. Projet ETL / Power BI" required>
-    </label>
+        <label>
+          <span>Objet</span>
+          <input type="text" name="subject" placeholder="Ex. Projet ETL / Power BI" required>
+        </label>
 
-    <label>
-      <span>Message</span>
-      <textarea name="message" rows="6" required></textarea>
-    </label>
+        <label>
+          <span>Message</span>
+          <textarea name="message" rows="6" required></textarea>
+        </label>
 
-    <!-- Champ caché pour activer JSON chez Formspree -->
-    <input type="hidden" name="_format" value="json">
-    <!-- Honeypot anti-spam -->
-    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        <!-- Formspree -->
+        <input type="hidden" name="_format" value="json">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
-    <button type="submit" class="btn cta" id="contactSubmit">Envoyer</button>
+        <div class="actions" role="group" aria-label="Envoyer">
+          <button type="submit" class="btn cta" id="contactSubmit">Envoyer</button>
+          <p id="contactStatus" class="lead" style="display:none" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
 
-    <!-- Zone d’état accessible -->
-    <p id="contactStatus" class="lead" style="display:none" aria-live="polite"></p>
-  </form>
+    <!-- Colonne 2 : Liens directs -->
+    <aside class="card contact-cta">
+      <h3>Autres moyens</h3>
+      <p class="lead">Vous préférez échanger rapidement&nbsp;? Choisissez une option :</p>
 
-  <div class="actions" style="margin-top:1rem">
-    <button class="btn" data-calendly>Réserver un créneau</button>
+      <div class="stack">
+        <a class="btn btn--icon" href="{{ site.author.linkedin | default: 'https://www.linkedin.com/in/tonprofil/' }}" target="_blank" rel="noopener">
+          <span aria-hidden="true">💼</span> Mon LinkedIn
+        </a>
+
+        <button class="btn btn--icon" data-calendly>
+          <span aria-hidden="true">📅</span> Réserver un créneau
+        </button>
+
+        <a class="btn btn--icon" href="mailto:{{ site.author.email }}">
+          <span aria-hidden="true">✉️</span> {{ site.author.email }}
+        </a>
+      </div>
+
+      <p class="note">Je réponds généralement sous 24–48h ouvrées.</p>
+    </aside>
   </div>
 </section>
 

@@ -196,3 +196,22 @@ main{max-width:1280px; margin:auto; padding:2rem 1rem}
   border-color: var(--brand);
   box-shadow: 0 0 0 2px color-mix(in oklab, var(--brand) 30%, transparent);
 }
+
+/* Contact : layout + petites touches UI */
+.contact-grid { align-items: start; }
+
+.contact-cta.card { display: grid; gap: .8rem; }
+.contact-cta .stack { display: grid; gap: .6rem; margin-top: .2rem; }
+.contact-cta .note { color: var(--muted); margin: .4rem 0 0; font-size: .95rem; }
+
+.btn--icon { display:inline-flex; align-items:center; gap:.5rem; }
+.btn--icon span { font-size:1.1rem; line-height:1; }
+
+/* Un peu plus d’air sous les labels */
+.contact-form label span { font-weight: 500; }
+
+/* Sur mobiles : passe en 1 colonne */
+@media (max-width:900px){
+  .contact-grid { grid-template-columns: 1fr !important; gap: 1.5rem; }
+}
+

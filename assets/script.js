@@ -52,32 +52,32 @@ if(calendlyBtn && modal){
 
 // Formspree AJAX + popup "Merci"
 (function(){
-  const form = document.getElementById('contactForm');
+  const form  = document.getElementById('contactForm');
   if(!form) return;
 
+  const endpoint = form.dataset.endpoint; // ← lu depuis l'include
   const submitBtn = document.getElementById('contactSubmit');
   const statusEl  = document.getElementById('contactStatus');
   const modal     = document.getElementById('contact-modal');
-
-  // Ton endpoint Formspree (remplace XXXXXXXX)
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/XXXXXXXX';
 
   const openModal  = () => { if(modal) modal.hidden = false; };
   const closeModal = () => { if(modal) modal.hidden = true;  };
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    statusEl.style.display = 'none';
+    if(!endpoint){ console.error('Formspree endpoint manquant'); return; }
 
+    statusEl.style.display = 'none';
     const fd = new FormData(form);
-    // Optionnel: construire un sujet si tu veux l’avoir côté email
-    if(!fd.get('_subject')) fd.set('_subject', `[Site] ${fd.get('subject') || 'Nouveau message'}`);
+    if(!fd.get('_subject')){
+      fd.set('_subject', `[Site] ${fd.get('subject') || 'Nouveau message'}`);
+    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Envoi…';
 
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
         body: fd
