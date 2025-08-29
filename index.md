@@ -65,11 +65,5 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
   </div>
 </section>
 
-<section id="contact" class="section" aria-labelledby="contact-title">
-  <h2 id="contact-title">Contact</h2>
-  <p class="lead">Parlons de vos flux Talend et de vos tableaux de bord Power BI.</p>
-  <div class="actions" role="group" aria-label="Contact">
-    <a class="btn cta" href="mailto:{{ site.author.email }}">Me contacter</a>
-    <button class="btn" data-calendly>Réserver un créneau</button>
-  </div>
-</section>
+{% include contact.html %}
+

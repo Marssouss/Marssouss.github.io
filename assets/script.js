@@ -47,3 +47,61 @@ if(calendlyBtn && modal){
   modal.querySelector('.modal__close').addEventListener('click', ()=> modal.hidden = true);
   modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.hidden = true; });
 }
+
+
+
+// Formspree AJAX + popup "Merci"
+(function(){
+  const form = document.getElementById('contactForm');
+  if(!form) return;
+
+  const submitBtn = document.getElementById('contactSubmit');
+  const statusEl  = document.getElementById('contactStatus');
+  const modal     = document.getElementById('contact-modal');
+
+  // Ton endpoint Formspree (remplace XXXXXXXX)
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/XXXXXXXX';
+
+  const openModal  = () => { if(modal) modal.hidden = false; };
+  const closeModal = () => { if(modal) modal.hidden = true;  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.style.display = 'none';
+
+    const fd = new FormData(form);
+    // Optionnel: construire un sujet si tu veux l’avoir côté email
+    if(!fd.get('_subject')) fd.set('_subject', `[Site] ${fd.get('subject') || 'Nouveau message'}`);
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi…';
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: fd
+      });
+
+      if (res.ok) {
+        form.reset();
+        openModal();
+      } else {
+        statusEl.textContent = "Oups, l’envoi a échoué. Réessayez ou contactez-moi par email.";
+        statusEl.style.display = 'block';
+      }
+    } catch(err) {
+      statusEl.textContent = "Erreur réseau. Vérifiez votre connexion et réessayez.";
+      statusEl.style.display = 'block';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Envoyer';
+    }
+  });
+
+  // Fermer la popup
+  if(modal){
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    modal.querySelectorAll('.modal__close').forEach(btn => btn.addEventListener('click', closeModal));
+  }
+})();

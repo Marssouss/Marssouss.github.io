@@ -1,0 +1,55 @@
+<section id="contact" class="section" aria-labelledby="contact-title">
+  <h2 id="contact-title">Contact</h2>
+  <p class="lead">Parlons de vos flux Talend et de vos tableaux de bord Power BI.</p>
+
+  <!-- Formulaire AJAX (Formspree) -->
+  <form class="contact-form" id="contactForm">
+    <label>
+      <span>Nom</span>
+      <input type="text" name="name" required>
+    </label>
+
+    <label>
+      <span>Email</span>
+      <input type="email" name="email" required>
+    </label>
+
+    <label>
+      <span>Objet</span>
+      <input type="text" name="subject" placeholder="Ex. Projet ETL / Power BI" required>
+    </label>
+
+    <label>
+      <span>Message</span>
+      <textarea name="message" rows="6" required></textarea>
+    </label>
+
+    <!-- Champ caché pour activer JSON chez Formspree -->
+    <input type="hidden" name="_format" value="json">
+    <!-- Honeypot anti-spam -->
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+    <button type="submit" class="btn cta" id="contactSubmit">Envoyer</button>
+
+    <!-- Zone d’état accessible -->
+    <p id="contactStatus" class="lead" style="display:none" aria-live="polite"></p>
+  </form>
+
+  <div class="actions" style="margin-top:1rem">
+    <button class="btn" data-calendly>Réserver un créneau</button>
+  </div>
+</section>
+
+<!-- Modal Merci -->
+<div id="contact-modal" class="modal" hidden>
+  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="contactThanksTitle">
+    <button class="modal__close" aria-label="Fermer">×</button>
+    <div style="padding:1.25rem">
+      <h3 id="contactThanksTitle" style="margin-top:0">Merci !</h3>
+      <p class="lead">Votre message a bien été envoyé. Je vous réponds rapidement.</p>
+      <div class="actions" style="margin-top:1rem">
+        <button class="btn cta modal__close">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
