@@ -45,7 +45,7 @@ body{
 .menu-toggle,.theme-toggle{background:none; border:1px solid var(--border); color:var(--fg); padding:.4rem .6rem; border-radius:.6rem; display:none}
 @media (max-width: 900px){ .menu-toggle{display:inline-block} .nav{position:fixed; right:1rem; top:4.2rem; background:var(--card); border:1px solid var(--border); border-radius:1rem; padding:.5rem; flex-direction:column; gap:.25rem; display:none} .nav.open{display:flex}}
 
-main{max-width:1100px; margin:auto; padding:2rem 1rem}
+main{max-width:1280px; margin:auto; padding:2rem 1rem}
 .section{margin-block:3rem}
 .section h2{font-size:1.6rem; margin-bottom:.75rem}
 .lead{font-size:1.1rem; color:var(--muted)}
@@ -64,10 +64,6 @@ main{max-width:1100px; margin:auto; padding:2rem 1rem}
 .hero img{max-width:100%; border-radius:1rem; border:1px solid var(--border)}
 @media (max-width:900px){ .hero{grid-template-columns:1fr} }
 
-.kpis{display:flex; gap:1rem; flex-wrap:wrap}
-.kpis .kpi{flex:1; min-width:180px; background:var(--card); border:1px solid var(--border); border-radius:1rem; padding:.8rem}
-.kpi strong{font-size:1.4rem}
-
 .site-footer{border-top:1px solid var(--border); padding:2rem 1rem; text-align:center; color:var(--muted)}
 .modal{position:fixed; inset:0; background:color-mix(in oklab, #000 60%, transparent); display:grid; place-items:center}
 .modal[hidden]{display:none}
@@ -80,12 +76,11 @@ main{max-width:1100px; margin:auto; padding:2rem 1rem}
 }
 
 /* --- HERO : image plus grande à droite --- */
-main{ max-width: 1280px; } /* + largeur desktop */
 @media (min-width: 980px){
-  .hero{ grid-template-columns: .9fr 1.1fr; } /* + d’espace pour l’image */
+  .hero{ grid-template-columns: .9fr 1.1fr; }
 }
 @media (min-width: 1280px){
-  .hero{ grid-template-columns: 1fr 1.3fr; }  /* encore plus large sur grands écrans */
+  .hero{ grid-template-columns: 1fr 1.3fr; }
 }
 
 .hero__img{
@@ -97,17 +92,9 @@ main{ max-width: 1280px; } /* + largeur desktop */
   display: block;
 }
 
-/* HERO : image SVG en background, grande et responsive */
-@media (min-width: 980px){
-  .hero{ grid-template-columns: 1fr 1.35fr; } /* + d'espace pour l'image */
-}
-@media (min-width: 1280px){
-  .hero{ grid-template-columns: 1fr 1.6fr; }  /* encore plus large */
-}
-
 .hero__viz{
   width: 100%;
-  aspect-ratio: 16 / 9;             /* assure la hauteur */
+  aspect-ratio: 16 / 9;
   border-radius: 1rem;
   border: 1px solid var(--border);
   background: var(--card);
@@ -117,59 +104,60 @@ main{ max-width: 1280px; } /* + largeur desktop */
   box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
 
-/* ——— KPI modern ——— */
+/* ——— KPI modern 3×2 ——— */
 .kpis.kpis--modern{
-  display:grid;
-  gap: .9rem;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  margin-top: 1.2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;                 /* espace entre les tuiles */
+  margin-top: 2.5rem;        /* respiration avec le haut */
 }
 @media (max-width: 1100px){
-  .kpis.kpis--modern{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .kpis.kpis--modern{ grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 560px){
+@media (max-width: 700px){
   .kpis.kpis--modern{ grid-template-columns: 1fr; }
 }
 
 .kpi{
-  display:grid;
+  display: grid;
   grid-template-columns: auto 1fr;
-  align-items:start;
-  gap:.75rem .9rem;
-  padding: .9rem;
+  align-items: start;
+  gap: 1rem 1.2rem;
+  padding: 1.5rem;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 1rem;
-  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-  box-shadow: 0 0 0 rgba(0,0,0,0);
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
 .kpi:hover{
-  transform: translateY(-2px);
-  border-color: color-mix(in oklab, var(--fg) 12%, var(--border));
-  box-shadow: 0 6px 20px color-mix(in oklab, #000 14%, transparent);
+  transform: translateY(-6px);
+  border-color: color-mix(in oklab, var(--brand) 35%, var(--border));
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
 }
+
 .kpi__icon{
-  width: 2.2rem; height: 2.2rem;
-  display:grid; place-items:center;
-  border-radius:.7rem;
+  width: 2.6rem; height: 2.6rem;
+  display: grid; place-items: center;
+  border-radius: .9rem;
   background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  color:#fff; font-size:1.05rem; 
+  color: #fff;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }
+
 .kpi__title{
-  margin:0;
-  font-size:1.05rem;
-  line-height:1.2;
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.3;
 }
+
 .kpi__text{
-  grid-column: 1 / -1; /* texte sur toute la largeur sous le header */
-  margin:.2rem 0 0 0;
+  grid-column: 1 / -1;
+  margin-top: .4rem;
   color: var(--muted);
-  font-size:.97rem;
+  font-size: .95rem;
+  line-height: 1.5;
 }
-
-/* Si tu veux un style encore plus sobre (chips), décommente :
-.kpi{ grid-template-columns: 1fr; gap:.4rem; }
-.kpi__icon{ display:none; }
-.kpi__title{ font-weight:600; }
-*/
-
