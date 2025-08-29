@@ -23,6 +23,7 @@ plugins:
 
 # Auteur (utilisé dans JSON-LD)
 author:
+  prenom_nom : "Martial BODET"
   name: "BODET Martial"
   enterprise : "ABM"
   job_title: "Consultant Freelance Talend & Power BI"
