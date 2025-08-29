@@ -258,11 +258,19 @@ main{max-width:1280px; margin:auto; padding:2rem 1rem}
   box-shadow: 0 12px 30px rgba(0,0,0,.35);
 }
 
-.btn--icon:hover{
+/* Effet hover pour tous les boutons standard */
+.btn:hover{
+  border-color: color-mix(in oklab, var(--fg) 12%, var(--border));
+  background: color-mix(in oklab, var(--fg) 6%, var(--card));
   transform: translateY(-2px);
-  filter: brightness(1.05);
-  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
 }
+
+.btn--icon:hover{
+  background: color-mix(in oklab, var(--brand) 15%, var(--card));
+  border-color: color-mix(in oklab, var(--brand) 30%, var(--border));
+}
+
 
 /* Form : petites retouches pour alignement visuel */
 .contact-form{ max-width: 720px; } /* évite les champs trop larges vs carte */
