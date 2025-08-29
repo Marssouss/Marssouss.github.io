@@ -108,14 +108,19 @@ main{max-width:1280px; margin:auto; padding:2rem 1rem}
 .kpis.kpis--modern{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;                 /* espace entre les tuiles */
-  margin-top: 2.5rem;        /* respiration avec le haut */
+  column-gap: 3rem;   /* plus d’air entre les colonnes */
+  row-gap: 2rem;      /* espace vertical normal */
+  margin-top: 2.5rem;
 }
 @media (max-width: 1100px){
-  .kpis.kpis--modern{ grid-template-columns: repeat(2, 1fr); }
+  .kpis.kpis--modern{
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem; 
+    row-gap: 2rem;
+  }
 }
 @media (max-width: 700px){
-  .kpis.kpis--modern{ grid-template-columns: 1fr; }
+  .kpis.kpis--modern{ grid-template-columns: 1fr; row-gap: 1.5rem; }
 }
 
 .kpi{
