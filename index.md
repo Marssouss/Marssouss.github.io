@@ -16,8 +16,9 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
       pour tirer pleinement parti de la puissance de votre entreprise.
     </p>
     <div class="actions" role="group" aria-label="Actions principales">
-      <a class="btn cta" href="#services">Voir mes services</a>
-      <button class="btn" data-calendly>Réserver un créneau</button>
+      <a class="btn" href="#services">Mes services</a>
+      <a class="btn" href="#realisation">Mes réalisations</a>
+      <a class="btn" href="#contact">Contact</a>
     </div>
   </div>
 </section>
@@ -52,7 +53,7 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
 </section>
 
 
-<section class="section">
+<section id="realisation" class="section">
   <h2>Réalisations récentes</h2>
   <div class="grid cols-2">
     {% for projet in site.data.projets %}
