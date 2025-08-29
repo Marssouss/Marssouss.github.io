@@ -153,15 +153,61 @@ main{max-width:1280px; margin:auto; padding:2rem 1rem}
 
 .btn.cta{border:0;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-weight:600}
 
+/* --- Calendly : CTA premium avec glow pulsant au hover --- */
 .btn--calendar{
-  border:0;color:#fff;font-weight:600;
-  background:linear-gradient(90deg,var(--brand) 0%,var(--brand-2) 100%);
-  background-size:200% 100%;background-position:0% 0%;
-  box-shadow:0 6px 18px rgba(0,0,0,.25);
-  transition:background-position .35s ease,transform .18s ease,box-shadow .18s ease;
+  border:0;
+  color:#fff;
+  font-weight:600;
+  background:linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow:0 6px 16px rgba(0,0,0,.25);
+  transition:transform .18s ease, box-shadow .18s ease;
+  position:relative; overflow:hidden;  /* pour le pseudo-halo */
 }
+
+/* halo externe (fixe) au repos, très léger */
+.btn--calendar::after{
+  content:"";
+  position:absolute; inset:-2px;
+  border-radius:.9rem;
+  pointer-events:none;
+  box-shadow:0 0 0 0 color-mix(in oklab, var(--brand) 0%, transparent);
+  transition:box-shadow .18s ease;
+}
+
+/* hover: pas de transparence du fond, élévation + halo pulsant */
 .btn--calendar:hover{
-  background-position:100% 0%;transform:translateY(-3px);
-  box-shadow:0 12px 28px rgba(0,0,0,.35),0 0 0 2px color-mix(in oklab,var(--brand) 35%,transparent) inset;
+  transform:translateY(-3px);
+  box-shadow:0 10px 26px rgba(0,0,0,.35);
 }
+.btn--calendar:hover::after{
+  box-shadow:
+    0 0 0 2px color-mix(in oklab, var(--brand) 35%, transparent),
+    0 0 20px 6px color-mix(in oklab, var(--brand) 30%, transparent);
+  animation: calendarGlow 1.6s ease-in-out infinite;
+}
+
+/* focus clavier: halo net, sans animation (accessibilité) */
+.btn--calendar:focus-visible{
+  outline:none;
+  box-shadow:0 10px 26px rgba(0,0,0,.35);
+}
+.btn--calendar:focus-visible::after{
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--brand) 45%, transparent),
+    0 0 26px 10px color-mix(in oklab, var(--brand) 35%, transparent);
+  animation:none;
+}
+
+/* animation du glow (respiration) */
+@keyframes calendarGlow{
+  0%   { opacity:.9; transform:translateZ(0) scale(1); }
+  50%  { opacity:1;  transform:translateZ(0) scale(1.03); }
+  100% { opacity:.9; transform:translateZ(0) scale(1); }
+}
+
+/* respect des préférences utilisateur */
+@media (prefers-reduced-motion: reduce){
+  .btn--calendar:hover::after{ animation:none; }
+}
+
 .btn--icon{display:inline-flex;align-items:center;gap:.55rem}
