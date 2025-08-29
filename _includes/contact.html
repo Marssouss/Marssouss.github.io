@@ -45,19 +45,18 @@
 
   <div class="stack">
 
-     <!-- Calendly plus visible -->
-    <button class="btn btn--icon btn--calendar" data-calendly>
-      <span aria-hidden="true">📅</span> Réserver un créneau
-    </button>
+<a class="btn btn--icon" href="{{ site.author.linkedin | default: 'https://www.linkedin.com/in/tonprofil/' }}" target="_blank" rel="noopener">
+  <span class="btn__icon" aria-hidden="true">💼</span> Mon LinkedIn
+</a>
 
+<button class="btn btn--icon btn--calendar" data-calendly>
+  <span class="btn__icon" aria-hidden="true">📅</span> Réserver un créneau
+</button>
 
-    <a class="btn btn--icon" href="{{ site.author.linkedin | default: 'https://www.linkedin.com/in/tonprofil/' }}" target="_blank" rel="noopener">
-      <span aria-hidden="true">💼</span> Mon LinkedIn
-    </a>
+<a class="btn btn--icon" href="mailto:{{ site.author.email }}">
+  <span class="btn__icon" aria-hidden="true">✉️</span> {{ site.author.email }}
+</a>
 
-    <a class="btn btn--icon" href="mailto:{{ site.author.email }}">
-      <span aria-hidden="true">✉️</span> {{ site.author.email }}
-    </a>
   </div>
 
   <p class="note">Je réponds généralement sous 24–48h ouvrées.</p>
