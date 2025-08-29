@@ -22,32 +22,44 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
       <button class="btn" data-calendly>Réserver un créneau</button>
     </div>
 
-    <div class="kpis" aria-label="Indicateurs qualitatifs">
-      <div class="kpi">
-        <strong>Fiabilité</strong>
-        <p>Des process propres et opérationnels rapidement</p>
-      </div>
-      <div class="kpi">
-        <strong>Évolutivité</strong>
-        <p>Procédures de modification et livraison optimales</p>
-      </div>
-      <div class="kpi">
-        <strong>Conformité</strong>
-        <p>Respect des règles métiers et de gouvernance</p>
-      </div>
-      <div class="kpi">
-        <strong>Robustesse</strong>
-        <p>Reprise automatique et monitoring continu</p>
-      </div>
-      <div class="kpi">
-        <strong>Performance</strong>
-        <p>Chargements rapides et dashboards fluides</p>
-      </div>
-      <div class="kpi">
-        <strong>Sécurité</strong>
-        <p>Accès contrôlés et données protégées</p>
-      </div>
-    </div>
+<div class="kpis kpis--modern" aria-label="Indicateurs qualitatifs">
+  <article class="kpi">
+    <div class="kpi__icon" aria-hidden="true">✅</div>
+    <h3 class="kpi__title">Fiabilité</h3>
+    <p class="kpi__text">Des process propres et opérationnels rapidement</p>
+  </article>
+
+  <article class="kpi">
+    <div class="kpi__icon" aria-hidden="true">🧩</div>
+    <h3 class="kpi__title">Évolutivité</h3>
+    <p class="kpi__text">Procédures de modification et livraison optimales</p>
+  </article>
+
+  <article class="kpi">
+    <div class="kpi__icon" aria-hidden="true">🛡️</div>
+    <h3 class="kpi__title">Conformité</h3>
+    <p class="kpi__text">Règles métiers & gouvernance respectées</p>
+  </article>
+
+  <article class="kpi">
+    <div class="kpi__icon" aria-hidden="true">🔁</div>
+    <h3 class="kpi__title">Robustesse</h3>
+    <p class="kpi__text">Reprise automatique et monitoring continu</p>
+  </article>
+
+  <article class="kpi">
+    <div class="kpi__icon" aria-hidden="true">⚡</div>
+    <h3 class="kpi__title">Performance</h3>
+    <p class="kpi__text">Chargements rapides & dashboards fluides</p>
+  </article>
+
+  <article class="kpi">
+    <div class="kpi__icon" aria-hidden="true">🔐</div>
+    <h3 class="kpi__title">Sécurité</h3>
+    <p class="kpi__text">Accès contrôlés et données protégées</p>
+  </article>
+</div>
+
   </div>
 </section>
 
