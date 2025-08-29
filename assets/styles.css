@@ -258,6 +258,12 @@ main{max-width:1280px; margin:auto; padding:2rem 1rem}
   box-shadow: 0 12px 30px rgba(0,0,0,.35);
 }
 
+.btn--icon:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
+
 /* Form : petites retouches pour alignement visuel */
 .contact-form{ max-width: 720px; } /* évite les champs trop larges vs carte */
 .contact-form label span{ font-weight:500; }
