@@ -327,3 +327,42 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
   display: grid; gap: 1rem;
 }
 .about-text .lead { font-size:1.1rem; color:var(--fg); }
+
+/* About section tweaks */
+.about-text p {
+  margin: .6rem 0; /* réduit l'espace entre paragraphes */
+}
+
+.about-sub {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: .25rem .75rem;
+  border-radius: .7rem;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+/* Variante 1 : badge coloré */
+.about-sub.badge-style {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: .25rem .75rem;
+  border-radius: .7rem;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+/* Variante 2 : texte gradient */
+.about-sub.gradient-style {
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
