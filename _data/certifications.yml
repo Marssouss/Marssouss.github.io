@@ -2,11 +2,11 @@
   title: "Talend Certified"
   issuer: "Talend"
   status: certified
-  date: "2024-01-01"
+  date: "2022-01-01"
   planned_date:
-  badge_url: "/assets/img/badge_talend.png"   # <-- ton image
+  badge_url: "/assets/img/badge_talend.jpg"   # <-- ton image
   verify_url:
-  note: "Validé en 2024"
+  note: "Validé en 2022"
 
 - id: pl-300
   title: "Microsoft Certified: Power BI Data Analyst (PL-300)"
