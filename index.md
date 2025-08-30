@@ -3,7 +3,7 @@ layout: default
 title: Accueil
 description: Freelance Talend & Power BI – intégrations de données, pipelines ETL, modélisation DAX et dashboards performants. Disponibilité rapide, résultats mesurables.
 ---
-
+<!--  
 <section class="hero section" aria-labelledby="hero-title">
   <div>
     <h1 id="hero-title">Bonjour, je suis {{ site.author.prenom_nom }}</h1>
@@ -17,6 +17,9 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
     </p>
   </div>
 </section>
+-->
+{% include about-me.html %}
+
 
 {% include certs.html %}
 
