@@ -254,3 +254,82 @@ main{max-width:1280px; margin:auto; padding:2rem 1rem}
 @media (prefers-reduced-motion: reduce){
   .icon-sun, .icon-moon, .theme-toggle{ transition:none !important; }
 }
+
+
+
+/* certifications */
+/* === Certifications ======================= */
+.certs { padding-block: clamp(2rem, 3vw, 3.5rem); }
+.certs-head { text-align: center; margin-bottom: 1.25rem; }
+.certs .h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); margin: 0; }
+.certs .muted { color: var(--muted); margin-top: .5rem; }
+
+.certs-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.cert-card {
+  display: grid; grid-template-columns: auto 1fr; gap: .9rem;
+  align-items: start;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1rem;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  will-change: transform;
+}
+.cert-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  border-color: color-mix(in oklab, var(--border), var(--brand) 25%);
+}
+
+.cert-badge {
+  display: grid; place-items: center;
+  width: 48px; height: 48px; border-radius: 12px;
+  background: color-mix(in oklab, var(--brand) 20%, transparent);
+  color: var(--brand);
+}
+.cert-card.is-pending .cert-badge {
+  background: color-mix(in oklab, var(--muted) 18%, transparent);
+  color: var(--muted);
+}
+.cert-badge .stroke { opacity: .6; }
+
+.cert-body { display: grid; gap: .25rem; }
+.cert-title { margin: 0; font-size: 1rem; line-height: 1.2; }
+.cert-issuer { margin: 0; font-size: .9rem; color: var(--muted); }
+
+.cert-status { font-size: .85rem; margin-top: .25rem; }
+.cert-status.ok { color: var(--brand-2); font-weight: 600; }
+.cert-status.pending { color: var(--muted); }
+
+.certs-note {
+  display: inline-flex; align-items: center; gap: .75rem;
+  margin-top: 1rem; color: var(--muted); font-size: .9rem;
+}
+.certs-note .dot {
+  display: inline-block; width: .6rem; height: .6rem; border-radius: 999px;
+  translate: 0 1px;
+}
+.certs-note .dot.ok { background: var(--brand-2); }
+.certs-note .dot.pending { background: var(--muted); }
+.certs-note .sep { opacity: .5; }
+
+/* Certifications – prise en charge des images badge */
+.cert-badge {
+  display: grid; place-items: center;
+  width: 48px; height: 48px; border-radius: 12px;
+  background: color-mix(in oklab, var(--brand) 20%, transparent);
+  color: var(--brand);
+  overflow: hidden; /* évite dépassement si image non carrée */
+}
+.cert-card.is-pending .cert-badge {
+  background: color-mix(in oklab, var(--muted) 18%, transparent);
+  color: var(--muted);
+}
+.cert-logo {
+  width: 100%; height: 100%; object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  filter: drop-shadow(0 0 0 transparent); /* évite halo sur fond sombre */
+}

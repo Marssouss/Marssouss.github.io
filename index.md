@@ -15,13 +15,12 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
       est la clé, je vous aide à bâtir des pipelines évolutifs et des dashboards fiables
       pour tirer pleinement parti de la puissance de votre entreprise.
     </p>
-    <div class="actions" role="group" aria-label="Actions principales">
-      <a class="btn" href="#services">Mes services</a>
-      <a class="btn" href="#realisation">Mes réalisations</a>
-      <a class="btn" href="#contact">Contact</a>
-    </div>
   </div>
 </section>
+
+{% include certs.html %}
+
+
 
 <section id="kpi" class="section" aria-labelledby="services-title">
 <div class="kpis kpis--modern" aria-label="Indicateurs qualitatifs">

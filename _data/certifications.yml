@@ -1,0 +1,29 @@
+- id: talend-cert
+  title: "Talend Certified"
+  issuer: "Talend"
+  status: certified
+  date: "2024-01-01"
+  planned_date:
+  badge_url: "/assets/img/badge_talend.png"   # <-- ton image
+  verify_url:
+  note: "Validé en 2024"
+
+- id: pl-300
+  title: "Microsoft Certified: Power BI Data Analyst (PL-300)"
+  issuer: "Microsoft"
+  status: pending
+  date:
+  planned_date: "2025-10"
+  badge_url:
+  verify_url:
+  note: "Préparation en cours"
+
+- id: dp-600
+  title: "Microsoft Certified: Fabric Analytics Engineer (DP-600)"
+  issuer: "Microsoft"
+  status: pending
+  date:
+  planned_date: "2025-12"
+  badge_url:
+  verify_url:
+  note: "Planifiée"
