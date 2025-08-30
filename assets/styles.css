@@ -590,3 +590,22 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
 @media (prefers-reduced-motion: reduce){
   .certs-track{ transition:none; }
 }
+
+
+/* === Fix slider certifications: pas de crop, pas de décalage === */
+.certs-viewport { overflow: hidden; padding: 0; padding-inline: .25rem; } /* pas de bord/scroll parasite */
+
+/* 1 carte = 100% du viewport, sans interstice */
+.certs-track { gap: 0 !important; }  /* override d’éventuels styles précédents */
+
+/* espace visuel sans modifier la largeur des colonnes */
+.certs-track > li {
+  box-sizing: border-box;   /* le padding ne fait PAS dépasser la largeur */
+  padding-inline: .5rem;    /* petit air sur les côtés */
+  margin: 0;                /* no margin pour éviter le crop */
+}
+
+/* optionnel : un peu plus d’air sur grands écrans */
+@media (min-width: 900px){
+  .certs-track > li { padding-inline: .75rem; }
+}
