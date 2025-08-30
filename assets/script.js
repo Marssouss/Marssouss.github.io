@@ -176,3 +176,28 @@ if(calendlyBtn && modal){
     if (window.matchMedia('(min-width: 992px)').matches) closeMenu();
   });
 })();
+
+
+// Menu déroulant sous le header (sans overlay)
+(function () {
+  const toggle = document.querySelector('.nav-toggle');
+  const panel = document.getElementById('nav-collapsible');
+  if (!toggle || !panel) return;
+
+  const setState = (open) => {
+    panel.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  };
+
+  toggle.addEventListener('click', () => setState(!(panel.classList.contains('open'))));
+
+  // Ferme au clic d’un lien/bouton
+  panel.addEventListener('click', (e) => {
+    if (e.target.closest('a') || e.target.closest('button')) setState(false);
+  });
+
+  // Ferme au passage en desktop
+  window.addEventListener('resize', () => {
+    if (window.matchMedia('(min-width: 992px)').matches) setState(false);
+  });
+})();
