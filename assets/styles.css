@@ -242,3 +242,29 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
     gap: 1.25rem 1.5rem;           /* colonne / ligne */
   }
 }
+
+/* === Certifications — espacement visible entre cartes (force) ====== */
+
+/* MOBILE (slider) : on crée l'espace via padding du rail + des <li> */
+.certs-viewport{ padding-inline: 0 !important; }            /* on repart propre */
+.certs-rail{
+  gap: 0 !important;                                        /* pas de gap "perdu" hors écran */
+  padding-inline: .6rem !important;                         /* marge globale du rail */
+}
+.certs-rail > li{
+  padding-inline: .6rem !important;                         /* espace entre les slides */
+}
+.certs-rail > li .cert-card{
+  width: 100%;
+}
+
+/* DESKTOP (grille) : on repasse en vrai gap, sans padding interne */
+@media (min-width: 900px){
+  .certs-rail{
+    padding-inline: 0 !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1.25rem 1.5rem !important;                         /* colonne / ligne */
+  }
+  .certs-rail > li{ padding-inline: 0 !important; }
+}
+
