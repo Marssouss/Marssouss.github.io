@@ -9,26 +9,13 @@
   {% assign pending   = all | where: "status", "pending" %}
   {% assign ordered   = certified | concat: pending %}
 
-  <!-- Slider -->
-  <div class="certs-viewport" data-slider>
-    <ul class="certs-track" aria-live="polite">
+  <!-- Rail simple (scroll-snap) -->
+  <div class="certs-viewport">
+    <ul class="certs-rail" aria-label="Liste des certifications">
       {% for c in ordered %}
-        {% include cert-item.html item=c i=forloop.index0 %}
+        {% include cert-item.html item=c %}
       {% endfor %}
     </ul>
-
-    <!-- Points -->
-    <div class="certs-dots" role="tablist" aria-label="Choisir une certification">
-      {% for c in ordered %}
-        <button
-          class="dot{% if forloop.first %} is-active{% endif %}"
-          role="tab"
-          aria-controls="cert-slide-{{ forloop.index0 }}"
-          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-          data-slide="{{ forloop.index0 }}">
-        </button>
-      {% endfor %}
-    </div>
   </div>
 
   <!-- JSON-LD -->
