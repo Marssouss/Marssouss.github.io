@@ -8,6 +8,15 @@
   --border:#1f2a44;
 }
 
+:root[data-theme="light"]{
+  --bg:#ffffff; --fg:#0b1020; --muted:#475569;
+  --card:#f8fafc; --border:#e2e8f0;
+}
+:root[data-theme="dark"]{
+  --bg: #0b1020; --fg:#e6e8ee; --muted:#9aa3b2;
+  --card:#121933; --border:#1f2a44;
+}
+
 @media (prefers-color-scheme: light){
   :root{
     --bg:#ffffff; --fg:#0b1020; --muted:#475569;
@@ -39,12 +48,16 @@ body{
 .nav a{color:var(--fg); text-decoration:none; padding:.5rem .75rem; border-radius:.6rem}
 .nav a:hover{background:color-mix(in oklab, var(--fg) 10%, transparent)}
 
-.menu-toggle,.theme-toggle{background:none; border:1px solid var(--border); color:var(--fg); padding:.4rem .6rem; border-radius:.6rem; display:none}
+/* Boutons d'entête */
+.menu-toggle{background:none; border:1px solid var(--border); color:var(--fg); padding:.4rem .6rem; border-radius:.6rem; display:none}
+.theme-toggle{background:none; border:1px solid var(--border); color:var(--fg); padding:.4rem .6rem; border-radius:.6rem; display:inline-flex; align-items:center; gap:.35rem; cursor:pointer}
+.theme-toggle:hover{ background: color-mix(in oklab, var(--fg) 10%, transparent); }
+
 @media (max-width: 900px){
   .menu-toggle{display:inline-block}
-  .nav{position:fixed; right:1rem; top:4.2rem; background:var(--card); border:1px solid var(--border); border-radius:1rem; padding:.5rem; flex-direction:column; gap:.25rem; display:none}
-  .nav.open{display:flex}
+  /* la theme-toggle reste visible aussi sur mobile */
 }
+
 
 /* === BASE === */
 main{max-width:1280px; margin:auto; padding:2rem 1rem}
@@ -211,3 +224,33 @@ main{max-width:1280px; margin:auto; padding:2rem 1rem}
 }
 
 .btn--icon{display:inline-flex;align-items:center;gap:.55rem}
+
+
+/* === THEME TOGGLE === */
+.theme-toggle{
+  display:inline-flex; align-items:center; gap:.45rem;
+  background:none; border:1px solid var(--border); color:var(--fg);
+  padding:.45rem .6rem; border-radius:.6rem; cursor:pointer;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+.theme-toggle:hover{ background: color-mix(in oklab, var(--fg) 10%, transparent); }
+.theme-toggle:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab, var(--brand) 40%, transparent); }
+
+.tt-icon{ display:inline-grid; place-items:center; width:1.2rem; height:1.2rem; }
+.icon-sun, .icon-moon{ transition:opacity .25s ease, transform .35s ease; }
+
+/* Par défaut (dark) -> montrer lune, cacher soleil */
+.icon-sun{ opacity:0; transform: rotate(-90deg) scale(.9); }
+.icon-moon{ opacity:1; transform: rotate(0deg) scale(1); }
+
+/* En thème clair -> montrer soleil, cacher lune */
+:root[data-theme="light"] .icon-sun{ opacity:1; transform: rotate(0deg) scale(1); }
+:root[data-theme="light"] .icon-moon{ opacity:0; transform: rotate(90deg) scale(.9); }
+
+/* Petite rotation du bouton au clic (feedback) */
+.theme-toggle:active{ transform: scale(.98); }
+
+/* Respect des préférences */
+@media (prefers-reduced-motion: reduce){
+  .icon-sun, .icon-moon, .theme-toggle{ transition:none !important; }
+}

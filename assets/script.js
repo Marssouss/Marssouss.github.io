@@ -8,18 +8,30 @@ if(toggleBtn && nav){
   });
 }
 
-// Dark mode toggle (persist)
-const themeBtn = document.querySelector('.theme-toggle');
-if(themeBtn){
-  const apply = mode => document.documentElement.dataset.theme = mode;
-  const saved = localStorage.getItem('theme');
-  if(saved) apply(saved);
-  themeBtn.addEventListener('click', ()=>{
-    const cur = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-    apply(cur);
-    localStorage.setItem('theme', cur);
+// Dark mode toggle (persist + préfère système au 1er chargement)
+(function(){
+  const btn = document.querySelector('.theme-toggle');
+  const apply = mode => document.documentElement.setAttribute('data-theme', mode);
+
+  // init: localStorage -> sinon préfère système -> sinon 'dark'
+  let theme = localStorage.getItem('theme');
+  if(!theme){
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    theme = prefersLight ? 'light' : 'dark';
+  }
+  apply(theme);
+  if(btn) btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+
+  // toggle
+  btn?.addEventListener('click', ()=>{
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = (cur === 'light') ? 'dark' : 'light';
+    apply(next);
+    localStorage.setItem('theme', next);
+    btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
   });
-}
+})();
+
 
 // Calendly modal (lazy load)
 const calendlyBtn = document.querySelector('[data-calendly]');

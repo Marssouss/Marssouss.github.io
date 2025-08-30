@@ -4,12 +4,31 @@
   <nav aria-label="Navigation principale">
     <button class="menu-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
     <ul id="nav" class="nav">
+      <li>
+  <button class="theme-toggle" aria-label="Basculer le thème" aria-pressed="false">
+    <span class="tt-icon icon-sun" aria-hidden="true">
+      <!-- Soleil minimal SVG -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/>
+        <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+        </g>
+      </svg>
+    </span>
+    <span class="tt-icon icon-moon" aria-hidden="true">
+      <!-- Lune minimal SVG -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M21 12.5A9 9 0 1 1 11.5 3a7 7 0 1 0 9.5 9.5Z" stroke="currentColor" stroke-width="2" fill="none"/>
+      </svg>
+    </span>
+    <span class="tt-label">Thème</span>
+  </button>
+</li>
       <li><a href="{{ '/#services' | relative_url }}">Services</a></li>
       <li><a href="{{ '/#realisation' | relative_url }}">Réalisations</a></li>
       <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
       <li><a href="{{ '/#contact' | relative_url }}">Contact</a></li>
       <li><button class="btn cta" data-calendly>Réserver un créneau</button></li>
-      <li><button class="theme-toggle" aria-label="Basculer le thème"> test🌓</button></li>
     </ul>
   </nav>
 </header>
