@@ -193,3 +193,46 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
 @media (prefers-reduced-motion: reduce){
   .icon-sun,.icon-moon,.theme-toggle{transition:none !important}
 }
+
+
+/* — Alléger la barre — */
+.site-header{
+  background: color-mix(in oklab, var(--bg) 96%, transparent);
+}
+.navbar{ padding: .55rem 1rem; }          /* -20% hauteur */
+.brand{ font-size: 1rem; }                /* un poil plus compacte */
+
+/* — Desktop nav en “bulles” + switch au bout — */
+.nav-desktop ul{
+  display:flex; align-items:center; gap:.5rem;
+  list-style:none; margin:0; padding:.35rem 1rem;   /* plus fin */
+}
+.chip{
+  display:inline-flex; align-items:center; gap:.45rem;
+  padding:.45rem .75rem; line-height:1;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card); color:var(--fg);
+  text-decoration:none; font-weight:500;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.chip:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border), var(--brand) 30%); }
+
+/* CTA garde sa différence (gradient) mais même hauteur/arrondi */
+.nav-desktop .btn.cta{
+  min-height:38px; padding:.5rem .9rem; border-radius:12px; border:none;
+}
+
+/* pousser le switch à droite */
+.nav-desktop .nav-spacer{ flex:1 1 auto; }
+.nav-desktop .nav-theme-item .chip{ padding:.45rem .7rem; } /* même taille que les liens */
+
+/* — Cacher le switch du header en desktop (on garde celui dans la rangée) — */
+@media (min-width: 992px){
+  .nav-actions .theme-toggle{ display:none; }
+}
+
+/* — Mobile: on ne change rien — */
+@media (max-width: 991.98px){
+  .nav-desktop{ display:none; }
+}
