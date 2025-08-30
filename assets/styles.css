@@ -236,3 +236,48 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
 @media (max-width: 991.98px){
   .nav-desktop{ display:none; }
 }
+
+
+/* Barre plus compacte */
+.navbar{
+  display:flex; align-items:center; gap:.75rem;
+  justify-content:space-between; padding:.55rem 1rem;
+}
+
+/* La nav desktop vit SUR la même ligne (au centre) */
+.nav-desktop{ flex:1 1 auto; min-width:0; } /* min-width:0 pour éviter le wrap */
+.nav-inline{
+  display:flex; align-items:center; gap:.5rem; flex-wrap:nowrap;
+  list-style:none; margin:0; padding:0 .5rem;
+  white-space:nowrap; /* reste sur une ligne */
+}
+
+/* “Bulles” (pills) pour les liens */
+.chip{
+  display:inline-flex; align-items:center; gap:.45rem;
+  padding:.45rem .75rem; line-height:1;
+  border:1px solid var(--border); border-radius:12px;
+  background:var(--card); color:var(--fg); text-decoration:none; font-weight:500;
+  transition:border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.chip:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border), var(--brand) 30%); }
+
+/* CTA même hauteur que les “bulles” */
+.nav-desktop .btn.cta{ min-height:38px; padding:.5rem .9rem; border-radius:12px; border:none; }
+
+/* Actions à droite (thème + toggle mobile) */
+.nav-actions{ display:inline-flex; align-items:center; gap:.5rem; }
+.theme-toggle{ height:38px; padding:.4rem .7rem; border-radius:12px; }
+
+/* Desktop: on affiche la nav-inline, on cache le toggle mobile */
+@media (min-width: 992px){
+  .nav-desktop{ display:block; }
+  .nav-toggle{ display:none; }
+  /* Important : s'assurer que le switch thème est VISIBLE en desktop */
+  .nav-actions .theme-toggle{ display:inline-flex; }
+}
+
+/* Mobile: nav desktop cachée, on garde la collapsible */
+@media (max-width: 991.98px){
+  .nav-desktop{ display:none; }
+}
