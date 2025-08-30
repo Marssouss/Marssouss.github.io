@@ -161,3 +161,47 @@ if(calendlyBtn && modal){
   const mq = window.matchMedia('(min-width: 900px)');
   mq.addEventListener?.('change', (ev) => { if (ev.matches) set(0); });
 })();
+
+// Slider Certifications: 1 slide plein écran + points + swipe + clavier
+(function () {
+  const vp = document.querySelector('.certs-viewport[data-slider]');
+  if (!vp) return;
+  const track = vp.querySelector('.certs-track');
+  const dots  = [...vp.querySelectorAll('.certs-dots .dot')];
+  let idx = 0;
+
+  function set(i){
+    idx = Math.max(0, Math.min(i, dots.length - 1));
+    vp.style.setProperty('--slide', idx);
+    dots.forEach((d,k)=>{
+      d.classList.toggle('is-active', k===idx);
+      d.setAttribute('aria-selected', k===idx ? 'true':'false');
+    });
+  }
+
+  // Points
+  dots.forEach(d => d.addEventListener('click', () => set(+d.dataset.slide)));
+
+  // Swipe (touch + mouse)
+  let startX = null, dragging = false;
+  const onStart = (x)=>{ startX = x; dragging = true; };
+  const onMove  = (x)=>{ if(!dragging || startX===null) return;
+    const dx = x - startX;
+    if(Math.abs(dx) > 50){ set(idx + (dx < 0 ? 1 : -1)); dragging = false; startX = null; }
+  };
+  const onEnd   = ()=>{ dragging=false; startX=null; };
+
+  track.addEventListener('touchstart', e=>onStart(e.touches[0].clientX), {passive:true});
+  track.addEventListener('touchmove',  e=>onMove(e.touches[0].clientX),   {passive:true});
+  track.addEventListener('touchend',   onEnd);
+  track.addEventListener('mousedown',  e=>onStart(e.clientX));
+  track.addEventListener('mousemove',  e=>onMove(e.clientX));
+  track.addEventListener('mouseleave', onEnd);
+  track.addEventListener('mouseup',    onEnd);
+
+  // Clavier (accessibilité)
+  vp.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight') set(idx+1);
+    if(e.key === 'ArrowLeft')  set(idx-1);
+  });
+})();

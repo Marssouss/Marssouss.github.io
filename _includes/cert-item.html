@@ -1,5 +1,5 @@
 {% assign c = include.item %}
-<li id="cert-slide-{{ forloop.index0 | default: 0 }}"
+<li id="cert-slide-{{ include.i }}"
     class="cert-card {% if c.status == 'pending' %}is-pending{% else %}is-active{% endif %}"
     itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
   <div class="cert-badge" aria-hidden="true">

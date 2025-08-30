@@ -9,15 +9,15 @@
   {% assign pending   = all | where: "status", "pending" %}
   {% assign ordered   = certified | concat: pending %}
 
-  <!-- Viewport slider (mobile) -->
+  <!-- Slider -->
   <div class="certs-viewport" data-slider>
     <ul class="certs-track" aria-live="polite">
       {% for c in ordered %}
-        {% include cert-item.html item=c %}
+        {% include cert-item.html item=c i=forloop.index0 %}
       {% endfor %}
     </ul>
 
-    <!-- Dots (mobile) -->
+    <!-- Points -->
     <div class="certs-dots" role="tablist" aria-label="Choisir une certification">
       {% for c in ordered %}
         <button
