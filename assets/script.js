@@ -127,3 +127,37 @@ if(calendlyBtn && modal){
     modal.querySelectorAll('.modal__close').forEach(btn => btn.addEventListener('click', closeModal));
   }
 })();
+
+
+// === Slider Certifications (mobile) ===================================
+(function () {
+  const vp = document.querySelector('.certs-viewport[data-slider]');
+  if (!vp) return;
+  const track = vp.querySelector('.certs-track');
+  const dots  = [...vp.querySelectorAll('.certs-dots .dot')];
+  let idx = 0;
+
+  const set = (i) => {
+    idx = Math.max(0, Math.min(i, dots.length - 1));
+    vp.style.setProperty('--slide', idx);
+    dots.forEach((d, k) => {
+      d.classList.toggle('is-active', k === idx);
+      d.setAttribute('aria-selected', k === idx ? 'true' : 'false');
+    });
+  };
+
+  dots.forEach((d) => d.addEventListener('click', () => set(+d.dataset.slide)));
+
+  // Swipe léger (optionnel mais utile)
+  let startX = null;
+  track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchmove',  (e) => {
+    if (startX === null) return;
+    const dx = e.touches[0].clientX - startX;
+    if (Math.abs(dx) > 40) { set(idx + (dx < 0 ? 1 : -1)); startX = null; }
+  }, {passive:true});
+
+  // Sécurité: si on passe desktop -> reset à 0
+  const mq = window.matchMedia('(min-width: 900px)');
+  mq.addEventListener?.('change', (ev) => { if (ev.matches) set(0); });
+})();

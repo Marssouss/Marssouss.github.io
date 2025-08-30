@@ -4,26 +4,39 @@
     <p class="muted">Gage de qualité et d’engagement continu.</p>
   </header>
 
-  <!-- rail scrollable sur mobile -->
-  <ul class="certs-rail" aria-label="Liste des certifications">
-    {% assign all = site.data.certifications %}
-    {% assign certified = all | where: "status", "certified" %}
-    {% assign pending   = all | where: "status", "pending" %}
+  {% assign all = site.data.certifications %}
+  {% assign certified = all | where: "status", "certified" %}
+  {% assign pending   = all | where: "status", "pending" %}
+  {% assign ordered   = certified | concat: pending %}
 
-    {% for c in certified %}
-      {% include cert-item.html item=c %}
-    {% endfor %}
-    {% for c in pending %}
-      {% include cert-item.html item=c %}
-    {% endfor %}
-  </ul>
+  <!-- Viewport slider (mobile) -->
+  <div class="certs-viewport" data-slider>
+    <ul class="certs-track" aria-live="polite">
+      {% for c in ordered %}
+        {% include cert-item.html item=c %}
+      {% endfor %}
+    </ul>
 
-  <!-- JSON-LD auto -->
+    <!-- Dots (mobile) -->
+    <div class="certs-dots" role="tablist" aria-label="Choisir une certification">
+      {% for c in ordered %}
+        <button
+          class="dot{% if forloop.first %} is-active{% endif %}"
+          role="tab"
+          aria-controls="cert-slide-{{ forloop.index0 }}"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          data-slide="{{ forloop.index0 }}">
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
-      {% for c in all %}
+      {% for c in ordered %}
       {
         "@type": "EducationalOccupationalCredential",
         "name": {{ c.title | jsonify }},
