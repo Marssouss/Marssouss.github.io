@@ -315,3 +315,15 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
 }
 
 .about-note { margin-top: .5rem; }
+
+/* === About section === */
+.about-title { margin:0; font-size:clamp(1.5rem, 2.5vw, 2rem); }
+.about-sub { margin:.2rem 0 1.5rem; color:var(--muted); font-weight:600; }
+
+.about-text {
+  max-width: 720px;
+  text-align: left;       /* aligne le texte à gauche */
+  margin: 0;              /* colle au flux, pas centré en bloc */
+  display: grid; gap: 1rem;
+}
+.about-text .lead { font-size:1.1rem; color:var(--fg); }
