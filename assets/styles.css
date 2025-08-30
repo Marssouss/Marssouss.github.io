@@ -366,3 +366,15 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
   background-clip: text;
   margin-bottom: 1rem;
 }
+
+/* Alignement et espacements About */
+.about-text {
+  max-width: 720px;
+  margin: 0;           /* plus de centrage */
+  text-align: left;
+}
+
+.about-text p {
+  margin: .4rem 0;     /* resserre beaucoup les espaces entre paragraphes */
+  line-height: 1.55;   /* lisibilité */
+}
