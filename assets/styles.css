@@ -1,28 +1,15 @@
 /* ================== Thème & Base ================== */
 :root{
-  --bg: #0b1020;         /* dark slate */
-  --fg: #e6e8ee;
-  --muted:#9aa3b2;
-  --brand:#4f46e5;       /* indigo */
-  --brand-2:#22c55e;     /* green */
-  --card:#121933;
-  --border:#1f2a44;
-}
-
-:root[data-theme="light"]{
-  --bg:#ffffff; --fg:#0b1020; --muted:#475569;
-  --card:#f8fafc; --border:#e2e8f0;
-}
-:root[data-theme="dark"]{
-  --bg: #0b1020; --fg:#e6e8ee; --muted:#9aa3b2;
+  --bg:#0b1020; --fg:#e6e8ee; --muted:#9aa3b2;
+  --brand:#4f46e5; --brand-2:#22c55e;
   --card:#121933; --border:#1f2a44;
 }
-
+:root[data-theme="light"]{
+  --bg:#fff; --fg:#0b1020; --muted:#475569;
+  --card:#f8fafc; --border:#e2e8f0;
+}
 @media (prefers-color-scheme: light){
-  :root{
-    --bg:#ffffff; --fg:#0b1020; --muted:#475569;
-    --card:#f8fafc; --border:#e2e8f0;
-  }
+  :root{ --bg:#fff; --fg:#0b1020; --muted:#475569; --card:#f8fafc; --border:#e2e8f0; }
 }
 
 *{box-sizing:border-box}
@@ -37,85 +24,85 @@ body{
 .site-header{
   position:sticky; top:0; z-index:60;
   backdrop-filter:saturate(1.2) blur(10px);
-  background:color-mix(in oklab, var(--bg) 92%, transparent);
+  background:color-mix(in oklab, var(--bg) 96%, transparent);
   border-bottom:1px solid var(--border);
 }
-.navbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.75rem 1rem}
-.brand{font-weight:700;font-size:1.1rem;color:var(--fg);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.navbar{
+  display:flex; align-items:center; justify-content:space-between; gap:.75rem;
+  padding:.55rem 1rem;
+}
+.brand{font-weight:700;font-size:1rem;color:var(--fg);text-decoration:none;display:flex;align-items:center;gap:.5rem}
 .brand .dot{width:.75rem;height:.75rem;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:inline-block}
 .nav-actions{display:inline-flex;align-items:center;gap:.5rem}
 
 /* Thème toggle */
 .theme-toggle{
-  display:inline-flex;align-items:center;gap:.45rem;
-  padding:.45rem .6rem; height:40px;
-  border:1px solid var(--border); border-radius:12px;
-  background:var(--card); color:var(--fg); cursor:pointer;
+  display:inline-flex;align-items:center;gap:.45rem;height:38px;padding:.4rem .7rem;
+  border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--fg); cursor:pointer;
   transition: background .18s ease, border-color .18s ease, transform .18s ease;
 }
 .theme-toggle:hover{ background: color-mix(in oklab, var(--fg) 10%, transparent); }
 .theme-toggle:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab, var(--brand) 40%, transparent); }
 .tt-icon{ display:inline-grid; place-items:center; width:1.2rem; height:1.2rem; }
-.icon-sun, .icon-moon{ transition:opacity .25s ease, transform .35s ease; }
+.icon-sun,.icon-moon{ transition:opacity .25s ease, transform .35s ease; }
 .icon-sun{ opacity:0; transform: rotate(-90deg) scale(.9); }
 .icon-moon{ opacity:1; transform: rotate(0deg) scale(1); }
 :root[data-theme="light"] .icon-sun{ opacity:1; transform: rotate(0deg) scale(1); }
 :root[data-theme="light"] .icon-moon{ opacity:0; transform: rotate(90deg) scale(.9); }
 
-/* Toggle menu (texte + chevron) */
+/* Burger / menu mobile */
 .nav-toggle{
-  display:inline-flex;align-items:center;gap:.5rem;height:40px;
-  padding:0 .9rem;border:1px solid var(--border);border-radius:12px;
-  background:var(--card);color:var(--fg);font-weight:600;
+  display:inline-flex;align-items:center;gap:.5rem;height:40px;padding:0 .9rem;
+  border:1px solid var(--border);border-radius:12px;background:var(--card);color:var(--fg);font-weight:600;
 }
 .nav-toggle .chev{transition:transform .2s ease}
 .nav-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
 
-/* Desktop horizontal */
-.nav-desktop{display:none}
-.nav-desktop ul{display:flex;gap:1rem;align-items:center;list-style:none;margin:0;padding:.5rem 1rem}
-.nav-desktop a{text-decoration:none;color:var(--fg);padding:.5rem .75rem;border-radius:.6rem}
-.nav-desktop a:hover{background:color-mix(in oklab,var(--fg) 10%, transparent)}
-.nav-desktop .btn.cta{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;padding:.5rem .9rem;border-radius:12px;border:none}
-
-/* Mobile – liste qui déroule sous le header */
 .nav-collapsible{
-  overflow:clip;
-  max-height:0;
+  overflow:clip; max-height:0;
   transition:max-height .28s ease, border-color .28s ease, box-shadow .28s ease;
   border-bottom:1px solid transparent;
   background:color-mix(in oklab,var(--bg) 98%, transparent);
   box-shadow:0 0 0 rgba(0,0,0,0);
 }
 .nav-collapsible.open{
-  max-height:480px; /* place pour 5–6 items */
-  border-color:var(--border);
-  box-shadow:0 10px 22px rgba(0,0,0,.08);
+  max-height:480px; border-color:var(--border); box-shadow:0 10px 22px rgba(0,0,0,.08);
 }
-.nav-list{
-  list-style:none;margin:0;padding:.5rem .75rem 1rem;
-  display:grid;gap:.5rem;
-}
+.nav-list{ list-style:none; margin:0; padding:.5rem .75rem 1rem; display:grid; gap:.5rem; }
 .nav-list a,.nav-list .btn{
-  display:block;padding:.9rem 1rem;border-radius:14px;text-decoration:none;
-  color:var(--fg);background:var(--card);border:1px solid var(--border);
+  display:block; padding:.9rem 1rem; border-radius:14px; text-decoration:none;
+  color:var(--fg); background:var(--card); border:1px solid var(--border);
 }
-.nav-list a:hover{border-color:color-mix(in oklab,var(--border),var(--brand) 30%)}
-.nav-list .btn.cta{text-align:center}
+.nav-list a:hover{ border-color:color-mix(in oklab,var(--border),var(--brand) 30%) }
+.nav-list .btn.cta{ text-align:center }
+
+/* Desktop nav inline */
+.nav-desktop{ display:none; flex:1 1 auto; min-width:0; }
+.nav-inline{
+  display:flex; align-items:center; gap:.5rem; flex-wrap:nowrap;
+  list-style:none; margin:0; padding:0 .5rem; white-space:nowrap;
+}
+.chip{
+  display:inline-flex; align-items:center; gap:.45rem;
+  padding:.45rem .75rem; line-height:1;
+  border:1px solid var(--border); border-radius:12px;
+  background:var(--card); color:var(--fg); text-decoration:none; font-weight:500;
+  transition:border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.chip:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border), var(--brand) 30%); }
+.nav-desktop .btn.cta{ min-height:38px; padding:.5rem .9rem; border-radius:12px; border:none; }
 
 @media (prefers-reduced-motion: reduce){
-  .nav-toggle .chev{transition:none}
-  .nav-collapsible{transition:none}
+  .nav-toggle .chev,.nav-collapsible{transition:none}
 }
-
-/* Breakpoint */
 @media (min-width:992px){
   .nav-toggle{display:none}
   .nav-desktop{display:block}
+  .nav-actions .theme-toggle{display:inline-flex}
   .nav-collapsible{display:none}
 }
 
-/* ================== Layout & Composants existants ================== */
+/* ================== Layout & Composants ================== */
 main{max-width:1280px;margin:auto;padding:2rem 1rem}
 .section{margin-block:3rem}
 .section h2{font-size:1.6rem;margin-bottom:.75rem}
@@ -130,15 +117,11 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
 .card h3{margin:.2rem 0 .4rem}
 .badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:.2rem .6rem;font-size:.85rem;color:var(--muted)}
 
-/* HERO */
+/* HERO (si utilisé) */
 .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:1.5rem;align-items:center}
 .hero .actions{display:flex;gap:.6rem;margin-top:1rem}
 .hero img{max-width:100%;border-radius:1rem;border:1px solid var(--border)}
 @media (max-width:900px){ .hero{grid-template-columns:1fr} }
-.hero__content{order:1}
-@media (max-width:900px){ .hero__img{margin-top:1rem} }
-@media (min-width:980px){ .hero{grid-template-columns:.9fr 1.1fr} }
-@media (min-width:1280px){ .hero{grid-template-columns:1fr 1.3fr} }
 .hero__img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:1rem;border:1px solid var(--border)}
 .hero__viz{width:100%;aspect-ratio:16/9;border-radius:1rem;border:1px solid var(--border);background:var(--card);background-image:var(--hero-image);background-size:cover;background-position:50% 50%;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 
@@ -166,527 +149,71 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
 .btn.cta{border:0;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-weight:600}
 .btn--icon{display:inline-flex;align-items:center;gap:.55rem}
 
-/* Certifications (si section activée) */
+/* ================== About ================== */
+.about-title{margin:0;font-size:clamp(1.5rem,2.5vw,2rem)}
+.about-sub{margin:.2rem 0 1rem;color:var(--muted);font-weight:600}
+.about-text{max-width:720px;text-align:left;margin:0;display:grid;gap:.8rem}
+.about-text p{margin:.4rem 0;line-height:1.55}
+.about-text .lead{font-size:1.1rem;color:var(--fg)}
+/* variantes de sous-titre */
+.about-sub.badge-style{
+  display:inline-block;font-weight:600;font-size:1.05rem;padding:.25rem .75rem;border-radius:.7rem;
+  background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;margin-bottom:1rem;
+}
+.about-sub.gradient-style{
+  font-weight:700;font-size:1.1rem;background:linear-gradient(135deg,var(--brand),var(--brand-2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem;
+}
+
+/* ================== Certifications — slider simple (sans JS) ======= */
 .certs{padding-block:clamp(2rem,3vw,3.5rem)}
 .certs-head{text-align:center;margin-bottom:1.25rem}
 .certs .h2{font-size:clamp(1.4rem,2.4vw,1.8rem);margin:0}
 .certs .muted{color:var(--muted);margin-top:.5rem}
-.certs-grid{list-style:none;margin:0;padding:0;display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.cert-card{display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:start;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
-.cert-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08);border-color:color-mix(in oklab,var(--border),var(--brand) 25%)}
-.cert-badge{display:grid;place-items:center;width:48px;height:48px;border-radius:12px;background:color-mix(in oklab,var(--brand) 20%,transparent);color:var(--brand);overflow:hidden}
-.cert-card.is-pending .cert-badge{background:color-mix(in oklab,var(--muted) 18%,transparent);color:var(--muted)}
-.cert-logo{width:100%;height:100%;object-fit:contain;image-rendering:-webkit-optimize-contrast}
-.cert-body{display:grid;gap:.25rem}
+
+/* viewport + rail */
+.certs-viewport{max-width:980px;margin-inline:auto;overflow:hidden;padding-inline:.5rem}
+.certs-rail{
+  list-style:none;margin:0;padding:0;
+  display:grid; grid-auto-flow:column; grid-auto-columns:100%;
+  overflow-x:auto; scroll-snap-type:x mandatory; scroll-padding-inline:.5rem;
+  -webkit-overflow-scrolling:touch;
+}
+.certs-rail>li{scroll-snap-align:start;box-sizing:border-box;padding-inline:.5rem}
+@media (min-width:900px){
+  .certs-rail{overflow:visible;grid-auto-flow:dense;grid-auto-columns:unset;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .certs-rail>li{padding-inline:.5rem}
+}
+
+/* Carte certification */
+.cert-card{
+  display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:start;
+  background:color-mix(in oklab,var(--card) 92%,transparent);
+  border:1px solid var(--border); outline:1px solid color-mix(in oklab,var(--brand) 6%,transparent);
+  border-radius:16px;padding:1rem;transition:transform .2s ease,box-shadow .25s ease,outline-color .25s ease;
+}
+.cert-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.12);outline-color:color-mix(in oklab,var(--brand) 18%,transparent)}
+.cert-card:focus-within{outline-color:color-mix(in oklab,var(--brand) 32%,transparent)}
+
+.cert-badge{display:grid;place-items:center;width:48px;height:48px;border-radius:12px;background:color-mix(in oklab,var(--brand) 18%,transparent);color:var(--brand);overflow:hidden}
+.cert-card.is-pending .cert-badge{background:color-mix(in oklab,var(--muted) 16%,transparent);color:var(--muted)}
+.cert-logo{width:100%;height:100%;object-fit:contain}
+
+.cert-body{display:grid;gap:.35rem}
+.cert-headline{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
 .cert-title{margin:0;font-size:1rem;line-height:1.2}
 .cert-issuer{margin:0;font-size:.9rem;color:var(--muted)}
-.cert-status{font-size:.85rem;margin-top:.25rem}
+.cert-status{font-size:.85rem;margin:0}
 .cert-status.ok{color:var(--brand-2);font-weight:600}
 .cert-status.pending{color:var(--muted)}
-.certs-note{display:inline-flex;align-items:center;gap:.75rem;margin-top:1rem;color:var(--muted);font-size:.9rem}
-.certs-note .dot{display:inline-block;width:.6rem;height:.6rem;border-radius:999px;translate:0 1px}
-.certs-note .dot.ok{background:var(--brand-2)}
-.certs-note .dot.pending{background:var(--muted)}
-.certs-note .sep{opacity:.5}
-
-/* Respect motion */
-@media (prefers-reduced-motion: reduce){
-  .icon-sun,.icon-moon,.theme-toggle{transition:none !important}
-}
-
-
-/* — Alléger la barre — */
-.site-header{
-  background: color-mix(in oklab, var(--bg) 96%, transparent);
-}
-.navbar{ padding: .55rem 1rem; }          /* -20% hauteur */
-.brand{ font-size: 1rem; }                /* un poil plus compacte */
-
-/* — Desktop nav en “bulles” + switch au bout — */
-.nav-desktop ul{
-  display:flex; align-items:center; gap:.5rem;
-  list-style:none; margin:0; padding:.35rem 1rem;   /* plus fin */
-}
-.chip{
-  display:inline-flex; align-items:center; gap:.45rem;
-  padding:.45rem .75rem; line-height:1;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:var(--card); color:var(--fg);
-  text-decoration:none; font-weight:500;
-  transition: border-color .18s ease, background .18s ease, transform .18s ease;
-}
-.chip:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border), var(--brand) 30%); }
-
-/* CTA garde sa différence (gradient) mais même hauteur/arrondi */
-.nav-desktop .btn.cta{
-  min-height:38px; padding:.5rem .9rem; border-radius:12px; border:none;
-}
-
-/* pousser le switch à droite */
-.nav-desktop .nav-spacer{ flex:1 1 auto; }
-.nav-desktop .nav-theme-item .chip{ padding:.45rem .7rem; } /* même taille que les liens */
-
-/* — Cacher le switch du header en desktop (on garde celui dans la rangée) — */
-@media (min-width: 992px){
-  .nav-actions .theme-toggle{ display:none; }
-}
-
-/* — Mobile: on ne change rien — */
-@media (max-width: 991.98px){
-  .nav-desktop{ display:none; }
-}
-
-
-/* Barre plus compacte */
-.navbar{
-  display:flex; align-items:center; gap:.75rem;
-  justify-content:space-between; padding:.55rem 1rem;
-}
-
-/* La nav desktop vit SUR la même ligne (au centre) */
-.nav-desktop{ flex:1 1 auto; min-width:0; } /* min-width:0 pour éviter le wrap */
-.nav-inline{
-  display:flex; align-items:center; gap:.5rem; flex-wrap:nowrap;
-  list-style:none; margin:0; padding:0 .5rem;
-  white-space:nowrap; /* reste sur une ligne */
-}
-
-/* “Bulles” (pills) pour les liens */
-.chip{
-  display:inline-flex; align-items:center; gap:.45rem;
-  padding:.45rem .75rem; line-height:1;
-  border:1px solid var(--border); border-radius:12px;
-  background:var(--card); color:var(--fg); text-decoration:none; font-weight:500;
-  transition:border-color .18s ease, background .18s ease, transform .18s ease;
-}
-.chip:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border), var(--brand) 30%); }
-
-/* CTA même hauteur que les “bulles” */
-.nav-desktop .btn.cta{ min-height:38px; padding:.5rem .9rem; border-radius:12px; border:none; }
-
-/* Actions à droite (thème + toggle mobile) */
-.nav-actions{ display:inline-flex; align-items:center; gap:.5rem; }
-.theme-toggle{ height:38px; padding:.4rem .7rem; border-radius:12px; }
-
-/* Desktop: on affiche la nav-inline, on cache le toggle mobile */
-@media (min-width: 992px){
-  .nav-desktop{ display:block; }
-  .nav-toggle{ display:none; }
-  /* Important : s'assurer que le switch thème est VISIBLE en desktop */
-  .nav-actions .theme-toggle{ display:inline-flex; }
-}
-
-/* Mobile: nav desktop cachée, on garde la collapsible */
-@media (max-width: 991.98px){
-  .nav-desktop{ display:none; }
-}
-
-
-/* ===== About me ===================================================== */
-.about { display:grid; gap: .75rem; }
-.about-head { display:grid; gap:.25rem; }
-.about-title { margin:0; font-size: clamp(1.4rem, 2.4vw, 1.9rem); }
-.about-sub { margin:0; color: var(--muted); font-weight:600; }
-
-.about-lead {
-  margin-top:.25rem;
-  font-size: clamp(1.02rem, 1.6vw, 1.12rem);
-  color: var(--fg);
-}
-
-.about-principles {
-  list-style: none; margin: .5rem 0 0; padding: 0;
-  display: grid; gap: .5rem;
-}
-.about-principles li {
-  display: flex; gap: .6rem; align-items: flex-start;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: .7rem .9rem;
-}
-.about-principles .i {
-  width: 28px; height: 28px; display: grid; place-items: center;
-  border-radius: 10px;
-  background: color-mix(in oklab, var(--brand) 18%, transparent);
-  color: var(--brand);
-  font-size: 1rem;
-}
-
-.about-note { margin-top: .5rem; }
-
-/* === About section === */
-.about-title { margin:0; font-size:clamp(1.5rem, 2.5vw, 2rem); }
-.about-sub { margin:.2rem 0 1.5rem; color:var(--muted); font-weight:600; }
-
-.about-text {
-  max-width: 720px;
-  text-align: left;       /* aligne le texte à gauche */
-  margin: 0;              /* colle au flux, pas centré en bloc */
-  display: grid; gap: 1rem;
-}
-.about-text .lead { font-size:1.1rem; color:var(--fg); }
-
-/* About section tweaks */
-.about-text p {
-  margin: .6rem 0; /* réduit l'espace entre paragraphes */
-}
-
-.about-sub {
-  display: inline-block;
-  font-weight: 600;
-  font-size: 1.05rem;
-  padding: .25rem .75rem;
-  border-radius: .7rem;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  color: #fff;
-  margin-bottom: 1rem;
-}
-
-/* Variante 1 : badge coloré */
-.about-sub.badge-style {
-  display: inline-block;
-  font-weight: 600;
-  font-size: 1.05rem;
-  padding: .25rem .75rem;
-  border-radius: .7rem;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  color: #fff;
-  margin-bottom: 1rem;
-}
-
-/* Variante 2 : texte gradient */
-.about-sub.gradient-style {
-  font-weight: 700;
-  font-size: 1.1rem;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1rem;
-}
-
-/* Alignement et espacements About */
-.about-text {
-  max-width: 720px;
-  margin: 0;           /* plus de centrage */
-  text-align: left;
-}
-
-.about-text p {
-  margin: .4rem 0;     /* resserre beaucoup les espaces entre paragraphes */
-  line-height: 1.55;   /* lisibilité */
-}
-
-/* === Certifications – rail mobile + cartes modernes ================== */
-.certs { padding-block: clamp(2rem, 3vw, 3.5rem); }
-.certs-head { text-align: center; margin-bottom: 1.25rem; }
-.certs .h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); margin: 0; }
-.certs .muted { color: var(--muted); margin-top: .5rem; }
-
-/* Rail: carrousel horizontal au doigt sur mobile, grille sur desktop */
-.certs-rail {
-  list-style: none; margin: 0; padding: 0;
-  display: grid; gap: 1rem;
-}
-@media (max-width: 899px){
-  .certs-rail {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: min(85%, 360px);
-    overflow-x: auto;
-    padding-bottom: .25rem;
-    scroll-snap-type: x mandatory;
-  }
-  .certs-rail > li { scroll-snap-align: start; }
-}
-@media (min-width: 900px){
-  .certs-rail {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-/* Carte */
-.cert-card {
-  display: grid; grid-template-columns: auto 1fr; gap: .9rem;
-  align-items: start;
-  background: color-mix(in oklab, var(--card) 92%, transparent);
-  border: 1px solid var(--border);
-  /* hairline gradient border */
-  outline: 1px solid color-mix(in oklab, var(--brand) 6%, transparent);
-  border-radius: 16px; padding: 1rem;
-  transition: transform .2s ease, box-shadow .25s ease, border-color .25s ease, outline-color .25s ease;
-}
-.cert-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0,0,0,.12);
-  outline-color: color-mix(in oklab, var(--brand) 18%, transparent);
-}
-.cert-card:focus-within {
-  outline-color: color-mix(in oklab, var(--brand) 32%, transparent);
-}
-
-/* Badge/logo */
-.cert-badge {
-  display: grid; place-items: center;
-  width: 48px; height: 48px; border-radius: 12px;
-  background: color-mix(in oklab, var(--brand) 18%, transparent);
-  color: var(--brand); overflow: hidden;
-}
-.cert-card.is-pending .cert-badge {
-  background: color-mix(in oklab, var(--muted) 16%, transparent);
-  color: var(--muted);
-}
-.cert-logo { width: 100%; height: 100%; object-fit: contain; }
-
-/* Contenu */
-.cert-body { display: grid; gap: .35rem; }
-.cert-headline { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
-.cert-title { margin: 0; font-size: 1rem; line-height: 1.2; }
-.cert-issuer { margin: 0; font-size: .9rem; color: var(--muted); }
-
-.cert-status { font-size: .85rem; margin: 0; }
-.cert-status.ok { color: var(--brand-2); font-weight: 600; }
-.cert-status.pending { color: var(--muted); }
-
-/* Chip statut */
-.cert-chip {
-  display: inline-flex; align-items: center; gap: .4rem;
-  padding: .2rem .5rem; border-radius: 999px; font-size: .78rem; line-height: 1;
-  border: 1px solid var(--border); background: var(--card);
-}
-.cert-chip.chip-ok { color: var(--brand-2); border-color: color-mix(in oklab, var(--brand-2) 40%, var(--border)); }
-.cert-chip.chip-pending { color: var(--muted); }
-
-/* Lien badge (discret) */
-.cert-link {
-  display: inline-block; font-size: .85rem; text-decoration: none;
-  color: color-mix(in oklab, var(--fg) 82%, transparent);
-  border-bottom: 1px dashed color-mix(in oklab, var(--brand) 40%, transparent);
-}
-.cert-link:hover { color: var(--fg); border-bottom-style: solid; }
-
-/* ===== Certifications — slider mobile avec points =================== */
-
-.certs-viewport {
-  --slide: 0;              /* index actif (mis à jour en JS) */
-  position: relative;
-}
-
-.certs-track {
-  list-style: none; margin: 0; padding: 0;
-  display: grid; gap: 1rem;
-}
-
-/* Desktop = grille 3 colonnes */
-@media (min-width: 900px){
-  .certs-track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .certs-dots { display: none; }
-}
-
-/* Mobile = slider plein écran de carte */
-@media (max-width: 899px){
-  .certs-viewport { overflow: hidden; }
-  .certs-track {
-    grid-auto-flow: column;
-    grid-auto-columns: 100%;
-    transform: translateX(calc(var(--slide) * -100%));
-    transition: transform .35s ease;
-  }
-  .certs-track > li { width: 100%; }
-  .certs-dots {
-    display: grid; grid-auto-flow: column; gap: .5rem;
-    place-content: center;
-    margin-top: .75rem;
-  }
-  .certs-dots .dot {
-    width: .55rem; height: .55rem; border-radius: 999px;
-    border: 1px solid var(--border);
-    background: color-mix(in oklab, var(--card) 94%, transparent);
-    padding: 0;
-    cursor: pointer;
-  }
-  .certs-dots .dot.is-active {
-    background: linear-gradient(135deg, var(--brand), var(--brand-2));
-    border-color: transparent;
-  }
-}
-
-/* (Les styles de .cert-card, .cert-badge, .cert-chip, etc. restent tels que précédemment) */
-
-/* ===== Certifications — slider 1 carte à la fois ===== */
-.certs { padding-block: clamp(2rem, 3vw, 3.5rem); }
-.certs-head { text-align: center; margin-bottom: 1.25rem; }
-.certs .h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); margin: 0; }
-.certs .muted { color: var(--muted); margin-top: .5rem; }
-
-/* Viewport + track */
-.certs-viewport{
-  --slide: 0;                   /* index actif (modifié en JS) */
-  max-width: 920px;             /* centre le slider sur desktop */
-  margin-inline: auto;
-  position: relative;
-  overflow: hidden;
-}
-.certs-track{
-  list-style:none; margin:0; padding:0;
-  display:grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 100%;       /* 1 slide = 100% du viewport */
-  transform: translateX(calc(var(--slide) * -100%));
-  transition: transform .35s ease;
-}
-
-/* Dots */
-.certs-dots{
-  display:grid; grid-auto-flow:column; gap:.5rem; place-content:center;
-  margin-top:.75rem;
-}
-.certs-dots .dot{
-  width:.55rem; height:.55rem; border-radius:999px;
-  border:1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 94%, transparent);
-  padding:0; cursor:pointer;
-}
-.certs-dots .dot.is-active{
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  border-color: transparent;
-}
-
-/* ---- Cartes (reprend tes styles précédents) ---- */
-.cert-card{
-  display:grid; grid-template-columns:auto 1fr; gap:.9rem; align-items:start;
-  background: color-mix(in oklab, var(--card) 92%, transparent);
-  border:1px solid var(--border); outline:1px solid color-mix(in oklab, var(--brand) 6%, transparent);
-  border-radius:16px; padding:1rem;
-  transition: transform .2s ease, box-shadow .25s ease, border-color .25s ease, outline-color .25s ease;
-}
-.cert-card:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.12); outline-color:color-mix(in oklab, var(--brand) 18%, transparent); }
-.cert-card:focus-within{ outline-color:color-mix(in oklab, var(--brand) 32%, transparent); }
-
-.cert-badge{ display:grid; place-items:center; width:48px; height:48px; border-radius:12px;
-  background: color-mix(in oklab, var(--brand) 18%, transparent); color:var(--brand); overflow:hidden; }
-.cert-card.is-pending .cert-badge{ background: color-mix(in oklab, var(--muted) 16%, transparent); color:var(--muted); }
-.cert-logo{ width:100%; height:100%; object-fit:contain; }
-
-.cert-body{ display:grid; gap:.35rem; }
-.cert-headline{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
-.cert-title{ margin:0; font-size:1rem; line-height:1.2; }
-.cert-issuer{ margin:0; font-size:.9rem; color:var(--muted); }
-.cert-status{ font-size:.85rem; margin:0; }
-.cert-status.ok{ color:var(--brand-2); font-weight:600; }
-.cert-status.pending{ color:var(--muted); }
-
-.cert-chip{ display:inline-flex; align-items:center; gap:.4rem; padding:.2rem .5rem; border-radius:999px; font-size:.78rem; line-height:1;
-  border:1px solid var(--border); background:var(--card); }
-.cert-chip.chip-ok{ color:var(--brand-2); border-color:color-mix(in oklab, var(--brand-2) 40%, var(--border)); }
-.cert-chip.chip-pending{ color:var(--muted); }
-.cert-link{ display:inline-block; font-size:.85rem; text-decoration:none; color:color-mix(in oklab, var(--fg) 82%, transparent);
-  border-bottom:1px dashed color-mix(in oklab, var(--brand) 40%, transparent); }
-.cert-link:hover{ color:var(--fg); border-bottom-style:solid; }
-
-/* Accessibilité motion */
-@media (prefers-reduced-motion: reduce){
-  .certs-track{ transition:none; }
-}
-
-
-/* === Fix slider certifications: pas de crop, pas de décalage === */
-.certs-viewport { overflow: hidden; padding: 0; padding-inline: .25rem; } /* pas de bord/scroll parasite */
-
-/* 1 carte = 100% du viewport, sans interstice */
-.certs-track { gap: 0 !important; }  /* override d’éventuels styles précédents */
-
-/* espace visuel sans modifier la largeur des colonnes */
-.certs-track > li {
-  box-sizing: border-box;   /* le padding ne fait PAS dépasser la largeur */
-  padding-inline: .5rem;    /* petit air sur les côtés */
-  margin: 0;                /* no margin pour éviter le crop */
-}
-
-/* optionnel : un peu plus d’air sur grands écrans */
-@media (min-width: 900px){
-  .certs-track > li { padding-inline: .75rem; }
-}
-
-
-/* === Certifications — slider simple (sans JS) ======================= */
-.certs { padding-block: clamp(2rem, 3vw, 3.5rem); }
-.certs-head { text-align: center; margin-bottom: 1.25rem; }
-.certs .h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); margin: 0; }
-.certs .muted { color: var(--muted); margin-top: .5rem; }
-
-/* viewport: bords masqués + padding pour éviter les crops */
-.certs-viewport {
-  max-width: 980px;
-  margin-inline: auto;
-  overflow: hidden;
-  padding-inline: .5rem;
-}
-
-/* Rail mobile: 1 slide plein écran, scroll-snap, pas de gap CSS */
-.certs-rail {
-  list-style: none; margin: 0; padding: 0;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 100%;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: .5rem;
-  -webkit-overflow-scrolling: touch;
-}
-.certs-rail > li {
-  scroll-snap-align: start;
-  box-sizing: border-box;
-  padding-inline: .5rem;         /* petit air intérieur */
-}
-
-/* Desktop: on redevient une grille 3 colonnes */
-@media (min-width: 900px){
-  .certs-rail {
-    overflow: visible;
-    grid-auto-flow: dense;
-    grid-auto-columns: unset;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .certs-rail > li { padding-inline: .5rem; }
-}
-
-/* ---- Carte (garde tes styles existants) ---- */
-.cert-card{
-  display:grid; grid-template-columns:auto 1fr; gap:.9rem; align-items:start;
-  background: color-mix(in oklab, var(--card) 92%, transparent);
-  border:1px solid var(--border);
-  outline:1px solid color-mix(in oklab, var(--brand) 6%, transparent);
-  border-radius:16px; padding:1rem;
-  transition: transform .2s ease, box-shadow .25s ease, outline-color .25s ease;
-}
-.cert-card:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.12); outline-color:color-mix(in oklab, var(--brand) 18%, transparent); }
-.cert-card:focus-within{ outline-color:color-mix(in oklab, var(--brand) 32%, transparent); }
-
-.cert-badge{ display:grid; place-items:center; width:48px; height:48px; border-radius:12px;
-  background: color-mix(in oklab, var(--brand) 18%, transparent); color: var(--brand); overflow:hidden; }
-.cert-card.is-pending .cert-badge{ background: color-mix(in oklab, var(--muted) 16%, transparent); color: var(--muted); }
-.cert-logo{ width:100%; height:100%; object-fit:contain; }
-
-.cert-body{ display:grid; gap:.35rem; }
-.cert-headline{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
-.cert-title{ margin:0; font-size:1rem; line-height:1.2; }
-.cert-issuer{ margin:0; font-size:.9rem; color:var(--muted); }
-.cert-status{ font-size:.85rem; margin:0; }
-.cert-status.ok{ color:var(--brand-2); font-weight:600; }
-.cert-status.pending{ color:var(--muted); }
-
-.cert-chip{ display:inline-flex; align-items:center; gap:.4rem; padding:.2rem .5rem; border-radius:999px; font-size:.78rem; line-height:1;
-  border:1px solid var(--border); background:var(--card); }
-.cert-chip.chip-ok{ color:var(--brand-2); border-color:color-mix(in oklab, var(--brand-2) 40%, var(--border)); }
-.cert-chip.chip-pending{ color:var(--muted); }
-.cert-link{ display:inline-block; font-size:.85rem; text-decoration:none; color:color-mix(in oklab, var(--fg) 82%, transparent);
-  border-bottom:1px dashed color-mix(in oklab, var(--brand) 40%, transparent); }
-.cert-link:hover{ color:var(--fg); border-bottom-style:solid; }
+.cert-chip{display:inline-flex;align-items:center;gap:.4rem;padding:.2rem .5rem;border-radius:999px;font-size:.78rem;line-height:1;border:1px solid var(--border);background:var(--card)}
+.cert-chip.chip-ok{color:var(--brand-2);border-color:color-mix(in oklab,var(--brand-2) 40%,var(--border))}
+.cert-chip.chip-pending{color:var(--muted)}
+.cert-link{display:inline-block;font-size:.85rem;text-decoration:none;color:color-mix(in oklab,var(--fg) 82%,transparent);border-bottom:1px dashed color-mix(in oklab,var(--brand) 40%,transparent)}
+.cert-link:hover{color:var(--fg);border-bottom-style:solid}
 
 /* Motion */
 @media (prefers-reduced-motion: reduce){
-  .certs-rail{ scroll-behavior: auto; }
+  .icon-sun,.icon-moon,.theme-toggle{transition:none!important}
+  .certs-rail{scroll-behavior:auto}
 }

@@ -1,5 +1,5 @@
-/* =============== Menu déroulant sous le header (mobile-first) =============== */
-(function () {
+/* =============== Menu déroulant (mobile-first) =============== */
+(() => {
   const toggle = document.querySelector('.nav-toggle');
   const panel  = document.getElementById('nav-collapsible');
   if (!toggle || !panel) return;
@@ -9,36 +9,40 @@
     toggle.setAttribute('aria-expanded', String(open));
   };
 
-  toggle.addEventListener('click', () => setState(!panel.classList.contains('open')));
+  toggle.addEventListener('click', () =>
+    setState(!panel.classList.contains('open'))
+  );
 
-  // Ferme au clic d’un lien/bouton
+  // Ferme au clic d’un lien/bouton dans le panneau
   panel.addEventListener('click', (e) => {
-    if (e.target.closest('a') || e.target.closest('button')) setState(false);
+    if (e.target.closest('a,button')) setState(false);
   });
 
   // Ferme au passage en desktop
-  window.addEventListener('resize', () => {
-    if (window.matchMedia('(min-width: 992px)').matches) setState(false);
-  });
+  const mq = window.matchMedia('(min-width: 992px)');
+  const onChange = () => { if (mq.matches) setState(false); };
+  mq.addEventListener ? mq.addEventListener('change', onChange) : mq.addListener(onChange);
 })();
 
-/* =============== Dark mode (persist + préférence système) =================== */
-(function(){
-  const btn = document.querySelector('.theme-toggle');
-  const apply = mode => document.documentElement.setAttribute('data-theme', mode);
+/* =============== Dark mode (persist + préférence système) =============== */
+(() => {
+  const btn   = document.querySelector('.theme-toggle');
+  const root  = document.documentElement;
+  const apply = (mode) => root.setAttribute('data-theme', mode);
 
-  // init: localStorage -> sinon préfère système -> sinon 'dark'
+  // init: localStorage -> préférence système -> 'dark'
   let theme = localStorage.getItem('theme');
-  if(!theme){
-    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  if (!theme) {
+    const prefersLight = window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: light)').matches;
     theme = prefersLight ? 'light' : 'dark';
   }
   apply(theme);
-  if(btn) btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+  if (btn) btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
 
   // toggle
-  btn?.addEventListener('click', ()=>{
-    const cur = document.documentElement.getAttribute('data-theme');
+  btn?.addEventListener('click', () => {
+    const cur  = root.getAttribute('data-theme');
     const next = (cur === 'light') ? 'dark' : 'light';
     apply(next);
     localStorage.setItem('theme', next);
@@ -46,58 +50,64 @@
   });
 })();
 
-/* =============== Calendly modal (lazy load) =================== */
-const calendlyBtn = document.querySelector('[data-calendly]');
-const modal = document.getElementById('calendly-modal');
-if(calendlyBtn && modal){
-  calendlyBtn.addEventListener('click', async ()=>{
-    modal.hidden = false;
-    if(!window.Calendly){
-      const s = document.createElement('script');
-      s.src = 'https://assets.calendly.com/assets/external/widget.js';
-      s.onload = () => Calendly.initInlineWidget({
-        url: 'https://calendly.com/ton-calendly/30min', // ← remplace par ton lien
-        parentElement: document.getElementById('calendly-inline'),
-        prefill: {}
-      });
-      document.body.appendChild(s);
-      const link = document.createElement('link');
-      link.rel = "stylesheet";
-      link.href = "https://assets.calendly.com/assets/external/widget.css";
-      document.head.appendChild(link);
-    } else {
-      Calendly.initInlineWidget({ url: 'https://calendly.com/ton-calendly/30min', parentElement: document.getElementById('calendly-inline') });
-    }
-  });
-  modal.querySelector('.modal__close').addEventListener('click', ()=> modal.hidden = true);
-  modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.hidden = true; });
-}
+/* =============== Calendly modal (lazy load) =============== */
+(() => {
+  const calendlyBtn = document.querySelector('[data-calendly]');
+  const modal       = document.getElementById('calendly-modal');
+  const parent      = document.getElementById('calendly-inline');
+  if (!calendlyBtn || !modal || !parent) return;
 
-/* =============== Formspree AJAX + popup "Merci" (si présent) =================== */
-(function(){
+  const CALENDLY_URL = 'https://calendly.com/ton-calendly/30min'; // ← remplace
+
+  const openModal = () => { modal.hidden = false; };
+  const closeModal = () => { modal.hidden = true; };
+
+  const loadCalendly = () => {
+    if (window.Calendly) {
+      Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
+      return;
+    }
+    const s = document.createElement('script');
+    s.src = 'https://assets.calendly.com/assets/external/widget.js';
+    s.onload = () => Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
+    document.body.appendChild(s);
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://assets.calendly.com/assets/external/widget.css';
+    document.head.appendChild(link);
+  };
+
+  calendlyBtn.addEventListener('click', () => { openModal(); loadCalendly(); });
+  modal.querySelector('.modal__close')?.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+})();
+
+/* =============== Formspree AJAX + popup "Merci" =============== */
+(() => {
   const form  = document.getElementById('contactForm');
-  if(!form) return;
+  if (!form) return;
 
   const endpoint = form.dataset.endpoint;
   const submitBtn = document.getElementById('contactSubmit');
   const statusEl  = document.getElementById('contactStatus');
   const modal     = document.getElementById('contact-modal');
 
-  const openModal  = () => { if(modal) modal.hidden = false; };
-  const closeModal = () => { if(modal) modal.hidden = true;  };
+  const openModal  = () => { if (modal) modal.hidden = false; };
+  const closeModal = () => { if (modal) modal.hidden = true;  };
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if(!endpoint){ console.error('Formspree endpoint manquant'); return; }
+    if (!endpoint) { console.error('Formspree endpoint manquant'); return; }
 
-    statusEl.style.display = 'none';
+    if (statusEl) statusEl.style.display = 'none';
+
     const fd = new FormData(form);
-    if(!fd.get('_subject')){
+    if (!fd.get('_subject')) {
       fd.set('_subject', `[Site] ${fd.get('subject') || 'Nouveau message'}`);
     }
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Envoi…';
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi…'; }
 
     try {
       const res = await fetch(endpoint, {
@@ -110,98 +120,23 @@ if(calendlyBtn && modal){
         form.reset();
         openModal();
       } else {
-        statusEl.textContent = "Oups, l’envoi a échoué. Réessayez ou contactez-moi par email.";
+        if (statusEl) {
+          statusEl.textContent = "Oups, l’envoi a échoué. Réessayez ou contactez-moi par email.";
+          statusEl.style.display = 'block';
+        }
+      }
+    } catch {
+      if (statusEl) {
+        statusEl.textContent = "Erreur réseau. Vérifiez votre connexion et réessayez.";
         statusEl.style.display = 'block';
       }
-    } catch(err) {
-      statusEl.textContent = "Erreur réseau. Vérifiez votre connexion et réessayez.";
-      statusEl.style.display = 'block';
     } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Envoyer';
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Envoyer'; }
     }
   });
 
-  if(modal){
-    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+  if (modal) {
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
     modal.querySelectorAll('.modal__close').forEach(btn => btn.addEventListener('click', closeModal));
   }
-})();
-
-
-// === Slider Certifications (mobile) ===================================
-(function () {
-  const vp = document.querySelector('.certs-viewport[data-slider]');
-  if (!vp) return;
-  const track = vp.querySelector('.certs-track');
-  const dots  = [...vp.querySelectorAll('.certs-dots .dot')];
-  let idx = 0;
-
-  const set = (i) => {
-    idx = Math.max(0, Math.min(i, dots.length - 1));
-    vp.style.setProperty('--slide', idx);
-    dots.forEach((d, k) => {
-      d.classList.toggle('is-active', k === idx);
-      d.setAttribute('aria-selected', k === idx ? 'true' : 'false');
-    });
-  };
-
-  dots.forEach((d) => d.addEventListener('click', () => set(+d.dataset.slide)));
-
-  // Swipe léger (optionnel mais utile)
-  let startX = null;
-  track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, {passive:true});
-  track.addEventListener('touchmove',  (e) => {
-    if (startX === null) return;
-    const dx = e.touches[0].clientX - startX;
-    if (Math.abs(dx) > 40) { set(idx + (dx < 0 ? 1 : -1)); startX = null; }
-  }, {passive:true});
-
-  // Sécurité: si on passe desktop -> reset à 0
-  const mq = window.matchMedia('(min-width: 900px)');
-  mq.addEventListener?.('change', (ev) => { if (ev.matches) set(0); });
-})();
-
-// Slider Certifications: 1 slide plein écran + points + swipe + clavier
-(function () {
-  const vp = document.querySelector('.certs-viewport[data-slider]');
-  if (!vp) return;
-  const track = vp.querySelector('.certs-track');
-  const dots  = [...vp.querySelectorAll('.certs-dots .dot')];
-  let idx = 0;
-
-  function set(i){
-    idx = Math.max(0, Math.min(i, dots.length - 1));
-    vp.style.setProperty('--slide', idx);
-    dots.forEach((d,k)=>{
-      d.classList.toggle('is-active', k===idx);
-      d.setAttribute('aria-selected', k===idx ? 'true':'false');
-    });
-  }
-
-  // Points
-  dots.forEach(d => d.addEventListener('click', () => set(+d.dataset.slide)));
-
-  // Swipe (touch + mouse)
-  let startX = null, dragging = false;
-  const onStart = (x)=>{ startX = x; dragging = true; };
-  const onMove  = (x)=>{ if(!dragging || startX===null) return;
-    const dx = x - startX;
-    if(Math.abs(dx) > 50){ set(idx + (dx < 0 ? 1 : -1)); dragging = false; startX = null; }
-  };
-  const onEnd   = ()=>{ dragging=false; startX=null; };
-
-  track.addEventListener('touchstart', e=>onStart(e.touches[0].clientX), {passive:true});
-  track.addEventListener('touchmove',  e=>onMove(e.touches[0].clientX),   {passive:true});
-  track.addEventListener('touchend',   onEnd);
-  track.addEventListener('mousedown',  e=>onStart(e.clientX));
-  track.addEventListener('mousemove',  e=>onMove(e.clientX));
-  track.addEventListener('mouseleave', onEnd);
-  track.addEventListener('mouseup',    onEnd);
-
-  // Clavier (accessibilité)
-  vp.addEventListener('keydown', (e)=>{
-    if(e.key === 'ArrowRight') set(idx+1);
-    if(e.key === 'ArrowLeft')  set(idx-1);
-  });
 })();
