@@ -117,3 +117,62 @@ if(calendlyBtn && modal){
     modal.querySelectorAll('.modal__close').forEach(btn => btn.addEventListener('click', closeModal));
   }
 })();
+
+
+// === Menu mobile ==========================================
+(function () {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (!menuToggle || !menu) return;
+
+  const panel = menu.querySelector('.nav-mobile__panel');
+  const closeBtn = menu.querySelector('.menu-close');
+  const backdrop = menu.querySelector('.nav-mobile__backdrop');
+  const focusable = () => panel.querySelectorAll('a,button,[tabindex]:not([tabindex="-1"])');
+
+  function openMenu() {
+    menu.classList.add('open');
+    document.body.classList.add('no-scroll');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    // focus premier lien
+    const first = focusable()[0];
+    if (first) first.focus();
+    document.addEventListener('keydown', onKeydown);
+    document.addEventListener('click', onClickOutside);
+  }
+
+  function closeMenu() {
+    menu.classList.remove('open');
+    document.body.classList.remove('no-scroll');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.focus();
+    document.removeEventListener('keydown', onKeydown);
+    document.removeEventListener('click', onClickOutside);
+  }
+
+  function onKeydown(e) {
+    if (e.key === 'Escape') closeMenu();
+    if (e.key === 'Tab' && menu.classList.contains('open')) {
+      // piège du focus dans le panneau
+      const f = [...focusable()];
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { last.focus(); e.preventDefault(); }
+      else if (!e.shiftKey && document.activeElement === last) { first.focus(); e.preventDefault(); }
+    }
+  }
+
+  function onClickOutside(e) {
+    if (e.target === backdrop || e.target.dataset.close === 'true') closeMenu();
+  }
+
+  menuToggle.addEventListener('click', () => {
+    menu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  // Ferme au changement de taille (passage desktop)
+  window.addEventListener('resize', () => {
+    if (window.matchMedia('(min-width: 992px)').matches) closeMenu();
+  });
+})();
