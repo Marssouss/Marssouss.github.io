@@ -217,3 +217,28 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
   .icon-sun,.icon-moon,.theme-toggle{transition:none!important}
   .certs-rail{scroll-behavior:auto}
 }
+
+/* === Certifications – espacement + respiration ===================== */
+/* Un peu plus d'air sur les côtés du viewport */
+.certs-viewport{
+  max-width: 1040px;              /* un poil plus large */
+  padding-inline: 1rem;           /* bordures internes visibles */
+}
+
+/* Espacement entre les cartes (mobile = slider, desktop = grille) */
+.certs-rail{
+  gap: .9rem;                      /* espace entre colonnes/“slides” */
+}
+
+/* En slider mobile, on évite la double marge: pas de padding sur li */
+.certs-rail > li{
+  padding-inline: 0;               /* on retire le padding interne */
+}
+
+/* Desktop : plus de respiration encore (colonne x interligne) */
+@media (min-width: 900px){
+  .certs-rail{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem 1.5rem;           /* colonne / ligne */
+  }
+}
