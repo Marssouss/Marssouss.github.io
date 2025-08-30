@@ -1,77 +1,29 @@
-<section id="certifications" class="section certs">
+<section id="certifications" class="section certs" aria-labelledby="certs-title">
   <header class="certs-head">
-    <h2 class="h2">Certifications</h2>
+    <h2 id="certs-title" class="h2">Certifications</h2>
     <p class="muted">Gage de qualité et d’engagement continu.</p>
   </header>
 
-  <ul class="certs-grid" aria-label="Liste des certifications">
-    {% assign certs = site.data.certifications %}
-    {% for c in certs %}
-    <li class="cert-card {% if c.status == 'pending' %}is-pending{% else %}is-active{% endif %}" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
-      <!-- Bloc visuel (image si fournie, sinon icône) -->
-      <div class="cert-badge" aria-hidden="true">
-        {% if c.badge_url %}
-          <img class="cert-logo" src="{{ c.badge_url }}" width="48" height="48"
-               alt="Badge {{ c.title }}" loading="lazy" decoding="async" fetchpriority="low">
-        {% else %}
-          {% if c.status == 'pending' %}
-            <!-- Sablier -->
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" class="stroke"/>
-              <path d="M7 7h10l-4 4 4 4H7l4-4-4-4z" fill="currentColor"/>
-            </svg>
-          {% else %}
-            <!-- Check -->
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="11" stroke="currentColor" class="stroke" />
-              <path d="M7 12.5l3 3 7-7" stroke="currentColor" stroke-width="2" fill="none" />
-            </svg>
-          {% endif %}
-        {% endif %}
-      </div>
+  <!-- rail scrollable sur mobile -->
+  <ul class="certs-rail" aria-label="Liste des certifications">
+    {% assign all = site.data.certifications %}
+    {% assign certified = all | where: "status", "certified" %}
+    {% assign pending   = all | where: "status", "pending" %}
 
-      <div class="cert-body">
-        <h3 class="cert-title" itemprop="name">{{ c.title }}</h3>
-        <p class="cert-issuer">
-          <span itemprop="recognizedBy">{{ c.issuer }}</span>
-          {% if c.status == 'certified' and c.date %}
-            • <time itemprop="validFrom" datetime="{{ c.date | date: "%Y-%m-%d" }}">{{ c.date | date: "%Y" }}</time>
-          {% endif %}
-        </p>
-
-        {% if c.status == 'pending' %}
-          <p class="cert-status pending">
-            En préparation
-            {% if c.planned_date %} • passage prévu :
-              <time datetime="{{ c.planned_date }}">{{ c.planned_date | date: "%B %Y" }}</time>
-            {% endif %}
-          </p>
-        {% else %}
-          <p class="cert-status ok">Certifié{% if c.note %} • {{ c.note }}{% endif %}</p>
-        {% endif %}
-
-        {% if c.verify_url %}
-          <a class="btn btn-ghost" href="{{ c.verify_url }}" target="_blank" rel="noopener">Voir le badge</a>
-        {% endif %}
-      </div>
-
-      <meta itemprop="credentialCategory" content="Professional certification" />
-      {% if c.badge_url %}<link itemprop="image" href="{{ c.badge_url }}">{% endif %}
-    </li>
+    {% for c in certified %}
+      {% include cert-item.html item=c %}
+    {% endfor %}
+    {% for c in pending %}
+      {% include cert-item.html item=c %}
     {% endfor %}
   </ul>
-
-  <div class="certs-note" role="note">
-    <span class="dot ok" aria-hidden="true"></span> Certifié <span class="sep">•</span>
-    <span class="dot pending" aria-hidden="true"></span> En cours
-  </div>
 
   <!-- JSON-LD auto -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
-      {% for c in certs %}
+      {% for c in all %}
       {
         "@type": "EducationalOccupationalCredential",
         "name": {{ c.title | jsonify }},
@@ -79,7 +31,7 @@
         "credentialCategory": "Professional certification"{% if c.date %},
         "validFrom": "{{ c.date | date: "%Y-%m-%d" }}"{% endif %}{% if c.badge_url %},
         "image": "{{ c.badge_url }}"{% endif %}
-      }{% if forloop.last == false %},{% endif %}
+      }{% unless forloop.last %},{% endunless %}
       {% endfor %}
     ]
   }

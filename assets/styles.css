@@ -378,3 +378,91 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
   margin: .4rem 0;     /* resserre beaucoup les espaces entre paragraphes */
   line-height: 1.55;   /* lisibilité */
 }
+
+/* === Certifications – rail mobile + cartes modernes ================== */
+.certs { padding-block: clamp(2rem, 3vw, 3.5rem); }
+.certs-head { text-align: center; margin-bottom: 1.25rem; }
+.certs .h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); margin: 0; }
+.certs .muted { color: var(--muted); margin-top: .5rem; }
+
+/* Rail: carrousel horizontal au doigt sur mobile, grille sur desktop */
+.certs-rail {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 1rem;
+}
+@media (max-width: 899px){
+  .certs-rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(85%, 360px);
+    overflow-x: auto;
+    padding-bottom: .25rem;
+    scroll-snap-type: x mandatory;
+  }
+  .certs-rail > li { scroll-snap-align: start; }
+}
+@media (min-width: 900px){
+  .certs-rail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Carte */
+.cert-card {
+  display: grid; grid-template-columns: auto 1fr; gap: .9rem;
+  align-items: start;
+  background: color-mix(in oklab, var(--card) 92%, transparent);
+  border: 1px solid var(--border);
+  /* hairline gradient border */
+  outline: 1px solid color-mix(in oklab, var(--brand) 6%, transparent);
+  border-radius: 16px; padding: 1rem;
+  transition: transform .2s ease, box-shadow .25s ease, border-color .25s ease, outline-color .25s ease;
+}
+.cert-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  outline-color: color-mix(in oklab, var(--brand) 18%, transparent);
+}
+.cert-card:focus-within {
+  outline-color: color-mix(in oklab, var(--brand) 32%, transparent);
+}
+
+/* Badge/logo */
+.cert-badge {
+  display: grid; place-items: center;
+  width: 48px; height: 48px; border-radius: 12px;
+  background: color-mix(in oklab, var(--brand) 18%, transparent);
+  color: var(--brand); overflow: hidden;
+}
+.cert-card.is-pending .cert-badge {
+  background: color-mix(in oklab, var(--muted) 16%, transparent);
+  color: var(--muted);
+}
+.cert-logo { width: 100%; height: 100%; object-fit: contain; }
+
+/* Contenu */
+.cert-body { display: grid; gap: .35rem; }
+.cert-headline { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.cert-title { margin: 0; font-size: 1rem; line-height: 1.2; }
+.cert-issuer { margin: 0; font-size: .9rem; color: var(--muted); }
+
+.cert-status { font-size: .85rem; margin: 0; }
+.cert-status.ok { color: var(--brand-2); font-weight: 600; }
+.cert-status.pending { color: var(--muted); }
+
+/* Chip statut */
+.cert-chip {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .2rem .5rem; border-radius: 999px; font-size: .78rem; line-height: 1;
+  border: 1px solid var(--border); background: var(--card);
+}
+.cert-chip.chip-ok { color: var(--brand-2); border-color: color-mix(in oklab, var(--brand-2) 40%, var(--border)); }
+.cert-chip.chip-pending { color: var(--muted); }
+
+/* Lien badge (discret) */
+.cert-link {
+  display: inline-block; font-size: .85rem; text-decoration: none;
+  color: color-mix(in oklab, var(--fg) 82%, transparent);
+  border-bottom: 1px dashed color-mix(in oklab, var(--brand) 40%, transparent);
+}
+.cert-link:hover { color: var(--fg); border-bottom-style: solid; }

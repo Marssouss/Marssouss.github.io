@@ -1,0 +1,49 @@
+{% assign c = include.item %}
+<li class="cert-card {% if c.status == 'pending' %}is-pending{% else %}is-active{% endif %}"
+    itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+  <div class="cert-badge" aria-hidden="true">
+    {% if c.badge_url %}
+      <img class="cert-logo" src="{{ c.badge_url }}" width="48" height="48"
+           alt="Badge {{ c.title }}" loading="lazy" decoding="async">
+    {% else %}
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="11" stroke="currentColor" class="stroke" />
+        <path d="M7 12.5l3 3 7-7" stroke="currentColor" stroke-width="2" fill="none" />
+      </svg>
+    {% endif %}
+  </div>
+
+  <div class="cert-body">
+    <div class="cert-headline">
+      <h3 class="cert-title" itemprop="name">{{ c.title }}</h3>
+      <span class="cert-chip {% if c.status == 'pending' %}chip-pending{% else %}chip-ok{% endif %}">
+        {% if c.status == 'pending' %}En cours{% else %}Certifié{% endif %}
+      </span>
+    </div>
+
+    <p class="cert-issuer">
+      <span itemprop="recognizedBy">{{ c.issuer }}</span>
+      {% if c.status == 'certified' and c.date %}
+        • <time itemprop="validFrom" datetime="{{ c.date | date: "%Y-%m-%d" }}">{{ c.date | date: "%Y" }}</time>
+      {% endif %}
+    </p>
+
+    {% if c.status == 'pending' %}
+      <p class="cert-status pending">
+        En préparation{% if c.planned_date %} • passage prévu :
+        <time datetime="{{ c.planned_date }}">{{ c.planned_date | date: "%B %Y" }}</time>{% endif %}
+      </p>
+    {% else %}
+      <p class="cert-status ok">{% if c.note %}{{ c.note }}{% endif %}</p>
+    {% endif %}
+
+    {% if c.verify_url %}
+      <a class="cert-link" href="{{ c.verify_url }}" target="_blank" rel="noopener" aria-label="Voir le badge {{ c.title }}">
+        Voir le badge
+      </a>
+    {% endif %}
+  </div>
+
+  <meta itemprop="credentialCategory" content="Professional certification" />
+  {% if c.badge_url %}<link itemprop="image" href="{{ c.badge_url }}">{% endif %}
+</li>
