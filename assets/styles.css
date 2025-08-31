@@ -268,3 +268,42 @@ main{max-width:1280px;margin:auto;padding:2rem 1rem}
   .certs-rail > li{ padding-inline: 0 !important; }
 }
 
+
+/* === Certifications: slider mobile avec plus d'air === */
+@media (max-width: 899px){
+  .certs-viewport {
+    padding-block: 1rem; /* espace haut/bas autour du slider */
+  }
+
+  .certs-rail {
+    gap: 1rem; /* espace horizontal entre les slides */
+    padding-inline: 1rem; /* espace gauche/droite */
+  }
+
+  .certs-rail > li {
+    scroll-snap-align: center;
+    display: flex; justify-content: center; /* centre la carte */
+  }
+
+  .cert-card {
+    width: 90%;               /* plus petit que le viewport → effet d’air */
+    max-width: 400px;         /* limite pour garder lisible */
+    margin-inline: auto;      /* centre dans son slide */
+  }
+}
+
+
+/* === Certifications : cartes plus grandes ==================== */
+.cert-card {
+  padding: 1.5rem;          /* plus de hauteur intérieure */
+  min-height: 180px;        /* assure une hauteur mini */
+}
+
+/* Mobile : cartes plus larges */
+@media (max-width: 899px){
+  .cert-card {
+    width: 95%;             /* occupe presque tout l’écran */
+    max-width: 440px;       /* limite pour éviter trop grand */
+  }
+}
+
