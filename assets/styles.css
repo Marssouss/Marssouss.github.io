@@ -296,6 +296,36 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 }
 .cert-link:hover{ color:var(--fg); border-bottom-style:solid }
 
+/* === PATCH — Certifications: + d’air interne & hover non rogné === */
+
+/* 1) Plus d’espace à gauche/droite ET entre badge et texte */
+.cert-card{
+  /* padding horizontal augmenté, vertical confortable */
+  padding: clamp(1.25rem, 2.2vw, 1.6rem) clamp(1.75rem, 3.6vw, 2.25rem) !important;
+  gap: 1.2rem !important;          /* espace entre le bloc logo et le texte */
+  min-height: 220px;                /* évite l'effet tassé */
+}
+.cert-body{ gap: .7rem !important; } /* espace entre les lignes internes */
+.cert-title{ margin: 0 0 .3rem !important; }
+.cert-issuer{ margin: 0 0 .7rem !important; }
+.cert-card__skills{ margin-top: .9rem !important; }
+.cert-link{ margin-top: .7rem !important; border-bottom-width: 2px; }
+
+/* 2) Le “dessus” qui disparaît au hover venait du conteneur qui clippe.
+      On laisse le slider clipper en mobile, mais en desktop on autorise
+      les ombres/déplacements à dépasser. */
+@media (min-width: 900px){
+  .certs-viewport{ overflow: visible !important; } /* était hidden */
+  .certs-rail{ overflow: visible !important; }     /* sécurité */
+}
+
+/* 3) Micro-lift plus doux pour limiter le risque de clip en petits écrans */
+.cert-card:hover{
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.16) !important;
+}
+
+
 /* Mobile : centrage et largeur agréable (pas bord à bord) */
 @media (max-width:899px){
   .certs-rail > li{ scroll-snap-align:center; display:flex; justify-content:center }
