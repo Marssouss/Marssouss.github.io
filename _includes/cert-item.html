@@ -1,7 +1,7 @@
 {% assign c = include.item %}
 
 {%- comment -%}
-  Localisation FR des mois (sans plugin)
+ Localisation FR des mois (sans plugin) :
 {%- endcomment -%}
 {% assign mois_fr = "janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre" | split: "," %}
 {% if c.date %}
@@ -13,86 +13,42 @@
   {% assign mois_p = mois_fr[pm_idx] %}
 {% endif %}
 
-<li id="cert-{{ include.i }}"
-    class="cert-card {% if c.status == 'pending' %}is-pending{% else %}is-active{% endif %}"
-    itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
-
-  <!-- Badge / logo -->
-  <div class="cert-badge" aria-hidden="true">
-    {% if c.logo %}
-      <img class="cert-logo"
-           src="{{ c.logo | relative_url }}"
-           width="56" height="56"
-           alt="Logo {{ c.issuer }}"
-           loading="lazy" decoding="async">
-    {% elsif c.badge_url %}
-      <img class="cert-logo"
-           src="{{ c.badge_url }}"
-           width="56" height="56"
-           alt="Badge {{ c.title }}"
-           loading="lazy" decoding="async">
-    {% else %}
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <circle cx="12" cy="12" r="11" stroke="currentColor" />
-        <path d="M7 12.5l3 3 7-7" stroke="currentColor" stroke-width="2" fill="none" />
-      </svg>
-    {% endif %}
+<li id="cert-{{ include.i }}" class="cert-card">
+  <div class="cert-media">
+    <img class="cert-logo" src="{{ c.logo | default: '/assets/img/cert-placeholder.svg' }}" alt="Logo {{ c.provider | default: c.title }}">
   </div>
 
-  <!-- Corps -->
   <div class="cert-body">
-    <div class="cert-headline">
-      <h3 class="cert-title" itemprop="name">{{ c.title }}</h3>
-      <span class="cert-chip {% if c.status == 'pending' %}chip-pending{% else %}chip-ok{% endif %}">
-        {% if c.status == 'pending' %}En cours{% else %}Certifié{% endif %}
-      </span>
+    <h3 class="cert-title">
+      {{ c.title }}
+    </h3>
+
+    <div class="cert-meta">
+      {% if c.status == 'pending' %}
+        <span class="badge badge-pending">En cours</span>
+        {% if c.planned_date %}
+          <span class="cert-date">• prévu : {{ mois_p }} {{ c.planned_date | date: "%Y" }}</span>
+        {% endif %}
+      {% else %}
+        <span class="badge badge-valid">Certifié</span>
+        {% if c.date %}
+          <span class="cert-date">• {{ mois_c }} {{ c.date | date: "%Y" }}</span>
+        {% endif %}
+      {% endif %}
     </div>
 
-    <p class="cert-issuer">
-      <span itemprop="recognizedBy" itemscope itemtype="https://schema.org/Organization">
-        <span itemprop="name">{{ c.issuer }}</span>
-      </span>
-      {% if c.date %}
-        • <time itemprop="dateCreated" datetime="{{ c.date | date: "%Y-%m-%d" }}">
-          {{ mois_c }} {{ c.date | date: "%Y" }}
-        </time>
-      {% endif %}
-    </p>
-
-    {% if c.status == 'pending' %}
-      <p class="cert-status pending">
-        En préparation
-        {% if c.planned_date %}
-          • passage prévu :
-          <time datetime="{{ c.planned_date | date: "%Y-%m-%d" }}">
-            {{ mois_p }} {{ c.planned_date | date: "%Y" }}
-          </time>
-        {% endif %}
-      </p>
-    {% else %}
-      {% if c.note %}
-        <p class="cert-status ok">{{ c.note }}</p>
-      {% endif %}
-    {% endif %}
-
-    {% if c.skills %}
-      <ul class="cert-card__skills">
-        {% for s in c.skills %}
-          <li class="badge">{{ s }}</li>
+    {% if c.tags and c.tags.size > 0 %}
+      <ul class="cert-tags">
+        {% for t in c.tags %}
+          <li class="tag">{{ t }}</li>
         {% endfor %}
       </ul>
     {% endif %}
 
     {% if c.verify_url %}
-      <a class="cert-link"
-         href="{{ c.verify_url }}"
-         target="_blank" rel="noopener nofollow"
-         aria-label="Vérifier la certification {{ c.title }}">
-        Vérifier
-      </a>
+      <div class="cert-actions">
+        <a class="verify-link" href="{{ c.verify_url }}" target="_blank" rel="noreferrer">Vérifier</a>
+      </div>
     {% endif %}
   </div>
-
-  <meta itemprop="credentialCategory" content="Professional certification" />
-  {% if c.badge_url %}<link itemprop="image" href="{{ c.badge_url }}">{% endif %}
 </li>

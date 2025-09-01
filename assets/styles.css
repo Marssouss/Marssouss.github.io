@@ -357,3 +357,124 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   .nav-toggle .chev, .nav-collapsible, .btn, .card, .kpi, .cert-card,
   .icon-sun, .icon-moon, .theme-toggle { transition: none !important; }
 }
+
+
+/* ======= Certifications (layout réagencé) ======= */
+.cert-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem; /* espace entre cartes */
+}
+
+@media (min-width: 900px) {
+  .cert-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.cert-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border, #1f2a44);
+  border-radius: 14px;
+  background: var(--card, #121933);
+}
+
+.cert-media {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.cert-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cert-body {
+  flex: 1 1 auto;
+  min-width: 0; /* wrap correct */
+}
+
+.cert-title {
+  margin: 0 0 .25rem 0;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.cert-meta {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-bottom: .6rem;
+  color: var(--muted, #9aa3b2);
+  font-size: .9rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .15rem .5rem;
+  border-radius: 999px;
+  font-size: .78rem;
+  line-height: 1;
+  border: 1px solid transparent;
+}
+
+.badge-valid {
+  color: #16a34a;
+  background: rgba(34,197,94,.12);
+  border-color: rgba(34,197,94,.28);
+}
+
+.badge-pending {
+  color: #eab308;
+  background: rgba(234,179,8,.12);
+  border-color: rgba(234,179,8,.28);
+}
+
+.cert-date {
+  opacity: .9;
+}
+
+.cert-tags {
+  display: flex;              /* aligne gauche → droite */
+  flex-wrap: wrap;            /* passe à la ligne si besoin */
+  gap: .5rem .5rem;           /* espacements cohérents */
+  list-style: none;
+  margin: 0 0 .6rem 0;
+  padding: 0;
+}
+
+.tag {
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  background: rgba(148,163,184,.12);
+  border: 1px solid rgba(148,163,184,.25);
+  font-size: .78rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cert-actions {
+  margin-top: .25rem;
+}
+
+.verify-link {
+  font-size: .88rem;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  color: var(--fg, #e6e8ee);
+  opacity: .9;
+}
+.verify-link:hover { opacity: 1; }

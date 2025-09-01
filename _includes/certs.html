@@ -1,15 +1,14 @@
-<section id="certifications" class="section certs" aria-labelledby="certs-title">
-  <div class="certs-head">
-    <h2 id="certs-title" class="h2">Certifications</h2>
-    <p class="muted">Sélection vérifiable • mises à jour</p>
-  </div>
+---
+layout: default
+title: Certifications
+description: Sélection vérifiable – mises à jour.
+---
 
-  <div class="certs-viewport" aria-label="Liste des certifications">
-    <ul class="certs-rail" role="list">
-      {% assign sorted = site.data.certifications | sort: "date" | reverse %}
-      {% for c in sorted %}
-        {% include cert-item.html item=c i=forloop.index %}
-      {% endfor %}
-    </ul>
-  </div>
+<section class="section">
+  <h1>Certifications</h1>
+  <ul class="cert-list">
+    {% for c in site.data.certifications %}
+      {% include cert-item.html item=c i:forloop.index %}
+    {% endfor %}
+  </ul>
 </section>
