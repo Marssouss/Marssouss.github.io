@@ -202,74 +202,88 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 .kpi__text{ grid-column:1/-1; margin-top:.4rem; color:var(--muted); font-size:.95rem; line-height:1.5 }
 
 /* ================== Certifications (slider mobile → grille desktop) === */
+/* ————— Reset / base ————— */
 .certs{ padding-block: clamp(2rem,3vw,3.5rem) }
 .certs-head{ text-align:center; margin-bottom:1.25rem }
 .certs .h2{ font-size:clamp(1.4rem,2.4vw,1.8rem); margin:0 }
 .certs .muted{ color:var(--muted); margin-top:.5rem }
 
-/* viewport + rail */
-.certs-viewport{ max-width:min(100vw, 1040px); margin-inline:auto; overflow:hidden; }
+/* Viewport : largeur et overflow maîtrisés */
+.certs-viewport{
+  max-width:min(100vw, 1100px);
+  margin-inline:auto;
+  /* en desktop, on laissera l’ombre dépasser : cf. media query */
+  overflow: hidden;
+}
+
+/* Rail MOBILE = FLEX (anti-chevauchement), scroll-snap, vrai gap */
 .certs-rail{
   list-style:none; margin:0; padding:0;
-  display:grid; grid-auto-flow:column; grid-auto-columns:100%;
-  overflow-x:auto; scroll-snap-type:x mandatory; scroll-padding-inline:1rem;
-  -webkit-overflow-scrolling:touch;
-
-  /* MOBILE: espacement réel entre cartes */
+  display:flex; align-items:stretch;
   gap: 1rem;
   padding-inline: 1rem;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-gutter: stable both-edges;
 }
-.certs-rail>li{
-  scroll-snap-align:center; box-sizing:border-box;
-  display:flex; justify-content:center;
-  padding-inline: 1rem; /* espace horizontal entre slides */
+.certs-rail > li{
+  flex: 0 0 88%;                   /* chaque slide occupe ~88% du viewport */
+  max-width: 520px;                /* gardes-fous */
+  scroll-snap-align: center;
+  display:flex;                    /* pour centrer la carte à l’intérieur */
+  justify-content:center;
 }
 
-/* Desktop : vraie grille + overflow visible pour l’ombre/lift */
+/* Desktop : vraie grille, pas de snap, overflow visible pour les ombres */
 @media (min-width:900px){
   .certs-viewport{ overflow: visible; }
   .certs-rail{
-    overflow:visible;
-    grid-auto-flow:dense; grid-auto-columns:unset;
+    display:grid; grid-auto-flow:row; grid-auto-columns:unset;
     grid-template-columns:repeat(3, minmax(0, 1fr));
-    gap: 1.25rem 1.5rem; padding-inline:0;
+    gap: 1.25rem 1.5rem;
+    padding-inline: 0;
+    overflow: visible;
+    scroll-snap-type: none;
   }
-  .certs-rail>li{ padding-inline:0; scroll-snap-align:unset; }
+  .certs-rail > li{
+    flex: initial; max-width: none; scroll-snap-align: initial;
+    display:block;
+  }
 }
 
-/* === Carte certification — EXACTEMENT le même “gabarit” que KPI === */
+/* Carte certification — padding généreux + gap interne clair */
 .cert-card{
   display:grid; grid-template-columns:auto 1fr; align-items:start;
-  gap:1rem 1.2rem;                  /* comme .kpi */
-  padding:1.5rem;                   /* comme .kpi → + d’air à G/D */
-  background:var(--card);           /* comme .kpi */
-  border:1px solid var(--border);   /* comme .kpi */
-  border-radius:var(--radius-2);    /* comme .kpi */
-  box-shadow:var(--shadow-1);       /* comme .kpi */
+  gap: 1.2rem;                                  /* espace logo/texte */
+  padding: clamp(1.5rem, 2.8vw, 1.9rem);        /* + d’air G/D que KPI */
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-2);
+  box-shadow:var(--shadow-1);
   transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-/* Hover identique KPI */
 .cert-card:hover{
   transform:translateY(-6px);
   border-color:color-mix(in oklab,var(--brand) 35%,var(--border));
   box-shadow:0 12px 28px rgba(0,0,0,.35);
 }
 
-/* Badge/logo (aligné au visuel KPI) */
+/* Badge/logo */
 .cert-badge{
   display:grid; place-items:center;
-  width:48px; height:48px;
+  width:52px; height:52px;                /* un poil plus grand, plus premium */
   border-radius:.9rem;
   background:linear-gradient(135deg,var(--brand),var(--brand-2));
   color:#fff;
   box-shadow:0 2px 6px rgba(0,0,0,0.25);
 }
-.cert-logo{ width:100%; height:100%; object-fit:contain; }
+.cert-logo{ width:100%; height:100%; object-fit:contain }
 
-/* Corps + typographie interne (respire comme KPI) */
-.cert-body{ display:grid; gap:.6rem; }
-.cert-headline{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
-.cert-title{ margin:0; font-size:1.15rem; font-weight:600; line-height:1.3; } /* comme .kpi__title */
+/* Corps */
+.cert-body{ display:grid; gap:.65rem; }
+.cert-headline{ display:flex; align-items:center; justify-content:space-between; gap:.6rem; }
+.cert-title{ margin:0; font-size:1.15rem; font-weight:600; line-height:1.3; }
 .cert-issuer{ margin:0; font-size:.95rem; color:var(--muted); }
 
 /* Statuts */
@@ -277,29 +291,29 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 .cert-status.ok{ color:var(--brand-2); font-weight:600 }
 .cert-status.pending{ color:var(--muted) }
 
-/* Chip statut */
+/* Chip */
 .cert-chip{
-  display:inline-flex; align-items:center; gap:.4rem; padding:.28rem .6rem; line-height:1;
-  border-radius:999px; font-size:.8rem; border:1px solid var(--border); background:var(--card)
+  display:inline-flex; align-items:center; gap:.4rem;
+  padding:.28rem .6rem; line-height:1;
+  border-radius:999px; font-size:.8rem;
+  border:1px solid var(--border); background:var(--card)
 }
 .cert-chip.chip-ok{ color:var(--brand-2); border-color:color-mix(in oklab,var(--brand-2) 40%,var(--border)) }
 .cert-chip.chip-pending{ color:var(--muted) }
 
-/* Skills : un peu d’air au-dessus */
-.cert-card__skills{ margin-top:.8rem !important; display:flex; flex-wrap:wrap; gap:.5rem; }
-
-/* Lien : marge haute + soulignement lisible */
+/* Skills + lien */
+.cert-card__skills{ margin-top:.8rem; display:flex; flex-wrap:wrap; gap:.5rem; }
 .cert-link{
-  display:inline-block; margin-top:.65rem; font-size:.9rem; text-decoration:none;
+  display:inline-block; margin-top:.7rem; font-size:.9rem; text-decoration:none;
   color: color-mix(in oklab,var(--fg) 86%,transparent);
   border-bottom:2px dashed color-mix(in oklab, var(--brand) 38%, transparent);
   padding-bottom:.05rem;
 }
 .cert-link:hover{ color:var(--fg); border-bottom-style:solid }
 
-/* Mobile : carte centrée, large mais pas bord à bord */
+/* Mobile : largeur confortable, pas bord à bord */
 @media (max-width:899px){
-  .cert-card{ width: clamp(92%, 96vw, 520px); margin-inline:auto }
+  .cert-card{ width: 100%; max-width: 520px; }
 }
 
 /* ================== Footer & Modal ================== */
