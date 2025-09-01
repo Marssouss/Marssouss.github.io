@@ -1,29 +1,15 @@
-- id: talend-cert
-  title: "Talend Certified"
-  issuer: "Talend"
-  status: certified
-  date: "2022-01-01"
-  planned_date:
-  badge_url: "/assets/img/badge_talend.jpg"   # <-- ton image
-  verify_url:
-  note: "Validé en 2022"
+- title: Talend Data Integration Developer
+  issuer: Talend
+  date: 2024-06-15
+  verify_url: "https://verify.talend.com/xxxx"
+  badge_url: "https://images.credly.com/xxxx"
+  logo: "/assets/img/certs/talend.png"
+  skills: [ETL, Data Quality, tMap, TAC]
 
-- id: pl-300
-  title: "Microsoft Certified: Power BI Data Analyst (PL-300)"
-  issuer: "Microsoft"
-  status: pending
-  date:
-  planned_date: "2025-10"
-  badge_url:
-  verify_url:
-  note: "Préparation en cours"
-
-- id: dp-600
-  title: "Microsoft Certified: Fabric Analytics Engineer (DP-600)"
-  issuer: "Microsoft"
-  status: pending
-  date:
-  planned_date: "2025-12"
-  badge_url:
-  verify_url:
-  note: "Planifiée"
+- title: PL-300 Power BI Data Analyst Associate
+  issuer: Microsoft
+  date: 2023-11-10
+  verify_url: "https://learn.microsoft.com/xxxx"
+  badge_url: "https://learn.microsoft.com/badges/xxxx"
+  logo: "/assets/img/certs/ms.png"
+  skills: [DAX, Modélisation, Power Query]

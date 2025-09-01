@@ -1,0 +1,309 @@
+/* ================== Thème & Base ================== */
+:root{
+  --bg:#0b1020; --fg:#e6e8ee; --muted:#9aa3b2;
+  --brand:#4f46e5; --brand-2:#22c55e;
+  --card:#121933; --border:#1f2a44;
+}
+:root[data-theme="light"]{
+  --bg:#fff; --fg:#0b1020; --muted:#475569;
+  --card:#f8fafc; --border:#e2e8f0;
+}
+@media (prefers-color-scheme: light){
+  :root{ --bg:#fff; --fg:#0b1020; --muted:#475569; --card:#f8fafc; --border:#e2e8f0; }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji";
+  background:var(--bg); color:var(--fg);
+}
+
+/* ================== Header & Navigation ================== */
+.site-header{
+  position:sticky; top:0; z-index:60;
+  backdrop-filter:saturate(1.2) blur(10px);
+  background:color-mix(in oklab, var(--bg) 96%, transparent);
+  border-bottom:1px solid var(--border);
+}
+.navbar{
+  display:flex; align-items:center; justify-content:space-between; gap:.75rem;
+  padding:.55rem 1rem;
+}
+.brand{font-weight:700;font-size:1rem;color:var(--fg);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.brand .dot{width:.75rem;height:.75rem;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:inline-block}
+.nav-actions{display:inline-flex;align-items:center;gap:.5rem}
+
+/* Thème toggle */
+.theme-toggle{
+  display:inline-flex;align-items:center;gap:.45rem;height:38px;padding:.4rem .7rem;
+  border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--fg); cursor:pointer;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+.theme-toggle:hover{ background: color-mix(in oklab, var(--fg) 10%, transparent); }
+.theme-toggle:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab, var(--brand) 40%, transparent); }
+.tt-icon{ display:inline-grid; place-items:center; width:1.2rem; height:1.2rem; }
+.icon-sun,.icon-moon{ transition:opacity .25s ease, transform .35s ease; }
+.icon-sun{ opacity:0; transform: rotate(-90deg) scale(.9); }
+.icon-moon{ opacity:1; transform: rotate(0deg) scale(1); }
+:root[data-theme="light"] .icon-sun{ opacity:1; transform: rotate(0deg) scale(1); }
+:root[data-theme="light"] .icon-moon{ opacity:0; transform: rotate(90deg) scale(.9); }
+
+/* Burger / menu mobile */
+.nav-toggle{
+  display:inline-flex;align-items:center;gap:.5rem;height:40px;padding:0 .9rem;
+  border:1px solid var(--border);border-radius:12px;background:var(--card);color:var(--fg);font-weight:600;
+}
+.nav-toggle .chev{transition:transform .2s ease}
+.nav-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+
+.nav-collapsible{
+  overflow:clip; max-height:0;
+  transition:max-height .28s ease, border-color .28s ease, box-shadow .28s ease;
+  border-bottom:1px solid transparent;
+  background:color-mix(in oklab,var(--bg) 98%, transparent);
+  box-shadow:0 0 0 rgba(0,0,0,0);
+}
+.nav-collapsible.open{
+  max-height:480px; border-color:var(--border); box-shadow:0 10px 22px rgba(0,0,0,.08);
+}
+.nav-list{ list-style:none; margin:0; padding:.5rem .75rem 1rem; display:grid; gap:.5rem; }
+.nav-list a,.nav-list .btn{
+  display:block; padding:.9rem 1rem; border-radius:14px; text-decoration:none;
+  color:var(--fg); background:var(--card); border:1px solid var(--border);
+}
+.nav-list a:hover{ border-color:color-mix(in oklab,var(--border),var(--brand) 30%) }
+.nav-list .btn.cta{ text-align:center }
+
+/* Desktop nav inline */
+.nav-desktop{ display:none; flex:1 1 auto; min-width:0; }
+.nav-inline{
+  display:flex; align-items:center; gap:.5rem; flex-wrap:nowrap;
+  list-style:none; margin:0; padding:0 .5rem; white-space:nowrap;
+}
+.chip{
+  display:inline-flex; align-items:center; gap:.45rem;
+  padding:.45rem .75rem; line-height:1;
+  border:1px solid var(--border); border-radius:12px;
+  background:var(--card); color:var(--fg); text-decoration:none; font-weight:500;
+  transition:border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.chip:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border), var(--brand) 30%); }
+.nav-desktop .btn.cta{ min-height:38px; padding:.5rem .9rem; border-radius:12px; border:none; }
+
+@media (prefers-reduced-motion: reduce){
+  .nav-toggle .chev,.nav-collapsible{transition:none}
+}
+@media (min-width:992px){
+  .nav-toggle{display:none}
+  .nav-desktop{display:block}
+  .nav-actions .theme-toggle{display:inline-flex}
+  .nav-collapsible{display:none}
+}
+
+/* ================== Layout & Composants ================== */
+main{max-width:1280px;margin:auto;padding:2rem 1rem}
+.section{margin-block:3rem}
+.section h2{font-size:1.6rem;margin-bottom:.75rem}
+.lead{font-size:1.1rem;color:var(--muted)}
+
+.grid{display:grid;gap:1rem}
+.grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+@media (max-width:900px){ .grid.cols-3,.grid.cols-2{grid-template-columns:1fr} }
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:1.2rem;padding:1rem}
+.card h3{margin:.2rem 0 .4rem}
+.badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:.2rem .6rem;font-size:.85rem;color:var(--muted)}
+
+/* HERO (si utilisé) */
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:1.5rem;align-items:center}
+.hero .actions{display:flex;gap:.6rem;margin-top:1rem}
+.hero img{max-width:100%;border-radius:1rem;border:1px solid var(--border)}
+@media (max-width:900px){ .hero{grid-template-columns:1fr} }
+.hero__img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:1rem;border:1px solid var(--border)}
+.hero__viz{width:100%;aspect-ratio:16/9;border-radius:1rem;border:1px solid var(--border);background:var(--card);background-image:var(--hero-image);background-size:cover;background-position:50% 50%;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+
+/* FOOTER & MODAL */
+.site-footer{border-top:1px solid var(--border);padding:2rem 1rem;text-align:center;color:var(--muted)}
+.modal{position:fixed;inset:0;background:color-mix(in oklab,#000 60%,transparent);display:grid;place-items:center}
+.modal[hidden]{display:none}
+.modal__dialog{background:var(--bg);border:1px solid var(--border);border-radius:1rem;width:min(900px,90vw);height:min(80vh,700px);padding:0;overflow:hidden}
+.modal__close{position:absolute;margin:.5rem;right:1rem;background:none;color:var(--fg);font-size:1.8rem;border:none;cursor:pointer}
+
+/* KPIs */
+.kpis.kpis--modern{display:grid;grid-template-columns:repeat(3,1fr);column-gap:3rem;row-gap:2rem;margin-top:2.5rem}
+@media (max-width:1100px){ .kpis.kpis--modern{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:700px){ .kpis.kpis--modern{grid-template-columns:1fr;row-gap:1.5rem} }
+.kpi{display:grid;grid-template-columns:auto 1fr;align-items:start;gap:1rem 1.2rem;padding:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:1.2rem;box-shadow:0 2px 6px rgba(0,0,0,0.25);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.kpi:hover{transform:translateY(-6px);border-color:color-mix(in oklab,var(--brand) 35%,var(--border));box-shadow:0 12px 28px rgba(0,0,0,0.35)}
+.kpi__icon{width:2.6rem;height:2.6rem;display:grid;place-items:center;border-radius:.9rem;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-size:1.2rem;box-shadow:0 2px 6px rgba(0,0,0,0.25)}
+.kpi__title{margin:0;font-size:1.15rem;font-weight:600;color:var(--fg);line-height:1.3}
+.kpi__text{grid-column:1/-1;margin-top:.4rem;color:var(--muted);font-size:.95rem;line-height:1.5}
+
+/* Boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:46px;padding:.65rem 1rem;line-height:1;border:1px solid var(--border);border-radius:.8rem;background:var(--card);color:var(--fg);font-weight:500;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease}
+.btn:hover{transform:translateY(-2px);background:color-mix(in oklab,var(--fg) 6%,var(--card));border-color:color-mix(in oklab,var(--fg) 14%,var(--border))}
+.btn:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in oklab,var(--brand) 40%,transparent)}
+.btn.cta{border:0;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-weight:600}
+.btn--icon{display:inline-flex;align-items:center;gap:.55rem}
+
+/* ================== About ================== */
+.about-title{margin:0;font-size:clamp(1.5rem,2.5vw,2rem)}
+.about-sub{margin:.2rem 0 1rem;color:var(--muted);font-weight:600}
+.about-text{max-width:720px;text-align:left;margin:0;display:grid;gap:.8rem}
+.about-text p{margin:.4rem 0;line-height:1.55}
+.about-text .lead{font-size:1.1rem;color:var(--fg)}
+/* variantes de sous-titre */
+.about-sub.badge-style{
+  display:inline-block;font-weight:600;font-size:1.05rem;padding:.25rem .75rem;border-radius:.7rem;
+  background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;margin-bottom:1rem;
+}
+.about-sub.gradient-style{
+  font-weight:700;font-size:1.1rem;background:linear-gradient(135deg,var(--brand),var(--brand-2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem;
+}
+
+/* ================== Certifications — slider simple (sans JS) ======= */
+.certs{padding-block:clamp(2rem,3vw,3.5rem)}
+.certs-head{text-align:center;margin-bottom:1.25rem}
+.certs .h2{font-size:clamp(1.4rem,2.4vw,1.8rem);margin:0}
+.certs .muted{color:var(--muted);margin-top:.5rem}
+
+/* viewport + rail */
+.certs-viewport{max-width:980px;margin-inline:auto;overflow:hidden;padding-inline:.5rem}
+.certs-rail{
+  list-style:none;margin:0;padding:0;
+  display:grid; grid-auto-flow:column; grid-auto-columns:100%;
+  overflow-x:auto; scroll-snap-type:x mandatory; scroll-padding-inline:.5rem;
+  -webkit-overflow-scrolling:touch;
+}
+.certs-rail>li{scroll-snap-align:start;box-sizing:border-box;padding-inline:.5rem}
+@media (min-width:900px){
+  .certs-rail{overflow:visible;grid-auto-flow:dense;grid-auto-columns:unset;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .certs-rail>li{padding-inline:.5rem}
+}
+
+/* Carte certification */
+.cert-card{
+  display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:start;
+  background:color-mix(in oklab,var(--card) 92%,transparent);
+  border:1px solid var(--border); outline:1px solid color-mix(in oklab,var(--brand) 6%,transparent);
+  border-radius:16px;padding:1rem;transition:transform .2s ease,box-shadow .25s ease,outline-color .25s ease;
+}
+.cert-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.12);outline-color:color-mix(in oklab,var(--brand) 18%,transparent)}
+.cert-card:focus-within{outline-color:color-mix(in oklab,var(--brand) 32%,transparent)}
+
+.cert-badge{display:grid;place-items:center;width:48px;height:48px;border-radius:12px;background:color-mix(in oklab,var(--brand) 18%,transparent);color:var(--brand);overflow:hidden}
+.cert-card.is-pending .cert-badge{background:color-mix(in oklab,var(--muted) 16%,transparent);color:var(--muted)}
+.cert-logo{width:100%;height:100%;object-fit:contain}
+
+.cert-body{display:grid;gap:.35rem}
+.cert-headline{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.cert-title{margin:0;font-size:1rem;line-height:1.2}
+.cert-issuer{margin:0;font-size:.9rem;color:var(--muted)}
+.cert-status{font-size:.85rem;margin:0}
+.cert-status.ok{color:var(--brand-2);font-weight:600}
+.cert-status.pending{color:var(--muted)}
+.cert-chip{display:inline-flex;align-items:center;gap:.4rem;padding:.2rem .5rem;border-radius:999px;font-size:.78rem;line-height:1;border:1px solid var(--border);background:var(--card)}
+.cert-chip.chip-ok{color:var(--brand-2);border-color:color-mix(in oklab,var(--brand-2) 40%,var(--border))}
+.cert-chip.chip-pending{color:var(--muted)}
+.cert-link{display:inline-block;font-size:.85rem;text-decoration:none;color:color-mix(in oklab,var(--fg) 82%,transparent);border-bottom:1px dashed color-mix(in oklab,var(--brand) 40%,transparent)}
+.cert-link:hover{color:var(--fg);border-bottom-style:solid}
+
+/* Motion */
+@media (prefers-reduced-motion: reduce){
+  .icon-sun,.icon-moon,.theme-toggle{transition:none!important}
+  .certs-rail{scroll-behavior:auto}
+}
+
+/* === Certifications – espacement + respiration ===================== */
+/* Un peu plus d'air sur les côtés du viewport */
+.certs-viewport{
+  max-width: 1040px;              /* un poil plus large */
+  padding-inline: 1rem;           /* bordures internes visibles */
+}
+
+/* Espacement entre les cartes (mobile = slider, desktop = grille) */
+.certs-rail{
+  gap: .9rem;                      /* espace entre colonnes/“slides” */
+}
+
+/* En slider mobile, on évite la double marge: pas de padding sur li */
+.certs-rail > li{
+  padding-inline: 0;               /* on retire le padding interne */
+}
+
+/* Desktop : plus de respiration encore (colonne x interligne) */
+@media (min-width: 900px){
+  .certs-rail{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem 1.5rem;           /* colonne / ligne */
+  }
+}
+
+/* === Certifications — espacement visible entre cartes (force) ====== */
+
+/* MOBILE (slider) : on crée l'espace via padding du rail + des <li> */
+.certs-viewport{ padding-inline: 0 !important; }            /* on repart propre */
+.certs-rail{
+  gap: 0 !important;                                        /* pas de gap "perdu" hors écran */
+  padding-inline: .6rem !important;                         /* marge globale du rail */
+}
+.certs-rail > li{
+  padding-inline: .6rem !important;                         /* espace entre les slides */
+}
+.certs-rail > li .cert-card{
+  width: 100%;
+}
+
+/* DESKTOP (grille) : on repasse en vrai gap, sans padding interne */
+@media (min-width: 900px){
+  .certs-rail{
+    padding-inline: 0 !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1.25rem 1.5rem !important;                         /* colonne / ligne */
+  }
+  .certs-rail > li{ padding-inline: 0 !important; }
+}
+
+
+/* === Certifications: slider mobile avec plus d'air === */
+@media (max-width: 899px){
+  .certs-viewport {
+    padding-block: 1rem; /* espace haut/bas autour du slider */
+  }
+
+  .certs-rail {
+    gap: 1rem; /* espace horizontal entre les slides */
+    padding-inline: 1rem; /* espace gauche/droite */
+  }
+
+  .certs-rail > li {
+    scroll-snap-align: center;
+    display: flex; justify-content: center; /* centre la carte */
+  }
+
+  .cert-card {
+    width: 90%;               /* plus petit que le viewport → effet d’air */
+    max-width: 400px;         /* limite pour garder lisible */
+    margin-inline: auto;      /* centre dans son slide */
+  }
+}
+
+
+/* === Certifications : cartes plus grandes ==================== */
+.cert-card {
+  padding: 1.5rem;          /* plus de hauteur intérieure */
+  min-height: 180px;        /* assure une hauteur mini */
+}
+
+/* Mobile : cartes plus larges */
+@media (max-width: 899px){
+  .cert-card {
+    width: 95%;             /* occupe presque tout l’écran */
+    max-width: 440px;       /* limite pour éviter trop grand */
+  }
+}
+
