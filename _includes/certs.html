@@ -8,7 +8,7 @@
     <ul class="certs-rail" role="list">
       {% assign sorted = site.data.certifications | sort: "date" | reverse %}
       {% for c in sorted %}
-        {% include cert-item.html item=c i:forloop.index %}
+        {% include cert-item.html item=c i=forloop.index %}
       {% endfor %}
     </ul>
   </div>
