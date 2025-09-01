@@ -1,9 +1,7 @@
 {% assign c = include.item %}
 
 {%- comment -%}
-  Localisation FR des mois (sans plugin) :
-  - On crée un tableau de mois en français
-  - On récupère l'index du mois à partir de la date (%-m → 1..12), puis -1 pour indexer le tableau
+  Localisation FR des mois (sans plugin)
 {%- endcomment -%}
 {% assign mois_fr = "janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre" | split: "," %}
 {% if c.date %}
@@ -17,21 +15,20 @@
 
 <li id="cert-{{ include.i }}"
     class="cert-card {% if c.status == 'pending' %}is-pending{% else %}is-active{% endif %}"
-    itemscope itemtype="https://schema.org/EducationalOccupationalCredential"
-    role="listitem">
+    itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
 
   <!-- Badge / logo -->
   <div class="cert-badge" aria-hidden="true">
     {% if c.logo %}
       <img class="cert-logo"
            src="{{ c.logo | relative_url }}"
-           width="48" height="48"
+           width="56" height="56"
            alt="Logo {{ c.issuer }}"
            loading="lazy" decoding="async">
     {% elsif c.badge_url %}
       <img class="cert-logo"
            src="{{ c.badge_url }}"
-           width="48" height="48"
+           width="56" height="56"
            alt="Badge {{ c.title }}"
            loading="lazy" decoding="async">
     {% else %}
@@ -79,7 +76,7 @@
     {% endif %}
 
     {% if c.skills %}
-      <ul class="cert-card__skills" style="list-style:none;display:flex;flex-wrap:wrap;gap:.4rem .5rem;margin:.5rem 0 0;padding:0;">
+      <ul class="cert-card__skills">
         {% for s in c.skills %}
           <li class="badge">{{ s }}</li>
         {% endfor %}

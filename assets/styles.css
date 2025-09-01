@@ -202,77 +202,84 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 .kpi__text{ grid-column:1/-1; margin-top:.4rem; color:var(--muted); font-size:.95rem; line-height:1.5 }
 
 /* ================== Certifications (slider mobile → grille desktop) === */
-/* ————— Reset / base ————— */
 .certs{ padding-block: clamp(2rem,3vw,3.5rem) }
 .certs-head{ text-align:center; margin-bottom:1.25rem }
 .certs .h2{ font-size:clamp(1.4rem,2.4vw,1.8rem); margin:0 }
 .certs .muted{ color:var(--muted); margin-top:.5rem }
 
-/* Viewport : largeur et overflow maîtrisés */
+/* Viewport : desktop laissera les ombres dépasser */
 .certs-viewport{
   max-width:min(100vw, 1100px);
   margin-inline:auto;
-  /* en desktop, on laissera l’ombre dépasser : cf. media query */
-  overflow: hidden;
+  overflow:hidden;
 }
 
-/* Rail MOBILE = FLEX (anti-chevauchement), scroll-snap, vrai gap */
+/* ===== MOBILE (<=899px): vrai slider horizontal sans chevauchement ===== */
 .certs-rail{
   list-style:none; margin:0; padding:0;
-  display:flex; align-items:stretch;
-  gap: 1rem;
-  padding-inline: 1rem;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-gutter: stable both-edges;
+  display:grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(85% - 0.5rem);  /* largeur d’un slide */
+  gap: 1rem;                              /* espace entre slides */
+  padding-inline: 1rem;                   /* marges du rail */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1rem;            /* le 1er slide colle pas au bord */
+  -webkit-overflow-scrolling: touch;
 }
 .certs-rail > li{
-  flex: 0 0 88%;                   /* chaque slide occupe ~88% du viewport */
-  max-width: 520px;                /* gardes-fous */
-  scroll-snap-align: center;
-  display:flex;                    /* pour centrer la carte à l’intérieur */
-  justify-content:center;
+  scroll-snap-align: start;
 }
 
-/* Desktop : vraie grille, pas de snap, overflow visible pour les ombres */
+/* ===== DESKTOP (>=900px): vraie grille + overflow visible ===== */
 @media (min-width:900px){
   .certs-viewport{ overflow: visible; }
   .certs-rail{
-    display:grid; grid-auto-flow:row; grid-auto-columns:unset;
-    grid-template-columns:repeat(3, minmax(0, 1fr));
+    grid-auto-flow: row;
+    grid-auto-columns: unset;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem 1.5rem;
     padding-inline: 0;
     overflow: visible;
     scroll-snap-type: none;
   }
-  .certs-rail > li{
-    flex: initial; max-width: none; scroll-snap-align: initial;
-    display:block;
-  }
+  .certs-rail > li{ scroll-snap-align: unset; }
 }
 
-/* Carte certification — padding généreux + gap interne clair */
+/* === Carte certification : + d’air gauche/droite et gap interne clair === */
 .cert-card{
+  box-sizing: border-box;
   display:grid; grid-template-columns:auto 1fr; align-items:start;
-  gap: 1.2rem;                                  /* espace logo/texte */
-  padding: clamp(1.5rem, 2.8vw, 1.9rem);        /* + d’air G/D que KPI */
+  column-gap: 1.4rem; row-gap: .6rem;        /* espace logo/texte + lignes */
+  padding: clamp(1.6rem, 2.6vw, 2.2rem);     /* ⬅️⬅️ plus large qu’avant */
+  padding-inline: clamp(2rem, 3.5vw, 2.75rem); /* ⬅️⬅️ focus sur bord G/D */
   background:var(--card);
   border:1px solid var(--border);
   border-radius:var(--radius-2);
   box-shadow:var(--shadow-1);
   transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.cert-card:hover{
-  transform:translateY(-6px);
-  border-color:color-mix(in oklab,var(--brand) 35%,var(--border));
-  box-shadow:0 12px 28px rgba(0,0,0,.35);
+/* Hover (lift) – activé seulement si l’appareil gère le survol */
+@media (hover:hover){
+  .cert-card:hover{
+    transform:translateY(-6px);
+    border-color:color-mix(in oklab,var(--brand) 35%,var(--border));
+    box-shadow:0 12px 28px rgba(0,0,0,.35);
+  }
+}
+/* Sur appareils tactiles : pas de lift (stabilité pendant le scroll) */
+@media (hover:none){
+  .cert-card:hover{
+    transform:none;
+    box-shadow:var(--shadow-1);
+    border-color:var(--border);
+  }
 }
 
 /* Badge/logo */
 .cert-badge{
   display:grid; place-items:center;
-  width:52px; height:52px;                /* un poil plus grand, plus premium */
+  width:56px; height:56px;                 /* un peu plus “pro” */
   border-radius:.9rem;
   background:linear-gradient(135deg,var(--brand),var(--brand-2));
   color:#fff;
@@ -280,7 +287,7 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 }
 .cert-logo{ width:100%; height:100%; object-fit:contain }
 
-/* Corps */
+/* Corps + typo interne */
 .cert-body{ display:grid; gap:.65rem; }
 .cert-headline{ display:flex; align-items:center; justify-content:space-between; gap:.6rem; }
 .cert-title{ margin:0; font-size:1.15rem; font-weight:600; line-height:1.3; }
@@ -311,9 +318,9 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 }
 .cert-link:hover{ color:var(--fg); border-bottom-style:solid }
 
-/* Mobile : largeur confortable, pas bord à bord */
+/* Mobile : la carte prend toute la largeur du slide (déjà borné par grid-auto-columns) */
 @media (max-width:899px){
-  .cert-card{ width: 100%; max-width: 520px; }
+  .cert-card{ width:100%; }
 }
 
 /* ================== Footer & Modal ================== */
