@@ -2,7 +2,7 @@
   issuer: Talend
   date: 2022-06-15
   status: certified          # "certified" | "pending"
-  verify_url: ""
+  #verify_url: ""
   badge_url: ""
   logo: "/assets/img/certs/badge_talend.jpg"
   skills: [ETL,Orchestration, Monitoring]
@@ -12,7 +12,7 @@
   issuer: Microsoft
   date: 2023-11-10
   status: certified
-  verify_url: "https://learn.microsoft.com/xxxx"
+  #verify_url: "https://learn.microsoft.com/xxxx"
   badge_url: "https://learn.microsoft.com/badges/xxxx"
   logo: "/assets/img/certs/ms.png"
   skills: [DAX, Modélisation, Power Query]
