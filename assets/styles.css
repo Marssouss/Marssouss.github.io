@@ -405,3 +405,19 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 
 /* Ajuste légèrement les espacements internes de la carte */
 .cert-body{ display:grid; gap:.45rem; }
+
+
+/* Alignement vertical du logo et du contenu */
+.cert-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start; /* aligne en haut (logo + texte) */
+}
+
+/* Le corps prend toute la hauteur dispo pour que les textes
+   restent bien alignés à gauche du logo */
+.cert-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
