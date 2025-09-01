@@ -1,12 +1,12 @@
 - title: Talend Data Integration Developer
   issuer: Talend
-  date: 2024-06-15
+  date: 2022-06-15
   status: certified          # "certified" | "pending"
-  verify_url: "https://verify.talend.com/xxxx"
-  badge_url: "https://images.credly.com/xxxx"
-  logo: "/assets/img/certs/talend.png"
-  skills: [ETL, Data Quality, tMap, TAC]
-  note: "Intégration, orchestrations TAC, bonnes pratiques tMap."
+  verify_url: ""
+  badge_url: ""
+  logo: "/assets/img/certs/badge_talend.jpg"
+  skills: [ETL,Orchestration, Monitoring]
+  note: "Bonnes pratiques de développements, Architecture evolutive"
 
 - title: PL-300 Power BI Data Analyst Associate
   issuer: Microsoft
