@@ -421,3 +421,11 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   flex-direction: column;
   justify-content: flex-start;
 }
+
+
+/* Texte aligné sur le coin gauche, sous le logo */
+.cert-card{ grid-template-columns: 56px 1fr; }   /* largeur fixe pour la colonne du logo */
+.cert-badge{ grid-column: 1; grid-row: 1; }      /* logo en colonne 1 */
+.cert-body{ grid-column: 1 / -1; }               /* le contenu commence en colonne 1 = même x que le logo */
+/* garde un flux simple */
+.cert-body{ display: grid; gap: .45rem; }
