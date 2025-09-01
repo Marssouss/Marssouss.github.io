@@ -359,3 +359,49 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 }
 
 
+/* --- tête de carte : on simplifie, le titre tout seul --- */
+.cert-headline{ display:contents; } /* n'est plus utilisé mais évite d'impacter */
+
+/* Ligne meta sous le titre : statut + date */
+.cert-meta{
+  display:flex; align-items:center; gap:.5rem;
+  margin-top:.15rem; margin-bottom:.35rem;
+  color:var(--muted);
+  font-size:.92rem;
+}
+
+/* Chip (déjà présent) – inchangé, on réutilise */
+.cert-chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  padding:.28rem .6rem; line-height:1;
+  border-radius:999px; font-size:.8rem;
+  border:1px solid var(--border); background:var(--card)
+}
+.cert-chip.chip-ok{ color:var(--brand-2); border-color:color-mix(in oklab,var(--brand-2) 40%,var(--border)) }
+.cert-chip.chip-pending{ color:var(--muted) }
+.cert-date{ opacity:.95 }
+
+/* Organisme émetteur (petit, discret) */
+.cert-issuer{ margin:.1rem 0 0; font-size:.9rem; color:var(--muted); }
+
+/* Tags alignés G→D avec wrap (renomme la classe pour coller au besoin) */
+.cert-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+  list-style:none;
+  margin:.55rem 0 0;
+  padding:0;
+}
+.cert-tags .tag{
+  padding:.35rem .6rem;
+  border-radius:999px;
+  background: rgba(148,163,184,.12);
+  border:1px solid rgba(148,163,184,.25);
+  font-size:.78rem;
+  line-height:1;
+  white-space:nowrap;
+}
+
+/* Ajuste légèrement les espacements internes de la carte */
+.cert-body{ display:grid; gap:.45rem; }
