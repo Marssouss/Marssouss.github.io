@@ -1,53 +1,15 @@
-<section id="certifications" class="section" aria-labelledby="certs-title">
-  <div class="section__header">
-    <h2 id="certs-title">Certifications</h2>
-    <p class="section__meta">Sélection vérifiable • mises à jour</p>
+<section id="certifications" class="section certs" aria-labelledby="certs-title">
+  <div class="certs-head">
+    <h2 id="certs-title" class="h2">Certifications</h2>
+    <p class="muted">Sélection vérifiable • mises à jour</p>
   </div>
 
-  <div class="certs-grid" role="list">
-    {% assign sorted = site.data.certifications | sort: "date" | reverse %}
-    {% for c in sorted %}
-    <article class="cert-card" role="listitem" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
-      <header class="cert-card__head">
-        {% if c.logo %}
-          <img class="cert-card__logo" src="{{ c.logo | relative_url }}" alt="Logo {{ c.issuer }}" width="48" height="48" loading="lazy" decoding="async">
-        {% else %}
-          <span class="cert-card__logo cert-card__logo--placeholder" aria-hidden="true">🎓</span>
-        {% endif %}
-        <div class="cert-card__titles">
-          <h3 class="cert-card__title" itemprop="name">{{ c.title }}</h3>
-          <p class="cert-card__issuer">
-            <span itemprop="recognizedBy" itemscope itemtype="https://schema.org/Organization">
-              <span itemprop="name">{{ c.issuer }}</span>
-            </span>
-            • <time datetime="{{ c.date | date: "%Y-%m-%d" }}" itemprop="dateCreated">
-              {{ c.date | date: "%B %Y" }}
-            </time>
-          </p>
-        </div>
-      </header>
-
-      {% if c.skills %}
-      <ul class="cert-card__skills">
-        {% for s in c.skills %}
-          <li class="badge">{{ s }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-
-      <footer class="cert-card__foot">
-        {% if c.verify_url %}
-          <a class="btn btn--subtle" href="{{ c.verify_url }}" target="_blank" rel="noopener nofollow">
-            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            Vérifier
-          </a>
-        {% endif %}
-        {% if c.badge_url %}
-          <a class="btn btn--ghost" href="{{ c.badge_url }}" target="_blank" rel="noopener">Voir le badge</a>
-        {% endif %}
-      </footer>
-      <meta itemprop="credentialCategory" content="Professional certification">
-    </article>
-    {% endfor %}
+  <div class="certs-viewport" aria-label="Liste des certifications">
+    <ul class="certs-rail" role="list">
+      {% assign sorted = site.data.certifications | sort: "date" | reverse %}
+      {% for c in sorted %}
+        {% include cert-item.html item=c i:forloop.index %}
+      {% endfor %}
+    </ul>
   </div>
 </section>
