@@ -6,7 +6,7 @@
 
   <div class="certs-viewport" aria-label="Liste des certifications">
     <ul class="certs-rail" role="list">
-      {%- assign sorted = site.data.certifications | sort: "date" | reverse -%}
+{%- assign sorted = site.data.certifications | sort: "date" -%}
 
       <!-- Groupe certifiées -->
       {% for c in sorted %}
