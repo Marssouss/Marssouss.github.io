@@ -21,7 +21,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-feed
-  - jekyll-multiple-languages-plugin
 
 # Auteur (utilisé dans JSON-LD)
 author:
