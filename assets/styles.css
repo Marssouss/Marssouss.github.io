@@ -212,61 +212,66 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 .certs-rail{
   list-style:none; margin:0; padding:0;
   display:grid; grid-auto-flow:column; grid-auto-columns:100%;
-  overflow-x:auto; scroll-snap-type:x mandatory; scroll-padding-inline:.75rem;
+  overflow-x:auto; scroll-snap-type:x mandatory; scroll-padding-inline:1rem;
   -webkit-overflow-scrolling:touch;
-  gap:0; padding-inline:.75rem; /* l’espace se gère via li */
+
+  /* MOBILE: vrai espacement visuel entre cartes (pas collées) */
+  gap: 1rem;
+  padding-inline: 1rem;
 }
 .certs-rail>li{
-  scroll-snap-align:start; padding-inline:.75rem; box-sizing:border-box;
+  scroll-snap-align:center; box-sizing:border-box;
+  padding-inline: 1rem; /* espace horizontal entre slides */
 }
 
-/* Desktop : passe en vraie grille 3 colonnes avec gap propre */
+/* Desktop : vraie grille avec overflow visible pour laisser passer l’ombre/lift */
 @media (min-width:900px){
+  .certs-viewport{ overflow: visible; }
   .certs-rail{
     overflow:visible;
     grid-auto-flow:dense; grid-auto-columns:unset;
     grid-template-columns:repeat(3, minmax(0, 1fr));
     gap: 1.25rem 1.5rem; padding-inline:0;
   }
-  .certs-rail>li{ padding-inline:0 }
+  .certs-rail>li{ padding-inline:0; scroll-snap-align:unset; }
 }
 
-/* Carte certification — + d’air intérieur */
+/* Carte certification — respiration + overlay comme KPI */
 .cert-card{
   display:grid; grid-template-columns:auto 1fr; align-items:start;
-  gap: 1.1rem; /* espace entre le badge et le contenu */
+  gap: 1.1rem;
   background: color-mix(in oklab, var(--card) 96%, transparent);
   border:1px solid var(--border);
   outline:1px solid color-mix(in oklab,var(--brand) 6%,transparent);
   border-radius:16px;
 
-  /* ⬇️ plus de respiration aux bords */
+  /* + d’air interne */
   padding: clamp(1.5rem, 3.2vw, 2rem);
 
-  /* un peu plus haut pour éviter l’effet tassé */
+  /* confort visuel */
   min-height: 220px;
 
   box-shadow:var(--shadow-1);
-  transition: transform .2s ease, box-shadow .25s ease, outline-color .25s ease;
+  transition: transform .2s ease, box-shadow .25s ease, border-color .2s ease, outline-color .25s ease;
 }
+/* === même effet overlay que les KPI === */
 .cert-card:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 24px rgba(0,0,0,.12);
-  outline-color:color-mix(in oklab,var(--brand) 22%,transparent)
+  transform:translateY(-6px);
+  border-color: color-mix(in oklab, var(--brand) 35%, var(--border));
+  box-shadow:0 12px 28px rgba(0,0,0,.35);
+  outline-color:color-mix(in oklab,var(--brand) 22%,transparent);
 }
 .cert-card:focus-within{ outline-color:color-mix(in oklab,var(--brand) 32%,transparent) }
 
-/* Badge/logo (inchangé visuellement) */
+/* Badge/logo */
 .cert-badge{
   display:grid; place-items:center; width:48px; height:48px; border-radius:12px;
   background: color-mix(in oklab, var(--brand) 14%, transparent); color:var(--brand); overflow:hidden
 }
 .cert-logo{ width:100%; height:100%; object-fit:contain; filter:saturate(1.05) contrast(1.02) }
 
-/* Corps : + d’espace entre les lignes */
+/* Corps + typographie interne */
 .cert-body{ display:grid; gap:.6rem; }
-
-/* Titre/issuer : marge sous le titre et l’issuer pour décoller du bord */
 .cert-headline{ display:flex; align-items:center; justify-content:space-between; gap:.6rem; }
 .cert-title{ margin:0 0 .25rem; font-size:1.08rem; line-height:1.25; }
 .cert-issuer{ margin:0 0 .6rem; font-size:.95rem; color:var(--muted); }
@@ -284,10 +289,10 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 .cert-chip.chip-ok{ color:var(--brand-2); border-color:color-mix(in oklab,var(--brand-2) 40%,var(--border)) }
 .cert-chip.chip-pending{ color:var(--muted) }
 
-/* Skills : espace au-dessus pour ne pas coller au texte */
+/* Skills : un peu d’air au-dessus */
 .cert-card__skills{ margin-top:.8rem !important; }
 
-/* Lien : marge haute + soulignement plus lisible */
+/* Lien : marge haute + soulignement lisible */
 .cert-link{
   display:inline-block; margin-top:.65rem; font-size:.9rem; text-decoration:none;
   color: color-mix(in oklab,var(--fg) 86%,transparent);
@@ -296,40 +301,9 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 }
 .cert-link:hover{ color:var(--fg); border-bottom-style:solid }
 
-/* === PATCH — Certifications: + d’air interne & hover non rogné === */
-
-/* 1) Plus d’espace à gauche/droite ET entre badge et texte */
-.cert-card{
-  /* padding horizontal augmenté, vertical confortable */
-  padding: clamp(1.25rem, 2.2vw, 1.6rem) clamp(1.75rem, 3.6vw, 2.25rem) !important;
-  gap: 1.2rem !important;          /* espace entre le bloc logo et le texte */
-  min-height: 220px;                /* évite l'effet tassé */
-}
-.cert-body{ gap: .7rem !important; } /* espace entre les lignes internes */
-.cert-title{ margin: 0 0 .3rem !important; }
-.cert-issuer{ margin: 0 0 .7rem !important; }
-.cert-card__skills{ margin-top: .9rem !important; }
-.cert-link{ margin-top: .7rem !important; border-bottom-width: 2px; }
-
-/* 2) Le “dessus” qui disparaît au hover venait du conteneur qui clippe.
-      On laisse le slider clipper en mobile, mais en desktop on autorise
-      les ombres/déplacements à dépasser. */
-@media (min-width: 900px){
-  .certs-viewport{ overflow: visible !important; } /* était hidden */
-  .certs-rail{ overflow: visible !important; }     /* sécurité */
-}
-
-/* 3) Micro-lift plus doux pour limiter le risque de clip en petits écrans */
-.cert-card:hover{
-  transform: translateY(-2px) !important;
-  box-shadow: 0 12px 28px rgba(0,0,0,.16) !important;
-}
-
-
-/* Mobile : centrage et largeur agréable (pas bord à bord) */
+/* Mobile : carte centrée, large mais pas bord à bord */
 @media (max-width:899px){
-  .certs-rail > li{ scroll-snap-align:center; display:flex; justify-content:center }
-  .cert-card{ width: clamp(90%, 92vw, 440px); margin-inline:auto }
+  .cert-card{ width: clamp(92%, 96vw, 520px); margin-inline:auto }
 }
 
 /* ================== Footer & Modal ================== */
