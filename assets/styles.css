@@ -429,3 +429,26 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 .cert-body{ grid-column: 1 / -1; }               /* le contenu commence en colonne 1 = même x que le logo */
 /* garde un flux simple */
 .cert-body{ display: grid; gap: .45rem; }
+
+/* Ligne statut/date alignée avec le logo */
+.cert-statusline {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: 1rem;       /* plus gros que le reste */
+  font-weight: 600;
+}
+
+/* Place cette ligne dans la grille juste après le logo */
+.cert-badge { grid-row: 1; grid-column: 1; }
+.cert-statusline { grid-row: 1; grid-column: 2; }
+
+/* Ajustement visuel */
+.cert-chip {
+  font-size: .9rem;
+  padding: .35rem .7rem;
+}
+.cert-date {
+  opacity: .9;
+  font-size: .95rem;
+}
