@@ -667,7 +667,16 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 }
 
 /* Lignes Talend/Power BI et l’Objectif commencent sous le titre (colonne 2) */
-.methode__line,
+/* Ligne Talend/Power BI */
+.methode__line {
+  grid-column: 1 / -1;     /* 🔑 occupe toute la largeur, démarre sous le logo */
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .9rem;
+  color: var(--muted);
+  text-align: left;
+}
 .methode__note{
   grid-column: 2;         /* 🔑 aligne avec le bord droit du logo */
   padding-left: 0 !important;  /* override d’éventuels anciens styles */
