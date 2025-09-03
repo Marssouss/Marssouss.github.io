@@ -639,3 +639,48 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   color: #fff;
 }
 
+
+
+
+
+
+
+
+/* Carte "méthode" en grille: col 1 = logo, col 2 = contenu */
+.methode{
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;   /* 2.6rem = largeur/hauteur du logo */
+  column-gap: 1rem;
+}
+
+/* Le header (logo + titre) participe directement à la grille */
+.methode-head{ display: contents; }
+
+/* Logo et titre sur la première ligne de la grille */
+.methode__icon{
+  grid-column: 1; grid-row: 1;
+  width: 2.6rem; height: 2.6rem;       /* garde la cohérence */
+}
+.methode__title{
+  grid-column: 2; grid-row: 1;
+  margin: 0; align-self: center;
+}
+
+/* Lignes Talend/Power BI et l’Objectif commencent sous le titre (colonne 2) */
+.methode__line,
+.methode__note{
+  grid-column: 2;         /* 🔑 aligne avec le bord droit du logo */
+  padding-left: 0 !important;  /* override d’éventuels anciens styles */
+  text-align: left;
+}
+
+/* "Objectif" avec l’icône */
+.methode__note{
+  display: flex; align-items: center; gap: .45rem;
+  margin-top: .7rem;
+  color: var(--muted);
+}
+.methode__note-icon{
+  font-size: 1rem; line-height: 1;
+  color: var(--brand-2);
+}
