@@ -29,9 +29,13 @@
     </p>
   {% endif %}
 
-  {% if methode.note %}
-    <p class="methode__note">{{ methode.note }}</p>
-  {% endif %}
+{% if methode.note %}
+  <p class="methode__note">
+    <span class="methode__note-icon">🎯</span>
+    {{ methode.note }}
+  </p>
+{% endif %}
+
 </article>
 
 

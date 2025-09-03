@@ -600,12 +600,22 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 
 .methode__text,
 .methode__note {
-  margin: 0;
-  margin-left: calc(2.6rem + .8rem); /* décale sous le logo */
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .6rem;
+  font-size: .9rem;
   color: var(--muted);
-  font-size: .95rem;
-  line-height: 1.5;
+  grid-column: 1 / -1;
+  padding-left: calc(2.6rem + 1rem); /* aligné avec le logo */
 }
+
+.methode__note-icon {
+  font-size: 1rem;   /* taille de l’icône */
+  color: var(--brand-2); /* vert ou autre couleur */
+}
+
+
 
 
 .pill {
