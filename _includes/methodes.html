@@ -7,6 +7,8 @@
     Ces bonnes pratiques assurent des solutions fiables, évolutives et faciles à maintenir.
   </p>
 
+  <div class="methodes methodes--modern" aria-label="Points clés">
+    {% for methode in site.data.methodes %}
 <article class="methode">
   <div class="methode-head">
     <div class="methode__icon" aria-hidden="true">{{ methode.icon }}</div>
@@ -32,4 +34,7 @@
   {% endif %}
 </article>
 
+
+    {% endfor %}
+  </div>
 </section>
