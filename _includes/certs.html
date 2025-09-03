@@ -6,21 +6,22 @@
 
   <div class="certs-viewport" aria-label="Liste des certifications">
     <ul class="certs-rail" role="list">
-{%- assign sorted = site.data.certifications | sort: "date" -%}
+      {%- comment -%}
+        Tri principal par "ordre" (1,2,3,...). 
+        Conseil : mets "ordre" sur TOUTES les entrées (sinon Liquid place les nil au début).
+      {%- endcomment -%}
+      {%- assign items = site.data.certifications | sort: "ordre" -%}
 
-      <!-- Groupe certifiées -->
-      {% for c in sorted %}
-        {% if c.status != "pending" %}
-          {% include cert-item.html item=c i=forloop.index %}
-        {% endif %}
-      {% endfor %}
+      {%- assign certifiees = items | where_exp: "c", "c.status != 'pending'" -%}
+      {%- assign en_prepa   = items | where: "status", "pending" -%}
 
-      <!-- Groupe en préparation -->
-      {% for c in sorted %}
-        {% if c.status == "pending" %}
-          {% include cert-item.html item=c i=forloop.index %}
-        {% endif %}
-      {% endfor %}
+      {%- for c in certifiees %}
+        {% include cert-item.html item=c i=forloop.index %}
+      {%- endfor %}
+
+      {%- for c in en_prepa %}
+        {% include cert-item.html item=c i=forloop.index %}
+      {%- endfor %}
     </ul>
   </div>
 </section>
