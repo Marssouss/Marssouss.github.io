@@ -4,7 +4,7 @@
    - Layout & utilitaires
    - Header / Navigation (burger + desktop)
    - Composants: buttons, cards, badges
-   - Sections: Hero, KPIs, Certifications, Footer/Modal
+   - Sections: Hero, methodes, Certifications, Footer/Modal
    - Motion & a11y
    ======================================================================== */
 
@@ -178,28 +178,28 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 }
 @media (min-width:900px){ .hero{grid-template-columns:1.2fr .8fr} }
 
-/* ================== KPIs ================== */
-.kpis.kpis--modern{
+/* ================== methodes ================== */
+.methodes.methodes--modern{
   display:grid; grid-template-columns:1fr;
   gap: clamp(1rem, 2.5vw, 1.5rem); margin-top: clamp(1.5rem, 3vw, 2.5rem);
 }
-@media (min-width:700px){ .kpis.kpis--modern{ grid-template-columns:repeat(2,1fr) } }
-@media (min-width:1100px){ .kpis.kpis--modern{ grid-template-columns:repeat(3,1fr) } }
+@media (min-width:700px){ .methodes.methodes--modern{ grid-template-columns:repeat(2,1fr) } }
+@media (min-width:1100px){ .methodes.methodes--modern{ grid-template-columns:repeat(3,1fr) } }
 
-.kpi{
+.methode{
   display:grid; grid-template-columns:auto 1fr; align-items:start; gap:1rem 1.2rem;
   padding:1.5rem; background:var(--card); border:1px solid var(--border);
   border-radius:var(--radius-2); box-shadow:var(--shadow-1);
   transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.kpi:hover{ transform:translateY(-6px); border-color:color-mix(in oklab,var(--brand) 35%,var(--border)); box-shadow:0 12px 28px rgba(0,0,0,.35) }
-.kpi__icon{
+.methode:hover{ transform:translateY(-6px); border-color:color-mix(in oklab,var(--brand) 35%,var(--border)); box-shadow:0 12px 28px rgba(0,0,0,.35) }
+.methode__icon{
   width:2.6rem; height:2.6rem; display:grid; place-items:center; border-radius:.9rem;
   background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; font-size:1.2rem;
   box-shadow:0 2px 6px rgba(0,0,0,0.25)
 }
-.kpi__title{ margin:0; font-size:1.15rem; font-weight:600; color:var(--fg); line-height:1.3 }
-.kpi__text{ grid-column:1/-1; margin-top:.4rem; color:var(--muted); font-size:.95rem; line-height:1.5 }
+.methode__title{ margin:0; font-size:1.15rem; font-weight:600; color:var(--fg); line-height:1.3 }
+.methode__text{ grid-column:1/-1; margin-top:.4rem; color:var(--muted); font-size:.95rem; line-height:1.5 }
 
 /* ================== Certifications (slider mobile → grille desktop) === */
 .certs{ padding-block: clamp(2rem,3vw,3.5rem) }
@@ -354,7 +354,7 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 
 /* ================== A11y & Motion ================== */
 @media (prefers-reduced-motion: reduce){
-  .nav-toggle .chev, .nav-collapsible, .btn, .card, .kpi, .cert-card,
+  .nav-toggle .chev, .nav-collapsible, .btn, .card, .methode, .cert-card,
   .icon-sun, .icon-moon, .theme-toggle { transition: none !important; }
 }
 
@@ -507,7 +507,7 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   /* L’AIR est porté par la carte : on ne voit pas la suivante */
   .cert-card{
     width: 100%;
-    margin-inline: 1rem;          /* air gauche/droite comme les KPI */
+    margin-inline: 1rem;          /* air gauche/droite comme les methode */
   }
 }
 

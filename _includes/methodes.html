@@ -1,0 +1,19 @@
+<section id="methodes" class="section" aria-labelledby="methodes-title">
+  <h2 id="methodes-title">Mes points clés</h2>
+  <p class="lead">
+    Que ce soit pour un flux <strong>Talend</strong> ou un rapport <strong>Power BI</strong>, 
+    j’applique toujours les mêmes principes : <em>qualité</em>, <em>robustesse</em>, 
+    <em>sécurité</em> et <em>performance</em>.  
+    Ces bonnes pratiques assurent des solutions fiables, évolutives et faciles à maintenir.
+  </p>
+
+  <div class="methodes methodes--modern" aria-label="Points clés">
+    {% for methode in site.data.methodes %}
+      <article class="methode">
+        <div class="methode__icon" aria-hidden="true">{{ methode.icon }}</div>
+        <h3 class="methode__title">{{ methode.title }}</h3>
+        <p class="methode__text">{{ methode.text }}</p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
