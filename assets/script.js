@@ -168,13 +168,13 @@
   });
 
   // 2) Scroll vers un slide donné (aligne le début du slide avec le viewport)
-  function scrollToSlide(i) {
-    const el = slides[i];
-    const railRect = rail.getBoundingClientRect();
-    const elRect = el.getBoundingClientRect();
-    const delta = elRect.left - railRect.left + rail.scrollLeft - parseFloat(getComputedStyle(rail).paddingLeft || '0');
-    rail.scrollTo({ left: delta, behavior: 'smooth' });
-  }
+function scrollToSlide(i) {
+  const el = slides[i];
+  // centre le slide dans le viewport du rail
+  const target = el.offsetLeft - (rail.clientWidth - el.clientWidth) / 2;
+  rail.scrollTo({ left: target, behavior: 'smooth' });
+}
+
 
   // 3) Active le dot du slide majoritairement visible (IntersectionObserver)
   function setActive(i) {
