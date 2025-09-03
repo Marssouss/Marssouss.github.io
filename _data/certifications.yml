@@ -12,19 +12,18 @@
 - ordre: 2
   title: PL-300 Power BI Data Analyst Associate
   issuer: Microsoft
-  date: 2023-11-10
-  status: certified
+  planned_date: 2025-12-01
+  status: pending
   #verify_url: "https://learn.microsoft.com/xxxx"
   badge_url: "https://learn.microsoft.com/badges/xxxx"
   logo: "/assets/img/certs/ms.png"
   skills: [DAX, Modélisation, Power Query]
   note: "Modèles étoile, DAX avancé, gouvernance Power BI."
 
-# Exemple en cours (optionnel)
 - ordre: 3
-  title: AWS Data Engineer Associate
-  issuer: Amazon Web Services
+  title: DP-600 Fabric Analytics Engineer Associate
+  issuer: Microsoft
   status: pending
-  planned_date: 2025-10-15
-  logo: "/assets/img/certs/aws.png"
-  skills: [Glue, Athena, S3, Lake Formation]
+  planned_date: 2025-12-01
+  logo: "/assets/img/certs/microsoft-fabric.png"
+  skills: [Microsoft Fabric,Power BI,Data Engineering,DAX]
