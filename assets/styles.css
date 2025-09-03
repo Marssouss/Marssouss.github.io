@@ -510,3 +510,56 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
     margin-inline: 1rem;          /* air gauche/droite comme les KPI */
   }
 }
+
+
+/* ===== HOTFIX Certifications — 1 carte mobile + grille desktop ===== */
+@media (max-width: 899px){
+  /* Le "marge" visuelle vient du viewport, pas des slides/cartes */
+  .certs-viewport{
+    padding-inline: 1rem !important;
+    overflow: hidden !important;     /* empêche tout peek */
+  }
+
+  .certs-rail{
+    display: grid !important;
+    grid-auto-flow: column !important;
+    grid-auto-columns: 100% !important;   /* 1 slide = 100% */
+    gap: 0 !important;                    /* aucun espace entre slides */
+    padding: 0 !important;                /* l’air est sur le viewport */
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .certs-rail > li{
+    width: 100% !important;
+    margin: 0 !important;                 /* aucune marge parasite */
+    scroll-snap-align: center !important; /* centre parfaitement */
+  }
+
+  .cert-card{
+    width: 100% !important;
+    margin: 0 !important;                 /* l’air n’est PAS porté par la carte */
+  }
+}
+
+@media (min-width: 900px){
+  .certs-viewport{
+    padding-inline: 0 !important;
+    overflow: visible !important;
+  }
+
+  .certs-rail{
+    display: grid !important;
+    grid-auto-flow: row !important;
+    grid-auto-columns: initial !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important; /* 3 colonnes */
+    gap: 1.25rem 1.5rem !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;    /* pas de snap en desktop */
+  }
+
+  .certs-rail > li{ scroll-snap-align: unset !important; }
+}
+
