@@ -482,29 +482,31 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 }
 
 
-/* ===== MOBILE (<=899px): 1 carte centrée avec air ===== */
+/* ===== MOBILE (<=899px): 1 carte centrée, sans peek, avec air ===== */
 @media (max-width: 899px){
   .certs-viewport{
-    padding-inline: 1rem;  /* air gauche/droite */
-    overflow: hidden;
+    overflow: hidden;             /* masque tout débordement */
+    padding-inline: 0;            /* l’air sera sur la carte, pas le viewport */
   }
 
   .certs-rail{
     grid-auto-flow: column;
-    grid-auto-columns: calc(100% - 2rem);  /* 1rem d’air de chaque côté */
-    gap: 1rem;                             /* espace entre les cartes */
-    padding: 0;                            /* padding déplacé au viewport */
+    grid-auto-columns: 100%;      /* chaque slide = pleine largeur viewport */
+    gap: 0;                       /* surtout pas de gap -> sinon peek */
+    padding: 0;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
 
   .certs-rail > li{
-    scroll-snap-align: center;  /* la carte s’aligne bien au centre */
+    width: 100%;
+    scroll-snap-align: center;    /* centrage parfait */
   }
 
-  .cert-card{ width: 100%; }
+  /* L’AIR est porté par la carte : on ne voit pas la suivante */
+  .cert-card{
+    width: 100%;
+    margin-inline: 1rem;          /* air gauche/droite comme les KPI */
+  }
 }
-
-
-
