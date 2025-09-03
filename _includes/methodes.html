@@ -7,13 +7,23 @@
     Ces bonnes pratiques assurent des solutions fiables, évolutives et faciles à maintenir.
   </p>
 
-  <div class="methodes methodes--modern" aria-label="Points clés">
-    {% for methode in site.data.methodes %}
-      <article class="methode">
-        <div class="methode__icon" aria-hidden="true">{{ methode.icon }}</div>
-        <h3 class="methode__title">{{ methode.title }}</h3>
+<div class="methodes methodes--modern" aria-label="Points clés">
+  {% for methode in site.data.methodes %}
+    <article class="methode">
+      <div class="methode__icon" aria-hidden="true">{{ methode.icon }}</div>
+      <h3 class="methode__title">{{ methode.title }}</h3>
+
+      {% if methode.bullets %}
+        <ul class="methode__bullets" role="list">
+          {% for b in methode.bullets %}
+            <li>{{ b }}</li>
+          {% endfor %}
+        </ul>
+      {% elsif methode.text %}
         <p class="methode__text">{{ methode.text }}</p>
-      </article>
-    {% endfor %}
-  </div>
+      {% endif %}
+    </article>
+  {% endfor %}
+</div>
+
 </section>

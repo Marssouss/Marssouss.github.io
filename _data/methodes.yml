@@ -1,23 +1,31 @@
 - icon: "🧹"
   title: "Qualité des données"
-  text: "Contrôles systématiques, données propres et fiables"
+  bullets:
+    - [Talend] règles DQ (nulls, doublons, types), rejets traçables
+    - [Talend] sources typées, schémas verrouillés, mapping explicite
+    - [Power BI] tables de références/formatage, normalisation colonnes
+    - [Power BI] colonnes calculées ≠ mesures DAX (lisibilité du modèle)
 
 - icon: "🔁"
-  title: "Robustesse"
-  text: "Reprises sur incident, monitoring et alertes proactives"
+  title: "Robustesse & Observabilité"
+  bullets:
+    - [Talend] idempotence, reprises sur incident, journalisation corrélée (runId)
+    - [Talend] gestion d’erreurs centralisée, alertes TAC
+    - [Power BI] refresh incrémental (gateways/Cloud), surveillance des échecs
+    - [Power BI] règles d’actualisation/partage documentées
 
 - icon: "⚡"
-  title: "Performance"
-  text: "Flux optimisés et dashboards rapides, même sur gros volumes"
-
-- icon: "🧩"
-  title: "Évolutivité"
-  text: "Solutions modulaires, adaptables aux besoins futurs"
+  title: "Performance & Modélisation"
+  bullets:
+    - [Talend] tMap optimisés (joins clés, filtres en amont), parallélisme maîtrisé
+    - [Talend] chargements incrémentaux/CDC, SCD quand nécessaire
+    - [Power BI] modèle en étoile, colonnes numériques low-cardinality, agrégations
+    - [Power BI] DAX mesuré (CALCULATE, variables, évite itérateurs inutiles)
 
 - icon: "🛡️"
-  title: "Sécurité & conformité"
-  text: "Accès maîtrisés, RGPD respecté, gouvernance appliquée"
-
-- icon: "📚"
-  title: "Documentation & partage"
-  text: "Jobs clairs, modèles BI commentés, transfert de savoir assuré"
+  title: "Sécurité, Gouvernance & Maintenance"
+  bullets:
+    - [Talend] contexts/secret management, paramétrage par environnement
+    - [Talend] GitFlow, nomenclatures jobs/composants, packaging CI/CD
+    - [Power BI] RLS, workspaces/permissions, datamarts/datasets séparés
+    - [Tous] documentation vivante, runbook & handover clairs
