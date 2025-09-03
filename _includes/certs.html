@@ -5,7 +5,7 @@
   </div>
 
   <div class="certs-viewport" aria-label="Liste des certifications">
-    <ul class="certs-rail" role="list">
+    <ul id="certs-rail" class="certs-rail" role="list">
       {%- comment -%}
         Tri principal par "ordre" (1,2,3,...). 
         Conseil : mets "ordre" sur TOUTES les entrées (sinon Liquid place les nil au début).
@@ -23,5 +23,8 @@
         {% include cert-item.html item=c i=forloop.index %}
       {%- endfor %}
     </ul>
+      
+    <!-- Indicateurs du carousel (affichés uniquement sur mobile) -->
+  <nav class="certs-dots" aria-label="Pagination des certifications"></nav>
   </div>
 </section>

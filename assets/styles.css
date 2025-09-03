@@ -452,3 +452,31 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   opacity: .9;
   font-size: .95rem;
 }
+
+
+
+
+
+/* Dots du carousel mobile */
+.certs-dots{
+  display:flex; justify-content:center; align-items:center;
+  gap:.5rem; margin-top:.75rem; padding-bottom:.25rem;
+}
+
+.certs-dot{
+  -webkit-tap-highlight-color: transparent;
+  width:8px; height:8px; border-radius:999px; border:0;
+  background: color-mix(in oklab, var(--muted) 55%, transparent);
+  opacity:.6; transform: scale(.9);
+  transition: transform .2s ease, opacity .2s ease, background .2s ease;
+}
+.certs-dot:is(:hover,:focus-visible){ opacity:.85; transform: scale(1); outline:none; }
+.certs-dot.is-active{
+  opacity:1; transform: scale(1.2);
+  background: color-mix(in oklab, var(--brand) 60%, #fff 0%);
+}
+
+/* Cacher les dots en desktop */
+@media (min-width:900px){
+  .certs-dots{ display:none; }
+}
