@@ -1,31 +1,47 @@
 - icon: "🧹"
   title: "Qualité des données"
   bullets:
-    - [Talend] règles DQ (nulls, doublons, types), rejets traçables
-    - [Talend] sources typées, schémas verrouillés, mapping explicite
-    - [Power BI] tables de références/formatage, normalisation colonnes
-    - [Power BI] colonnes calculées ≠ mesures DAX (lisibilité du modèle)
+    - scope: "Talend"
+      text: "Règles DQ (nulls, doublons, types), rejets traçables"
+    - scope: "Talend"
+      text: "Sources typées, schémas verrouillés, mapping explicite"
+    - scope: "Power BI"
+      text: "Tables de références, normalisation des colonnes"
+    - scope: "Power BI"
+      text: "Colonnes calculées ≠ mesures DAX (lisibilité du modèle)"
 
 - icon: "🔁"
   title: "Robustesse & Observabilité"
   bullets:
-    - [Talend] idempotence, reprises sur incident, journalisation corrélée (runId)
-    - [Talend] gestion d’erreurs centralisée, alertes TAC
-    - [Power BI] refresh incrémental (gateways/Cloud), surveillance des échecs
-    - [Power BI] règles d’actualisation/partage documentées
+    - scope: "Talend"
+      text: "Idempotence, reprises sur incident, journalisation corrélée (runId)"
+    - scope: "Talend"
+      text: "Gestion d’erreurs centralisée, alertes TAC"
+    - scope: "Power BI"
+      text: "Actualisation incrémentale (gateways/Cloud), surveillance des échecs"
+    - scope: "Power BI"
+      text: "Règles d’actualisation et de partage documentées"
 
 - icon: "⚡"
   title: "Performance & Modélisation"
   bullets:
-    - [Talend] tMap optimisés (joins clés, filtres en amont), parallélisme maîtrisé
-    - [Talend] chargements incrémentaux/CDC, SCD quand nécessaire
-    - [Power BI] modèle en étoile, colonnes numériques low-cardinality, agrégations
-    - [Power BI] DAX mesuré (CALCULATE, variables, évite itérateurs inutiles)
+    - scope: "Talend"
+      text: "tMap optimisés (joins clés, filtres en amont), parallélisme maîtrisé"
+    - scope: "Talend"
+      text: "Chargements incrémentaux/CDC, SCD quand nécessaire"
+    - scope: "Power BI"
+      text: "Modèle en étoile, faible cardinalité, agrégations"
+    - scope: "Power BI"
+      text: "DAX mesuré (CALCULATE, variables, éviter itérateurs inutiles)"
 
 - icon: "🛡️"
   title: "Sécurité, Gouvernance & Maintenance"
   bullets:
-    - [Talend] contexts/secret management, paramétrage par environnement
-    - [Talend] GitFlow, nomenclatures jobs/composants, packaging CI/CD
-    - [Power BI] RLS, workspaces/permissions, datamarts/datasets séparés
-    - [Tous] documentation vivante, runbook & handover clairs
+    - scope: "Talend"
+      text: "Contexts/secret management, paramétrage par environnement"
+    - scope: "Talend"
+      text: "GitFlow, nomenclatures jobs/composants, packaging CI/CD"
+    - scope: "Power BI"
+      text: "RLS, workspaces/permissions, séparation datamarts/datasets"
+    - scope: "Tous"
+      text: "Documentation vivante, runbook & handover clairs"

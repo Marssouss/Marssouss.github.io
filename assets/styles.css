@@ -565,33 +565,19 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 
 
 
-/* Puces concises dans chaque carte méthode */
+
 .methode__bullets{
-  grid-column: 1 / -1;
-  margin: .35rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: .35rem;
-  font-size: .95rem;
-  color: var(--muted);
-  line-height: 1.45;
+  grid-column:1/-1; margin:.35rem 0 0; padding:0; list-style:none;
+  display:grid; gap:.35rem; font-size:.95rem; color:var(--muted); line-height:1.45;
 }
-.methode__bullets li{
-  position: relative;
-  padding-left: 1.25rem;
-}
+.methode__bullets li{ position:relative; padding-left:1.25rem; }
 .methode__bullets li::before{
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0;
-  line-height: 1;
-  opacity: .6;
+  content:"•"; position:absolute; left:0; top:0; line-height:1; opacity:.6;
 }
 
-/* Optionnel : mise en valeur des tags [Talend]/[Power BI] au début de la puce */
-.methode__bullets li {
-  /* rien de spécial : les [Talend] / [Power BI] restent du texte */
+/* badge scope */
+.pill{
+  display:inline-block; margin-right:.4rem; padding:.15rem .5rem;
+  border:1px solid var(--border); border-radius:999px; font-size:.75rem; line-height:1;
+  color:var(--muted); background:color-mix(in oklab,var(--fg) 6%, var(--card));
 }
-/* Si tu veux vraiment les styliser, remplace par ex. [Talend] -> badge avec un petit script, dis-moi. */
