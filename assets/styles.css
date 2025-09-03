@@ -565,38 +565,3 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 
 
 
-/* ===== MOBILE ULTRA-STABLE (≤899px) : 1 carte écran, sans "peek" ===== */
-@media (max-width: 899px){
-  .certs-viewport{
-    padding: 0 !important;       /* pas d'air ici */
-    overflow: hidden !important;  /* coupe tout débordement */
-  }
-
-  .certs-rail{
-    display: grid !important;
-    grid-auto-flow: column !important;
-    /* air interne du carrousel (comme les KPI) */
-    padding-inline: 1rem !important;
-    /* 1 slide = largeur visible du rail (100%) - air des 2 côtés */
-    grid-auto-columns: calc(100% - 2rem) !important;
-    gap: 0 !important;                      /* zéro espace entre slides */
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    scroll-padding-inline: 1rem !important; /* aligne le bord du slide sur le padding */
-    overscroll-behavior-inline: contain !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  .certs-rail > li{
-    width: 100% !important;
-    margin: 0 !important;
-    scroll-snap-align: start !important;    /* aligne le bord gauche du slide */
-    scroll-snap-stop: always !important;    /* évite les demi-positions */
-  }
-
-  /* la carte remplit son slide, aucun air ici */
-  .cert-card{
-    width: 100% !important;
-    margin: 0 !important;
-  }
-}

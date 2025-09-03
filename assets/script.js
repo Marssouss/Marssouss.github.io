@@ -169,13 +169,11 @@
 
   // 2) Scroll vers un slide donné (aligne le début du slide avec le viewport)
 function scrollToSlide(i) {
-  const rail = document.getElementById('certs-rail');
-  const slides = Array.from(rail.children);
-  const padL = parseFloat(getComputedStyle(rail).paddingLeft) || 0;
-  const target = slides[i].offsetLeft - padL;
+  const el = slides[i];
+  // centre le slide dans le viewport du rail
+  const target = el.offsetLeft - (rail.clientWidth - el.clientWidth) / 2;
   rail.scrollTo({ left: target, behavior: 'smooth' });
 }
-
 
 
   // 3) Active le dot du slide majoritairement visible (IntersectionObserver)
