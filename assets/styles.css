@@ -480,3 +480,30 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 @media (min-width:900px){
   .certs-dots{ display:none; }
 }
+
+
+/* ===== MOBILE (<=899px): 1 carte centrée par écran ===== */
+@media (max-width:899px){
+  .certs-rail{
+    list-style:none; margin:0; padding:0;
+    display:grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;     /* une carte = 100% viewport */
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    -webkit-overflow-scrolling: touch;
+  }
+  .certs-rail > li{
+    scroll-snap-align: center;   /* centre chaque carte */
+    width:100%;
+    display:flex;
+    justify-content:center;      /* centre la carte dans la colonne */
+  }
+  .cert-card{
+    width: calc(100% - 2rem);    /* marge latérale visible */
+    max-width: 500px;            /* limite sur grands mobiles/tablettes */
+  }
+}
+
