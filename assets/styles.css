@@ -675,10 +675,15 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 }
 
 /* "Objectif" avec l’icône */
-.methode__note{
-  display: flex; align-items: center; gap: .45rem;
+.methode__note {
+  grid-column: 1 / -1;       /* occupe toute la largeur de la carte */
   margin-top: .7rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .9rem;
   color: var(--muted);
+  text-align: left;
 }
 .methode__note-icon{
   font-size: 1rem; line-height: 1;
