@@ -563,7 +563,66 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   .certs-rail > li{ scroll-snap-align: unset !important; }
 }
 
+.methode {
+  display: grid;
+  grid-template-columns: auto 1fr; /* logo à gauche, contenu à droite */
+  align-items: start;
+  gap: 0.8rem 1rem;
+  padding: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-1);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
 
+.methode__icon {
+  grid-column: 1; /* colonne du logo */
+  grid-row: 1 / span 2; /* occupe la hauteur (titre + texte) */
+  width: 2.6rem; height: 2.6rem;
+  display: grid; place-items: center;
+  border-radius: .9rem;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #fff; font-size: 1.2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+}
+
+.methode__title,
+.methode__text,
+.methode__note {
+  grid-column: 2; /* tout le texte part dans la 2ᵉ colonne */
+}
+
+.methode__title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.3;
+}
+
+.methode__text,
+.methode__note {
+  margin-top: .4rem;
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.5;
+}
+
+
+.methode-head {
+  display: flex;
+  align-items: center;   /* aligne logo + texte */
+  gap: 0.8rem;           /* petit espace entre logo et titre */
+}
+
+.methode__title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.3;
+}
 
 .methode__note{
   grid-column: 1/-1;
