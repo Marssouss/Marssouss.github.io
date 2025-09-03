@@ -7,21 +7,29 @@
     Ces bonnes pratiques assurent des solutions fiables, évolutives et faciles à maintenir.
   </p>
 
-  <div class="methodes methodes--modern" aria-label="Points clés">
-    {% for methode in site.data.methodes %}
 <article class="methode">
   <div class="methode-head">
     <div class="methode__icon" aria-hidden="true">{{ methode.icon }}</div>
     <h3 class="methode__title">{{ methode.title }}</h3>
   </div>
-  {% if methode.text %}
-    <p class="methode__text">{{ methode.text }}</p>
+
+  {% if methode.talend %}
+    <p class="methode__line">
+      <span class="pill pill--talend">Talend</span>
+      {{ methode.talend }}
+    </p>
   {% endif %}
+
+  {% if methode.powerbi %}
+    <p class="methode__line">
+      <span class="pill pill--powerbi">Power BI</span>
+      {{ methode.powerbi }}
+    </p>
+  {% endif %}
+
   {% if methode.note %}
     <p class="methode__note">{{ methode.note }}</p>
   {% endif %}
 </article>
 
-    {% endfor %}
-  </div>
 </section>
