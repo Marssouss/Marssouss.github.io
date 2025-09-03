@@ -3,30 +3,11 @@
     <article class="methode">
       <div class="methode__icon" aria-hidden="true">{{ methode.icon }}</div>
       <h3 class="methode__title">{{ methode.title }}</h3>
-
-      {% if methode.bullets %}
-        <ul class="methode__bullets" role="list">
-          {% for item in methode.bullets %}
-            <li>
-              {% comment %}
-                Supporte deux cas :
-                - Objet: { scope: "Talend" | "Power BI" | "Tous", text: "..." }
-                - Chaîne: "Texte de la puce"
-              {% endcomment %}
-
-              {% if item.scope %}
-                {% assign scope_class = item.scope | downcase | replace: ' ', '' | replace: 'é', 'e' | replace: 'ô','o' | replace: 'û','u' | replace:'î','i' %}
-                <span class="pill pill--scope pill--{{ scope_class }}">{{ item.scope }}</span>
-                {{ item.text }}
-              {% else %}
-                {{ item }}
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
-
-      {% elsif methode.text %}
+      {% if methode.text %}
         <p class="methode__text">{{ methode.text }}</p>
+      {% endif %}
+      {% if methode.note %}
+        <p class="methode__note">{{ methode.note }}</p>
       {% endif %}
     </article>
   {% endfor %}
