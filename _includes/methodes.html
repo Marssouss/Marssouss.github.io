@@ -9,17 +9,19 @@
 
   <div class="methodes methodes--modern" aria-label="Points clés">
     {% for methode in site.data.methodes %}
-      <article class="methode">
-        <!-- Nouveau bloc titre aligné -->
-        <div class="methode-head">
-          <div class="methode__icon" aria-hidden="true">{{ methode.icon }}</div>
-          <h3 class="methode__title">{{ methode.title }}</h3>
-        </div>
+<article class="methode">
+  <div class="methode-head">
+    <div class="methode__icon" aria-hidden="true">{{ methode.icon }}</div>
+    <h3 class="methode__title">{{ methode.title }}</h3>
+  </div>
+  {% if methode.text %}
+    <p class="methode__text">{{ methode.text }}</p>
+  {% endif %}
+  {% if methode.note %}
+    <p class="methode__note">{{ methode.note }}</p>
+  {% endif %}
+</article>
 
-        {% if methode.text %}
-          <p class="methode__text">{{ methode.text }}</p>
-        {% endif %}
-      </article>
     {% endfor %}
   </div>
 </section>
