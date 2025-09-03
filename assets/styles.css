@@ -610,19 +610,22 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 
 .pill {
   display: inline-block;
-  padding: .2rem .6rem;
+  padding: .18rem .45rem;
   border-radius: .6rem;
-  font-size: .75rem;
+  font-size: .78rem;
   font-weight: 600;
-  margin-right: .5rem;
-  color: #fff;
+  line-height: 1.3;
+  margin-right: .3rem;   /* réduit l’espace */
+  vertical-align: middle;
 }
 
 .pill--talend {
-  background: #2196f3; /* bleu Talend */
+  background: var(--brand);   /* couleur principale */
+  color: #fff;
 }
 
 .pill--powerbi {
-  background: #f2c811; /* jaune Power BI */
-  color: #000; /* meilleur contraste */
+  background: var(--brand-2); /* couleur secondaire */
+  color: #fff;
 }
+
