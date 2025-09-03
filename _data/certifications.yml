@@ -1,25 +1,30 @@
 - ordre: 1
   title: Talend Data Integration Developer
   issuer: Talend
-  logo: /assets/img/logos/talend.png
-  status: valid
-  date: 2024-06-01
-  skills: [ETL, Data Quality, tMap, TAC]
-  #verify_url: https://...
+  date: 2022-06-15
+  status: certified          # "certified" | "pending"
+  #verify_url: ""
+  badge_url: ""
+  logo: "/assets/img/certs/badge_talend.jpg"
+  skills: [ETL,Orchestration, Monitoring]
+  note: "Bonnes pratiques de développements, Architecture evolutive"
 
 - ordre: 2
   title: PL-300 Power BI Data Analyst Associate
   issuer: Microsoft
-  logo: /assets/img/logos/microsoft.png
-  status: valid
-  date: 2023-11-01
+  date: 2023-11-10
+  status: certified
+  #verify_url: "https://learn.microsoft.com/xxxx"
+  badge_url: "https://learn.microsoft.com/badges/xxxx"
+  logo: "/assets/img/certs/ms.png"
   skills: [DAX, Modélisation, Power Query]
-  #verify_url: https://...
+  note: "Modèles étoile, DAX avancé, gouvernance Power BI."
 
+# Exemple en cours (optionnel)
 - ordre: 3
   title: AWS Data Engineer Associate
   issuer: Amazon Web Services
-  logo: /assets/img/logos/aws.png
   status: pending
-  planned_date: 2025-10-01
+  planned_date: 2025-10-15
+  logo: "/assets/img/certs/aws.png"
   skills: [Glue, Athena, S3, Lake Formation]
