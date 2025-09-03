@@ -8,25 +8,8 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
 
 {% include certs.html %}
 
-<section id="methodes" class="section" aria-labelledby="methodes-title">
-  <h2 id="methodes-title">Mes points clés</h2>
-  <p class="lead">
-    Que ce soit pour un flux <strong>Talend</strong> ou un rapport <strong>Power BI</strong>, 
-    j’applique toujours les mêmes principes : <em>qualité</em>, <em>robustesse</em>, 
-    <em>sécurité</em> et <em>performance</em>.  
-    Ces bonnes pratiques assurent des solutions fiables, évolutives et faciles à maintenir.
-  </p>
+{% include methodes.html %}
 
-  <div class="kpis kpis--modern" aria-label="Points clés">
-    {% for kpi in site.data.kpis %}
-      <article class="kpi">
-        <div class="kpi__icon" aria-hidden="true">{{ kpi.icon }}</div>
-        <h3 class="kpi__title">{{ kpi.title }}</h3>
-        <p class="kpi__text">{{ kpi.text }}</p>
-      </article>
-    {% endfor %}
-  </div>
-</section>
 
 <section id="services" class="section" aria-labelledby="services-title">
   <h2 id="services-title">Services</h2>
