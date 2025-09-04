@@ -1,124 +1,140 @@
-/* ========================================================================
-   ABM — CSS unifié (mobile-first, a11y, ultra-moderne & épuré)
-   - Design tokens (palettes sombre/clair, espaces, radius, ombres)
+/* ===========================================================================
+   ABM — CSS unifié (mobile-first, premium & épuré, 100% responsive)
+   - Design tokens (dark/light), typographie fluide, espaces, radius, ombres
    - Base & utilitaires
-   - Header / Navigation (burger + desktop)
+   - Header / Navigation (burger + desktop, verre dépoli)
    - Composants: buttons, chips, pills, cards
    - Sections: Hero, Méthodes, Certifications (slider mobile → grille desktop)
    - Pages: About
    - Footer / Modal
-   - Motion & prefers-reduced-motion
-   ======================================================================== */
+   - Motion & a11y
+   =========================================================================== */
 
-/* ================== 1) Design tokens ================== */
+/* ========================= 1) Design tokens ========================= */
+/* Dark (premium, deep) */
 :root{
-  /* Couleurs (sombre) */
-  --bg:#0b1020;              /* fond global */
-  --fg:#e6e8ee;              /* texte principal */
-  --muted:#9aa3b2;           /* texte secondaire */
-  --brand:#4f46e5;           /* indigo */
-  --brand-2:#22c55e;         /* vert */
-  --card:#121933;            /* surface cartes */
-  --border:#1f2a44;          /* bordures discrètes */
+  --bg:#070b18;           /* fond global */
+  --fg:#e8ebf3;           /* texte principal */
+  --muted:#a3adc2;        /* texte secondaire */
+  --brand:#5865f2;        /* indigo premium */
+  --brand-2:#22c55e;      /* vert premium */
+  --card:#0e1428;         /* surfaces */
+  --border:#1a2540;       /* bordures subtiles */
+  --shadow-1:0 14px 40px rgba(2,6,23,.5);
 
-  /* Paliers typographiques & espacements */
-  --space-1:.5rem; --space-2:.75rem; --space-3:1rem; --space-4:1.5rem; --space-5:2rem;
-  --radius-1:.7rem; --radius-2:.9rem; --radius-3:1.2rem;
+  /* Rythme & formes */
+  --space-1:.56rem; --space-2:.8rem; --space-3:1.1rem; --space-4:1.6rem; --space-5:2.2rem;
+  --radius-1:.7rem; --radius-2:1rem; --radius-3:1.25rem;
 
-  /* Ombrages & containers */
-  --shadow-1:0 8px 24px rgba(0,0,0,.25);
-  --container:1280px; --container-tight:1080px;
+  /* Conteneurs max (fluid) */
+  --container: min(1280px, 92vw);
+  --container-tight: min(1080px, 92vw);
 
-  /* Pills (adaptatives) */
-  --pill-talend: color-mix(in oklab, var(--brand) 80%, var(--bg) 20%);
+  /* Typo fluide */
+  --step--1: clamp(.86rem, .83rem + .2vw, .92rem);
+  --step-0: clamp(1rem, .96rem + .4vw, 1.1rem);
+  --step-1: clamp(1.15rem, 1.08rem + .6vw, 1.35rem);
+  --step-2: clamp(1.4rem, 1.25rem + 1vw, 1.8rem);
+  --step-3: clamp(1.8rem, 1.5rem + 1.6vw, 2.4rem);
+  --step-4: clamp(2.2rem, 1.9rem + 2.2vw, 3rem);
+
+  /* Pills */
+  --pill-talend: color-mix(in oklab, var(--brand) 82%, var(--bg) 18%);
   --pill-powerbi: color-mix(in oklab, var(--brand-2) 78%, var(--bg) 22%);
   --pill-fg:#fff;
   --pill-border-talend: color-mix(in oklab, var(--brand) 55%, var(--border));
   --pill-border-powerbi: color-mix(in oklab, var(--brand-2) 55%, var(--border));
 }
 
-/* Thème clair premium (verre dépoli, surfaces blanches, fond très doux) */
+/* Light (doux, pro, lisible) */
 :root[data-theme="light"]{
-  --bg:#f6f7fb;              /* fond doux */
-  --fg:#0b1220;              /* texte principal */
-  --muted:#5b6475;           /* texte secondaire plus chaud */
-  --card:#ffffff;            /* cartes blanches nettes */
-  --border:#e7eaf1;          /* bordure subtile */
-  --shadow-1:0 12px 28px rgba(15,23,42,.08);
+  --bg:#eef2f7;           /* fond doux (pas blanc) */
+  --fg:#0a1020;           /* texte principal */
+  --muted:#5c667a;        /* secondaire chaud */
+  --card:#ffffff;         /* surfaces blanches nettes */
+  --border:#dfe4ee;       /* bordure subtile */
+  --shadow-1:0 14px 38px rgba(15,23,42,.10);
 
-  /* Pills en clair : plus “peps” sans dégradé */
   --pill-talend: color-mix(in oklab, var(--brand) 92%, #fff 8%);
-  --pill-powerbi: color-mix(in oklab, var(--brand-2) 88%, #fff 12%);
+  --pill-powerbi: color-mix(in oklab, var(--brand-2) 90%, #fff 10%);
   --pill-fg:#fff;
 }
 
-/* Respect du thème système si pas de data-theme défini */
+/* Respect du thème système si data-theme absent */
 @media (prefers-color-scheme: light){
   :root:not([data-theme]){
-    --bg:#f6f7fb; --fg:#0b1220; --muted:#5b6475;
-    --card:#ffffff; --border:#e7eaf1; --shadow-1:0 12px 28px rgba(15,23,42,.08);
+    --bg:#eef2f7; --fg:#0a1020; --muted:#5c667a; --card:#fff; --border:#dfe4ee;
+    --shadow-1:0 14px 38px rgba(15,23,42,.10);
     --pill-talend: color-mix(in oklab, var(--brand) 92%, #fff 8%);
-    --pill-powerbi: color-mix(in oklab, var(--brand-2) 88%, #fff 12%);
+    --pill-powerbi: color-mix(in oklab, var(--brand-2) 90%, #fff 10%);
     --pill-fg:#fff;
   }
 }
 
-/* ================== 2) Base & utilitaires ================== */
+/* ======================= 2) Base & utilitaires ======================= */
 *{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 body{
   margin:0;
   font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji";
   background:var(--bg); color:var(--fg);
-}
-main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
-.section{ padding-block: clamp(1.6rem, 2.6vw, 2.8rem); }
-.section h2{ font-size:clamp(1.4rem,2.4vw,1.8rem); line-height:1.2; margin:0 0 .75rem; }
-.lead{ font-size:clamp(1.05rem,1.6vw,1.12rem); color:var(--muted); }
-
-/* Grilles utilitaires */
-.grid{ display:grid; gap: clamp(1rem,2.5vw,1.5rem); }
-.grid.cols-2{ grid-template-columns:1fr; }
-.grid.cols-3{ grid-template-columns:1fr; }
-@media (min-width:900px){
-  .grid.cols-2{ grid-template-columns:repeat(2,1fr); }
-  .grid.cols-3{ grid-template-columns:repeat(3,1fr); }
+  text-rendering: optimizeLegibility;
 }
 
-/* Helpers */
+main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem, 1.5vw, 2rem) 1rem; }
+.section{ padding-block: clamp(1.8rem, 3.2vw, 3rem); }
+.section h2{ font-size:var(--step-2); line-height:1.2; margin:0 0 .75rem; }
+.lead{ font-size:var(--step-0); color:var(--muted); max-width:70ch; }
+
 .muted{ color:var(--muted); }
 .hidden{ display:none !important; }
 
-/* ================== 3) Header & Navigation ================== */
+/* Grilles utilitaires 100% responsive */
+.grid{ display:grid; gap: clamp(1.1rem, 2.8vw, 1.7rem); }
+.grid.cols-2{ grid-template-columns:1fr; }
+.grid.cols-3{ grid-template-columns:1fr; }
+@media (min-width:700px){
+  .grid.cols-2{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+@media (min-width:1100px){
+  .grid.cols-3{ grid-template-columns:repeat(3, minmax(0,1fr)); }
+}
+
+/* ==================== 3) Header & Navigation ==================== */
 .site-header{
   position:sticky; top:0; z-index:60;
-  backdrop-filter:saturate(1.2) blur(10px);
-  background:color-mix(in oklab, var(--bg) 92%, transparent);
   border-bottom:1px solid var(--border);
+  background:color-mix(in oklab, var(--bg) 92%, transparent);
+  -webkit-backdrop-filter:saturate(1.2) blur(10px);
+  backdrop-filter:saturate(1.2) blur(10px);
 }
 :root[data-theme="light"] .site-header{
-  background: color-mix(in oklab, #ffffff 85%, transparent);
+  background: color-mix(in oklab, #ffffff 88%, transparent);
 }
 
 .navbar{
+  max-width:var(--container);
+  margin-inline:auto;
   display:flex; align-items:center; justify-content:space-between; gap:.75rem;
   padding:.55rem 1rem;
 }
 .brand{
-  display:flex; align-items:center; gap:.5rem;
-  font-weight:700; font-size:1rem; color:var(--fg); text-decoration:none;
+  display:flex; align-items:center; gap:.6rem;
+  font-weight:800; font-size:var(--step-0); color:var(--fg); text-decoration:none;
+  letter-spacing:.02em;
 }
 .brand .dot{
-  width:.75rem; height:.75rem; border-radius:999px;
+  width:.8rem; height:.8rem; border-radius:999px;
   background:linear-gradient(135deg,var(--brand),var(--brand-2));
+  box-shadow:0 0 0 3px color-mix(in oklab, var(--brand) 22%, transparent);
 }
 .nav-actions{ display:inline-flex; align-items:center; gap:.5rem; }
 
-/* Thème toggle (icônes soleil/lune animées) */
+/* Thème toggle (soleil/lune animés) */
 .theme-toggle{
-  display:inline-flex; align-items:center; gap:.45rem; height:38px; padding:.4rem .7rem;
+  display:inline-flex; align-items:center; gap:.45rem; height:40px; padding:.45rem .8rem;
   border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--fg); cursor:pointer;
-  transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+  transition: background .18s, border-color .18s, transform .18s, box-shadow .18s;
 }
 .theme-toggle:hover{ background: color-mix(in oklab, var(--fg) 6%, var(--card)); box-shadow: 0 4px 14px rgba(0,0,0,.08); }
 .theme-toggle:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab,var(--brand) 45%,transparent); }
@@ -138,11 +154,12 @@ main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
 /* Burger / menu mobile */
 .nav-toggle{
   display:inline-flex; align-items:center; gap:.5rem; height:40px; padding:0 .9rem;
-  border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--fg); font-weight:600;
+  border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--fg); font-weight:700;
 }
 .nav-toggle .chev{ transition:transform .2s ease; }
 .nav-toggle[aria-expanded="true"] .chev{ transform:rotate(180deg); }
 
+/* Panneau mobile */
 .nav-collapsible{
   overflow:clip; max-height:0;
   transition:max-height .28s ease, border-color .28s ease, box-shadow .28s ease;
@@ -153,26 +170,19 @@ main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
 .nav-collapsible.open{
   max-height:60svh; border-color:var(--border); box-shadow:0 10px 22px rgba(0,0,0,.08);
 }
-.nav-list{ list-style:none; margin:0; padding:.5rem .75rem 1rem; display:grid; gap:.5rem; }
+.nav-list{ list-style:none; margin:0; padding:.5rem .75rem 1rem; display:grid; gap:.6rem; }
 .nav-list a,.nav-list .btn{
-  display:block; padding:.9rem 1rem; border-radius:14px; text-decoration:none;
+  display:block; padding:1rem 1.1rem; border-radius:14px; text-decoration:none;
   color:var(--fg); background:var(--card); border:1px solid var(--border);
 }
 .nav-list a:hover{ border-color:color-mix(in oklab,var(--border),var(--brand) 30%); }
-.nav-list .btn.cta{ text-align:center; }
 
+/* Desktop inline */
 .nav-desktop{ display:none; flex:1 1 auto; min-width:0; }
 .nav-inline{
-  display:flex; align-items:center; gap:.5rem; white-space:nowrap;
+  display:flex; align-items:center; gap:.6rem; white-space:nowrap;
   list-style:none; margin:0; padding:0 .5rem;
 }
-.chip{
-  display:inline-flex; align-items:center; gap:.45rem; line-height:1;
-  padding:.45rem .75rem; border:1px solid var(--border); border-radius:12px;
-  background:var(--card); color:var(--fg); text-decoration:none; font-weight:500;
-  transition:border-color .18s, background .18s, transform .18s;
-}
-.chip:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border), var(--brand) 30%); }
 
 @media (min-width:992px){
   .nav-toggle{ display:none; }
@@ -181,19 +191,47 @@ main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
   .nav-collapsible{ display:none; }
 }
 
-/* ================== 4) Composants ================== */
-.card{
-  background:var(--card); border:1px solid var(--border); border-radius:var(--radius-2);
-  padding: clamp(1rem, 2.6vw, 1.25rem); box-shadow:var(--shadow-1);
+/* CTA “Réserver un créneau” — visible en continu */
+.nav-desktop .btn.cta,
+.nav-list .btn.cta{
+  border:0 !important;
+  background:linear-gradient(135deg, var(--brand), var(--brand-2)) !important;
+  color:#fff !important;
+  font-weight:800;
+  letter-spacing:.01em;
+  box-shadow: 0 12px 26px color-mix(in oklab, var(--brand) 30%, transparent);
 }
-.card h3{ margin:.2rem 0 .4rem; }
+.nav-desktop .btn.cta:hover,
+.nav-list .btn.cta:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px color-mix(in oklab, var(--brand) 36%, transparent);
+}
+
+/* ======================== 4) Composants ======================== */
+.card{
+  background:var(--card);
+  border:1px solid color-mix(in oklab, var(--border) 86%, transparent);
+  border-radius:var(--radius-2);
+  padding: clamp(1rem, 2.2vw, 1.35rem);
+  box-shadow:var(--shadow-1);
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+.card:hover{
+  transform:translateY(-4px);
+  border-color: color-mix(in oklab, var(--border), var(--brand) 28%);
+  box-shadow: 0 16px 32px color-mix(in oklab, #000 18%, transparent);
+}
+:root[data-theme="light"] .card{
+  background: color-mix(in oklab, #ffffff 96%, var(--brand) 4%);
+  border-color: color-mix(in oklab, var(--border), var(--brand) 6%);
+}
 
 /* Boutons */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:.55rem;
-  min-height:46px; padding:.65rem 1rem; line-height:1;
-  border:1px solid var(--border); border-radius:.8rem;
-  background:var(--card); color:var(--fg); font-weight:500; cursor:pointer;
+  min-height:46px; padding:.7rem 1.05rem; line-height:1;
+  border:1px solid var(--border); border-radius:.9rem;
+  background:var(--card); color:var(--fg); font-weight:600; cursor:pointer;
   transition:transform .18s, border-color .18s, background .18s, box-shadow .18s;
 }
 .btn:hover{
@@ -203,48 +241,52 @@ main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
   box-shadow:0 6px 18px rgba(0,0,0,.12);
 }
 .btn:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab,var(--brand) 40%,transparent); }
-.btn.cta{ border:0; background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; font-weight:600; }
 .btn--icon{ display:inline-flex; align-items:center; gap:.55rem; }
-:root[data-theme="light"] .btn{ background:#fff; border-color:var(--border); }
+
+/* Boutons simples (clair) : très léger tint pour éviter “bloc blanc” */
+:root[data-theme="light"] .btn{
+  background: color-mix(in oklab, #ffffff 94%, var(--brand) 6%);
+  border-color: color-mix(in oklab, var(--border), var(--brand) 10%);
+}
 :root[data-theme="light"] .btn:hover{
-  background: color-mix(in oklab, #fff 85%, var(--brand) 5%);
-  border-color: color-mix(in oklab, var(--border), var(--brand) 25%);
-  box-shadow:0 6px 18px rgba(15,23,42,.08);
+  background: color-mix(in oklab, #ffffff 90%, var(--brand) 10%);
+  border-color: color-mix(in oklab, var(--border), var(--brand) 28%);
+  box-shadow: 0 10px 26px rgba(15,23,42,.12);
 }
 
 /* Chips */
-.chip{ /* déjà défini plus haut, variantes ici si besoin */ }
+.chip{
+  display:inline-flex; align-items:center; gap:.5rem; line-height:1;
+  padding:.5rem .8rem; border:1px solid var(--border); border-radius:12px;
+  background:var(--card); color:var(--fg); text-decoration:none; font-weight:600;
+  transition:border-color .18s, background .18s, transform .18s, box-shadow .18s;
+}
+.chip:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border), var(--brand) 30%); }
 
-/* Pills Talend / Power BI (solides, proches de la charte, sans dégradé) */
+/* Pills Talend / Power BI (solides, proches de la charte) */
 .pill{
   display:inline-block;
-  padding:.22rem .55rem;
-  border-radius:.65rem;
-  font-size:.8rem; font-weight:700; line-height:1.25;
+  padding:.24rem .6rem;
+  border-radius:.7rem;
+  font-size:var(--step--1); font-weight:800; line-height:1.25;
   vertical-align:middle; letter-spacing:.01em;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
 }
-.pill--talend{
-  background: var(--pill-talend);
-  color: var(--pill-fg);
-  border:1px solid var(--pill-border-talend);
-}
-.pill--powerbi{
-  background: var(--pill-powerbi);
-  color: var(--pill-fg);
-  border:1px solid var(--pill-border-powerbi);
-}
+.pill--talend{ background: var(--pill-talend); color: var(--pill-fg); border:1px solid var(--pill-border-talend); }
+.pill--powerbi{ background: var(--pill-powerbi); color: var(--pill-fg); border:1px solid var(--pill-border-powerbi); }
 .pill--talend:is(:hover,:focus-visible),
 .pill--powerbi:is(:hover,:focus-visible){
-  filter: brightness(1.05);
+  filter: brightness(1.06);
   outline:none;
-  box-shadow: 0 0 0 3px color-mix(in oklab, currentColor 30%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, currentColor 28%, transparent);
 }
 
-/* ================== 5) Sections ================== */
+/* ========================== 5) Sections ========================== */
 /* HERO */
-.hero{ display:grid; grid-template-columns:1fr; gap:1.5rem; align-items:center; }
-.hero .actions{ display:flex; gap:.6rem; margin-top:1rem; }
+.hero{
+  display:grid; grid-template-columns:1fr; gap:clamp(1rem, 2vw, 1.5rem); align-items:center;
+}
+.hero .actions{ display:flex; gap:.7rem; margin-top:1rem; flex-wrap:wrap; }
 .hero img{ max-width:100%; border-radius:var(--radius-3); border:1px solid var(--border); }
 .hero__img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:var(--radius-3); border:1px solid var(--border); }
 .hero__viz{
@@ -252,26 +294,32 @@ main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
   background:var(--card); background-image:var(--hero-image); background-size:cover; background-position:50% 50%;
   box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
-@media (min-width:900px){ .hero{ grid-template-columns:1.2fr .8fr; } }
+@media (min-width:900px){
+  .hero{ grid-template-columns:1.25fr .85fr; }
+}
 
 /* MÉTHODES (cartes premium alignées) */
 .methodes.methodes--modern{
   display:grid; grid-template-columns:1fr;
-  gap: clamp(1rem, 2.5vw, 1.5rem); margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  gap: clamp(1rem, 2.5vw, 1.6rem); margin-top: clamp(1.5rem, 3vw, 2.6rem);
 }
-@media (min-width:700px){ .methodes.methodes--modern{ grid-template-columns:repeat(2,1fr); } }
-@media (min-width:1100px){ .methodes.methodes--modern{ grid-template-columns:repeat(3,1fr); } }
+@media (min-width:700px){ .methodes.methodes--modern{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+@media (min-width:1100px){ .methodes.methodes--modern{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
 
 .methode{
   display:grid;
   grid-template-columns: 2.6rem 1fr; /* col 1 = logo, col 2 = contenu */
-  align-items:start; column-gap:1rem; row-gap:.6rem;
-  padding:1.5rem; background:var(--card); border:1px solid var(--border);
+  align-items:start; column-gap:1rem; row-gap:.7rem;
+  padding: clamp(1.2rem, 2.2vw, 1.6rem);
+  background:var(--card); border:1px solid color-mix(in oklab, var(--border) 86%, transparent);
   border-radius:var(--radius-2); box-shadow:var(--shadow-1);
-  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
 }
 @media (hover:hover){
   .methode:hover{ transform:translateY(-6px); border-color:color-mix(in oklab,var(--brand) 35%,var(--border)); box-shadow:0 12px 28px rgba(0,0,0,.35); }
+}
+:root[data-theme="light"] .methode{
+  background: color-mix(in oklab, #ffffff 96%, var(--brand) 4%);
 }
 .methode-head{ display:contents; }
 .methode__icon{
@@ -282,22 +330,22 @@ main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
 }
 .methode__title{
   grid-column:2; grid-row:1; margin:0; align-self:center;
-  font-size:1.15rem; font-weight:600; color:var(--fg); line-height:1.3;
+  font-size:var(--step-1); font-weight:800; color:var(--fg); line-height:1.3;
 }
 .methode__line{
-  grid-column:1 / -1; display:flex; align-items:center; gap:.4rem;
-  font-size:.9rem; color:var(--muted);
+  grid-column:1 / -1; display:flex; align-items:center; gap:.45rem;
+  font-size:var(--step--1); color:var(--muted); flex-wrap:wrap;
 }
 .methode__note{
-  grid-column:1 / -1; margin-top:.7rem; display:flex; align-items:center; gap:.5rem;
-  font-size:.9rem; color:var(--muted); text-align:left;
+  grid-column:1 / -1; margin-top:.6rem; display:flex; align-items:center; gap:.5rem;
+  font-size:var(--step--1); color:var(--muted); text-align:left;
 }
 .methode__note-icon{ font-size:1rem; line-height:1; color:var(--brand-2); }
 
-/* CERTIFICATIONS — slider mobile → grille desktop (sans “peek”) */
+/* CERTIFICATIONS — slider mobile → grille desktop */
 .certs{ padding-block: clamp(2rem,3vw,3.5rem); }
 .certs-head{ text-align:center; margin-bottom:1.25rem; }
-.certs .h2{ font-size:clamp(1.4rem,2.4vw,1.8rem); margin:0; }
+.certs .h2{ font-size:var(--step-2); margin:0; }
 
 .certs-viewport{
   max-width:min(100vw, 1100px);
@@ -305,20 +353,21 @@ main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
   overflow:hidden;
 }
 
+/* Mobile: slider plein écran (sans peek) */
 .certs-rail{
   list-style:none; margin:0; padding:0;
   display:grid;
   grid-auto-flow: column;
-  grid-auto-columns: 100%;  /* 1 slide = pleine largeur */
+  grid-auto-columns: 100%;
   gap: 0;
   padding: 0;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: 0;
   -webkit-overflow-scrolling: touch;
 }
 .certs-rail > li{ width:100%; scroll-snap-align: center; }
 
+/* Desktop: grille 3 colonnes */
 @media (min-width:900px){
   .certs-viewport{ overflow:visible; }
   .certs-rail{
@@ -336,15 +385,19 @@ main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
 /* Carte certification */
 .cert-card{
   display:grid; grid-template-columns:56px 1fr; align-items:start;
-  column-gap:1.4rem; row-gap:.6rem;
-  padding: clamp(1.6rem, 2.6vw, 2.2rem);
-  padding-inline: clamp(2rem, 3.5vw, 2.75rem);
-  background:var(--card); border:1px solid var(--border); border-radius:var(--radius-2);
+  column-gap:1.4rem; row-gap:.7rem;
+  padding: clamp(1.5rem, 2.6vw, 2.1rem);
+  padding-inline: clamp(1.6rem, 3vw, 2.4rem);
+  background:var(--card); border:1px solid color-mix(in oklab, var(--border) 86%, transparent);
+  border-radius:var(--radius-2);
   box-shadow:var(--shadow-1);
-  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
 }
 @media (hover:hover){
   .cert-card:hover{ transform:translateY(-6px); border-color:color-mix(in oklab,var(--brand) 35%,var(--border)); box-shadow:0 12px 28px rgba(0,0,0,.35); }
+}
+:root[data-theme="light"] .cert-card{
+  background: color-mix(in oklab, #ffffff 96%, var(--brand) 4%);
 }
 .cert-badge{
   grid-column:1; grid-row:1;
@@ -354,39 +407,40 @@ main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
 }
 .cert-logo{ width:100%; height:100%; object-fit:contain; }
 .cert-body{ grid-column:1 / -1; display:grid; gap:.55rem; }
-.cert-title{ margin:0; font-size:1.15rem; font-weight:600; line-height:1.3; }
-.cert-issuer{ margin:.1rem 0 0; font-size:.9rem; color:var(--muted); }
+.cert-title{ margin:0; font-size:var(--step-1); font-weight:800; line-height:1.3; }
+.cert-issuer{ margin:.1rem 0 0; font-size:var(--step--1); color:var(--muted); }
 
 /* Ligne statut/date alignée au badge */
 .cert-statusline{
   grid-column:2; grid-row:1;
   display:flex; align-items:center; gap:.6rem;
-  font-size:1rem; font-weight:600;
+  font-size:var(--step-0); font-weight:700;
 }
 .cert-chip{
   display:inline-flex; align-items:center; gap:.4rem;
   padding:.35rem .7rem; line-height:1;
-  border-radius:999px; font-size:.9rem;
+  border-radius:999px; font-size:var(--step--1);
   border:1px solid var(--border); background:var(--card);
 }
 .cert-chip.chip-ok{ color:var(--brand-2); border-color:color-mix(in oklab,var(--brand-2) 40%,var(--border)); }
 .cert-chip.chip-pending{ color:var(--muted); }
-.cert-date{ opacity:.9; font-size:.95rem; }
+.cert-date{ opacity:.9; font-size:var(--step--1); }
 
+/* Tags */
 .cert-tags{
   display:flex; flex-wrap:wrap; gap:.5rem;
   list-style:none; margin:.55rem 0 0; padding:0;
 }
 .cert-tags .tag{
   padding:.35rem .6rem; border-radius:999px;
-  background: rgba(148,163,184,.12);
-  border:1px solid rgba(148,163,184,.25);
-  font-size:.78rem; line-height:1; white-space:nowrap;
+  background: color-mix(in oklab, #94a3b8 14%, transparent);
+  border:1px solid color-mix(in oklab, #94a3b8 28%, transparent);
+  font-size:calc(var(--step--1) - .02rem); line-height:1; white-space:nowrap;
 }
 :root[data-theme="light"] .cert-tags .tag{
-  background: color-mix(in oklab, #94a3b8 14%, #fff 90%);
+  background: color-mix(in oklab, #94a3b8 10%, #fff 92%);
   border:1px solid color-mix(in oklab, #94a3b8 22%, #fff 0%);
-  color: color-mix(in oklab, var(--fg) 80%, #000 0%);
+  color: color-mix(in oklab, var(--fg) 88%, #000 0%);
 }
 
 /* Dots du carousel (mobile uniquement) */
@@ -405,37 +459,69 @@ main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
 .certs-dot.is-active{ opacity:1; transform: scale(1.2); background: color-mix(in oklab, var(--brand) 60%, #fff 0%); }
 @media (min-width:900px){ .certs-dots{ display:none; } }
 
-/* ================== 6) Pages: About ================== */
-.about-title{ margin:0; font-size:clamp(1.5rem,2.5vw,2rem); }
-.about-sub{ margin:.2rem 0 1rem; color:var(--muted); font-weight:600; }
-.about-text{ max-width:720px; text-align:left; margin:0; display:grid; gap:.8rem; }
-.about-text p{ margin:.4rem 0; line-height:1.55; }
-.about-text .lead{ font-size:1.1rem; color:var(--fg); }
+/* ========================== 6) Pages: About ========================== */
+.about-title{ margin:0; font-size:var(--step-3); }
+.about-sub{ margin:.2rem 0 1rem; color:var(--muted); font-weight:700; font-size:var(--step-0); }
+.about-text{ max-width:720px; text-align:left; margin:0; display:grid; gap:.9rem; }
+.about-text p{ margin:.4rem 0; line-height:1.6; }
+.about-text .lead{ font-size:var(--step-0); color:var(--fg); }
 
 /* Variantes sous-titre */
 .about-sub.badge-style{
-  display:inline-block; font-weight:700; font-size:1.05rem; padding:.25rem .75rem; border-radius:.7rem;
+  display:inline-block; font-weight:800; font-size:var(--step-0); padding:.28rem .8rem; border-radius:.75rem;
   background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; margin-bottom:1rem;
 }
 .about-sub.gradient-style{
-  font-weight:800; font-size:1.1rem;
+  font-weight:900; font-size:var(--step-1);
   background:linear-gradient(135deg,var(--brand),var(--brand-2));
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:1rem;
 }
 
-/* ================== 7) Footer & Modal ================== */
-.site-footer{ border-top:1px solid var(--border); padding:2rem 1rem; text-align:center; color:var(--muted); }
+/* ======================== 7) Footer & Modal ======================== */
+.site-footer{
+  border-top:1px solid var(--border);
+  padding:clamp(1.4rem, 2vw, 2rem) 1rem;
+  text-align:center; color:var(--muted);
+}
 
-.modal{ position:fixed; inset:0; background:color-mix(in oklab,#000 60%,transparent); display:grid; place-items:center; }
+.modal{
+  position:fixed; inset:0;
+  background:color-mix(in oklab,#000 60%,transparent);
+  display:grid; place-items:center; padding:1rem;
+}
 .modal[hidden]{ display:none; }
 .modal__dialog{
   background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-3);
-  width:min(900px,90vw); height:min(80vh,700px); padding:0; overflow:hidden;
+  width:min(900px,100%); max-width: min(900px, 96vw);
+  height:min(80vh,700px); max-height: 90vh;
+  padding:0; overflow:hidden; position:relative;
+  box-shadow: var(--shadow-1);
 }
-.modal__close{ position:absolute; margin:.5rem; right:1rem; background:none; color:var(--fg); font-size:1.8rem; border:none; cursor:pointer; }
+.modal__close{
+  position:absolute; top:.6rem; right:.8rem;
+  background:none; color:var(--fg); font-size:1.8rem; border:none; cursor:pointer;
+}
 
-/* ================== 8) Motion & A11y ================== */
+/* ======================== 8) Motion & A11y ======================== */
 @media (prefers-reduced-motion: reduce){
   .nav-toggle .chev, .nav-collapsible, .btn, .card, .methode, .cert-card,
-  .icon-sun, .icon-moon, .theme-toggle { transition: none !important; }
+  .icon-sun, .icon-moon, .theme-toggle, .certs-dot { transition: none !important; }
+}
+
+/* ===================== 9) Ultra-large screens ===================== */
+/* Ajustements >1600px pour conserver un look “respirant” */
+@media (min-width:1600px){
+  .section{ padding-block: clamp(2.2rem, 2vw, 3.6rem); }
+  .hero{ grid-template-columns: 1.1fr .9fr; gap: 2rem; }
+  .card{ padding: clamp(1.2rem, 1.4vw, 1.8rem); }
+}
+
+/* ===================== 10) Micro-screens (≤360px) ===================== */
+@media (max-width:360px){
+  .nav-toggle{ padding: 0 .7rem; }
+  .theme-toggle{ height:38px; padding:.4rem .6rem; }
+  .methode{ grid-template-columns: 2.4rem 1fr; }
+  .methode__icon{ width:2.4rem; height:2.4rem; }
+  .cert-card{ grid-template-columns: 52px 1fr; }
+  .cert-badge{ width:52px; height:52px; }
 }
