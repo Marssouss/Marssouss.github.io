@@ -129,40 +129,86 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 }
 .nav-actions{ display:inline-flex; align-items:center; gap:.5rem; }
 
-/* === Toggle thème — slot icône fixe + label dynamique Light/Dark === */
-.theme-toggle{
-  position:relative;
-  display:inline-flex; align-items:center; gap:.55rem;
-  height:40px; padding:.45rem .9rem .45rem calc(.7rem + var(--icon-size) + .5rem);
-  border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--fg);
-  cursor:pointer; transition: background .18s, border-color .18s, transform .18s, box-shadow .18s;
+/* ================= Toggle thème — fix premium (centrage + nudge) ================= */
+/* Valeurs par défaut si non définies ailleurs */
+:root{
+  --icon-size: 1.2rem;     /* taille visuelle de l’icône */
+  --sun-nudge-y: -1px;     /* petit décalage optique du soleil vers le haut */
 }
-.theme-toggle:hover{ background: color-mix(in oklab, var(--fg) 6%, var(--card)); box-shadow:0 4px 14px rgba(0,0,0,.08); }
-.theme-toggle:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab,var(--brand) 45%,transparent); }
-:root[data-theme="light"] .theme-toggle{ background:#fff; border-color:var(--border); box-shadow:0 4px 14px rgba(15,23,42,.06); }
-:root[data-theme="light"] .theme-toggle:hover{ background: color-mix(in oklab, #fff 90%, var(--brand) 4%); }
 
+.theme-toggle{
+  position: relative;
+  display: inline-flex; align-items: center; gap: .55rem;
+  height: 40px;
+  padding: .45rem .9rem .45rem calc(.7rem + var(--icon-size) + .5rem);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--fg);
+  cursor: pointer;
+  transition: background .18s, border-color .18s, transform .18s, box-shadow .18s;
+}
+.theme-toggle:hover{
+  background: color-mix(in oklab, var(--fg) 6%, var(--card));
+  box-shadow: 0 4px 14px rgba(0,0,0,.08);
+}
+.theme-toggle:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand) 45%, transparent);
+}
+:root[data-theme="light"] .theme-toggle{
+  background: #fff;
+  border-color: var(--border);
+  box-shadow: 0 4px 14px rgba(15,23,42,.06);
+}
+:root[data-theme="light"] .theme-toggle:hover{
+  background: color-mix(in oklab, #fff 90%, var(--brand) 4%);
+}
+
+/* Slot icône fixe, centrage géométrique parfait */
 .theme-toggle .tt-icon{
-  position:absolute; left:.7rem; top:50%; transform:translateY(-50%);
-  width:var(--icon-size); height:var(--icon-size);
-  display:grid; place-items:center; pointer-events:none; line-height:0;
+  position: absolute;
+  left: .7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--icon-size);
+  height: var(--icon-size);
+  display: grid; place-items: center;
+  pointer-events: none;
+  line-height: 0; /* empêche tout “baseline shift” */
 }
-.icon-sun,.icon-moon{
-  position:absolute; inset:0;
-  display:grid; place-items:center;
-  transform-origin:50% 50%;
-  transition:opacity .28s ease, transform .38s ease;
+
+/* Les deux icônes partagent EXACTEMENT la même boîte */
+.icon-sun, .icon-moon{
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  transform-origin: 50% 50%;
+  transition: opacity .28s ease, transform .38s ease;
 }
-.icon-sun svg,.icon-moon svg{
-  width:100%; height:100%; display:block;
-  vector-effect:non-scaling-stroke; shape-rendering:geometricPrecision;
+
+/* Neutralise les comportements inline des SVG (pas de décalage) */
+.icon-sun svg, .icon-moon svg{
+  width: 100%; height: 100%;
+  display: block;
+  vector-effect: non-scaling-stroke;
+  shape-rendering: geometricPrecision;
 }
-.icon-sun{ opacity:0; transform: rotate(-90deg) scale(.92); }
-.icon-sun svg{ transform: translateY(var(--sun-nudge-y)); } /* micro-alignement soleil */
-.icon-moon{ opacity:1; transform: rotate(0deg) scale(1); }
-:root[data-theme="light"] .icon-sun{  opacity:1; transform: rotate(0deg)  scale(1); }
-:root[data-theme="light"] .icon-moon{ opacity:0; transform: rotate(90deg) scale(.92); }
-.theme-toggle .tt-label{ font-weight:700; letter-spacing:.01em; line-height:1; }
+
+/* Micro-ajustement optique : le soleil remonte légèrement */
+.icon-sun svg{ transform: translateY(var(--sun-nudge-y)); }
+
+/* États (dark par défaut) */
+.icon-sun{  opacity: 0; transform: rotate(-90deg) scale(.94); }
+.icon-moon{ opacity: 1; transform: rotate(0deg)    scale(1);  }
+
+/* États en light */
+:root[data-theme="light"] .icon-sun{  opacity: 1; transform: rotate(0deg)  scale(1);  }
+:root[data-theme="light"] .icon-moon{ opacity: 0; transform: rotate(90deg) scale(.94); }
+
+.theme-toggle .tt-label{
+  font-weight: 700; letter-spacing: .01em; line-height: 1;
+}
+
 
 /* Burger / panneau mobile */
 .nav-toggle{
