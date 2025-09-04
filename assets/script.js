@@ -2,7 +2,7 @@
    ABM — JS unifié (premium, moderne & épuré)
    - Utils (qs/qsa, on, store, mq, rAF)
    - Nav mobile (burger, ARIA, breakpoints)
-   - Thème (persist + préférence système, aria-pressed)
+   - Thème (persist + préférence système, label Light/Dark, aria-pressed)
    - Modals (Calendly lazy, Contact “Merci”)
    - Formspree (AJAX + feedback)
    - Carousel certifications (dots + centrage)
@@ -45,25 +45,31 @@ const PREFERS_REDUCED = mq('(prefers-reduced-motion: reduce)').matches;
   on(toggle, 'click', () => setState(!panel.classList.contains('open')));
 
   // Ferme au clic d’un lien/bouton dans le panneau
-  on(panel, 'click', (e) => {
-    if (e.target.closest('a,button')) setState(false);
-  });
+  on(panel, 'click', (e) => { if (e.target.closest('a,button')) setState(false); });
 
   // Ferme lors du passage en desktop
   const bp = mq('(min-width: 992px)');
   const onChange = () => { if (bp.matches) setState(false); };
-  // compatibilité anciens navigateurs
   bp.addEventListener ? bp.addEventListener('change', onChange) : bp.addListener(onChange);
 })();
 
-/* ==================== 3) Thème (persist + système) ==================== */
+/* ==================== 3) Thème (persist + système + label) ==================== */
 (() => {
-  const btn  = $('.theme-toggle');
-  const root = document.documentElement;
+  const btn   = document.querySelector('.theme-toggle');
+  const root  = document.documentElement;
+  const label = btn?.querySelector('.tt-label');
+
+  const setLabelAndAria = (mode) => {
+    if (!btn) return;
+    const isDark = mode === 'dark';
+    btn.setAttribute('aria-pressed', String(isDark));
+    btn.setAttribute('aria-label', isDark ? 'Basculer en mode clair' : 'Basculer en mode sombre');
+    if (label) label.textContent = isDark ? 'Dark' : 'Light';
+  };
 
   const apply = (mode) => {
     root.setAttribute('data-theme', mode);
-    if (btn) btn.setAttribute('aria-pressed', String(mode === 'dark'));
+    setLabelAndAria(mode);
   };
 
   // init: localStorage -> préférence système -> dark
@@ -74,16 +80,17 @@ const PREFERS_REDUCED = mq('(prefers-reduced-motion: reduce)').matches;
   }
   apply(theme);
 
-  // Sync si l’utilisateur change le thème au niveau OS
+  // Sync système si l’utilisateur n’a PAS choisi manuellement
   const sysPref = mq('(prefers-color-scheme: light)');
   const syncSystem = () => {
-    const saved = store.get('theme'); // si user a choisi un thème, on respecte
-    if (saved) return;
+    const saved = store.get('theme');
+    if (saved) return;                         // on respecte le choix explicite
     apply(sysPref.matches ? 'light' : 'dark');
   };
-  sysPref.addEventListener ? sysPref.addEventListener('change', syncSystem) : sysPref.addListener(syncSystem);
+  sysPref.addEventListener ? sysPref.addEventListener('change', syncSystem)
+                           : sysPref.addListener(syncSystem);
 
-  // Toggle explicite
+  // Toggle explicite + persistance
   on(btn, 'click', () => {
     const cur  = root.getAttribute('data-theme');
     const next = (cur === 'light') ? 'dark' : 'light';
@@ -284,4 +291,3 @@ const Modal = (() => {
     });
   }, { passive:true });
 })();
-

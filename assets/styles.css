@@ -130,26 +130,33 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem, 1.5vw, 2rem
 }
 .nav-actions{ display:inline-flex; align-items:center; gap:.5rem; }
 
-/* Thème toggle (soleil/lune animés) */
+/* === Toggle thème — icônes superposées + label dynamique Light/Dark === */
 .theme-toggle{
-  display:inline-flex; align-items:center; gap:.45rem; height:40px; padding:.45rem .8rem;
-  border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--fg); cursor:pointer;
+  position: relative;
+  display:inline-flex; align-items:center; gap:.55rem;
+  height:40px; padding:.45rem .9rem .45rem 2.2rem;  /* place icône fixe à gauche */
+  border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--fg);
+  cursor:pointer;
   transition: background .18s, border-color .18s, transform .18s, box-shadow .18s;
 }
 .theme-toggle:hover{ background: color-mix(in oklab, var(--fg) 6%, var(--card)); box-shadow: 0 4px 14px rgba(0,0,0,.08); }
 .theme-toggle:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab,var(--brand) 45%,transparent); }
-:root[data-theme="light"] .theme-toggle{
-  background:#fff; border-color:var(--border); box-shadow:0 4px 14px rgba(15,23,42,.06);
+:root[data-theme="light"] .theme-toggle{ background:#fff; border-color:var(--border); box-shadow:0 4px 14px rgba(15,23,42,.06); }
+:root[data-theme="light"] .theme-toggle:hover{ background: color-mix(in oklab, #fff 90%, var(--brand) 4%); }
+
+.theme-toggle .tt-icon{
+  position: absolute; left: .7rem; top:50%; transform: translateY(-50%);
+  width: 1.2rem; height: 1.2rem; display:grid; place-items:center; pointer-events:none;
 }
-:root[data-theme="light"] .theme-toggle:hover{
-  background: color-mix(in oklab, #fff 90%, var(--brand) 4%);
+.icon-sun, .icon-moon{
+  position:absolute; inset:0;
+  transition: opacity .28s ease, transform .38s ease;
 }
-.tt-icon{ display:inline-grid; place-items:center; width:1.2rem; height:1.2rem; }
-.icon-sun,.icon-moon{ transition:opacity .25s ease, transform .35s ease; }
-.icon-sun{ opacity:0; transform: rotate(-90deg) scale(.9); }
-.icon-moon{ opacity:1; transform: rotate(0deg) scale(1); }
-:root[data-theme="light"] .icon-sun{ opacity:1; transform: rotate(0deg) scale(1); }
-:root[data-theme="light"] .icon-moon{ opacity:0; transform: rotate(90deg) scale(.9); }
+.icon-sun{ opacity:0; transform: rotate(-90deg) scale(.92); }   /* par défaut (dark) */
+.icon-moon{ opacity:1; transform: rotate(0deg)   scale(1); }
+:root[data-theme="light"] .icon-sun{  opacity:1; transform: rotate(0deg)  scale(1); }
+:root[data-theme="light"] .icon-moon{ opacity:0; transform: rotate(90deg) scale(.92); }
+.theme-toggle .tt-label{ font-weight:700; letter-spacing:.01em; line-height:1; }
 
 /* Burger / menu mobile */
 .nav-toggle{
@@ -509,7 +516,6 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem, 1.5vw, 2rem
 }
 
 /* ===================== 9) Ultra-large screens ===================== */
-/* Ajustements >1600px pour conserver un look “respirant” */
 @media (min-width:1600px){
   .section{ padding-block: clamp(2.2rem, 2vw, 3.6rem); }
   .hero{ grid-template-columns: 1.1fr .9fr; gap: 2rem; }
@@ -519,7 +525,7 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem, 1.5vw, 2rem
 /* ===================== 10) Micro-screens (≤360px) ===================== */
 @media (max-width:360px){
   .nav-toggle{ padding: 0 .7rem; }
-  .theme-toggle{ height:38px; padding:.4rem .6rem; }
+  .theme-toggle{ height:38px; padding:.4rem .6rem .4rem 2rem; }
   .methode{ grid-template-columns: 2.4rem 1fr; }
   .methode__icon{ width:2.4rem; height:2.4rem; }
   .cert-card{ grid-template-columns: 52px 1fr; }
