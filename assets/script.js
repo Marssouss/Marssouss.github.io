@@ -2,8 +2,8 @@
    ABM — JS unifié (premium, moderne & épuré)
    - Utils (qs/qsa, on, store, mq, rAF)
    - Nav mobile (burger, ARIA, breakpoints)
-   - Thème (persist + préférence système, label Light/Dark, aria-pressed)
-   - Modals (Calendly lazy, Contact “Merci”)
+   - Thème (persist + préférence système, label Light/Dark, aria-pressed, reset Alt+clic)
+   - Modals (focus-trap, Calendly lazy)
    - Formspree (AJAX + feedback)
    - Carousel certifications (dots + centrage)
    - A11y & prefers-reduced-motion
@@ -16,6 +16,7 @@ const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
 const off = (el, ev, fn, opts) => el && el.removeEventListener(ev, fn, opts);
 const mq  = (q) => window.matchMedia ? window.matchMedia(q) : { matches:false, addListener(){}, removeListener(){} };
 const raf = (fn) => (window.requestAnimationFrame || setTimeout)(fn, 16);
+const noop = () => {};
 
 /* Storage safe (pas d’erreur en mode privé) */
 const store = {
@@ -55,9 +56,12 @@ const PREFERS_REDUCED = mq('(prefers-reduced-motion: reduce)').matches;
 
 /* ==================== 3) Thème (persist + système + label) ==================== */
 (() => {
-  const btn   = document.querySelector('.theme-toggle');
+  const btn   = $('.theme-toggle');
   const root  = document.documentElement;
   const label = btn?.querySelector('.tt-label');
+
+  const getSystem = () => (mq('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  const getStored = () => store.get('theme');
 
   const setLabelAndAria = (mode) => {
     if (!btn) return;
@@ -72,43 +76,76 @@ const PREFERS_REDUCED = mq('(prefers-reduced-motion: reduce)').matches;
     setLabelAndAria(mode);
   };
 
-  // init: localStorage -> préférence système -> dark
-  let theme = store.get('theme');
-  if (!theme) {
-    const prefersLight = mq('(prefers-color-scheme: light)').matches;
-    theme = prefersLight ? 'light' : 'dark';
-  }
-  apply(theme);
+  // init: storage -> système
+  apply(getStored() || getSystem());
 
   // Sync système si l’utilisateur n’a PAS choisi manuellement
   const sysPref = mq('(prefers-color-scheme: light)');
   const syncSystem = () => {
-    const saved = store.get('theme');
-    if (saved) return;                         // on respecte le choix explicite
-    apply(sysPref.matches ? 'light' : 'dark');
+    if (getStored()) return; // on respecte le choix explicite
+    apply(getSystem());
   };
   sysPref.addEventListener ? sysPref.addEventListener('change', syncSystem)
                            : sysPref.addListener(syncSystem);
 
   // Toggle explicite + persistance
-  on(btn, 'click', () => {
+  on(btn, 'click', (e) => {
     const cur  = root.getAttribute('data-theme');
     const next = (cur === 'light') ? 'dark' : 'light';
     apply(next);
     store.set('theme', next);
   });
+
+  // Alt+clic => reset au thème système (supprime la préférence)
+  on(btn, 'click', (e) => {
+    if (!e.altKey) return;
+    store.rm('theme');
+    apply(getSystem());
+  }, { capture:true });
 })();
 
-/* =================== 4) Modal utilitaire générique =================== */
+/* =================== 4) Modal utilitaire (focus-trap) =================== */
 const Modal = (() => {
-  const open  = (el) => { if (el) el.hidden = false; };
-  const close = (el) => { if (el) el.hidden = true; };
+  const FOCUSABLE = [
+    'a[href]','area[href]','button:not([disabled])','input:not([disabled])',
+    'select:not([disabled])','textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])'
+  ].join(',');
+
+  const trap = (modal) => {
+    const nodes = $$(FOCUSABLE, modal);
+    if (!nodes.length) return noop;
+    const first = nodes[0], last = nodes[nodes.length - 1];
+
+    const onKey = (e) => {
+      if (e.key !== 'Tab') return;
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    on(modal, 'keydown', onKey);
+    return () => off(modal, 'keydown', onKey);
+  };
+
+  const open  = (el) => {
+    if (!el) return;
+    el.hidden = false;
+    const untrap = trap(el);
+    el._untrap = untrap;
+    // focus premier élément focusable
+    const f = $(FOCUSABLE, el);
+    (f || el).focus?.();
+  };
+  const close = (el) => {
+    if (!el) return;
+    el.hidden = true;
+    el._untrap?.();
+  };
   const bind  = (modal) => {
     if (!modal) return;
     // fermer par clic fond
     on(modal, 'click', (e) => { if (e.target === modal) close(modal); }, { passive:true });
-    // close buttons
-    $$('.modal__close', modal).forEach(btn => on(btn, 'click', () => close(modal)));
+    // close buttons + attribut data-close
+    $$('.modal__close,[data-close]', modal).forEach(btn => on(btn, 'click', () => close(modal)));
     // ESC
     on(document, 'keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) close(modal); });
   };
@@ -125,11 +162,10 @@ const Modal = (() => {
   Modal.bind(modal);
 
   const CALENDLY_URL = 'https://calendly.com/ton-calendly/30min'; // ← remplace
-
   let loaded = false;
+
   const loadCalendly = () => {
-    if (loaded) return;
-    loaded = true;
+    if (loaded) return; loaded = true;
 
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -229,23 +265,18 @@ const Modal = (() => {
   });
 
   // Centrage d’un slide dans le viewport du rail
-  function centerOffsetFor(el) {
-    return el.offsetLeft - (rail.clientWidth - el.clientWidth) / 2;
-  }
-  function scrollToSlide(i) {
+  const centerOffsetFor = (el) => el.offsetLeft - (rail.clientWidth - el.clientWidth) / 2;
+  const scrollToSlide = (i) => {
     const el = slides[i];
     const target = centerOffsetFor(el);
     rail.scrollTo({ left: target, behavior: PREFERS_REDUCED ? 'auto' : 'smooth' });
-  }
+  };
 
   // Active le dot du slide majoritairement visible
-  function setActive(i) {
-    dots.forEach((d, idx) => d.classList.toggle('is-active', idx === i));
-  }
+  const setActive = (i) => dots.forEach((d, idx) => d.classList.toggle('is-active', idx === i));
 
   // Observer pour déterminer le “meilleur” slide en vue
-  const useIO = 'IntersectionObserver' in window;
-  if (useIO) {
+  if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       let bestI = null, bestRatio = 0;
       for (const e of entries) {
@@ -258,7 +289,6 @@ const Modal = (() => {
     }, { root: rail, threshold: [0.5, 0.6, 0.7, 0.8] });
     slides.forEach(el => io.observe(el));
   } else {
-    // Fallback sans IO : se base sur scrollLeft
     const onScroll = () => {
       const centers = slides.map(el => Math.abs(centerOffsetFor(el) - rail.scrollLeft));
       const bestI = centers.indexOf(Math.min(...centers));
