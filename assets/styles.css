@@ -1,67 +1,105 @@
 /* ========================================================================
-   ABM — Styles globaux (mobile-first, accessibilité, performance)
-   - Design tokens (couleurs, shadows, radius, espaces)
-   - Layout & utilitaires
+   ABM — CSS unifié (mobile-first, a11y, ultra-moderne & épuré)
+   - Design tokens (palettes sombre/clair, espaces, radius, ombres)
+   - Base & utilitaires
    - Header / Navigation (burger + desktop)
-   - Composants: buttons, cards, badges
-   - Sections: Hero, methodes, Certifications, Footer/Modal
-   - Motion & a11y
+   - Composants: buttons, chips, pills, cards
+   - Sections: Hero, Méthodes, Certifications (slider mobile → grille desktop)
+   - Pages: About
+   - Footer / Modal
+   - Motion & prefers-reduced-motion
    ======================================================================== */
 
-/* ================== Design tokens & base ================== */
+/* ================== 1) Design tokens ================== */
 :root{
-  /* Couleurs */
-  --bg:#0b1020; --fg:#e6e8ee; --muted:#9aa3b2;
-  --brand:#4f46e5; --brand-2:#22c55e;
-  --card:#121933; --border:#1f2a44;
+  /* Couleurs (sombre) */
+  --bg:#0b1020;              /* fond global */
+  --fg:#e6e8ee;              /* texte principal */
+  --muted:#9aa3b2;           /* texte secondaire */
+  --brand:#4f46e5;           /* indigo */
+  --brand-2:#22c55e;         /* vert */
+  --card:#121933;            /* surface cartes */
+  --border:#1f2a44;          /* bordures discrètes */
 
-  /* Espaces & formes */
+  /* Paliers typographiques & espacements */
   --space-1:.5rem; --space-2:.75rem; --space-3:1rem; --space-4:1.5rem; --space-5:2rem;
   --radius-1:.7rem; --radius-2:.9rem; --radius-3:1.2rem;
 
-  /* Effets & conteneurs */
-  --shadow-1:0 6px 20px rgba(0,0,0,.08);
-  --container: 1280px;
-  --container-tight: 1080px;
+  /* Ombrages & containers */
+  --shadow-1:0 8px 24px rgba(0,0,0,.25);
+  --container:1280px; --container-tight:1080px;
+
+  /* Pills (adaptatives) */
+  --pill-talend: color-mix(in oklab, var(--brand) 80%, var(--bg) 20%);
+  --pill-powerbi: color-mix(in oklab, var(--brand-2) 78%, var(--bg) 22%);
+  --pill-fg:#fff;
+  --pill-border-talend: color-mix(in oklab, var(--brand) 55%, var(--border));
+  --pill-border-powerbi: color-mix(in oklab, var(--brand-2) 55%, var(--border));
 }
 
+/* Thème clair premium (verre dépoli, surfaces blanches, fond très doux) */
 :root[data-theme="light"]{
-  --bg:#ffffff; --fg:#0b1020; --muted:#475569;
-  --card:#f8fafc; --border:#e2e8f0;
-}
-@media (prefers-color-scheme: light){
-  :root{ --bg:#ffffff; --fg:#0b1020; --muted:#475569; --card:#f8fafc; --border:#e2e8f0; }
+  --bg:#f6f7fb;              /* fond doux */
+  --fg:#0b1220;              /* texte principal */
+  --muted:#5b6475;           /* texte secondaire plus chaud */
+  --card:#ffffff;            /* cartes blanches nettes */
+  --border:#e7eaf1;          /* bordure subtile */
+  --shadow-1:0 12px 28px rgba(15,23,42,.08);
+
+  /* Pills en clair : plus “peps” sans dégradé */
+  --pill-talend: color-mix(in oklab, var(--brand) 92%, #fff 8%);
+  --pill-powerbi: color-mix(in oklab, var(--brand-2) 88%, #fff 12%);
+  --pill-fg:#fff;
 }
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* Respect du thème système si pas de data-theme défini */
+@media (prefers-color-scheme: light){
+  :root:not([data-theme]){
+    --bg:#f6f7fb; --fg:#0b1220; --muted:#5b6475;
+    --card:#ffffff; --border:#e7eaf1; --shadow-1:0 12px 28px rgba(15,23,42,.08);
+    --pill-talend: color-mix(in oklab, var(--brand) 92%, #fff 8%);
+    --pill-powerbi: color-mix(in oklab, var(--brand-2) 88%, #fff 12%);
+    --pill-fg:#fff;
+  }
+}
+
+/* ================== 2) Base & utilitaires ================== */
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
 body{
   margin:0;
   font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji";
   background:var(--bg); color:var(--fg);
 }
+main{ max-width:var(--container); margin:auto; padding:2rem 1rem; }
+.section{ padding-block: clamp(1.6rem, 2.6vw, 2.8rem); }
+.section h2{ font-size:clamp(1.4rem,2.4vw,1.8rem); line-height:1.2; margin:0 0 .75rem; }
+.lead{ font-size:clamp(1.05rem,1.6vw,1.12rem); color:var(--muted); }
 
-/* ================== Layout & utilitaires ================== */
-main{max-width:var(--container);margin:auto;padding:2rem 1rem}
-.section{padding-block: clamp(1.6rem, 2.6vw, 2.8rem);}
-.section h2{font-size:clamp(1.4rem,2.4vw,1.8rem);line-height:1.2;margin:0 0 .75rem}
-.lead{font-size: clamp(1.05rem, 1.6vw, 1.12rem); color:var(--muted)}
-
-.grid{display:grid; gap: clamp(1rem, 2.5vw, 1.5rem);}
-.grid.cols-2{grid-template-columns:1fr}
-.grid.cols-3{grid-template-columns:1fr}
+/* Grilles utilitaires */
+.grid{ display:grid; gap: clamp(1rem,2.5vw,1.5rem); }
+.grid.cols-2{ grid-template-columns:1fr; }
+.grid.cols-3{ grid-template-columns:1fr; }
 @media (min-width:900px){
-  .grid.cols-2{grid-template-columns:repeat(2,1fr)}
-  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .grid.cols-2{ grid-template-columns:repeat(2,1fr); }
+  .grid.cols-3{ grid-template-columns:repeat(3,1fr); }
 }
 
-/* ================== Header & Navigation ================== */
+/* Helpers */
+.muted{ color:var(--muted); }
+.hidden{ display:none !important; }
+
+/* ================== 3) Header & Navigation ================== */
 .site-header{
   position:sticky; top:0; z-index:60;
   backdrop-filter:saturate(1.2) blur(10px);
-  background:color-mix(in oklab, var(--bg) 96%, transparent);
+  background:color-mix(in oklab, var(--bg) 92%, transparent);
   border-bottom:1px solid var(--border);
 }
+:root[data-theme="light"] .site-header{
+  background: color-mix(in oklab, #ffffff 85%, transparent);
+}
+
 .navbar{
   display:flex; align-items:center; justify-content:space-between; gap:.75rem;
   padding:.55rem 1rem;
@@ -74,9 +112,9 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   width:.75rem; height:.75rem; border-radius:999px;
   background:linear-gradient(135deg,var(--brand),var(--brand-2));
 }
-.nav-actions{display:inline-flex;align-items:center;gap:.5rem}
+.nav-actions{ display:inline-flex; align-items:center; gap:.5rem; }
 
-/* Thème toggle */
+/* Thème toggle (icônes soleil/lune animées) */
 .theme-toggle{
   display:inline-flex; align-items:center; gap:.45rem; height:38px; padding:.4rem .7rem;
   border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--fg); cursor:pointer;
@@ -84,6 +122,12 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
 }
 .theme-toggle:hover{ background: color-mix(in oklab, var(--fg) 6%, var(--card)); box-shadow: 0 4px 14px rgba(0,0,0,.08); }
 .theme-toggle:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab,var(--brand) 45%,transparent); }
+:root[data-theme="light"] .theme-toggle{
+  background:#fff; border-color:var(--border); box-shadow:0 4px 14px rgba(15,23,42,.06);
+}
+:root[data-theme="light"] .theme-toggle:hover{
+  background: color-mix(in oklab, #fff 90%, var(--brand) 4%);
+}
 .tt-icon{ display:inline-grid; place-items:center; width:1.2rem; height:1.2rem; }
 .icon-sun,.icon-moon{ transition:opacity .25s ease, transform .35s ease; }
 .icon-sun{ opacity:0; transform: rotate(-90deg) scale(.9); }
@@ -96,8 +140,8 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   display:inline-flex; align-items:center; gap:.5rem; height:40px; padding:0 .9rem;
   border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--fg); font-weight:600;
 }
-.nav-toggle .chev{transition:transform .2s ease}
-.nav-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.nav-toggle .chev{ transition:transform .2s ease; }
+.nav-toggle[aria-expanded="true"] .chev{ transform:rotate(180deg); }
 
 .nav-collapsible{
   overflow:clip; max-height:0;
@@ -114,10 +158,9 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   display:block; padding:.9rem 1rem; border-radius:14px; text-decoration:none;
   color:var(--fg); background:var(--card); border:1px solid var(--border);
 }
-.nav-list a:hover{ border-color:color-mix(in oklab,var(--border),var(--brand) 30%) }
-.nav-list .btn.cta{ text-align:center }
+.nav-list a:hover{ border-color:color-mix(in oklab,var(--border),var(--brand) 30%); }
+.nav-list .btn.cta{ text-align:center; }
 
-/* Desktop nav inline */
 .nav-desktop{ display:none; flex:1 1 auto; min-width:0; }
 .nav-inline{
   display:flex; align-items:center; gap:.5rem; white-space:nowrap;
@@ -130,30 +173,22 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   transition:border-color .18s, background .18s, transform .18s;
 }
 .chip:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border), var(--brand) 30%); }
-.nav-desktop .btn.cta{ min-height:38px; padding:.5rem .9rem; border-radius:12px; border:none; }
 
-@media (prefers-reduced-motion: reduce){
-  .nav-toggle .chev,.nav-collapsible{transition:none}
-}
 @media (min-width:992px){
-  .nav-toggle{display:none}
-  .nav-desktop{display:block}
-  .nav-actions .theme-toggle{display:inline-flex}
-  .nav-collapsible{display:none}
+  .nav-toggle{ display:none; }
+  .nav-desktop{ display:block; }
+  .nav-actions .theme-toggle{ display:inline-flex; }
+  .nav-collapsible{ display:none; }
 }
 
-/* ================== Composants communs ================== */
+/* ================== 4) Composants ================== */
 .card{
   background:var(--card); border:1px solid var(--border); border-radius:var(--radius-2);
   padding: clamp(1rem, 2.6vw, 1.25rem); box-shadow:var(--shadow-1);
 }
-.card h3{margin:.2rem 0 .4rem}
+.card h3{ margin:.2rem 0 .4rem; }
 
-.badge{
-  display:inline-block; border:1px solid var(--border); border-radius:999px;
-  padding:.28rem .6rem; font-size:.85rem; color:var(--muted)
-}
-
+/* Boutons */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:.55rem;
   min-height:46px; padding:.65rem 1rem; line-height:1;
@@ -161,308 +196,204 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   background:var(--card); color:var(--fg); font-weight:500; cursor:pointer;
   transition:transform .18s, border-color .18s, background .18s, box-shadow .18s;
 }
-.btn:hover{ transform: translateY(-1px); background:color-mix(in oklab,var(--fg) 6%,var(--card)); border-color:color-mix(in oklab,var(--fg) 14%,var(--border)); }
-.btn:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab,var(--brand) 40%,transparent) }
-.btn.cta{ border:0; background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; font-weight:600 }
-.btn--icon{ display:inline-flex; align-items:center; gap:.55rem }
+.btn:hover{
+  transform: translateY(-1px);
+  background:color-mix(in oklab,var(--fg) 6%,var(--card));
+  border-color:color-mix(in oklab,var(--fg) 14%,var(--border));
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+}
+.btn:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab,var(--brand) 40%,transparent); }
+.btn.cta{ border:0; background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; font-weight:600; }
+.btn--icon{ display:inline-flex; align-items:center; gap:.55rem; }
+:root[data-theme="light"] .btn{ background:#fff; border-color:var(--border); }
+:root[data-theme="light"] .btn:hover{
+  background: color-mix(in oklab, #fff 85%, var(--brand) 5%);
+  border-color: color-mix(in oklab, var(--border), var(--brand) 25%);
+  box-shadow:0 6px 18px rgba(15,23,42,.08);
+}
 
-/* ================== HERO (si utilisé) ================== */
-.hero{display:grid; grid-template-columns:1fr; gap:1.5rem; align-items:center}
-.hero .actions{display:flex; gap:.6rem; margin-top:1rem}
-.hero img{max-width:100%; border-radius:var(--radius-3); border:1px solid var(--border)}
-.hero__img{width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:var(--radius-3); border:1px solid var(--border)}
+/* Chips */
+.chip{ /* déjà défini plus haut, variantes ici si besoin */ }
+
+/* Pills Talend / Power BI (solides, proches de la charte, sans dégradé) */
+.pill{
+  display:inline-block;
+  padding:.22rem .55rem;
+  border-radius:.65rem;
+  font-size:.8rem; font-weight:700; line-height:1.25;
+  vertical-align:middle; letter-spacing:.01em;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+}
+.pill--talend{
+  background: var(--pill-talend);
+  color: var(--pill-fg);
+  border:1px solid var(--pill-border-talend);
+}
+.pill--powerbi{
+  background: var(--pill-powerbi);
+  color: var(--pill-fg);
+  border:1px solid var(--pill-border-powerbi);
+}
+.pill--talend:is(:hover,:focus-visible),
+.pill--powerbi:is(:hover,:focus-visible){
+  filter: brightness(1.05);
+  outline:none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, currentColor 30%, transparent);
+}
+
+/* ================== 5) Sections ================== */
+/* HERO */
+.hero{ display:grid; grid-template-columns:1fr; gap:1.5rem; align-items:center; }
+.hero .actions{ display:flex; gap:.6rem; margin-top:1rem; }
+.hero img{ max-width:100%; border-radius:var(--radius-3); border:1px solid var(--border); }
+.hero__img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:var(--radius-3); border:1px solid var(--border); }
 .hero__viz{
   width:100%; aspect-ratio:16/9; border-radius:var(--radius-3); border:1px solid var(--border);
   background:var(--card); background-image:var(--hero-image); background-size:cover; background-position:50% 50%;
-  box-shadow:0 10px 30px rgba(0,0,0,.25)
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
-@media (min-width:900px){ .hero{grid-template-columns:1.2fr .8fr} }
+@media (min-width:900px){ .hero{ grid-template-columns:1.2fr .8fr; } }
 
-/* ================== methodes ================== */
+/* MÉTHODES (cartes premium alignées) */
 .methodes.methodes--modern{
   display:grid; grid-template-columns:1fr;
   gap: clamp(1rem, 2.5vw, 1.5rem); margin-top: clamp(1.5rem, 3vw, 2.5rem);
 }
-@media (min-width:700px){ .methodes.methodes--modern{ grid-template-columns:repeat(2,1fr) } }
-@media (min-width:1100px){ .methodes.methodes--modern{ grid-template-columns:repeat(3,1fr) } }
+@media (min-width:700px){ .methodes.methodes--modern{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:1100px){ .methodes.methodes--modern{ grid-template-columns:repeat(3,1fr); } }
 
 .methode{
-  display:grid; grid-template-columns:auto 1fr; align-items:start; gap:1rem 1.2rem;
+  display:grid;
+  grid-template-columns: 2.6rem 1fr; /* col 1 = logo, col 2 = contenu */
+  align-items:start; column-gap:1rem; row-gap:.6rem;
   padding:1.5rem; background:var(--card); border:1px solid var(--border);
   border-radius:var(--radius-2); box-shadow:var(--shadow-1);
   transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.methode:hover{ transform:translateY(-6px); border-color:color-mix(in oklab,var(--brand) 35%,var(--border)); box-shadow:0 12px 28px rgba(0,0,0,.35) }
+@media (hover:hover){
+  .methode:hover{ transform:translateY(-6px); border-color:color-mix(in oklab,var(--brand) 35%,var(--border)); box-shadow:0 12px 28px rgba(0,0,0,.35); }
+}
+.methode-head{ display:contents; }
 .methode__icon{
+  grid-column:1; grid-row:1;
   width:2.6rem; height:2.6rem; display:grid; place-items:center; border-radius:.9rem;
   background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; font-size:1.2rem;
-  box-shadow:0 2px 6px rgba(0,0,0,0.25)
+  box-shadow:0 2px 6px rgba(0,0,0,0.25);
 }
-.methode__title{ margin:0; font-size:1.15rem; font-weight:600; color:var(--fg); line-height:1.3 }
-.methode__text{ grid-column:1/-1; margin-top:.4rem; color:var(--muted); font-size:.95rem; line-height:1.5 }
+.methode__title{
+  grid-column:2; grid-row:1; margin:0; align-self:center;
+  font-size:1.15rem; font-weight:600; color:var(--fg); line-height:1.3;
+}
+.methode__line{
+  grid-column:1 / -1; display:flex; align-items:center; gap:.4rem;
+  font-size:.9rem; color:var(--muted);
+}
+.methode__note{
+  grid-column:1 / -1; margin-top:.7rem; display:flex; align-items:center; gap:.5rem;
+  font-size:.9rem; color:var(--muted); text-align:left;
+}
+.methode__note-icon{ font-size:1rem; line-height:1; color:var(--brand-2); }
 
-/* ================== Certifications (slider mobile → grille desktop) === */
-.certs{ padding-block: clamp(2rem,3vw,3.5rem) }
-.certs-head{ text-align:center; margin-bottom:1.25rem }
-.certs .h2{ font-size:clamp(1.4rem,2.4vw,1.8rem); margin:0 }
-.certs .muted{ color:var(--muted); margin-top:.5rem }
+/* CERTIFICATIONS — slider mobile → grille desktop (sans “peek”) */
+.certs{ padding-block: clamp(2rem,3vw,3.5rem); }
+.certs-head{ text-align:center; margin-bottom:1.25rem; }
+.certs .h2{ font-size:clamp(1.4rem,2.4vw,1.8rem); margin:0; }
 
-/* Viewport : desktop laissera les ombres dépasser */
 .certs-viewport{
   max-width:min(100vw, 1100px);
   margin-inline:auto;
   overflow:hidden;
 }
 
-/* ===== MOBILE (<=899px): vrai slider horizontal sans chevauchement ===== */
 .certs-rail{
   list-style:none; margin:0; padding:0;
   display:grid;
   grid-auto-flow: column;
-  grid-auto-columns: calc(85% - 0.5rem);  /* largeur d’un slide */
-  gap: 1rem;                              /* espace entre slides */
-  padding-inline: 1rem;                   /* marges du rail */
+  grid-auto-columns: 100%;  /* 1 slide = pleine largeur */
+  gap: 0;
+  padding: 0;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: 1rem;            /* le 1er slide colle pas au bord */
+  scroll-padding-inline: 0;
   -webkit-overflow-scrolling: touch;
 }
-.certs-rail > li{
-  scroll-snap-align: start;
-}
+.certs-rail > li{ width:100%; scroll-snap-align: center; }
 
-/* ===== DESKTOP (>=900px): vraie grille + overflow visible ===== */
 @media (min-width:900px){
-  .certs-viewport{ overflow: visible; }
+  .certs-viewport{ overflow:visible; }
   .certs-rail{
     grid-auto-flow: row;
-    grid-auto-columns: unset;
+    grid-auto-columns: initial;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem 1.5rem;
-    padding-inline: 0;
+    padding: 0;
     overflow: visible;
     scroll-snap-type: none;
   }
   .certs-rail > li{ scroll-snap-align: unset; }
 }
 
-/* === Carte certification : + d’air gauche/droite et gap interne clair === */
+/* Carte certification */
 .cert-card{
-  box-sizing: border-box;
-  display:grid; grid-template-columns:auto 1fr; align-items:start;
-  column-gap: 1.4rem; row-gap: .6rem;        /* espace logo/texte + lignes */
-  padding: clamp(1.6rem, 2.6vw, 2.2rem);     /* ⬅️⬅️ plus large qu’avant */
-  padding-inline: clamp(2rem, 3.5vw, 2.75rem); /* ⬅️⬅️ focus sur bord G/D */
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius-2);
+  display:grid; grid-template-columns:56px 1fr; align-items:start;
+  column-gap:1.4rem; row-gap:.6rem;
+  padding: clamp(1.6rem, 2.6vw, 2.2rem);
+  padding-inline: clamp(2rem, 3.5vw, 2.75rem);
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius-2);
   box-shadow:var(--shadow-1);
   transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-/* Hover (lift) – activé seulement si l’appareil gère le survol */
 @media (hover:hover){
-  .cert-card:hover{
-    transform:translateY(-6px);
-    border-color:color-mix(in oklab,var(--brand) 35%,var(--border));
-    box-shadow:0 12px 28px rgba(0,0,0,.35);
-  }
+  .cert-card:hover{ transform:translateY(-6px); border-color:color-mix(in oklab,var(--brand) 35%,var(--border)); box-shadow:0 12px 28px rgba(0,0,0,.35); }
 }
-/* Sur appareils tactiles : pas de lift (stabilité pendant le scroll) */
-@media (hover:none){
-  .cert-card:hover{
-    transform:none;
-    box-shadow:var(--shadow-1);
-    border-color:var(--border);
-  }
-}
-
-/* Badge/logo */
 .cert-badge{
-  display:grid; place-items:center;
-  width:56px; height:56px;                 /* un peu plus “pro” */
-  border-radius:.9rem;
-  background:linear-gradient(135deg,var(--brand),var(--brand-2));
-  color:#fff;
+  grid-column:1; grid-row:1;
+  display:grid; place-items:center; width:56px; height:56px;
+  border-radius:.9rem; background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff;
   box-shadow:0 2px 6px rgba(0,0,0,0.25);
 }
-.cert-logo{ width:100%; height:100%; object-fit:contain }
-
-/* Corps + typo interne */
-.cert-body{ display:grid; gap:.65rem; }
-.cert-headline{ display:flex; align-items:center; justify-content:space-between; gap:.6rem; }
+.cert-logo{ width:100%; height:100%; object-fit:contain; }
+.cert-body{ grid-column:1 / -1; display:grid; gap:.55rem; }
 .cert-title{ margin:0; font-size:1.15rem; font-weight:600; line-height:1.3; }
-.cert-issuer{ margin:0; font-size:.95rem; color:var(--muted); }
-
-/* Statuts */
-.cert-status{ font-size:.9rem; margin:0; }
-.cert-status.ok{ color:var(--brand-2); font-weight:600 }
-.cert-status.pending{ color:var(--muted) }
-
-/* Chip */
-.cert-chip{
-  display:inline-flex; align-items:center; gap:.4rem;
-  padding:.28rem .6rem; line-height:1;
-  border-radius:999px; font-size:.8rem;
-  border:1px solid var(--border); background:var(--card)
-}
-.cert-chip.chip-ok{ color:var(--brand-2); border-color:color-mix(in oklab,var(--brand-2) 40%,var(--border)) }
-.cert-chip.chip-pending{ color:var(--muted) }
-
-/* Skills + lien */
-.cert-card__skills{ margin-top:.8rem; display:flex; flex-wrap:wrap; gap:.5rem; }
-.cert-link{
-  display:inline-block; margin-top:.7rem; font-size:.9rem; text-decoration:none;
-  color: color-mix(in oklab,var(--fg) 86%,transparent);
-  border-bottom:2px dashed color-mix(in oklab, var(--brand) 38%, transparent);
-  padding-bottom:.05rem;
-}
-.cert-link:hover{ color:var(--fg); border-bottom-style:solid }
-
-/* Mobile : la carte prend toute la largeur du slide (déjà borné par grid-auto-columns) */
-@media (max-width:899px){
-  .cert-card{ width:100%; }
-}
-
-/* ================== Footer & Modal ================== */
-.site-footer{ border-top:1px solid var(--border); padding:2rem 1rem; text-align:center; color:var(--muted) }
-
-.modal{ position:fixed; inset:0; background:color-mix(in oklab,#000 60%,transparent); display:grid; place-items:center }
-.modal[hidden]{ display:none }
-.modal__dialog{
-  background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-3);
-  width:min(900px,90vw); height:min(80vh,700px); padding:0; overflow:hidden
-}
-.modal__close{ position:absolute; margin:.5rem; right:1rem; background:none; color:var(--fg); font-size:1.8rem; border:none; cursor:pointer }
-
-/* ================== About (typo locale) ================== */
-.about-title{ margin:0; font-size:clamp(1.5rem,2.5vw,2rem) }
-.about-sub{ margin:.2rem 0 1rem; color:var(--muted); font-weight:600 }
-.about-text{ max-width:720px; text-align:left; margin:0; display:grid; gap:.8rem }
-.about-text p{ margin:.4rem 0; line-height:1.55 }
-.about-text .lead{ font-size:1.1rem; color:var(--fg) }
-
-/* Variantes sous-titre */
-.about-sub.badge-style{
-  display:inline-block; font-weight:600; font-size:1.05rem; padding:.25rem .75rem; border-radius:.7rem;
-  background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; margin-bottom:1rem;
-}
-.about-sub.gradient-style{
-  font-weight:700; font-size:1.1rem;
-  background:linear-gradient(135deg,var(--brand),var(--brand-2));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:1rem;
-}
-
-/* ================== A11y & Motion ================== */
-@media (prefers-reduced-motion: reduce){
-  .nav-toggle .chev, .nav-collapsible, .btn, .card, .methode, .cert-card,
-  .icon-sun, .icon-moon, .theme-toggle { transition: none !important; }
-}
-
-
-/* --- tête de carte : on simplifie, le titre tout seul --- */
-.cert-headline{ display:contents; } /* n'est plus utilisé mais évite d'impacter */
-
-/* Ligne meta sous le titre : statut + date */
-.cert-meta{
-  display:flex; align-items:center; gap:.5rem;
-  margin-top:.15rem; margin-bottom:.35rem;
-  color:var(--muted);
-  font-size:.92rem;
-}
-
-/* Chip (déjà présent) – inchangé, on réutilise */
-.cert-chip{
-  display:inline-flex; align-items:center; gap:.4rem;
-  padding:.28rem .6rem; line-height:1;
-  border-radius:999px; font-size:.8rem;
-  border:1px solid var(--border); background:var(--card)
-}
-.cert-chip.chip-ok{ color:var(--brand-2); border-color:color-mix(in oklab,var(--brand-2) 40%,var(--border)) }
-.cert-chip.chip-pending{ color:var(--muted) }
-.cert-date{ opacity:.95 }
-
-/* Organisme émetteur (petit, discret) */
 .cert-issuer{ margin:.1rem 0 0; font-size:.9rem; color:var(--muted); }
 
-/* Tags alignés G→D avec wrap (renomme la classe pour coller au besoin) */
+/* Ligne statut/date alignée au badge */
+.cert-statusline{
+  grid-column:2; grid-row:1;
+  display:flex; align-items:center; gap:.6rem;
+  font-size:1rem; font-weight:600;
+}
+.cert-chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  padding:.35rem .7rem; line-height:1;
+  border-radius:999px; font-size:.9rem;
+  border:1px solid var(--border); background:var(--card);
+}
+.cert-chip.chip-ok{ color:var(--brand-2); border-color:color-mix(in oklab,var(--brand-2) 40%,var(--border)); }
+.cert-chip.chip-pending{ color:var(--muted); }
+.cert-date{ opacity:.9; font-size:.95rem; }
+
 .cert-tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:.5rem;
-  list-style:none;
-  margin:.55rem 0 0;
-  padding:0;
+  display:flex; flex-wrap:wrap; gap:.5rem;
+  list-style:none; margin:.55rem 0 0; padding:0;
 }
 .cert-tags .tag{
-  padding:.35rem .6rem;
-  border-radius:999px;
+  padding:.35rem .6rem; border-radius:999px;
   background: rgba(148,163,184,.12);
   border:1px solid rgba(148,163,184,.25);
-  font-size:.78rem;
-  line-height:1;
-  white-space:nowrap;
+  font-size:.78rem; line-height:1; white-space:nowrap;
+}
+:root[data-theme="light"] .cert-tags .tag{
+  background: color-mix(in oklab, #94a3b8 14%, #fff 90%);
+  border:1px solid color-mix(in oklab, #94a3b8 22%, #fff 0%);
+  color: color-mix(in oklab, var(--fg) 80%, #000 0%);
 }
 
-/* Ajuste légèrement les espacements internes de la carte */
-.cert-body{ display:grid; gap:.45rem; }
-
-
-/* Alignement vertical du logo et du contenu */
-.cert-card {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: start; /* aligne en haut (logo + texte) */
-}
-
-/* Le corps prend toute la hauteur dispo pour que les textes
-   restent bien alignés à gauche du logo */
-.cert-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-
-/* Texte aligné sur le coin gauche, sous le logo */
-.cert-card{ grid-template-columns: 56px 1fr; }   /* largeur fixe pour la colonne du logo */
-.cert-badge{ grid-column: 1; grid-row: 1; }      /* logo en colonne 1 */
-.cert-body{ grid-column: 1 / -1; }               /* le contenu commence en colonne 1 = même x que le logo */
-/* garde un flux simple */
-.cert-body{ display: grid; gap: .45rem; }
-
-/* Ligne statut/date alignée avec le logo */
-.cert-statusline {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  font-size: 1rem;       /* plus gros que le reste */
-  font-weight: 600;
-}
-
-/* Place cette ligne dans la grille juste après le logo */
-.cert-badge { grid-row: 1; grid-column: 1; }
-.cert-statusline { grid-row: 1; grid-column: 2; }
-
-/* Ajustement visuel */
-.cert-chip {
-  font-size: .9rem;
-  padding: .35rem .7rem;
-}
-.cert-date {
-  opacity: .9;
-  font-size: .95rem;
-}
-
-
-
-
-
-/* Dots du carousel mobile */
+/* Dots du carousel (mobile uniquement) */
 .certs-dots{
   display:flex; justify-content:center; align-items:center;
   gap:.5rem; margin-top:.75rem; padding-bottom:.25rem;
 }
-
 .certs-dot{
   -webkit-tap-highlight-color: transparent;
   width:8px; height:8px; border-radius:999px; border:0;
@@ -471,230 +402,40 @@ main{max-width:var(--container);margin:auto;padding:2rem 1rem}
   transition: transform .2s ease, opacity .2s ease, background .2s ease;
 }
 .certs-dot:is(:hover,:focus-visible){ opacity:.85; transform: scale(1); outline:none; }
-.certs-dot.is-active{
-  opacity:1; transform: scale(1.2);
-  background: color-mix(in oklab, var(--brand) 60%, #fff 0%);
+.certs-dot.is-active{ opacity:1; transform: scale(1.2); background: color-mix(in oklab, var(--brand) 60%, #fff 0%); }
+@media (min-width:900px){ .certs-dots{ display:none; } }
+
+/* ================== 6) Pages: About ================== */
+.about-title{ margin:0; font-size:clamp(1.5rem,2.5vw,2rem); }
+.about-sub{ margin:.2rem 0 1rem; color:var(--muted); font-weight:600; }
+.about-text{ max-width:720px; text-align:left; margin:0; display:grid; gap:.8rem; }
+.about-text p{ margin:.4rem 0; line-height:1.55; }
+.about-text .lead{ font-size:1.1rem; color:var(--fg); }
+
+/* Variantes sous-titre */
+.about-sub.badge-style{
+  display:inline-block; font-weight:700; font-size:1.05rem; padding:.25rem .75rem; border-radius:.7rem;
+  background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; margin-bottom:1rem;
+}
+.about-sub.gradient-style{
+  font-weight:800; font-size:1.1rem;
+  background:linear-gradient(135deg,var(--brand),var(--brand-2));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:1rem;
 }
 
-/* Cacher les dots en desktop */
-@media (min-width:900px){
-  .certs-dots{ display:none; }
+/* ================== 7) Footer & Modal ================== */
+.site-footer{ border-top:1px solid var(--border); padding:2rem 1rem; text-align:center; color:var(--muted); }
+
+.modal{ position:fixed; inset:0; background:color-mix(in oklab,#000 60%,transparent); display:grid; place-items:center; }
+.modal[hidden]{ display:none; }
+.modal__dialog{
+  background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-3);
+  width:min(900px,90vw); height:min(80vh,700px); padding:0; overflow:hidden;
 }
+.modal__close{ position:absolute; margin:.5rem; right:1rem; background:none; color:var(--fg); font-size:1.8rem; border:none; cursor:pointer; }
 
-
-/* ===== MOBILE (<=899px): 1 carte centrée, sans peek, avec air ===== */
-@media (max-width: 899px){
-  .certs-viewport{
-    overflow: hidden;             /* masque tout débordement */
-    padding-inline: 0;            /* l’air sera sur la carte, pas le viewport */
-  }
-
-  .certs-rail{
-    grid-auto-flow: column;
-    grid-auto-columns: 100%;      /* chaque slide = pleine largeur viewport */
-    gap: 0;                       /* surtout pas de gap -> sinon peek */
-    padding: 0;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .certs-rail > li{
-    width: 100%;
-    scroll-snap-align: center;    /* centrage parfait */
-  }
-
-  /* L’AIR est porté par la carte : on ne voit pas la suivante */
-  .cert-card{
-    width: 100%;
-    margin-inline: 1rem;          /* air gauche/droite comme les methode */
-  }
-}
-
-
-/* ===== HOTFIX Certifications — 1 carte mobile + grille desktop ===== */
-@media (max-width: 899px){
-  /* Le "marge" visuelle vient du viewport, pas des slides/cartes */
-  .certs-viewport{
-    padding-inline: 1rem !important;
-    overflow: hidden !important;     /* empêche tout peek */
-  }
-
-  .certs-rail{
-    display: grid !important;
-    grid-auto-flow: column !important;
-    grid-auto-columns: 100% !important;   /* 1 slide = 100% */
-    gap: 0 !important;                    /* aucun espace entre slides */
-    padding: 0 !important;                /* l’air est sur le viewport */
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  .certs-rail > li{
-    width: 100% !important;
-    margin: 0 !important;                 /* aucune marge parasite */
-    scroll-snap-align: center !important; /* centre parfaitement */
-  }
-
-  .cert-card{
-    width: 100% !important;
-    margin: 0 !important;                 /* l’air n’est PAS porté par la carte */
-  }
-}
-
-@media (min-width: 900px){
-  .certs-viewport{
-    padding-inline: 0 !important;
-    overflow: visible !important;
-  }
-
-  .certs-rail{
-    display: grid !important;
-    grid-auto-flow: row !important;
-    grid-auto-columns: initial !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important; /* 3 colonnes */
-    gap: 1.25rem 1.5rem !important;
-    padding: 0 !important;
-    overflow: visible !important;
-    scroll-snap-type: none !important;    /* pas de snap en desktop */
-  }
-
-  .certs-rail > li{ scroll-snap-align: unset !important; }
-}
-
-.methode {
-  display: flex;
-  flex-direction: column;
-  gap: .6rem;
-  padding: 1.5rem;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-2);
-  box-shadow: var(--shadow-1);
-}
-
-.methode-head {
-  display: flex;
-  align-items: center;
-  gap: .8rem;
-}
-
-.methode__icon {
-  flex: 0 0 auto;
-  width: 2.6rem; height: 2.6rem;
-  display: grid; place-items: center;
-  border-radius: .9rem;
-  background: linear-gradient(135deg,var(--brand),var(--brand-2));
-  color:#fff; font-size:1.2rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,.25);
-}
-
-.methode__title {
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--fg);
-  line-height: 1.3;
-}
-
-.methode__text,
-.methode__note {
-  display: flex;
-  align-items: center;
-  gap: .4rem;
-  margin-top: .6rem;
-  font-size: .9rem;
-  color: var(--muted);
-  grid-column: 1 / -1;
-  padding-left: calc(2.6rem + 1rem); /* aligné avec le logo */
-}
-
-.methode__note-icon {
-  font-size: 1rem;   /* taille de l’icône */
-  color: var(--brand-2); /* vert ou autre couleur */
-}
-
-
-
-
-.pill {
-  display: inline-block;
-  padding: .18rem .45rem;
-  border-radius: .6rem;
-  font-size: .78rem;
-  font-weight: 600;
-  line-height: 1.3;
-  margin-right: .3rem;   /* réduit l’espace */
-  vertical-align: middle;
-}
-
-.pill--talend {
-  background: var(--brand);   /* couleur principale */
-  color: #fff;
-}
-
-.pill--powerbi {
-  background: var(--brand-2); /* couleur secondaire */
-  color: #fff;
-}
-
-
-
-
-
-
-
-
-/* Carte "méthode" en grille: col 1 = logo, col 2 = contenu */
-.methode{
-  display: grid;
-  grid-template-columns: 2.6rem 1fr;   /* 2.6rem = largeur/hauteur du logo */
-  column-gap: 1rem;
-}
-
-/* Le header (logo + titre) participe directement à la grille */
-.methode-head{ display: contents; }
-
-/* Logo et titre sur la première ligne de la grille */
-.methode__icon{
-  grid-column: 1; grid-row: 1;
-  width: 2.6rem; height: 2.6rem;       /* garde la cohérence */
-}
-.methode__title{
-  grid-column: 2; grid-row: 1;
-  margin: 0; align-self: center;
-}
-
-/* Lignes Talend/Power BI et l’Objectif commencent sous le titre (colonne 2) */
-/* Ligne Talend/Power BI */
-.methode__line {
-  grid-column: 1 / -1;     /* 🔑 occupe toute la largeur, démarre sous le logo */
-  display: flex;
-  align-items: center;
-  gap: .4rem;
-  font-size: .9rem;
-  color: var(--muted);
-  text-align: left;
-}
-.methode__note{
-  grid-column: 2;         /* 🔑 aligne avec le bord droit du logo */
-  padding-left: 0 !important;  /* override d’éventuels anciens styles */
-  text-align: left;
-}
-
-/* "Objectif" avec l’icône */
-.methode__note {
-  grid-column: 1 / -1;       /* occupe toute la largeur de la carte */
-  margin-top: .7rem;
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  font-size: .9rem;
-  color: var(--muted);
-  text-align: left;
-}
-.methode__note-icon{
-  font-size: 1rem; line-height: 1;
-  color: var(--brand-2);
+/* ================== 8) Motion & A11y ================== */
+@media (prefers-reduced-motion: reduce){
+  .nav-toggle .chev, .nav-collapsible, .btn, .card, .methode, .cert-card,
+  .icon-sun, .icon-moon, .theme-toggle { transition: none !important; }
 }

@@ -1,7 +1,36 @@
-/* =============== Menu déroulant (mobile-first) =============== */
+/* ===========================================================================
+   ABM — JS unifié (premium, moderne & épuré)
+   - Utils (qs/qsa, on, store, mq, rAF)
+   - Nav mobile (burger, ARIA, breakpoints)
+   - Thème (persist + préférence système, aria-pressed)
+   - Modals (Calendly lazy, Contact “Merci”)
+   - Formspree (AJAX + feedback)
+   - Carousel certifications (dots + centrage)
+   - A11y & prefers-reduced-motion
+   =========================================================================== */
+
+/* ========================= 1) Utils légers ========================= */
+const $  = (sel, scope=document) => scope.querySelector(sel);
+const $$ = (sel, scope=document) => Array.from(scope.querySelectorAll(sel));
+const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
+const off = (el, ev, fn, opts) => el && el.removeEventListener(ev, fn, opts);
+const mq  = (q) => window.matchMedia ? window.matchMedia(q) : { matches:false, addListener(){}, removeListener(){} };
+const raf = (fn) => (window.requestAnimationFrame || setTimeout)(fn, 16);
+
+/* Storage safe (pas d’erreur en mode privé) */
+const store = {
+  get(key){ try { return localStorage.getItem(key); } catch { return null; } },
+  set(key,val){ try { localStorage.setItem(key,val); } catch {} },
+  rm(key){ try { localStorage.removeItem(key); } catch {} }
+};
+
+/* Prefers reduced motion ? */
+const PREFERS_REDUCED = mq('(prefers-reduced-motion: reduce)').matches;
+
+/* =================== 2) Nav mobile (burger + ARIA) =================== */
 (() => {
-  const toggle = document.querySelector('.nav-toggle');
-  const panel  = document.getElementById('nav-collapsible');
+  const toggle = $('.nav-toggle');
+  const panel  = $('#nav-collapsible');
   if (!toggle || !panel) return;
 
   const setState = (open) => {
@@ -9,94 +38,131 @@
     toggle.setAttribute('aria-expanded', String(open));
   };
 
-  toggle.addEventListener('click', () =>
-    setState(!panel.classList.contains('open'))
-  );
+  // Init ARIA
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-controls', 'nav-collapsible');
+
+  on(toggle, 'click', () => setState(!panel.classList.contains('open')));
 
   // Ferme au clic d’un lien/bouton dans le panneau
-  panel.addEventListener('click', (e) => {
+  on(panel, 'click', (e) => {
     if (e.target.closest('a,button')) setState(false);
   });
 
-  // Ferme au passage en desktop
-  const mq = window.matchMedia('(min-width: 992px)');
-  const onChange = () => { if (mq.matches) setState(false); };
-  mq.addEventListener ? mq.addEventListener('change', onChange) : mq.addListener(onChange);
+  // Ferme lors du passage en desktop
+  const bp = mq('(min-width: 992px)');
+  const onChange = () => { if (bp.matches) setState(false); };
+  // compatibilité anciens navigateurs
+  bp.addEventListener ? bp.addEventListener('change', onChange) : bp.addListener(onChange);
 })();
 
-/* =============== Dark mode (persist + préférence système) =============== */
+/* ==================== 3) Thème (persist + système) ==================== */
 (() => {
-  const btn   = document.querySelector('.theme-toggle');
-  const root  = document.documentElement;
-  const apply = (mode) => root.setAttribute('data-theme', mode);
+  const btn  = $('.theme-toggle');
+  const root = document.documentElement;
 
-  // init: localStorage -> préférence système -> 'dark'
-  let theme = localStorage.getItem('theme');
+  const apply = (mode) => {
+    root.setAttribute('data-theme', mode);
+    if (btn) btn.setAttribute('aria-pressed', String(mode === 'dark'));
+  };
+
+  // init: localStorage -> préférence système -> dark
+  let theme = store.get('theme');
   if (!theme) {
-    const prefersLight = window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: light)').matches;
+    const prefersLight = mq('(prefers-color-scheme: light)').matches;
     theme = prefersLight ? 'light' : 'dark';
   }
   apply(theme);
-  if (btn) btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
 
-  // toggle
-  btn?.addEventListener('click', () => {
+  // Sync si l’utilisateur change le thème au niveau OS
+  const sysPref = mq('(prefers-color-scheme: light)');
+  const syncSystem = () => {
+    const saved = store.get('theme'); // si user a choisi un thème, on respecte
+    if (saved) return;
+    apply(sysPref.matches ? 'light' : 'dark');
+  };
+  sysPref.addEventListener ? sysPref.addEventListener('change', syncSystem) : sysPref.addListener(syncSystem);
+
+  // Toggle explicite
+  on(btn, 'click', () => {
     const cur  = root.getAttribute('data-theme');
     const next = (cur === 'light') ? 'dark' : 'light';
     apply(next);
-    localStorage.setItem('theme', next);
-    btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+    store.set('theme', next);
   });
 })();
 
-/* =============== Calendly modal (lazy load) =============== */
+/* =================== 4) Modal utilitaire générique =================== */
+const Modal = (() => {
+  const open  = (el) => { if (el) el.hidden = false; };
+  const close = (el) => { if (el) el.hidden = true; };
+  const bind  = (modal) => {
+    if (!modal) return;
+    // fermer par clic fond
+    on(modal, 'click', (e) => { if (e.target === modal) close(modal); }, { passive:true });
+    // close buttons
+    $$('.modal__close', modal).forEach(btn => on(btn, 'click', () => close(modal)));
+    // ESC
+    on(document, 'keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) close(modal); });
+  };
+  return { open, close, bind };
+})();
+
+/* ============ 5) Calendly modal (lazy load + idempotent) ============ */
 (() => {
   const calendlyBtn = document.querySelector('[data-calendly]');
-  const modal       = document.getElementById('calendly-modal');
-  const parent      = document.getElementById('calendly-inline');
+  const modal       = $('#calendly-modal');
+  const parent      = $('#calendly-inline');
   if (!calendlyBtn || !modal || !parent) return;
+
+  Modal.bind(modal);
 
   const CALENDLY_URL = 'https://calendly.com/ton-calendly/30min'; // ← remplace
 
-  const openModal = () => { modal.hidden = false; };
-  const closeModal = () => { modal.hidden = true; };
-
+  let loaded = false;
   const loadCalendly = () => {
-    if (window.Calendly) {
-      Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
-      return;
-    }
-    const s = document.createElement('script');
-    s.src = 'https://assets.calendly.com/assets/external/widget.js';
-    s.onload = () => Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
-    document.body.appendChild(s);
+    if (loaded) return;
+    loaded = true;
 
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'https://assets.calendly.com/assets/external/widget.css';
     document.head.appendChild(link);
+
+    const s = document.createElement('script');
+    s.src = 'https://assets.calendly.com/assets/external/widget.js';
+    s.onload = () => {
+      if (window.Calendly) {
+        window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
+      }
+    };
+    document.body.appendChild(s);
   };
 
-  calendlyBtn.addEventListener('click', () => { openModal(); loadCalendly(); });
-  modal.querySelector('.modal__close')?.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  on(calendlyBtn, 'click', () => { Modal.open(modal); loadCalendly(); });
 })();
 
-/* =============== Formspree AJAX + popup "Merci" =============== */
+/* ========== 6) Formspree AJAX + popup “Merci” (accessible) ========== */
 (() => {
-  const form  = document.getElementById('contactForm');
+  const form   = $('#contactForm');
   if (!form) return;
 
-  const endpoint = form.dataset.endpoint;
-  const submitBtn = document.getElementById('contactSubmit');
-  const statusEl  = document.getElementById('contactStatus');
-  const modal     = document.getElementById('contact-modal');
+  const endpoint  = form.dataset.endpoint;
+  const submitBtn = $('#contactSubmit');
+  const statusEl  = $('#contactStatus');
+  const modal     = $('#contact-modal');
 
-  const openModal  = () => { if (modal) modal.hidden = false; };
-  const closeModal = () => { if (modal) modal.hidden = true;  };
+  Modal.bind(modal);
 
-  form.addEventListener('submit', async (e) => {
+  const setStatus = (msg, isError=false) => {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.style.display = 'block';
+    statusEl.setAttribute('role', 'status');
+    statusEl.setAttribute('aria-live', isError ? 'assertive' : 'polite');
+  };
+
+  on(form, 'submit', async (e) => {
     e.preventDefault();
     if (!endpoint) { console.error('Formspree endpoint manquant'); return; }
 
@@ -113,101 +179,109 @@
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
-        body: fd
+        body: fd,
       });
 
       if (res.ok) {
         form.reset();
-        openModal();
+        Modal.open(modal);
       } else {
-        if (statusEl) {
-          statusEl.textContent = "Oups, l’envoi a échoué. Réessayez ou contactez-moi par email.";
-          statusEl.style.display = 'block';
-        }
+        setStatus("Oups, l’envoi a échoué. Réessayez ou contactez-moi par email.", true);
       }
     } catch {
-      if (statusEl) {
-        statusEl.textContent = "Erreur réseau. Vérifiez votre connexion et réessayez.";
-        statusEl.style.display = 'block';
-      }
+      setStatus("Erreur réseau. Vérifiez votre connexion et réessayez.", true);
     } finally {
       if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Envoyer'; }
     }
   });
-
-  if (modal) {
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-    modal.querySelectorAll('.modal__close').forEach(btn => btn.addEventListener('click', closeModal));
-  }
 })();
 
-
-
-
-
-
-
-/* =============== Carousel certifs mobile (dots + swipe) =============== */
+/* ====== 7) Carousel certifs mobile (dots + centrage propre) ====== */
 (() => {
-  const rail = document.getElementById('certs-rail');
-  const dotsWrap = document.querySelector('.certs-dots');
+  const rail    = $('#certs-rail');
+  const dotsWrap= $('.certs-dots');
   if (!rail || !dotsWrap) return;
 
   const slides = Array.from(rail.children);
   if (!slides.length) return;
 
-  // 1) Crée les dots
+  // Rôle défilant
+  rail.setAttribute('tabindex', '0');
+  rail.setAttribute('role', 'region');
+  rail.setAttribute('aria-label', 'Certifications (carousel)');
+
+  // Crée les dots (une fois)
   const dots = slides.map((_, i) => {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'certs-dot';
     b.setAttribute('aria-label', `Aller à la certification ${i + 1}`);
-    b.addEventListener('click', () => scrollToSlide(i));
+    on(b, 'click', () => scrollToSlide(i));
     dotsWrap.appendChild(b);
     return b;
   });
 
-  // 2) Scroll vers un slide donné (aligne le début du slide avec le viewport)
-function scrollToSlide(i) {
-  const el = slides[i];
-  // centre le slide dans le viewport du rail
-  const target = el.offsetLeft - (rail.clientWidth - el.clientWidth) / 2;
-  rail.scrollTo({ left: target, behavior: 'smooth' });
-}
+  // Centrage d’un slide dans le viewport du rail
+  function centerOffsetFor(el) {
+    return el.offsetLeft - (rail.clientWidth - el.clientWidth) / 2;
+  }
+  function scrollToSlide(i) {
+    const el = slides[i];
+    const target = centerOffsetFor(el);
+    rail.scrollTo({ left: target, behavior: PREFERS_REDUCED ? 'auto' : 'smooth' });
+  }
 
-
-  // 3) Active le dot du slide majoritairement visible (IntersectionObserver)
+  // Active le dot du slide majoritairement visible
   function setActive(i) {
     dots.forEach((d, idx) => d.classList.toggle('is-active', idx === i));
   }
 
-  const io = new IntersectionObserver((entries) => {
-    // on prend l'entrée la plus visible
-    let bestI = null, bestRatio = 0;
-    for (const e of entries) {
-      const i = slides.indexOf(e.target);
-      if (e.isIntersecting && e.intersectionRatio > bestRatio) {
-        bestRatio = e.intersectionRatio;
-        bestI = i;
+  // Observer pour déterminer le “meilleur” slide en vue
+  const useIO = 'IntersectionObserver' in window;
+  if (useIO) {
+    const io = new IntersectionObserver((entries) => {
+      let bestI = null, bestRatio = 0;
+      for (const e of entries) {
+        const i = slides.indexOf(e.target);
+        if (e.isIntersecting && e.intersectionRatio > bestRatio) {
+          bestRatio = e.intersectionRatio; bestI = i;
+        }
       }
-    }
-    if (bestI !== null) setActive(bestI);
-  }, { root: rail, threshold: [0.5, 0.6, 0.7, 0.8] });
+      if (bestI !== null) setActive(bestI);
+    }, { root: rail, threshold: [0.5, 0.6, 0.7, 0.8] });
+    slides.forEach(el => io.observe(el));
+  } else {
+    // Fallback sans IO : se base sur scrollLeft
+    const onScroll = () => {
+      const centers = slides.map(el => Math.abs(centerOffsetFor(el) - rail.scrollLeft));
+      const bestI = centers.indexOf(Math.min(...centers));
+      setActive(bestI);
+    };
+    on(rail, 'scroll', onScroll, { passive:true });
+  }
 
-  slides.forEach(el => io.observe(el));
-  // État initial (au cas où le premier est déjà en vue)
+  // État initial
   setActive(0);
 
-  // 4) Support clavier (facultatif) : flèches gauche/droite
-  rail.addEventListener('keydown', (e) => {
+  // Clavier : flèches G/D
+  on(rail, 'keydown', (e) => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
     e.preventDefault();
     const current = dots.findIndex(d => d.classList.contains('is-active'));
-    const next = e.key === 'ArrowRight' ? Math.min(current + 1, slides.length - 1)
-                                        : Math.max(current - 1, 0);
+    const next = e.key === 'ArrowRight'
+      ? Math.min(current + 1, slides.length - 1)
+      : Math.max(current - 1, 0);
     scrollToSlide(next);
   });
 
-  // 5) Accessibilité: le rail peut recevoir le focus au clavier
-  rail.setAttribute('tabindex', '0');
+  // Recenter on resize (orientation, etc.)
+  let resizeRaf;
+  on(window, 'resize', () => {
+    cancelAnimationFrame(resizeRaf);
+    resizeRaf = raf(() => {
+      const current = dots.findIndex(d => d.classList.contains('is-active')) || 0;
+      scrollToSlide(current);
+    });
+  }, { passive:true });
 })();
+
