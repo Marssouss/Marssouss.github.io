@@ -322,44 +322,58 @@ const Modal = (() => {
   }, { passive:true });
 })();
 
-/* ============ Calendly inline — init direct + skeleton off ============ */
+/* ============ Calendly inline — robuste (init direct + fallback) ============ */
 (() => {
   const parent = document.getElementById('calendly-inline');
   if (!parent) return;
 
-  const CALENDLY_URL = parent.dataset.calendlyUrl;
-  if (!CALENDLY_URL) {
-    console.warn('Calendly: URL manquante (site.author.calendly_url)'); 
+  const url = (parent.dataset.calendlyUrl || '').trim();
+  const skeleton = parent.querySelector('.calendly-skeleton');
+  const fallback = parent.querySelector('.calendly-fallback');
+
+  const showFallback = (why='') => {
+    console.warn('[Calendly] Fallback:', why);
+    if (skeleton) skeleton.style.display = 'none';
+    if (fallback) fallback.hidden = false;
+  };
+
+  // 1) Valide l’URL
+  if (!url) { showFallback('URL manquante'); return; }
+  if (!/^https:\/\/calendly\.com\//i.test(url)) {
+    showFallback('URL non Calendly ou invalide: ' + url);
     return;
   }
 
-  // Inject assets puis init
+  // 2) Charge assets Calendly
   const ensureCalendly = (cb) => {
+    let pending = 0, errored = false;
+
     const needCss = !document.querySelector('link[href*="calendly.com/assets/external/widget.css"]');
     const needJs  = !document.querySelector('script[src*="calendly.com/assets/external/widget.js"]');
 
-    let pending = 0;
-    const done = () => (--pending === 0) && cb();
+    const done = () => { if (--pending <= 0 && !errored) cb(); };
+    const onerr = (e) => { errored = true; showFallback('Assets non chargés'); };
 
     if (needCss) {
       pending++;
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = 'https://assets.calendly.com/assets/external/widget.css';
-      link.onload = done; link.onerror = done;
+      link.onload = done; link.onerror = onerr;
       document.head.appendChild(link);
     }
     if (needJs) {
       pending++;
       const s = document.createElement('script');
       s.src = 'https://assets.calendly.com/assets/external/widget.js';
-      s.onload = done; s.onerror = done;
+      s.defer = true;
+      s.onload = done; s.onerror = onerr;
       document.body.appendChild(s);
     }
     if (!needCss && !needJs) cb();
   };
 
-  const markReady = () => parent.classList.add('is-ready');
+  // 3) Force plein format
   const forceFullSize = () => {
     const wrap = parent.querySelector('.calendly-inline-widget');
     const iframe = parent.querySelector('iframe');
@@ -367,53 +381,47 @@ const Modal = (() => {
     if (iframe){ iframe.style.width = '100%'; iframe.style.height = '100%'; }
   };
 
-  const init = () => {
-    if (!window.Calendly) return; // sécurité
-    window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
+  // 4) Init + observer pour masquer le skeleton
+  const initCalendly = () => {
+    if (!window.Calendly) { showFallback('API Calendly absente'); return; }
 
-    // Quand le widget apparaît → on masque le skeleton et on force 100%
+    try {
+      window.Calendly.initInlineWidget({ url, parentElement: parent });
+    } catch (e) {
+      console.error(e);
+      showFallback('initInlineWidget a échoué');
+      return;
+    }
+
     const mo = new MutationObserver(() => {
       const ready = parent.querySelector('.calendly-inline-widget');
       if (ready) {
+        // Widget OK → on masque le skeleton et on force la taille
+        if (skeleton) skeleton.style.display = 'none';
+        if (fallback) fallback.hidden = true;
         forceFullSize();
-        markReady();
         mo.disconnect();
       }
     });
     mo.observe(parent, { childList: true, subtree: true });
 
+    // Sécurité : si au bout de 8s rien n’est apparu → fallback
+    setTimeout(() => {
+      if (!parent.querySelector('.calendly-inline-widget')) {
+        showFallback('timeout');
+      }
+    }, 8000);
+
     // Reforce la taille si resize/orientation
-    window.addEventListener('resize', forceFullSize, { passive: true });
+    window.addEventListener('resize', forceFullSize, { passive:true });
   };
 
-  // Init immédiat
+  // Lance tout de suite (sans lazy)
   ensureCalendly(() => {
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init, { once: true });
+      document.addEventListener('DOMContentLoaded', initCalendly, { once: true });
     } else {
-      init();
-    }
-  });
-})();
-
-/* ============ Copier email/téléphone (icône) ============ */
-(() => {
-  document.addEventListener('click', async (e) => {
-    const btn = e.target.closest('.ci-copy-btn');
-    if (!btn) return;
-    e.preventDefault();
-    const text = btn.getAttribute('data-copy') || '';
-    try {
-      await navigator.clipboard.writeText(text);
-      btn.classList.add('copied');
-      const prev = btn.innerHTML;
-      btn.innerHTML = '✓';
-      setTimeout(() => { btn.innerHTML = prev; btn.classList.remove('copied'); }, 900);
-    } catch {
-      // Fallback
-      const ta = document.createElement('textarea');
-      ta.value = text; document.body.appendChild(ta); ta.select();
-      document.execCommand('copy'); document.body.removeChild(ta);
+      initCalendly();
     }
   });
 })();

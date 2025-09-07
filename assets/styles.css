@@ -750,3 +750,5 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   background: color-mix(in oklab, var(--card) 90%, var(--brand) 10%);
   color:#fff;
 }
+
+.calendly-fallback[hidden]{ display:none !important; }
