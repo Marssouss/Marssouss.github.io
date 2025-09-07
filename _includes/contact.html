@@ -36,7 +36,7 @@
       <p class="lead">Besoin d’un échange rapide ?</p>
 
       <ul class="contact-list" role="list">
-        <li>
+        <li class="contact-row">
           <a class="contact-item" href="{{ site.author.linkedin }}" target="_blank" rel="noopener">
             <span class="ci-icon" aria-hidden="true">💼</span>
             <span class="ci-body">
@@ -47,30 +47,34 @@
           </a>
         </li>
 
-        <li>
+        <li class="contact-row">
           <a class="contact-item" href="mailto:{{ site.author.email }}">
             <span class="ci-icon" aria-hidden="true">✉️</span>
             <span class="ci-body">
               <strong>{{ site.author.email }}</strong>
               <small>Contact direct</small>
             </span>
-            <button class="ci-copy" type="button" data-copy="{{ site.author.email }}" aria-label="Copier l’email">Copier</button>
           </a>
+          <button class="ci-copy" type="button"
+                  data-copy="{{ site.author.email }}"
+                  aria-label="Copier l’email">Copier</button>
         </li>
 
-        <li>
+        <li class="contact-row">
           <a class="contact-item" href="tel:{{ site.author.phone | replace: ' ', '' }}">
             <span class="ci-icon" aria-hidden="true">📞</span>
             <span class="ci-body">
               <strong>{{ site.author.phone }}</strong>
               <small>Appel ou SMS</small>
             </span>
-            <button class="ci-copy" type="button" data-copy="{{ site.author.phone }}" aria-label="Copier le téléphone">Copier</button>
           </a>
+          <button class="ci-copy" type="button"
+                  data-copy="{{ site.author.phone }}"
+                  aria-label="Copier le téléphone">Copier</button>
         </li>
       </ul>
 
       <p class="note muted">Réponse sous 24–48h ouvrées.</p>
     </aside>
   </div>
-</section
+</section>
