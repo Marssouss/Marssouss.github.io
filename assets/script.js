@@ -322,77 +322,98 @@ const Modal = (() => {
   }, { passive:true });
 })();
 
-/* ============ Calendly inline — full card, skeleton off ============ */
+/* ============ Calendly inline — init direct + skeleton off ============ */
 (() => {
   const parent = document.getElementById('calendly-inline');
   if (!parent) return;
 
   const CALENDLY_URL = parent.dataset.calendlyUrl;
-  if (!CALENDLY_URL) { console.warn('Calendly: URL manquante'); return; }
+  if (!CALENDLY_URL) {
+    console.warn('Calendly: URL manquante (site.author.calendly_url)'); 
+    return;
+  }
 
+  // Inject assets puis init
   const ensureCalendly = (cb) => {
-    if (window.Calendly) return cb();
-    if (!document.querySelector('link[href*="calendly.com/assets/external/widget.css"]')) {
+    const needCss = !document.querySelector('link[href*="calendly.com/assets/external/widget.css"]');
+    const needJs  = !document.querySelector('script[src*="calendly.com/assets/external/widget.js"]');
+
+    let pending = 0;
+    const done = () => (--pending === 0) && cb();
+
+    if (needCss) {
+      pending++;
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = 'https://assets.calendly.com/assets/external/widget.css';
+      link.onload = done; link.onerror = done;
       document.head.appendChild(link);
     }
-    if (!document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
+    if (needJs) {
+      pending++;
       const s = document.createElement('script');
       s.src = 'https://assets.calendly.com/assets/external/widget.js';
-      s.onload = cb;
+      s.onload = done; s.onerror = done;
       document.body.appendChild(s);
-    } else {
-      const wait = () => window.Calendly ? cb() : setTimeout(wait, 50);
-      wait();
     }
+    if (!needCss && !needJs) cb();
   };
 
   const markReady = () => parent.classList.add('is-ready');
-
   const forceFullSize = () => {
     const wrap = parent.querySelector('.calendly-inline-widget');
     const iframe = parent.querySelector('iframe');
-    if (wrap) {
-      wrap.style.width  = '100%';
-      wrap.style.height = '100%';      // sécurité JS en plus du CSS
-    }
-    if (iframe) {
-      iframe.style.width  = '100%';
-      iframe.style.height = '100%';
-    }
+    if (wrap) { wrap.style.width = '100%'; wrap.style.height = '100%'; }
+    if (iframe){ iframe.style.width = '100%'; iframe.style.height = '100%'; }
   };
 
   const init = () => {
-    ensureCalendly(() => {
-      // On n'efface pas le skeleton: on le masque dès que Calendly est prêt
-      window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
+    if (!window.Calendly) return; // sécurité
+    window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
 
-      // Sur apparition du widget → plein format + hide skeleton
-      const mo = new MutationObserver(() => {
-        const ready = parent.querySelector('.calendly-inline-widget');
-        if (ready) {
-          forceFullSize();
-          markReady();
-          mo.disconnect();
-        }
-      });
-      mo.observe(parent, { childList: true, subtree: true });
-
-      // Reforce la taille si resize/orientation
-      const onResize = () => forceFullSize();
-      window.addEventListener('resize', onResize, { passive:true });
+    // Quand le widget apparaît → on masque le skeleton et on force 100%
+    const mo = new MutationObserver(() => {
+      const ready = parent.querySelector('.calendly-inline-widget');
+      if (ready) {
+        forceFullSize();
+        markReady();
+        mo.disconnect();
+      }
     });
+    mo.observe(parent, { childList: true, subtree: true });
+
+    // Reforce la taille si resize/orientation
+    window.addEventListener('resize', forceFullSize, { passive: true });
   };
 
-  // Lazy load quand visible
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      if (entries.some(e => e.isIntersecting)) { init(); io.disconnect(); }
-    }, { rootMargin: '200px' });
-    io.observe(parent);
-  } else {
-    init();
-  }
+  // Init immédiat
+  ensureCalendly(() => {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
+      init();
+    }
+  });
+})();
+
+/* ============ Copier email/téléphone (icône) ============ */
+(() => {
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.ci-copy-btn');
+    if (!btn) return;
+    e.preventDefault();
+    const text = btn.getAttribute('data-copy') || '';
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.classList.add('copied');
+      const prev = btn.innerHTML;
+      btn.innerHTML = '✓';
+      setTimeout(() => { btn.innerHTML = prev; btn.classList.remove('copied'); }, 900);
+    } catch {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+    }
+  });
 })();
