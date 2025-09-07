@@ -424,73 +424,58 @@ const Modal = (() => {
 })();
 
 
-
-/* ============ Calendly modal — URL depuis _config.yml + init idempotent ============ */
+/* ============ Calendly modal — URL _config.yml + triggers multiples ============ */
 (() => {
-  const trigger = document.querySelector('[data-calendly]');   // le bouton qui ouvre la popup
-  const modal   = document.getElementById('calendly-modal');   // conteneur modal
-  const parent  = document.getElementById('calendly-inline');  // conteneur de l'iframe à l'intérieur du modal
-  if (!trigger || !modal || !parent) return;
+  const triggers = document.querySelectorAll('[data-calendly]');
+  const modal    = document.getElementById('calendly-modal');
+  const parent   = document.getElementById('calendly-inline');
+  if (!triggers.length || !modal || !parent) return;
 
-  // URL injectée depuis _config.yml dans un data-attribute
+  Modal.bind(modal);
+
+  // URL prioritaire depuis le conteneur, sinon depuis le bouton, sinon rien
   const CALENDLY_URL =
     parent.dataset.calendlyUrl ||
-    trigger.dataset.calendlyUrl ||
-    '';
+    triggers[0].dataset.calendlyUrl || '';
 
   if (!/^https:\/\/calendly\.com\//i.test(CALENDLY_URL)) {
-    console.warn('[Calendly] URL manquante ou invalide. Vérifie site.author.calendly_url dans _config.yml');
+    console.warn('[Calendly] URL manquante ou invalide (_config.yml: site.author.calendly_url)');
     return;
   }
 
-  // Bind utilitaire Modal (déjà présent dans ton code)
-  Modal.bind(modal);
-
-  let assetsLoaded = false;
+  let assetsReady = false;
 
   const ensureAssets = (cb) => {
-    // charge CSS/JS Calendly une seule fois
     const needCss = !document.querySelector('link[href*="calendly.com/assets/external/widget.css"]');
     const needJs  = !document.querySelector('script[src*="calendly.com/assets/external/widget.js"]');
-    let pending = 0;
+    let pending = 0, failed = false;
 
-    const done = () => { if (--pending === 0) { assetsLoaded = true; cb(); } };
+    const done = () => { if (--pending === 0 && !failed) { assetsReady = true; cb(); } };
+    const fail = () => { failed = true; console.warn('[Calendly] chargement assets KO'); };
 
-    if (needCss) {
-      pending++;
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = 'https://assets.calendly.com/assets/external/widget.css';
-      link.onload = done; link.onerror = done;
-      document.head.appendChild(link);
-    }
-    if (needJs) {
-      pending++;
-      const s = document.createElement('script');
-      s.src = 'https://assets.calendly.com/assets/external/widget.js';
-      s.onload = done; s.onerror = done;
-      document.body.appendChild(s);
-    }
-    if (!needCss && !needJs) { assetsLoaded = true; cb(); }
+    if (needCss){ pending++; const l=document.createElement('link');
+      l.rel='stylesheet'; l.href='https://assets.calendly.com/assets/external/widget.css';
+      l.onload=done; l.onerror=fail; document.head.appendChild(l); }
+
+    if (needJs){ pending++; const s=document.createElement('script');
+      s.src='https://assets.calendly.com/assets/external/widget.js';
+      s.onload=done; s.onerror=fail; document.body.appendChild(s); }
+
+    if (!needCss && !needJs){ assetsReady = true; cb(); }
   };
 
   const initCalendly = () => {
-    // (ré)initialise à chaque ouverture pour être propre
-    parent.innerHTML = '';
+    parent.innerHTML = ''; // reset à chaque ouverture
     if (window.Calendly) {
-      window.Calendly.initInlineWidget({
-        url: CALENDLY_URL,
-        parentElement: parent
-      });
+      window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
     }
   };
 
-  trigger.addEventListener('click', () => {
+  const openCalendly = () => {
     Modal.open(modal);
-    if (!assetsLoaded) {
-      ensureAssets(initCalendly);
-    } else {
-      initCalendly();
-    }
-  });
+    assetsReady ? initCalendly() : ensureAssets(initCalendly);
+  };
+
+  // Tous les boutons (nav + section) déclenchent la même popup
+  triggers.forEach(btn => btn.addEventListener('click', openCalendly));
 })();
