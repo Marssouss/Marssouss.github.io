@@ -322,16 +322,13 @@ const Modal = (() => {
   }, { passive:true });
 })();
 
-/* ============ Calendly inline — simple (lazy) ============ */
+/* ============ Calendly inline — plein format + skeleton off ============ */
 (() => {
   const parent = document.getElementById('calendly-inline');
   if (!parent) return;
 
   const CALENDLY_URL = parent.dataset.calendlyUrl;
-  if (!CALENDLY_URL) {
-    console.warn('Calendly: URL manquante (site.author.calendly_url)');
-    return;
-  }
+  if (!CALENDLY_URL) { console.warn('Calendly: URL manquante'); return; }
 
   const ensureCalendly = (cb) => {
     if (window.Calendly) return cb();
@@ -352,14 +349,25 @@ const Modal = (() => {
     }
   };
 
+  const markReady = () => parent.classList.add('is-ready');
+
   const init = () => {
     ensureCalendly(() => {
-      parent.innerHTML = ''; // nettoie le skeleton
+      // Au lieu de vider, on garde le conteneur et on masque le skeleton au premier rendu
       window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
+
+      // Dès que Calendly ajoute son noeud .calendly-inline-widget → hide skeleton
+      const mo = new MutationObserver(() => {
+        if (parent.querySelector('.calendly-inline-widget')) {
+          markReady();
+          mo.disconnect();
+        }
+      });
+      mo.observe(parent, { childList: true, subtree: true });
     });
   };
 
-  // Lazy load à l'apparition
+  // Lazy load quand visible
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       if (entries.some(e => e.isIntersecting)) { init(); io.disconnect(); }
@@ -368,4 +376,27 @@ const Modal = (() => {
   } else {
     init();
   }
+})();
+
+/* ============ Copier email/téléphone ============ */
+(() => {
+  const onClick = async (e) => {
+    const btn = e.target.closest('.ci-copy');
+    if (!btn) return;
+    e.preventDefault();
+    const text = btn.getAttribute('data-copy');
+    try {
+      await navigator.clipboard.writeText(text);
+      const old = btn.textContent;
+      btn.textContent = 'Copié';
+      setTimeout(() => (btn.textContent = old), 1200);
+    } catch {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); btn.textContent = 'Copié'; setTimeout(()=>btn.textContent='Copier',1200); }
+      finally { document.body.removeChild(ta); }
+    }
+  };
+  document.addEventListener('click', onClick);
 })();

@@ -5,7 +5,7 @@
   </header>
 
   <div class="grid cols-2 contact-grid">
-    <!-- Colonne 1 : Calendly inline pleine largeur/hauteur de la card -->
+    <!-- Colonne 1 : Calendly plein format -->
     <div class="contact-left">
       <div class="card calendly-card" role="region" aria-label="Calendrier de réservation">
         <div class="calendly-head">
@@ -15,6 +15,7 @@
           </div>
         </div>
 
+        <!-- IMPORTANT: data-calendly-url vient de _config.yml -->
         <div id="calendly-inline"
              class="calendly-inline"
              data-calendly-url="{{ site.author.calendly_url | escape }}">
@@ -22,32 +23,54 @@
             <p class="muted" style="margin:0">Chargement du calendrier…</p>
           </div>
         </div>
+
+        <p class="note muted calendly-note">
+          Calendrier intégré via Calendly (ressources externes).
+        </p>
       </div>
     </div>
 
-    <!-- Colonne 2 : Autres moyens (sans lien vers le calendrier) -->
+    <!-- Colonne 2 : Autres moyens (nouveau design) -->
     <aside class="card contact-cta contact-sticky" aria-label="Autres moyens de contact">
       <h3 class="cta-title">Autres moyens</h3>
       <p class="lead">Besoin d’un échange rapide ?</p>
 
-      <nav class="stack">
-        <a class="btn btn--icon" href="{{ site.author.linkedin }}" target="_blank" rel="noopener">
-          <span class="btn__icon" aria-hidden="true">💼</span>
-          Mon LinkedIn
-        </a>
+      <ul class="contact-list" role="list">
+        <li>
+          <a class="contact-item" href="{{ site.author.linkedin }}" target="_blank" rel="noopener">
+            <span class="ci-icon" aria-hidden="true">💼</span>
+            <span class="ci-body">
+              <strong>LinkedIn</strong>
+              <small>Profil professionnel</small>
+            </span>
+            <span class="ci-cta" aria-hidden="true">→</span>
+          </a>
+        </li>
 
-        <a class="btn btn--icon" href="mailto:{{ site.author.email }}">
-          <span class="btn__icon" aria-hidden="true">✉️</span>
-          {{ site.author.email }}
-        </a>
+        <li>
+          <a class="contact-item" href="mailto:{{ site.author.email }}">
+            <span class="ci-icon" aria-hidden="true">✉️</span>
+            <span class="ci-body">
+              <strong>{{ site.author.email }}</strong>
+              <small>Contact direct</small>
+            </span>
+            <button class="ci-copy" type="button" data-copy="{{ site.author.email }}" aria-label="Copier l’email">Copier</button>
+          </a>
+        </li>
 
-        <a class="btn btn--icon" href="tel:{{ site.author.phone | replace: ' ', '' }}">
-          <span class="btn__icon" aria-hidden="true">📞</span>
-          {{ site.author.phone }}
-        </a>
-      </nav>
+        <li>
+          <a class="contact-item" href="tel:{{ site.author.phone | replace: ' ', '' }}">
+            <span class="ci-icon" aria-hidden="true">📞</span>
+            <span class="ci-body">
+              <strong>{{ site.author.phone }}</strong>
+              <small>Appel ou SMS</small>
+            </span>
+            <button class="ci-copy" type="button" data-copy="{{ site.author.phone }}" aria-label="Copier le téléphone">Copier</button>
+          </a>
+        </li>
+      </ul>
 
       <p class="note muted">Réponse sous 24–48h ouvrées.</p>
     </aside>
   </div>
-</section>
+</section
