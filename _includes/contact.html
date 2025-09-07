@@ -15,29 +15,22 @@
           </div>
         </div>
 
-        <!-- IMPORTANT : l’URL vient de _config.yml -->
+        <!-- Calendly inline -->
         <div id="calendly-inline"
              class="calendly-inline"
              data-calendly-url="{{ site.author.calendly_url }}">
-          <!-- Overlay skeleton (n’occupe plus de place) -->
-          <div class="calendly-skeleton calendly-overlay" aria-hidden="true">
+          <div class="calendly-skeleton" aria-hidden="true">
             <p class="muted" style="margin:0">Chargement du calendrier…</p>
-          </div>
-
-          <!-- Overlay fallback (affiché uniquement si échec) -->
-          <div class="calendly-fallback calendly-overlay" hidden>
-            <p class="muted" style="margin:.75rem 1rem">Impossible de charger le calendrier.</p>
-            <p style="margin:0 1rem 1rem">
-              <a class="btn" href="{{ site.author.calendly_url }}" target="_blank" rel="noopener">Ouvrir sur Calendly</a>
-            </p>
           </div>
         </div>
 
-        <p class="note muted calendly-note">Calendrier intégré via Calendly (ressources externes).</p>
+        <p class="note muted calendly-note">
+          Calendrier intégré via Calendly (ressources externes).
+        </p>
       </div>
     </div>
 
-    <!-- Colonne 2 : Autres moyens (conservé) -->
+    <!-- Colonne 2 : Autres moyens -->
     <aside class="card contact-cta contact-sticky" aria-label="Autres moyens de contact">
       <h3 class="cta-title">Autres moyens</h3>
       <p class="lead">Besoin d’un échange rapide ?</p>
@@ -63,7 +56,9 @@
             </span>
           </a>
           <button class="ci-copy-btn" type="button" data-copy="{{ site.author.email }}" aria-label="Copier l’email">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/></svg>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path fill="currentColor" d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/>
+            </svg>
           </button>
         </li>
 
@@ -76,7 +71,9 @@
             </span>
           </a>
           <button class="ci-copy-btn" type="button" data-copy="{{ site.author.phone }}" aria-label="Copier le téléphone">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/></svg>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path fill="currentColor" d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/>
+            </svg>
           </button>
         </li>
       </ul>
