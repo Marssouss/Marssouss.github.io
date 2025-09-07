@@ -424,15 +424,15 @@ const Modal = (() => {
 })();
 
 
-/* Calendly — hybride fiable : inline (desktop) + popup (mobile & boutons) */
+/* Calendly — hybride fiable : inline (desktop) + popup (mobile & boutons) + loader 3 points */
 (() => {
-  const modal    = document.getElementById('calendly-modal');       // popup
-  const parentM  = document.getElementById('calendly-inline');       // conteneur dans la popup
-  const parentD  = document.getElementById('calendly-inline-embed'); // conteneur inline dans la card
-  const triggers = document.querySelectorAll('[data-calendly]');     // tous les boutons (nav + section)
+  const modal    = document.getElementById('calendly-modal');        // popup
+  const parentM  = document.getElementById('calendly-inline');        // conteneur dans la popup
+  const parentD  = document.getElementById('calendly-inline-embed');  // conteneur inline dans la card
+  const triggers = document.querySelectorAll('[data-calendly]');      // tous les boutons (nav + section)
   const mqDesk   = window.matchMedia('(min-width: 992px)');
 
-  // URL Calendly lue depuis _config.yml (data-calendly-url)
+  // URL Calendly (_config.yml -> site.author.calendly_url)
   const url = (parentD?.dataset.calendlyUrl
             || parentM?.dataset.calendlyUrl
             || triggers[0]?.dataset.calendlyUrl
@@ -440,6 +440,22 @@ const Modal = (() => {
   if (!url) { console.warn('[Calendly] URL absente'); return; }
 
   if (modal) Modal.bind(modal);
+
+  // --- Loader 3 points (injecté/supprimé dynamiquement) ---
+  const addDotsLoader = (host) => {
+    if (!host || host.querySelector('.dots-loader')) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'dots-loader';
+    wrap.innerHTML = `
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      <span class="sr-only">Chargement…</span>
+    `;
+    host.appendChild(wrap);
+    return wrap;
+  };
+  const removeDotsLoader = (host) => {
+    host?.querySelector('.dots-loader')?.remove();
+  };
 
   // Charge CSS/JS Calendly (une seule fois)
   const ensureLink = (href) => new Promise(res => {
@@ -457,28 +473,70 @@ const Modal = (() => {
     ensureScript('https://assets.calendly.com/assets/external/widget.js')
   ]);
 
-  // --- INIT INLINE (DESKTOP) ---
-  const initInline = () => {
+  // --- INIT INLINE (DESKTOP) avec observer + retry ---
+  const initInlineDesktop = async () => {
     if (!parentD) return;
-    // IMPORTANT: vider le skeleton AVANT init, sinon Calendly ne rend pas l’iframe
-    parentD.innerHTML = '';
+
+    // loader 3 points
+    addDotsLoader(parentD);
+
+    // IMPORTANT : on repart propre, puis on (ré)initialise
+    parentD.innerHTML = ''; // vide le skeleton/le précédent iframe
+
+    // réinjecte le loader (car on vient de clean innerHTML)
+    addDotsLoader(parentD);
+
+    // Appel Calendly
     window.Calendly?.initInlineWidget({ url, parentElement: parentD });
+
+    // Attends l'iframe (observer) puis retire le loader
+    const obs = new MutationObserver(() => {
+      const iframe = parentD.querySelector('iframe');
+      if (iframe) { removeDotsLoader(parentD); obs.disconnect(); }
+    });
+    obs.observe(parentD, { childList: true });
+
+    // Fallback : si au bout de 4s pas d’iframe, on retry 1 fois
+    setTimeout(() => {
+      if (!parentD.querySelector('iframe')) {
+        // retry une seule fois
+        parentD.innerHTML = '';
+        addDotsLoader(parentD);
+        window.Calendly?.initInlineWidget({ url, parentElement: parentD });
+        // re-observer
+        const obs2 = new MutationObserver(() => {
+          const iframe2 = parentD.querySelector('iframe');
+          if (iframe2) { removeDotsLoader(parentD); obs2.disconnect(); }
+        });
+        obs2.observe(parentD, { childList: true });
+      }
+    }, 4000);
   };
 
   // --- OUVERTURE POPUP (MOBILE & BOUTONS) ---
   const openPopup = () => {
     if (!modal || !parentM) return;
-    parentM.innerHTML = ''; // on repart propre
+    parentM.innerHTML = '';
+    addDotsLoader(parentM);
     Modal.open(modal);
     window.Calendly?.initInlineWidget({ url, parentElement: parentM });
+
+    const obs = new MutationObserver(() => {
+      const iframe = parentM.querySelector('iframe');
+      if (iframe) { removeDotsLoader(parentM); obs.disconnect(); }
+    });
+    obs.observe(parentM, { childList: true });
   };
 
+  // --- BOOT ---
   const boot = async () => {
     await loadAssets();
+
     // Desktop → inline
-    if (parentD && mqDesk.matches) initInline();
-    // Tous les boutons (nav + section) → popup
-    triggers.forEach(btn => btn.addEventListener('click', openPopup));
+    if (parentD && mqDesk.matches) initInlineDesktop();
+
+    // Tous les boutons (nav + section) → popup (desktop et mobile)
+    triggers.forEach(btn => btn.addEventListener('click', openPopup, { passive:true }));
   };
 
   if (document.readyState === 'loading') {

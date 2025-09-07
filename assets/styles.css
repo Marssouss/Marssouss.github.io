@@ -924,3 +924,66 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   margin-left: 0;
   margin-right: auto;
 }
+
+/* Loader 3 points (même style que la popup) */
+.dots-loader{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  padding:1rem;
+  z-index:0;
+}
+.dots-loader span{
+  display:inline-block;
+  width:8px; height:8px;
+  margin:0 4px; border-radius:999px;
+  background: color-mix(in oklab, var(--fg) 80%, #fff 0%);
+  opacity:.65;
+  animation: dl-bounce 1.2s infinite cubic-bezier(.6,.05,.4,.95);
+}
+.dots-loader span:nth-child(1){ animation-delay: 0s; }
+.dots-loader span:nth-child(2){ animation-delay: .15s; }
+.dots-loader span:nth-child(3){ animation-delay: .30s; }
+
+@keyframes dl-bounce{
+  0%, 80%, 100% { transform: translateY(0); opacity:.5; }
+  40%          { transform: translateY(-6px); opacity:1; }
+}
+
+/* Helper a11y */
+.sr-only{
+  position:absolute !important;
+  width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+/* Inline Calendly desktop (taille + position) */
+#calendly-inline-embed{
+  position:relative;
+  min-height: clamp(640px, 70vh, 920px);
+  margin: 0 1rem 1rem;
+}
+#calendly-inline-embed > .calendly-inline-widget,
+#calendly-inline-embed iframe{
+  position:absolute; inset:0;
+  width:100% !important; height:100% !important;
+  border:0 !important; min-height:0 !important; display:block;
+}
+
+/* Affichage : inline desktop / bouton mobile */
+@media (max-width: 991px){
+  #calendly-inline-embed{ display:none; }          /* mobile : pas d’inline */
+  .contact-v2 .actions--center{ display:flex; }    /* mobile : bouton visible */
+}
+@media (min-width: 992px){
+  .contact-v2 .actions--center{ display:none; }    /* desktop : bouton masqué */
+}
+
+/* Card alignée à gauche */
+.contact-v2 .calendly-card{
+  max-width: 760px;
+  margin-left: 0;
+  margin-right: auto;
+}
