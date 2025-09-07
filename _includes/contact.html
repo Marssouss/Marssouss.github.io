@@ -12,7 +12,16 @@
       </div>
     </div>
 
-    <!-- CTA principal (ouvre la popup Calendly) -->
+    <!-- Calendly inline (affiché sur desktop) -->
+    <div id="calendly-inline-embed"
+         class="calendly-inline"
+         data-calendly-url="{{ site.author.calendly_url }}">
+      <div class="calendly-skeleton" aria-hidden="true">
+        <p class="muted" style="margin:0">Chargement du calendrier…</p>
+      </div>
+    </div>
+
+    <!-- CTA principal (popup – visible sur mobile) -->
     <div class="actions actions--center">
       <button class="btn cta" data-calendly data-calendly-url="{{ site.author.calendly_url }}">
         📅 Ouvrir le calendrier
