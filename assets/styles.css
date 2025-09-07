@@ -635,3 +635,68 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 @media (max-width: 699px){
   .calendly-inline{ min-height: 560px; }
 }
+
+
+/* ===== Contact v2 — Card Calendly pleine ===== */
+.contact-grid { align-items: start; }
+.contact-left { min-width: 0; }
+
+.calendly-card { padding: 0; overflow: hidden; }
+.calendly-head{
+  display:flex; justify-content:space-between; align-items:center; gap:.8rem;
+  padding: .9rem 1rem;
+  border-bottom:1px solid var(--border);
+  background: linear-gradient(180deg,
+              color-mix(in oklab, var(--card) 90%, transparent),
+              color-mix(in oklab, var(--card) 94%, transparent));
+}
+.calendly-title{ display:flex; align-items:center; gap:.6rem; }
+.calendly-title h3{ margin:0; font-size:var(--step-1); line-height:1.2; }
+.calendly-dot{
+  width:.8rem; height:.8rem; border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand) 20%, transparent);
+}
+
+/* Le conteneur prend toute la place disponible */
+.calendly-inline{
+  display:block;
+  width:100%;
+  min-height: 760px;   /* desktop confortable */
+  background:var(--card);
+}
+@media (max-width: 700px){
+  .calendly-inline{ min-height: 620px; } /* mobile */
+}
+
+/* L'iframe injectée par Calendly occupe 100% */
+.calendly-inline .calendly-inline-widget{
+  width:100% !important;
+  min-height: inherit !important; /* suit la min-height du parent */
+  border:0;
+}
+
+.calendly-skeleton{
+  width:100%; padding:1.25rem;
+  border-top:1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 90%, var(--bg));
+}
+.calendly-note{ margin: .6rem 1rem 1rem; }
+
+/* CTA list */
+.stack{ display:grid; gap:.65rem; }
+.btn--icon{ justify-content:flex-start; padding:.85rem 1rem; font-weight:700; }
+.btn__icon{
+  width:2rem; height:2rem; border-radius:.7rem;
+  display:grid; place-items:center;
+  border:1px solid color-mix(in oklab, var(--border), var(--brand) 8%);
+  background: color-mix(in oklab, var(--card) 92%, var(--brand) 8%);
+}
+:root[data-theme="light"] .btn__icon{
+  background: color-mix(in oklab, #fff 90%, var(--brand) 10%);
+}
+
+/* Sticky (desktop) */
+@media (min-width: 992px){
+  .contact-sticky{ position: sticky; top: 88px; }
+}

@@ -5,31 +5,16 @@
   </header>
 
   <div class="grid cols-2 contact-grid">
-    <!-- Colonne 1 : Calendly -->
+    <!-- Colonne 1 : Calendly inline pleine largeur/hauteur de la card -->
     <div class="contact-left">
       <div class="card calendly-card" role="region" aria-label="Calendrier de réservation">
         <div class="calendly-head">
           <div class="calendly-title">
             <span class="calendly-dot" aria-hidden="true"></span>
-            <h3>Réserver un créneau</h3>
-          </div>
-
-          <!-- Switch durées (optionnel) -->
-          <div class="calendly-switch" role="tablist" aria-label="Durée du rendez-vous">
-            <button type="button" role="tab" aria-selected="true"
-                    class="chip chip--seg is-active"
-                    data-calendly-url="{{ site.author.calendly_30 | default: site.author.calendly_url | escape }}">
-              30&nbsp;min
-            </button>
-            <button type="button" role="tab" aria-selected="false"
-                    class="chip chip--seg"
-                    data-calendly-url="{{ site.author.calendly_15 | escape }}">
-              15&nbsp;min
-            </button>
+            <h3>Réserver un créneau (30&nbsp;min)</h3>
           </div>
         </div>
 
-        <!-- Conteneur inline -->
         <div id="calendly-inline"
              class="calendly-inline"
              data-calendly-url="{{ site.author.calendly_url | escape }}">
@@ -37,24 +22,15 @@
             <p class="muted" style="margin:0">Chargement du calendrier…</p>
           </div>
         </div>
-
-        <p class="note muted calendly-note">
-          Calendrier intégré via Calendly (ressources externes).
-        </p>
       </div>
     </div>
 
-    <!-- Colonne 2 : CTA -->
+    <!-- Colonne 2 : Autres moyens (sans lien vers le calendrier) -->
     <aside class="card contact-cta contact-sticky" aria-label="Autres moyens de contact">
       <h3 class="cta-title">Autres moyens</h3>
       <p class="lead">Besoin d’un échange rapide ?</p>
 
       <nav class="stack">
-        <button class="btn btn--icon btn--primary" data-scroll-calendly>
-          <span class="btn__icon" aria-hidden="true">📅</span>
-          Ouvrir le calendrier
-        </button>
-
         <a class="btn btn--icon" href="{{ site.author.linkedin }}" target="_blank" rel="noopener">
           <span class="btn__icon" aria-hidden="true">💼</span>
           Mon LinkedIn
