@@ -366,3 +366,95 @@ const Modal = (() => {
   // Resize : s’assure que l’iframe garde le plein format
   on(window, 'resize', () => { forceFullSize(parentD); forceFullSize(parentM); }, { passive:true });
 })();
+
+
+
+/* ================== 8) Copy to clipboard (contacts) ================== */
+(() => {
+  const rows = $$('.contact-row');
+  if (!rows.length) return;
+
+  const resolveText = (row) => {
+    const btn  = row.querySelector('.ci-copy-btn');
+    if (!btn) return null;
+
+    // 1) Valeur explicite
+    const explicit = btn.getAttribute('data-copy');
+    if (explicit && explicit.trim()) return explicit.trim();
+
+    // 2) Sinon, déduire du lien voisin
+    const link = row.querySelector('.contact-item[href]');
+    if (link) {
+      const href = (link.getAttribute('href') || '').trim();
+      if (/^mailto:/i.test(href)) return decodeURIComponent(href.replace(/^mailto:/i,'')).replace(/\?.*$/,'');
+      if (/^tel:/i.test(href))    return href.replace(/^tel:/i,'');
+    }
+
+    // 3) Sinon, le texte fort
+    const strong = row.querySelector('.ci-body strong');
+    return strong?.textContent?.trim() || null;
+  };
+
+  const copyText = async (txt) => {
+    if (!txt) throw new Error('Nothing to copy');
+    try {
+      await navigator.clipboard.writeText(txt);
+      return true;
+    } catch {
+      // Fallback (HTTP / permissions)
+      const ta = document.createElement('textarea');
+      ta.value = txt;
+      ta.setAttribute('readonly','');
+      ta.style.position='fixed';
+      ta.style.opacity='0';
+      document.body.appendChild(ta);
+      ta.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch {}
+      document.body.removeChild(ta);
+      return ok;
+    }
+  };
+
+  rows.forEach(row => {
+    const btn = row.querySelector('.ci-copy-btn');
+    if (!btn) return;
+
+    // Région a11y pour annoncer le statut
+    const announcer = (() => {
+      let live = row.querySelector('.sr-only[role="status"]');
+      if (!live) {
+        live = document.createElement('span');
+        live.className = 'sr-only';
+        live.setAttribute('role','status');
+        live.setAttribute('aria-live','polite');
+        row.appendChild(live);
+      }
+      return (msg) => { live.textContent = msg; };
+    })();
+
+    on(btn, 'click', async (e) => {
+      e.preventDefault();       // évite un submit accidentel
+      e.stopPropagation();      // évite le clic sur le <a> voisin
+
+      const value = btn.getAttribute('data-copy')?.trim() || resolveText(row);
+      if (!value) return;
+
+      const prev = btn.innerHTML;
+      try {
+        const ok = await copyText(value);
+        // Feedback visuel + a11y
+        btn.classList.add('is-copied');
+        btn.setAttribute('aria-label', ok ? 'Copié !' : 'Échec de la copie');
+        btn.innerHTML = ok ? '✓' : '!';
+        announcer(ok ? 'Copié dans le presse-papier' : 'La copie a échoué');
+      } finally {
+        setTimeout(() => {
+          btn.classList.remove('is-copied');
+          btn.innerHTML = prev;
+          btn.setAttribute('aria-label', 'Copier');
+        }, 1200);
+      }
+    }, { passive:false });
+  });
+})();

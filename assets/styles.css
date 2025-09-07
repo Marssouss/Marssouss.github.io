@@ -695,3 +695,66 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   .cert-card{ grid-template-columns:52px 1fr; }
   .cert-badge{ width:52px; height:52px; }
 }
+
+
+/* ===== Contact — style premium ===== */
+.calendly-card {
+  border: none;
+  background: var(--card);
+  border-radius: var(--radius-2);
+  box-shadow: 0 12px 28px rgba(0,0,0,.25);
+  overflow: hidden;
+}
+
+/* En-tête Calendly : bandeau gradient */
+.calendly-head {
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #fff;
+  padding: 1rem 1.25rem;
+}
+.calendly-head h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Séparateur doux */
+.soft-sep {
+  border: 0;
+  height: 1px;
+  background: color-mix(in oklab, var(--fg) 18%, transparent);
+  margin: 0 1rem;
+}
+
+/* Contacts inline avec highlight gradient */
+.contact-inline {
+  padding: 1rem 1.25rem 1.25rem;
+}
+.contact-list .contact-item {
+  background: linear-gradient(135deg,
+              color-mix(in oklab, var(--card) 96%, var(--brand) 4%),
+              color-mix(in oklab, var(--card) 92%, var(--brand-2) 8%));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.contact-list .contact-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px color-mix(in oklab, var(--brand) 25%, transparent);
+}
+
+/* Boutons copie stylisés */
+.ci-copy-btn {
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #fff;
+  border: none;
+  border-radius: .8rem;
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.ci-copy-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px color-mix(in oklab, var(--brand) 35%, transparent);
+}
