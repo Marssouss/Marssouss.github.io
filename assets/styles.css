@@ -317,8 +317,25 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 
 /* CERTIFICATIONS */
 .certs{ padding-block:clamp(2rem,3vw,3.5rem); }
-.certs-head{ text-align:center; margin-bottom:1.25rem; }
-.certs .h2{ font-size:var(--step-2); margin:0; }
+/* ===== Certifications ===== */
+
+/* Titre aligné à gauche comme les autres sections */
+.certs-head {
+  text-align: left;       /* ← au lieu de center */
+  margin-bottom: 1.25rem;
+}
+
+.certs .h2 {
+  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+  margin: 0;
+}
+
+/* Le texte secondaire reste en muted */
+.certs .muted {
+  color: var(--muted);
+  margin-top: .5rem;
+}
+
 .certs-viewport{ max-width:min(100vw,1100px); margin-inline:auto; overflow:hidden; }
 .certs-rail{
   list-style:none; margin:0; padding:0; display:grid;
