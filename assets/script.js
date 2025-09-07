@@ -322,7 +322,7 @@ const Modal = (() => {
   }, { passive:true });
 })();
 
-/* ============ Calendly inline — plein format + skeleton off ============ */
+/* ============ Calendly inline — full card, skeleton off ============ */
 (() => {
   const parent = document.getElementById('calendly-inline');
   if (!parent) return;
@@ -351,19 +351,38 @@ const Modal = (() => {
 
   const markReady = () => parent.classList.add('is-ready');
 
+  const forceFullSize = () => {
+    const wrap = parent.querySelector('.calendly-inline-widget');
+    const iframe = parent.querySelector('iframe');
+    if (wrap) {
+      wrap.style.width  = '100%';
+      wrap.style.height = '100%';      // sécurité JS en plus du CSS
+    }
+    if (iframe) {
+      iframe.style.width  = '100%';
+      iframe.style.height = '100%';
+    }
+  };
+
   const init = () => {
     ensureCalendly(() => {
-      // Au lieu de vider, on garde le conteneur et on masque le skeleton au premier rendu
+      // On n'efface pas le skeleton: on le masque dès que Calendly est prêt
       window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
 
-      // Dès que Calendly ajoute son noeud .calendly-inline-widget → hide skeleton
+      // Sur apparition du widget → plein format + hide skeleton
       const mo = new MutationObserver(() => {
-        if (parent.querySelector('.calendly-inline-widget')) {
+        const ready = parent.querySelector('.calendly-inline-widget');
+        if (ready) {
+          forceFullSize();
           markReady();
           mo.disconnect();
         }
       });
       mo.observe(parent, { childList: true, subtree: true });
+
+      // Reforce la taille si resize/orientation
+      const onResize = () => forceFullSize();
+      window.addEventListener('resize', onResize, { passive:true });
     });
   };
 
@@ -376,27 +395,4 @@ const Modal = (() => {
   } else {
     init();
   }
-})();
-
-/* ============ Copier email/téléphone ============ */
-(() => {
-  const onClick = async (e) => {
-    const btn = e.target.closest('.ci-copy');
-    if (!btn) return;
-    e.preventDefault();
-    const text = btn.getAttribute('data-copy');
-    try {
-      await navigator.clipboard.writeText(text);
-      const old = btn.textContent;
-      btn.textContent = 'Copié';
-      setTimeout(() => (btn.textContent = old), 1200);
-    } catch {
-      // fallback
-      const ta = document.createElement('textarea');
-      ta.value = text; document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); btn.textContent = 'Copié'; setTimeout(()=>btn.textContent='Copier',1200); }
-      finally { document.body.removeChild(ta); }
-    }
-  };
-  document.addEventListener('click', onClick);
 })();
