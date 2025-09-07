@@ -322,7 +322,7 @@ const Modal = (() => {
   }, { passive:true });
 })();
 
-/* ============ Calendly inline — robuste (init direct + fallback) ============ */
+/* ============ Calendly inline — plein format + overlays robustes ============ */
 (() => {
   const parent = document.getElementById('calendly-inline');
   if (!parent) return;
@@ -331,97 +331,94 @@ const Modal = (() => {
   const skeleton = parent.querySelector('.calendly-skeleton');
   const fallback = parent.querySelector('.calendly-fallback');
 
+  const hideOverlays = () => {
+    parent.classList.add('is-ready');
+    if (skeleton) skeleton.style.display = 'none';
+    if (fallback)  { fallback.hidden = true; fallback.style.display = 'none'; }
+  };
   const showFallback = (why='') => {
     console.warn('[Calendly] Fallback:', why);
+    parent.classList.remove('is-ready');
     if (skeleton) skeleton.style.display = 'none';
-    if (fallback) fallback.hidden = false;
+    if (fallback)  { fallback.hidden = false; fallback.style.display = 'grid'; }
+  };
+  const forceFullSize = () => {
+    const wr = parent.querySelector('.calendly-inline-widget');
+    const ifr = parent.querySelector('iframe');
+    if (wr) { wr.style.width='100%'; wr.style.height='100%'; wr.style.position='absolute'; wr.style.inset='0'; }
+    if (ifr){ ifr.style.width='100%'; ifr.style.height='100%'; ifr.style.position='absolute'; ifr.style.inset='0'; }
   };
 
-  // 1) Valide l’URL
-  if (!url) { showFallback('URL manquante'); return; }
-  if (!/^https:\/\/calendly\.com\//i.test(url)) {
-    showFallback('URL non Calendly ou invalide: ' + url);
-    return;
-  }
+  // 1) URL valide ?
+  if (!url) { showFallback('URL manquante (_config.yml)'); return; }
+  if (!/^https:\/\/calendly\.com\//i.test(url)) { showFallback('URL non Calendly'); return; }
 
   // 2) Charge assets Calendly
   const ensureCalendly = (cb) => {
     let pending = 0, errored = false;
+    const done  = () => (--pending <= 0 && !errored) && cb();
+    const fail  = () => { errored = true; showFallback('Assets non chargés'); };
 
-    const needCss = !document.querySelector('link[href*="calendly.com/assets/external/widget.css"]');
-    const needJs  = !document.querySelector('script[src*="calendly.com/assets/external/widget.js"]');
-
-    const done = () => { if (--pending <= 0 && !errored) cb(); };
-    const onerr = (e) => { errored = true; showFallback('Assets non chargés'); };
-
-    if (needCss) {
+    if (!document.querySelector('link[href*="calendly.com/assets/external/widget.css"]')) {
       pending++;
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = 'https://assets.calendly.com/assets/external/widget.css';
-      link.onload = done; link.onerror = onerr;
-      document.head.appendChild(link);
+      const l = document.createElement('link');
+      l.rel = 'stylesheet'; l.href = 'https://assets.calendly.com/assets/external/widget.css';
+      l.onload = done; l.onerror = fail; document.head.appendChild(l);
     }
-    if (needJs) {
+    if (!document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
       pending++;
       const s = document.createElement('script');
       s.src = 'https://assets.calendly.com/assets/external/widget.js';
-      s.defer = true;
-      s.onload = done; s.onerror = onerr;
-      document.body.appendChild(s);
+      s.defer = true; s.onload = done; s.onerror = fail; document.body.appendChild(s);
     }
-    if (!needCss && !needJs) cb();
+    if (pending === 0) cb();
   };
 
-  // 3) Force plein format
-  const forceFullSize = () => {
-    const wrap = parent.querySelector('.calendly-inline-widget');
-    const iframe = parent.querySelector('iframe');
-    if (wrap) { wrap.style.width = '100%'; wrap.style.height = '100%'; }
-    if (iframe){ iframe.style.width = '100%'; iframe.style.height = '100%'; }
-  };
+  const init = () => {
+    if (!window.Calendly) { showFallback('API absente'); return; }
 
-  // 4) Init + observer pour masquer le skeleton
-  const initCalendly = () => {
-    if (!window.Calendly) { showFallback('API Calendly absente'); return; }
-
+    // Démarre l’inline widget
     try {
       window.Calendly.initInlineWidget({ url, parentElement: parent });
     } catch (e) {
-      console.error(e);
-      showFallback('initInlineWidget a échoué');
-      return;
+      console.error(e); showFallback('initInlineWidget error'); return;
     }
 
-    const mo = new MutationObserver(() => {
+    // 3) Quand le widget apparaît → on masque les overlays et on force la taille
+    const observer = new MutationObserver(() => {
       const ready = parent.querySelector('.calendly-inline-widget');
       if (ready) {
-        // Widget OK → on masque le skeleton et on force la taille
-        if (skeleton) skeleton.style.display = 'none';
-        if (fallback) fallback.hidden = true;
+        hideOverlays();
         forceFullSize();
-        mo.disconnect();
+        observer.disconnect();
       }
     });
-    mo.observe(parent, { childList: true, subtree: true });
+    observer.observe(parent, { childList: true, subtree: true });
 
-    // Sécurité : si au bout de 8s rien n’est apparu → fallback
-    setTimeout(() => {
-      if (!parent.querySelector('.calendly-inline-widget')) {
-        showFallback('timeout');
+    // 4) Poll de sécurité au cas où l’observer raterait l’événement
+    const poll = setInterval(() => {
+      const iframe = parent.querySelector('iframe');
+      if (iframe) {
+        hideOverlays();
+        forceFullSize();
+        clearInterval(poll);
       }
+    }, 250);
+
+    // 5) Timeout : si rien après 8s → on montre le fallback (en overlay)
+    setTimeout(() => {
+      if (!parent.querySelector('iframe')) showFallback('timeout');
     }, 8000);
 
-    // Reforce la taille si resize/orientation
+    // 6) Resize
     window.addEventListener('resize', forceFullSize, { passive:true });
   };
 
-  // Lance tout de suite (sans lazy)
   ensureCalendly(() => {
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initCalendly, { once: true });
+      document.addEventListener('DOMContentLoaded', init, { once:true });
     } else {
-      initCalendly();
+      init();
     }
   });
 })();

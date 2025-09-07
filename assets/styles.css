@@ -752,3 +752,41 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 }
 
 .calendly-fallback[hidden]{ display:none !important; }
+
+/* ===== Calendly — plein format propre ===== */
+.calendly-card{
+  padding:0;
+  overflow:hidden;
+  display:grid;
+  grid-template-rows: auto 1fr auto; /* header / widget / note */
+}
+
+.calendly-inline{
+  position:relative;
+  min-height: clamp(640px, 72vh, 920px); /* zone utile pour le widget */
+  background:var(--card);
+}
+
+/* Wrapper généré + iframe occupent 100% de la zone */
+.calendly-inline > .calendly-inline-widget{
+  position:absolute; inset:0;
+  width:100% !important; height:100% !important;
+  min-height:0 !important; border:0 !important; display:block;
+}
+.calendly-inline iframe{
+  position:absolute; inset:0;
+  width:100% !important; height:100% !important;
+  min-height:0 !important; border:0 !important; display:block;
+}
+
+/* Overlays (skeleton + fallback) ne prennent plus de place */
+.calendly-overlay{
+  position:absolute; inset:0;
+  display:grid; place-items:center;
+  background: transparent;
+  z-index: 2; /* au-dessus du widget tant qu’il n’est pas prêt */
+}
+.calendly-inline.is-ready .calendly-overlay{ display:none !important; }
+
+/* Fallback caché par défaut, visible si JS décide */
+.calendly-fallback[hidden]{ display:none !important; }
