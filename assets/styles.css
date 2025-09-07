@@ -790,3 +790,14 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 
 /* Fallback caché par défaut, visible si JS décide */
 .calendly-fallback[hidden]{ display:none !important; }
+
+
+
+/* Calendly plein format dans la popup */
+#calendly-inline > .calendly-inline-widget,
+#calendly-inline iframe{
+  position:absolute; inset:0;
+  width:100% !important; height:100% !important;
+  border:0 !important; min-height:0 !important; display:block;
+}
+#calendly-inline{ position:relative; min-height:72vh; }

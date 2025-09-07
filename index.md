@@ -52,3 +52,23 @@ description: Freelance Talend & Power BI – intégrations de données, pipeline
 <!-- END REALISATIONS -->
 
 {% include contact.html %}
+
+
+<!-- Modal Calendly -->
+<div id="calendly-modal" class="modal" hidden>
+  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="calendlyTitle">
+    <button class="modal__close" aria-label="Fermer">×</button>
+    <div style="padding:.75rem 1rem; border-bottom:1px solid var(--border)">
+      <h3 id="calendlyTitle" style="margin:0">Réserver un créneau</h3>
+    </div>
+    <!-- Le widget s’injecte ici -->
+    <div id="calendly-inline"
+         class="calendly-inline"
+         data-calendly-url="{{ site.author.calendly_url }}"
+         style="position:relative; min-height:72vh;">
+      <div class="calendly-skeleton" aria-hidden="true" style="display:grid;place-items:center;height:100%;">
+        <p class="muted" style="margin:0">Chargement du calendrier…</p>
+      </div>
+    </div>
+  </div>
+</div>
