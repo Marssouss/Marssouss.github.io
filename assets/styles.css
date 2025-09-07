@@ -532,3 +532,25 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   .cert-card{ grid-template-columns:52px 1fr; }
   .cert-badge{ width:52px; height:52px; }
 }
+
+
+/* ===== Contact (Calendly inline) ===== */
+.contact-grid { align-items: start; }
+
+.calendly-card {
+  padding: 0;
+  overflow: hidden;
+  min-height: 640px;
+  display: grid;
+  place-items: center;
+}
+
+.calendly-skeleton {
+  width: 100%;
+  padding: 1.25rem;
+  border-top: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 92%, var(--bg));
+}
+
+.stack { display: grid; gap: .6rem; }
+.btn--calendar { font-weight: 800; }

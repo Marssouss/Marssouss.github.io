@@ -321,3 +321,51 @@ const Modal = (() => {
     });
   }, { passive:true });
 })();
+
+/* ============ Calendly inline (lazy loader + scroll) ============ */
+(() => {
+  const parent = document.getElementById('calendly-inline');
+  if (!parent) return;
+
+  const CALENDLY_URL = parent.dataset.calendlyUrl; // ← injecté depuis _config.yml
+  if (!CALENDLY_URL) {
+    console.warn('Calendly: URL manquante (site.author.calendly_url)');
+    return;
+  }
+
+  let loaded = false;
+  const loadCalendly = () => {
+    if (loaded) return; loaded = true;
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://assets.calendly.com/assets/external/widget.css';
+    document.head.appendChild(link);
+
+    const s = document.createElement('script');
+    s.src = 'https://assets.calendly.com/assets/external/widget.js';
+    s.onload = () => {
+      if (window.Calendly) {
+        window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
+      }
+    };
+    document.body.appendChild(s);
+  };
+
+  // Lazy quand visible
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some(e => e.isIntersecting)) { loadCalendly(); io.disconnect(); }
+    }, { rootMargin: '200px' });
+    io.observe(parent);
+  } else {
+    loadCalendly();
+  }
+
+  // Bouton “Ouvrir le calendrier” -> scroll
+  const btn = document.querySelector('[data-scroll-calendly]');
+  if (btn) btn.addEventListener('click', () => {
+    parent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    loadCalendly();
+  });
+})();

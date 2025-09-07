@@ -31,6 +31,10 @@ author:
   email: "contact@tondomaine.fr" 
   url: "https://username.github.io"
   linkedin: "https://www.linkedin.com/in/martial-bodet/"
+  phone: "+33 6 00 00 00 00"          # ← remplace
+  calendly_url: "https://calendly.com/bodetmartial/30min" # ← remplace
+
+
 
 
 # Markdown
