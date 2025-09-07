@@ -4,72 +4,76 @@
     <p class="lead">Planifions un créneau pour parler ETL Talend & dashboards Power BI.</p>
   </header>
 
-  <div class="grid cols-2 contact-grid">
-    <!-- Colonne 1 : Calendly plein format -->
-    <div class="contact-left">
-      <div class="card calendly-card" role="region" aria-label="Calendrier de réservation">
-        <div class="calendly-head">
-          <div class="calendly-title">
-            <span class="calendly-dot" aria-hidden="true"></span>
-            <h3>Réserver un créneau (30&nbsp;min)</h3>
-          </div>
-        </div>
+  <!-- Une seule card, claire et centrée -->
+  <div class="card calendly-card" role="region" aria-label="Réservation & contacts">
+    <div class="calendly-head">
+      <div class="calendly-title">
+        <span class="calendly-dot" aria-hidden="true"></span>
+        <h3 style="margin:0">Réserver un créneau (30&nbsp;min)</h3>
+      </div>
+    </div>
 
-<div class="actions" style="padding:1rem">
-  <button class="btn cta" data-calendly data-calendly-url="{{ site.author.calendly_url }}">
-    📅 Ouvrir le calendrier
-  </button>
-</div>
+    <!-- Action principale : ouvrir le calendrier (popup) -->
+    <div class="actions" style="padding:1rem">
+      <button class="btn cta" data-calendly data-calendly-url="{{ site.author.calendly_url }}">
+        📅 Ouvrir le calendrier
+      </button>
+    </div>
 
-    <!-- Colonne 2 : Autres moyens -->
-    <aside class="card contact-cta contact-sticky" aria-label="Autres moyens de contact">
-      <h3 class="cta-title">Autres moyens</h3>
-      <p class="lead">Besoin d’un échange rapide ?</p>
+    <!-- Séparateur visuel -->
+    <hr style="border:0; border-top:1px solid var(--border); margin:0 1rem 1rem">
 
-      <ul class="contact-list" role="list">
-        <li class="contact-row">
-          <a class="contact-item" href="{{ site.author.linkedin }}" target="_blank" rel="noopener">
-            <span class="ci-icon" aria-hidden="true">💼</span>
-            <span class="ci-body">
+    <!-- Contacts secondaires (dans la même card) -->
+    <div class="contact-inline" aria-label="Contacts directs" style="padding:0 1rem 1rem">
+      <p class="lead" style="margin:.25rem 0 1rem">Ou contactez-moi directement :</p>
+      <ul class="contact-list" role="list" style="margin:0; padding:0; list-style:none; display:grid; gap:.7rem;">
+        <li class="contact-row" style="display:grid; grid-template-columns:1fr auto; gap:.5rem; align-items:stretch;">
+          <a class="contact-item" href="{{ site.author.linkedin }}" target="_blank" rel="noopener"
+             style="display:grid; grid-template-columns:40px 1fr auto; gap:.8rem; align-items:center; text-decoration:none; padding:.9rem 1rem; border:1px solid var(--border); border-radius:1rem; background:color-mix(in oklab, var(--card) 98%, var(--brand) 2%);">
+            <span class="ci-icon" aria-hidden="true"
+                  style="width:40px;height:40px;border-radius:.9rem;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;">💼</span>
+            <span class="ci-body" style="display:flex;flex-direction:column;gap:.1rem;min-width:0;">
               <strong>LinkedIn</strong>
-              <small>Profil professionnel</small>
+              <small class="muted">Profil professionnel</small>
             </span>
-            <span class="ci-cta" aria-hidden="true">→</span>
+            <span class="ci-cta" aria-hidden="true" style="opacity:.7;font-weight:800;">→</span>
           </a>
         </li>
 
-        <li class="contact-row">
-          <a class="contact-item" href="mailto:{{ site.author.email }}">
-            <span class="ci-icon" aria-hidden="true">✉️</span>
-            <span class="ci-body">
+        <li class="contact-row" style="display:grid; grid-template-columns:1fr auto; gap:.5rem; align-items:stretch;">
+          <a class="contact-item" href="mailto:{{ site.author.email }}"
+             style="display:grid; grid-template-columns:40px 1fr auto; gap:.8rem; align-items:center; text-decoration:none; padding:.9rem 1rem; border:1px solid var(--border); border-radius:1rem; background:color-mix(in oklab, var(--card) 98%, var(--brand) 2%);">
+            <span class="ci-icon" aria-hidden="true"
+                  style="width:40px;height:40px;border-radius:.9rem;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;">✉️</span>
+            <span class="ci-body" style="display:flex;flex-direction:column;gap:.1rem;min-width:0;">
               <strong>{{ site.author.email }}</strong>
-              <small>Contact direct</small>
+              <small class="muted">Contact direct</small>
             </span>
           </a>
-          <button class="ci-copy-btn" type="button" data-copy="{{ site.author.email }}" aria-label="Copier l’email">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-              <path fill="currentColor" d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/>
-            </svg>
+          <button class="ci-copy-btn" type="button" data-copy="{{ site.author.email }}" aria-label="Copier l’email"
+                  style="width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--border);border-radius:.9rem;background:color-mix(in oklab, var(--card) 96%, var(--fg) 4%);color:var(--muted);">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/></svg>
           </button>
         </li>
 
-        <li class="contact-row">
-          <a class="contact-item" href="tel:{{ site.author.phone | replace: ' ', '' }}">
-            <span class="ci-icon" aria-hidden="true">📞</span>
-            <span class="ci-body">
+        <li class="contact-row" style="display:grid; grid-template-columns:1fr auto; gap:.5rem; align-items:stretch;">
+          <a class="contact-item" href="tel:{{ site.author.phone | replace: ' ', '' }}"
+             style="display:grid; grid-template-columns:40px 1fr auto; gap:.8rem; align-items:center; text-decoration:none; padding:.9rem 1rem; border:1px solid var(--border); border-radius:1rem; background:color-mix(in oklab, var(--card) 98%, var(--brand) 2%);">
+            <span class="ci-icon" aria-hidden="true"
+                  style="width:40px;height:40px;border-radius:.9rem;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;">📞</span>
+            <span class="ci-body" style="display:flex;flex-direction:column;gap:.1rem;min-width:0;">
               <strong>{{ site.author.phone }}</strong>
-              <small>Appel ou SMS</small>
+              <small class="muted">Appel ou SMS</small>
             </span>
           </a>
-          <button class="ci-copy-btn" type="button" data-copy="{{ site.author.phone }}" aria-label="Copier le téléphone">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-              <path fill="currentColor" d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/>
-            </svg>
+          <button class="ci-copy-btn" type="button" data-copy="{{ site.author.phone }}" aria-label="Copier le téléphone"
+                  style="width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--border);border-radius:.9rem;background:color-mix(in oklab, var(--card) 96%, var(--fg) 4%);color:var(--muted);">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/></svg>
           </button>
         </li>
       </ul>
+    </div>
 
-      <p class="note muted">Réponse sous 24–48h ouvrées.</p>
-    </aside>
+    <p class="note muted" style="margin:0 1rem 1rem">Réponse sous 24–48h ouvrées.</p>
   </div>
 </section>
