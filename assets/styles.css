@@ -896,3 +896,31 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 @media (min-width: 992px){
   .contact-v2 .actions--center{ display:none; }        /* desktop : pas de bouton */
 }
+
+/* Inline (desktop) */
+#calendly-inline-embed{
+  position:relative; min-height: clamp(640px, 70vh, 920px);
+  margin: 0 1rem 1rem;
+}
+#calendly-inline-embed > .calendly-inline-widget,
+#calendly-inline-embed iframe{
+  position:absolute; inset:0;
+  width:100% !important; height:100% !important;
+  border:0 !important; min-height:0 !important; display:block;
+}
+
+/* Affichage : inline desktop / bouton mobile */
+@media (max-width: 991px){
+  #calendly-inline-embed{ display:none; }     /* mobile : pas d’inline */
+  .contact-v2 .actions--center{ display:flex; } /* bouton visible */
+}
+@media (min-width: 992px){
+  .contact-v2 .actions--center{ display:none; } /* desktop : bouton masqué */
+}
+
+/* Card alignée à gauche */
+.contact-v2 .calendly-card{
+  max-width: 760px;
+  margin-left: 0;
+  margin-right: auto;
+}

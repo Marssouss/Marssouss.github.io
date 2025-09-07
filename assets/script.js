@@ -424,71 +424,66 @@ const Modal = (() => {
 })();
 
 
-/* Calendly — hybride: inline desktop, popup mobile */
+/* Calendly — hybride fiable : inline (desktop) + popup (mobile & boutons) */
 (() => {
-  const modal   = document.getElementById('calendly-modal');
-  const parentM = document.getElementById('calendly-inline');        // conteneur dans la popup
-  const parentD = document.getElementById('calendly-inline-embed');   // conteneur inline dans la card
-  const triggers= document.querySelectorAll('[data-calendly]');
-  const mqDesk  = window.matchMedia('(min-width: 992px)');
+  const modal    = document.getElementById('calendly-modal');       // popup
+  const parentM  = document.getElementById('calendly-inline');       // conteneur dans la popup
+  const parentD  = document.getElementById('calendly-inline-embed'); // conteneur inline dans la card
+  const triggers = document.querySelectorAll('[data-calendly]');     // tous les boutons (nav + section)
+  const mqDesk   = window.matchMedia('(min-width: 992px)');
 
-  // Rien à faire si on n’a ni desktop ni modal
-  if (!parentD && (!modal || !parentM)) return;
-
-  const url = (parentD?.dataset.calendlyUrl || parentM?.dataset.calendlyUrl || '').trim();
-  if (!/^https:\/\/calendly\.com\//i.test(url)) {
-    console.warn('[Calendly] URL invalide (_config.yml -> site.author.calendly_url)');
-    return;
-  }
+  // URL Calendly lue depuis _config.yml (data-calendly-url)
+  const url = (parentD?.dataset.calendlyUrl
+            || parentM?.dataset.calendlyUrl
+            || triggers[0]?.dataset.calendlyUrl
+            || '').trim();
+  if (!url) { console.warn('[Calendly] URL absente'); return; }
 
   if (modal) Modal.bind(modal);
 
-  let assetsReady = false;
-  const ensureAssets = (cb) => {
-    const needCss = !document.querySelector('link[href*="calendly.com/assets/external/widget.css"]');
-    const needJs  = !document.querySelector('script[src*="calendly.com/assets/external/widget.js"]');
-    let pending = 0, failed = false;
-    const done = () => { if (--pending === 0 && !failed) { assetsReady = true; cb(); } };
-    const fail = () => { failed = true; console.warn('[Calendly] assets KO'); };
+  // Charge CSS/JS Calendly (une seule fois)
+  const ensureLink = (href) => new Promise(res => {
+    if (document.querySelector(`link[href="${href}"]`)) return res();
+    const l = document.createElement('link'); l.rel='stylesheet'; l.href=href;
+    l.onload = res; l.onerror = res; document.head.appendChild(l);
+  });
+  const ensureScript = (src) => new Promise(res => {
+    if (document.querySelector(`script[src="${src}"]`)) return res();
+    const s = document.createElement('script'); s.src = src;
+    s.onload = res; s.onerror = res; document.body.appendChild(s);
+  });
+  const loadAssets = () => Promise.all([
+    ensureLink('https://assets.calendly.com/assets/external/widget.css'),
+    ensureScript('https://assets.calendly.com/assets/external/widget.js')
+  ]);
 
-    if (needCss){ pending++; const l=document.createElement('link');
-      l.rel='stylesheet'; l.href='https://assets.calendly.com/assets/external/widget.css';
-      l.onload=done; l.onerror=fail; document.head.appendChild(l); }
-
-    if (needJs){ pending++; const s=document.createElement('script');
-      s.src='https://assets.calendly.com/assets/external/widget.js';
-      s.onload=done; s.onerror=fail; document.body.appendChild(s); }
-
-    if (!needCss && !needJs){ assetsReady = true; cb(); }
-  };
-
-  const initInlineDesktop = () => {
+  // --- INIT INLINE (DESKTOP) ---
+  const initInline = () => {
     if (!parentD) return;
-    parentD.innerHTML = parentD.innerHTML; // garde le skeleton si présent
-    window.Calendly.initInlineWidget({ url, parentElement: parentD });
+    // IMPORTANT: vider le skeleton AVANT init, sinon Calendly ne rend pas l’iframe
+    parentD.innerHTML = '';
+    window.Calendly?.initInlineWidget({ url, parentElement: parentD });
   };
 
-  const openPopupMobile = () => {
+  // --- OUVERTURE POPUP (MOBILE & BOUTONS) ---
+  const openPopup = () => {
     if (!modal || !parentM) return;
-    parentM.innerHTML = '';
+    parentM.innerHTML = ''; // on repart propre
     Modal.open(modal);
-    window.Calendly.initInlineWidget({ url, parentElement: parentM });
+    window.Calendly?.initInlineWidget({ url, parentElement: parentM });
   };
 
-  const start = () => {
-    if (mqDesk.matches) {             // desktop → inline
-      if (assetsReady) initInlineDesktop();
-      else ensureAssets(initInlineDesktop);
-    } else {                          // mobile → bouton popup
-      const open = () => assetsReady ? openPopupMobile() : ensureAssets(openPopupMobile);
-      triggers.forEach(btn => btn.addEventListener('click', open, { passive:true }));
-    }
+  const boot = async () => {
+    await loadAssets();
+    // Desktop → inline
+    if (parentD && mqDesk.matches) initInline();
+    // Tous les boutons (nav + section) → popup
+    triggers.forEach(btn => btn.addEventListener('click', openPopup));
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start, { once:true });
-  } else { start(); }
-
-  // Si l’utilisateur change la taille (rare), on pourrait réagir :
-  // mqDesk.addEventListener('change', () => location.reload()); // optionnel
+    document.addEventListener('DOMContentLoaded', boot, { once:true });
+  } else {
+    boot();
+  }
 })();
