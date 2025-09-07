@@ -1,36 +1,38 @@
 /* ===========================================================================
    ABM — CSS unifié (premium, moderne, 100% responsive)
-   - Tokens dark/light (couleurs, typos, espaces, radius, ombres)
-   - Base + utilitaires
-   - Header / Nav (verre dépoli, toggle thème aligné)
-   - Composants (buttons, chips, pills, cards)
-   - Sections (Hero, Méthodes, Certifications)
-   - Pages (About)
-   - Footer / Modal
-   - Motion & A11y + breakpoints extrêmes
+   Structure :
+   1) Design tokens (dark + light + fluid type)
+   2) Base & utilitaires (grid, helpers)
+   3) Header / Navigation (verre dépoli, toggle thème)
+   4) Composants (cards, buttons, chips, pills)
+   5) Sections (Hero, Méthodes, Certifications, About)
+   6) Contact (v2, Calendly inline + popup, loader, liste contacts)
+   7) Footer & Modal
+   8) Motion & A11y
+   9) Breakpoints (ultra-large & micro)
    =========================================================================== */
 
 /* ========================= 1) Design tokens ========================= */
 :root{
-  /* Palette DARK (deep, contrast maîtrisé) */
+  /* --- Palette DARK (contraste maîtrisé) --- */
   --bg:#070b18;
   --fg:#e8ebf3;
   --muted:#a3adc2;
-  --brand:#5865f2;   /* indigo premium */
-  --brand-2:#22c55e; /* vert premium */
+  --brand:#5865f2;        /* indigo premium */
+  --brand-2:#22c55e;      /* vert premium */
   --card:#0e1428;
   --border:#1a2540;
   --shadow-1:0 14px 40px rgba(2,6,23,.50);
 
-  /* Rythme & formes */
+  /* --- Rythme & formes --- */
   --space-1:.56rem; --space-2:.8rem; --space-3:1.1rem; --space-4:1.6rem; --space-5:2.2rem;
   --radius-1:.7rem; --radius-2:1rem; --radius-3:1.25rem;
 
-  /* Conteneurs */
+  /* --- Conteneurs --- */
   --container:min(1280px,92vw);
   --container-tight:min(1080px,92vw);
 
-  /* Typo fluide */
+  /* --- Typo fluide --- */
   --step--1: clamp(.86rem, .83rem + .2vw, .92rem);
   --step-0:  clamp(1rem , .96rem + .4vw, 1.1rem);
   --step-1:  clamp(1.15rem, 1.08rem + .6vw, 1.35rem);
@@ -38,28 +40,28 @@
   --step-3:  clamp(1.8rem, 1.5rem + 1.6vw, 2.4rem);
   --step-4:  clamp(2.2rem, 1.9rem + 2.2vw, 3rem);
 
-  /* Pills (solides, proches du dégradé de marque) */
+  /* --- Pills (solides) --- */
   --pill-talend:   color-mix(in oklab, var(--brand)   82%, var(--bg) 18%);
   --pill-powerbi:  color-mix(in oklab, var(--brand-2) 78%, var(--bg) 22%);
   --pill-fg:#fff;
   --pill-border-talend:  color-mix(in oklab, var(--brand)   55%, var(--border));
   --pill-border-powerbi: color-mix(in oklab, var(--brand-2) 55%, var(--border));
 
-  /* Toggle thème (slot icône) */
-  --icon-size:1.25rem;  /* taille uniforme */
-  --sun-nudge-y:-0.5px; /* micro-ajustement vertical du soleil */
+  /* --- Toggle thème --- */
+  --icon-size:1.25rem;
+  --sun-nudge-y:-0.5px;
 }
 
-/* Palette LIGHT (airy, lisible, anti “bloc blanc”) */
+/* --- Palette LIGHT adoucie (moins “pétante”, relief doux) --- */
 :root[data-theme="light"]{
-  --bg:#eef2f7;
-  --fg:#0a1020;
-  --muted:#5c667a;
+  --bg: #eef1f6;                 /* gris très clair bleuté */
+  --fg: #0b1324;                 /* texte foncé lisible */
+  --muted:#5e6a80;
   --card:#ffffff;
-  --border:#dfe4ee;
+  --border:#d9e1ee;              /* bordure douce */
   --shadow-1:0 14px 38px rgba(15,23,42,.10);
 
-  --pill-talend:  color-mix(in oklab, var(--brand)   92%, #fff 8%);
+  --pill-talend:  color-mix(in oklab, var(--brand)   90%, #fff 10%);
   --pill-powerbi: color-mix(in oklab, var(--brand-2) 90%, #fff 10%);
   --pill-fg:#fff;
 }
@@ -67,9 +69,9 @@
 /* Suivre le système si data-theme absent */
 @media (prefers-color-scheme: light){
   :root:not([data-theme]){
-    --bg:#eef2f7; --fg:#0a1020; --muted:#5c667a; --card:#fff; --border:#dfe4ee;
+    --bg:#eef1f6; --fg:#0b1324; --muted:#5e6a80; --card:#fff; --border:#d9e1ee;
     --shadow-1:0 14px 38px rgba(15,23,42,.10);
-    --pill-talend: color-mix(in oklab, var(--brand) 92%, #fff 8%);
+    --pill-talend:  color-mix(in oklab, var(--brand)   90%, #fff 10%);
     --pill-powerbi: color-mix(in oklab, var(--brand-2) 90%, #fff 10%);
     --pill-fg:#fff;
   }
@@ -91,6 +93,11 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 
 .muted{ color:var(--muted); }
 .hidden{ display:none !important; }
+.sr-only{
+  position:absolute !important; width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden; clip:rect(0,0,0,0);
+  white-space:nowrap; border:0;
+}
 
 /* Grilles utilitaires */
 .grid{ display:grid; gap: clamp(1.1rem,2.8vw,1.7rem); }
@@ -129,12 +136,8 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 }
 .nav-actions{ display:inline-flex; align-items:center; gap:.5rem; }
 
-/* ================= Toggle thème — fix premium (centrage + nudge) ================= */
-/* Valeurs par défaut si non définies ailleurs */
-:root{
-  --icon-size: 1.2rem;     /* taille visuelle de l’icône */
-  --sun-nudge-y: -1px;     /* petit décalage optique du soleil vers le haut */
-}
+/* Toggle thème — ergonomie & centrage parfait */
+:root{ --icon-size:1.2rem; --sun-nudge-y:-1px; }
 
 .theme-toggle{
   position: relative;
@@ -165,50 +168,29 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   background: color-mix(in oklab, #fff 90%, var(--brand) 4%);
 }
 
-/* Slot icône fixe, centrage géométrique parfait */
+/* Slot icône fixe */
 .theme-toggle .tt-icon{
-  position: absolute;
-  left: .7rem;
-  top: 50%;
+  position: absolute; left: .7rem; top: 50%;
   transform: translateY(-50%);
-  width: var(--icon-size);
-  height: var(--icon-size);
-  display: grid; place-items: center;
-  pointer-events: none;
-  line-height: 0; /* empêche tout “baseline shift” */
+  width: var(--icon-size); height: var(--icon-size);
+  display: grid; place-items: center; pointer-events: none; line-height: 0;
 }
-
-/* Les deux icônes partagent EXACTEMENT la même boîte */
 .icon-sun, .icon-moon{
   position: absolute; inset: 0;
   display: grid; place-items: center;
   transform-origin: 50% 50%;
   transition: opacity .28s ease, transform .38s ease;
 }
-
-/* Neutralise les comportements inline des SVG (pas de décalage) */
 .icon-sun svg, .icon-moon svg{
-  width: 100%; height: 100%;
-  display: block;
-  vector-effect: non-scaling-stroke;
-  shape-rendering: geometricPrecision;
+  width: 100%; height: 100%; display: block;
+  vector-effect: non-scaling-stroke; shape-rendering: geometricPrecision;
 }
-
-/* Micro-ajustement optique : le soleil remonte légèrement */
 .icon-sun svg{ transform: translateY(var(--sun-nudge-y)); }
-
-/* États (dark par défaut) */
 .icon-sun{  opacity: 0; transform: rotate(-90deg) scale(.94); }
 .icon-moon{ opacity: 1; transform: rotate(0deg)    scale(1);  }
-
-/* États en light */
 :root[data-theme="light"] .icon-sun{  opacity: 1; transform: rotate(0deg)  scale(1);  }
 :root[data-theme="light"] .icon-moon{ opacity: 0; transform: rotate(90deg) scale(.94); }
-
-.theme-toggle .tt-label{
-  font-weight: 700; letter-spacing: .01em; line-height: 1;
-}
-
+.theme-toggle .tt-label{ font-weight:700; letter-spacing:.01em; line-height:1; }
 
 /* Burger / panneau mobile */
 .nav-toggle{
@@ -247,7 +229,7 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   .nav-collapsible{ display:none; }
 }
 
-/* CTA “Réserver un créneau” — visible en continu (light & dark) */
+/* CTA “Réserver un créneau” */
 .nav-desktop .btn.cta, .nav-list .btn.cta{
   border:0 !important;
   background:linear-gradient(135deg, var(--brand), var(--brand-2)) !important;
@@ -293,7 +275,6 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   box-shadow:0 6px 18px rgba(0,0,0,.12);
 }
 .btn:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab,var(--brand) 40%,transparent); }
-
 :root[data-theme="light"] .btn{
   background:color-mix(in oklab, #ffffff 94%, var(--brand) 6%);
   border-color:color-mix(in oklab, var(--border), var(--brand) 10%);
@@ -303,6 +284,21 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   border-color:color-mix(in oklab, var(--border), var(--brand) 28%);
   box-shadow:0 10px 26px rgba(15,23,42,.12);
 }
+
+/* Buttons “à gauche” avec icône */
+.btn--icon{ justify-content:flex-start; padding:.85rem 1rem; font-weight:700; }
+.btn__icon{
+  width:2rem; height:2rem; border-radius:.7rem; display:grid; place-items:center;
+  border:1px solid color-mix(in oklab, var(--border), var(--brand) 8%);
+  background: color-mix(in oklab, var(--card) 92%, var(--brand) 8%);
+}
+:root[data-theme="light"] .btn__icon{ background: color-mix(in oklab, #fff 90%, var(--brand) 10%); }
+.btn--primary{
+  color:#fff; border:0;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow: 0 12px 26px color-mix(in oklab, var(--brand) 30%, transparent);
+}
+.btn--primary:hover{ transform:translateY(-1px); box-shadow:0 16px 32px color-mix(in oklab, var(--brand) 36%, transparent); }
 
 /* Chips */
 .chip{
@@ -491,7 +487,173 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:1rem;
 }
 
-/* ======================== 7) Footer & Modal ======================== */
+/* ============================ 7) Contact ============================ */
+/* Mise en page générale */
+.contact-v2 .section-head{ margin-bottom:.8rem; }
+.contact-grid{ display:grid; gap:1rem; align-items:start; }
+.contact-left{ min-width:0; }
+
+/* Card Calendly alignée à gauche sur desktop */
+.contact-v2 .calendly-card{
+  max-width: 760px;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Card Calendly — layout interne */
+.calendly-card{
+  padding:0; overflow:hidden;
+  display:grid; grid-template-rows:auto 1fr auto; /* header / widget / note */
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius-2);
+  box-shadow:var(--shadow-1);
+}
+.calendly-head{
+  display:flex; align-items:center; justify-content:space-between; gap:.8rem;
+  padding:.9rem 1rem; border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg,
+            color-mix(in oklab,var(--card) 90%,transparent),
+            color-mix(in oklab,var(--card) 94%,transparent));
+}
+.calendly-title{ display:flex; align-items:center; gap:.6rem; }
+.calendly-title h3{ margin:0; font-size:var(--step-1); line-height:1.2; }
+.calendly-dot{
+  width:.8rem; height:.8rem; border-radius:999px;
+  background:linear-gradient(135deg,var(--brand),var(--brand-2));
+  box-shadow:0 0 0 4px color-mix(in oklab,var(--brand) 20%,transparent);
+}
+
+/* Switch compact */
+.calendly-switch{ display:flex; gap:.35rem; }
+.chip--seg{
+  padding:.45rem .7rem; border-radius:.7rem;
+  background: color-mix(in oklab, var(--card) 96%, var(--brand) 4%);
+  border:1px solid color-mix(in oklab, var(--border), var(--brand) 8%);
+  font-weight:700; font-size:var(--step--1);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.chip--seg:hover{ transform:translateY(-1px); }
+.chip--seg.is-active{
+  color:#fff; border-color: transparent;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow: 0 8px 22px color-mix(in oklab, var(--brand) 24%, transparent);
+}
+
+/* Zone widget inline (plein format, responsive) */
+.calendly-inline{
+  position:relative;
+  min-height: clamp(560px, 70vh, 920px);
+  background:var(--card);
+}
+.calendly-inline > .calendly-inline-widget,
+.calendly-inline iframe{
+  position:absolute; inset:0;
+  width:100% !important; height:100% !important;
+  border:0 !important; min-height:0 !important; display:block;
+}
+
+/* Overlays (loader / fallback) — masqués quand prêt */
+.calendly-overlay,
+.calendly-skeleton{ position:absolute; inset:0; display:grid; place-items:center; padding:1rem; z-index:2; }
+.calendly-overlay{ background:transparent; }
+.calendly-skeleton{
+  border-top:1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 90%, var(--bg));
+}
+.calendly-inline.is-ready .calendly-overlay,
+.calendly-inline.is-ready .calendly-skeleton{ display:none !important; }
+
+/* Note pied de card */
+.calendly-note{ margin:.6rem 1rem 1rem; color:var(--muted); }
+
+/* Bouton CTA (mobile) — identique au CTA nav */
+.contact-v2 .btn.cta{
+  border:0 !important;
+  background:linear-gradient(135deg, var(--brand), var(--brand-2)) !important;
+  color:#fff !important; font-weight:800; letter-spacing:.01em;
+  box-shadow:0 12px 26px color-mix(in oklab, var(--brand) 30%, transparent);
+}
+.contact-v2 .btn.cta:hover{
+  transform:translateY(-1px);
+  box-shadow:0 16px 30px color-mix(in oklab, var(--brand) 36%, transparent);
+}
+.contact-v2 .actions--center{ display:flex; justify-content:center; padding:1rem; }
+
+/* Desktop : inline visible / Mobile : bouton visible (pas d’inline) */
+#calendly-inline-embed{
+  position:relative; min-height: clamp(640px, 70vh, 920px);
+  margin: 0 1rem 1rem;
+}
+#calendly-inline-embed > .calendly-inline-widget,
+#calendly-inline-embed iframe{
+  position:absolute; inset:0; width:100% !important; height:100% !important;
+  border:0 !important; min-height:0 !important; display:block;
+}
+@media (max-width: 991px){
+  #calendly-inline-embed{ display:none; }
+  .contact-v2 .actions--center{ display:flex; }
+}
+@media (min-width: 992px){
+  .contact-v2 .actions--center{ display:none; }
+  .contact-sticky{ position: sticky; top: 88px; }
+}
+
+/* Loader 3 points (même style popup) */
+.dots-loader{
+  position:absolute; inset:0; display:grid; place-items:center; padding:1rem; z-index:1;
+}
+.dots-loader span{
+  display:inline-block; width:8px; height:8px; margin:0 4px; border-radius:999px;
+  background: color-mix(in oklab, var(--fg) 80%, #fff 0%);
+  opacity:.65; animation: dl-bounce 1.2s infinite cubic-bezier(.6,.05,.4,.95);
+}
+.dots-loader span:nth-child(1){ animation-delay: 0s; }
+.dots-loader span:nth-child(2){ animation-delay: .15s; }
+.dots-loader span:nth-child(3){ animation-delay: .30s; }
+@keyframes dl-bounce{
+  0%, 80%, 100% { transform: translateY(0); opacity:.5; }
+  40%          { transform: translateY(-6px); opacity:1; }
+}
+
+/* ===== Autres moyens de contact (liste gauche + bouton copier) ===== */
+.contact-inline{ text-align:left; display:grid; gap:1rem; }
+.contact-list{ list-style:none; margin:0; padding:0; display:grid; gap:.8rem; }
+.contact-row{ display:flex; align-items:center; justify-content:flex-start; gap:.5rem; }
+.contact-item{
+  flex:1; display:flex; align-items:center; justify-content:flex-start; gap:.6rem;
+  text-decoration:none; color:var(--fg);
+  padding:.9rem 1rem; border:1px solid var(--border); border-radius:1rem;
+  background: color-mix(in oklab, var(--card) 98%, var(--brand) 2%);
+  transition: transform .16s, border-color .16s, box-shadow .16s, background .16s;
+}
+.contact-item:hover{
+  transform: translateY(-1px);
+  border-color: color-mix(in oklab, var(--border), var(--brand) 28%);
+  box-shadow: 0 10px 24px rgba(0,0,0,.14);
+  background: color-mix(in oklab, var(--card) 94%, var(--brand) 6%);
+}
+.ci-icon{
+  width:40px; height:40px; border-radius:.9rem; display:grid; place-items:center;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2)); color:#fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+  font-size:1.05rem;
+}
+.ci-body{ display:flex; flex-direction:column; align-items:flex-start; gap:.1rem; min-width:0; }
+.ci-body strong{ font-weight:800; color:var(--fg); line-height:1.2; }
+.ci-body small{ color:var(--muted); line-height:1.2; }
+.ci-cta{ font-weight:800; opacity:.7; }
+.ci-copy-btn{
+  width:40px; height:40px; display:grid; place-items:center;
+  border-radius:.9rem; border:1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 96%, var(--fg) 4%); color: var(--muted);
+  cursor:pointer; transition: transform .16s, border-color .16s, background .16s, color .16s;
+}
+.ci-copy-btn:hover{
+  transform: translateY(-1px);
+  border-color: color-mix(in oklab, var(--border), var(--brand) 26%);
+  background: color-mix(in oklab, var(--card) 90%, var(--brand) 10%); color:#fff;
+}
+
+/* ======================== 8) Footer & Modal ======================== */
 .site-footer{
   border-top:1px solid var(--border);
   padding:clamp(1.4rem,2vw,2rem) 1rem;
@@ -510,20 +672,21 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 }
 .modal__close{ position:absolute; top:.6rem; right:.8rem; background:none; color:var(--fg); font-size:1.8rem; border:none; cursor:pointer; }
 
-/* ======================== 8) Motion & A11y ======================== */
+/* ======================== 9) Motion & A11y ======================== */
 @media (prefers-reduced-motion: reduce){
   .nav-toggle .chev, .nav-collapsible, .btn, .card, .methode, .cert-card,
-  .icon-sun, .icon-moon, .theme-toggle, .certs-dot { transition:none !important; }
+  .icon-sun, .icon-moon, .theme-toggle, .certs-dot, .chip--seg, .contact-item,
+  .ci-copy-btn { transition:none !important; }
 }
 
-/* ===================== 9) Ultra-large screens ===================== */
+/* ===================== 10) Ultra-large screens ===================== */
 @media (min-width:1600px){
   .section{ padding-block: clamp(2.2rem, 2vw, 3.6rem); }
   .hero{ grid-template-columns: 1.1fr .9fr; gap: 2rem; }
   .card{ padding: clamp(1.2rem, 1.4vw, 1.8rem); }
 }
 
-/* ===================== 10) Micro-screens (≤360px) ===================== */
+/* ===================== 11) Micro-screens (≤360px) ===================== */
 @media (max-width:360px){
   .nav-toggle{ padding:0 .7rem; }
   .theme-toggle{ height:38px; padding:.4rem .6rem .4rem calc(.7rem + var(--icon-size) + .35rem); }
@@ -531,508 +694,4 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   .methode__icon{ width:2.4rem; height:2.4rem; }
   .cert-card{ grid-template-columns:52px 1fr; }
   .cert-badge{ width:52px; height:52px; }
-}
-
-
-/* ===== Contact (Calendly inline) ===== */
-.contact-grid { align-items: start; }
-
-.calendly-card {
-  padding: 0;
-  overflow: hidden;
-  min-height: 640px;
-  display: grid;
-  place-items: center;
-}
-
-.calendly-skeleton {
-  width: 100%;
-  padding: 1.25rem;
-  border-top: 1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 92%, var(--bg));
-}
-
-.stack { display: grid; gap: .6rem; }
-.btn--calendar { font-weight: 800; }
-
-/* ===== Contact v2 — look & ergonomie premium ===== */
-.contact-v2 .section-head { margin-bottom: .8rem; }
-
-.contact-grid { align-items: start; }
-.contact-left { min-width: 0; }
-
-.calendly-card { padding: 0; overflow: hidden; }
-.calendly-head{
-  display:flex; justify-content:space-between; align-items:center; gap:.8rem;
-  padding: .9rem 1rem;
-  border-bottom:1px solid var(--border);
-  background: linear-gradient(180deg,
-              color-mix(in oklab, var(--card) 90%, transparent),
-              color-mix(in oklab, var(--card) 94%, transparent));
-}
-.calendly-title{ display:flex; align-items:center; gap:.6rem; }
-.calendly-title h3{ margin:0; font-size:var(--step-1); line-height:1.2; }
-.calendly-dot{
-  width:.8rem; height:.8rem; border-radius: 999px;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand) 20%, transparent);
-}
-
-.calendly-switch{ display:flex; gap:.35rem; }
-.chip--seg{
-  padding:.45rem .7rem; border-radius:.7rem;
-  background: color-mix(in oklab, var(--card) 96%, var(--brand) 4%);
-  border:1px solid color-mix(in oklab, var(--border), var(--brand) 8%);
-  font-weight:700; font-size:var(--step--1);
-}
-.chip--seg:hover{ transform:translateY(-1px); }
-.chip--seg.is-active{
-  color:#fff; border-color: transparent;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  box-shadow: 0 8px 22px color-mix(in oklab, var(--brand) 24%, transparent);
-}
-
-.calendly-inline{ min-height: 660px; display:grid; place-items:center; background:var(--card); }
-.calendly-skeleton{
-  width:100%; padding:1.25rem;
-  border-top:1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 90%, var(--bg));
-}
-.calendly-note{ margin: .6rem 1rem 1rem; }
-
-.contact-cta .cta-title{ margin:0 0 .3rem; font-size:var(--step-1); }
-
-.stack{ display:grid; gap:.65rem; }
-
-/* Boutons mieux hiérarchisés */
-.btn--icon{
-  justify-content: flex-start;
-  padding:.85rem 1rem;
-  font-weight:700;
-}
-.btn__icon{
-  width:2rem; height:2rem; border-radius:.7rem;
-  display:grid; place-items:center;
-  border:1px solid color-mix(in oklab, var(--border), var(--brand) 8%);
-  background: color-mix(in oklab, var(--card) 92%, var(--brand) 8%);
-}
-:root[data-theme="light"] .btn__icon{
-  background: color-mix(in oklab, #fff 90%, var(--brand) 10%);
-}
-.btn--primary{
-  color:#fff; border:0;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  box-shadow: 0 12px 26px color-mix(in oklab, var(--brand) 30%, transparent);
-}
-.btn--primary:hover{ transform:translateY(-1px); box-shadow:0 16px 32px color-mix(in oklab, var(--brand) 36%, transparent); }
-
-/* Sticky (desktop) pour une ergonomie “2 colonnes” */
-@media (min-width: 992px){
-  .contact-sticky{ position: sticky; top: 88px; }
-}
-
-/* Meilleure respiration mobile */
-@media (max-width: 699px){
-  .calendly-inline{ min-height: 560px; }
-}
-
-
-/* ===== Calendly — plein format dans la card ===== */
-.calendly-card{
-  padding:0;
-  overflow:hidden;
-  display:grid;
-  grid-template-rows:auto 1fr auto; /* header / widget / note */
-}
-
-.calendly-head{
-  display:flex; align-items:center; justify-content:space-between; gap:.8rem;
-  padding:.9rem 1rem;
-  border-bottom:1px solid var(--border);
-  background:linear-gradient(180deg,
-            color-mix(in oklab,var(--card) 90%,transparent),
-            color-mix(in oklab,var(--card) 94%,transparent));
-}
-.calendly-title{ display:flex; align-items:center; gap:.6rem; }
-.calendly-title h3{ margin:0; font-size:var(--step-1); line-height:1.2; }
-.calendly-dot{ width:.8rem; height:.8rem; border-radius:999px;
-  background:linear-gradient(135deg,var(--brand),var(--brand-2));
-  box-shadow:0 0 0 4px color-mix(in oklab,var(--brand) 20%,transparent);
-}
-
-/* Le conteneur du widget occupe TOUT l'espace disponible de la card */
-.calendly-inline{
-  position:relative;
-  inline-size:100%;
-  block-size: clamp(650px, 76vh, 980px); /* hauteur réactive confortable */
-  background:var(--card);
-}
-
-/* 1) Le wrapper généré par Calendly occupe 100% de l'espace disponible */
-.calendly-inline > .calendly-inline-widget{
-  position:absolute;
-  inset:0;
-  inline-size:100% !important;
-  block-size:100% !important;     /* ← clé : force la hauteur à 100% */
-  min-height:0 !important;
-  border:0 !important;
-}
-
-/* 2) L'iframe interne suit aussi 100% (Calendly met souvent une hauteur inline) */
-.calendly-inline iframe{
-  inline-size:100% !important;
-  block-size:100% !important;
-  min-height:0 !important;
-  border:0 !important;
-  display:block;
-}
-
-/* Skeleton : caché quand widget prêt */
-.calendly-inline.is-ready .calendly-skeleton{ display:none; }
-.calendly-skeleton{
-  position:absolute; inset:0; display:grid; place-items:center;
-  padding:1.25rem; border-top:1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 90%, var(--bg));
-}
-
-.calendly-note{ margin:.6rem 1rem 1rem; }
-
-
-/* ===== Autres moyens — propre, sans puces ===== */
-.contact-list{ list-style:none; margin:.4rem 0 0; padding:0; display:grid; gap:.7rem; }
-.contact-row{
-  display:grid;
-  grid-template-columns: 1fr auto; /* lien à gauche, icône copie à droite */
-  align-items: stretch;
-  gap:.5rem;
-}
-
-.contact-item{
-  display:grid; grid-template-columns:40px 1fr auto; align-items:center; gap:.8rem;
-  text-decoration:none;
-  padding:.9rem 1rem; border:1px solid var(--border); border-radius:1rem;
-  background: color-mix(in oklab, var(--card) 98%, var(--brand) 2%);
-  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease, background .16s ease;
-}
-.contact-item:hover{
-  transform: translateY(-1px);
-  border-color: color-mix(in oklab, var(--border), var(--brand) 28%);
-  box-shadow: 0 10px 24px rgba(0,0,0,.14);
-  background: color-mix(in oklab, var(--card) 94%, var(--brand) 6%);
-}
-
-.ci-icon{
-  width:40px; height:40px; border-radius:.9rem; display:grid; place-items:center;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2)); color:#fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,.25);
-  font-size:1.05rem;
-}
-.ci-body{ display:flex; flex-direction:column; gap:.1rem; min-width:0; }
-.ci-body strong{ font-weight:800; color:var(--fg); line-height:1.2; }
-.ci-body small{ color:var(--muted); line-height:1.2; }
-.ci-cta{ font-weight:800; opacity:.6; }
-
-/* Icône de copie sobre */
-.ci-copy-btn{
-  align-self:center;
-  width:40px; height:40px;
-  display:grid; place-items:center;
-  border-radius:.9rem;
-  border:1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 96%, var(--fg) 4%);
-  color: var(--muted);
-  cursor:pointer;
-  transition: transform .16s ease, border-color .16s ease, background .16s ease, color .16s ease;
-}
-.ci-copy-btn:hover{
-  transform: translateY(-1px);
-  border-color: color-mix(in oklab, var(--border), var(--brand) 26%);
-  background: color-mix(in oklab, var(--card) 90%, var(--brand) 10%);
-  color:#fff;
-}
-
-.calendly-fallback[hidden]{ display:none !important; }
-
-/* ===== Calendly — plein format propre ===== */
-.calendly-card{
-  padding:0;
-  overflow:hidden;
-  display:grid;
-  grid-template-rows: auto 1fr auto; /* header / widget / note */
-}
-
-.calendly-inline{
-  position:relative;
-  min-height: clamp(640px, 72vh, 920px); /* zone utile pour le widget */
-  background:var(--card);
-}
-
-/* Wrapper généré + iframe occupent 100% de la zone */
-.calendly-inline > .calendly-inline-widget{
-  position:absolute; inset:0;
-  width:100% !important; height:100% !important;
-  min-height:0 !important; border:0 !important; display:block;
-}
-.calendly-inline iframe{
-  position:absolute; inset:0;
-  width:100% !important; height:100% !important;
-  min-height:0 !important; border:0 !important; display:block;
-}
-
-/* Overlays (skeleton + fallback) ne prennent plus de place */
-.calendly-overlay{
-  position:absolute; inset:0;
-  display:grid; place-items:center;
-  background: transparent;
-  z-index: 2; /* au-dessus du widget tant qu’il n’est pas prêt */
-}
-.calendly-inline.is-ready .calendly-overlay{ display:none !important; }
-
-/* Fallback caché par défaut, visible si JS décide */
-.calendly-fallback[hidden]{ display:none !important; }
-
-
-
-/* Calendly plein format dans la popup */
-#calendly-inline > .calendly-inline-widget,
-#calendly-inline iframe{
-  position:absolute; inset:0;
-  width:100% !important; height:100% !important;
-  border:0 !important; min-height:0 !important; display:block;
-}
-#calendly-inline{ position:relative; min-height:72vh; }
-
-
-/* Card plus étroite mais alignée à GAUCHE */
-.contact-v2 .calendly-card{
-  max-width: 760px;        /* tu peux passer 680px si tu veux plus fin */
-  margin-left: 0;          /* ← gauche */
-  margin-right: auto;      /* ← pas centrée */
-}
-
-.contact-v2 .calendly-h3{ margin:0; }
-.contact-v2 .actions--center{ display:flex; justify-content:center; padding:1rem; }
-.contact-v2 .soft-sep{ border:0; border-top:1px solid var(--border); margin:0 1rem 1rem; }
-.contact-v2 .contact-inline{ padding:0 1rem 1rem; }
-.contact-v2 .lead--tight{ margin:.25rem 0 1rem; }
-.contact-v2 .note--foot{ margin:0 1rem 1rem; }
-
-/* Le bouton reprend EXACTEMENT le style du CTA nav */
-.contact-v2 .btn.cta{
-  border:0 !important;
-  background:linear-gradient(135deg, var(--brand), var(--brand-2)) !important;
-  color:#fff !important;
-  font-weight:800; letter-spacing:.01em;
-  box-shadow:0 12px 26px color-mix(in oklab, var(--brand) 30%, transparent);
-}
-.contact-v2 .btn.cta:hover{
-  transform:translateY(-1px);
-  box-shadow:0 16px 30px color-mix(in oklab, var(--brand) 36%, transparent);
-}
-
-/* Liste contacts (mêmes styles que précédemment mais sans inline) */
-.contact-list{ list-style:none; margin:0; padding:0; display:grid; gap:.7rem; }
-.contact-row{ display:grid; grid-template-columns: 1fr auto; align-items:stretch; gap:.5rem; }
-.contact-item{
-  display:grid; grid-template-columns:40px 1fr auto; align-items:center; gap:.8rem;
-  text-decoration:none; padding:.9rem 1rem; border:1px solid var(--border); border-radius:1rem;
-  background: color-mix(in oklab, var(--card) 98%, var(--brand) 2%);
-  transition: transform .16s, border-color .16s, box-shadow .16s, background .16s;
-}
-.contact-item:hover{
-  transform: translateY(-1px);
-  border-color: color-mix(in oklab, var(--border), var(--brand) 28%);
-  box-shadow: 0 10px 24px rgba(0,0,0,.14);
-  background: color-mix(in oklab, var(--card) 94%, var(--brand) 6%);
-}
-.ci-icon{
-  width:40px; height:40px; border-radius:.9rem;
-  display:grid; place-items:center;
-  background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff;
-  box-shadow:0 2px 6px rgba(0,0,0,.25);
-}
-.ci-body{ display:flex; flex-direction:column; gap:.1rem; min-width:0; }
-.ci-cta{ font-weight:800; opacity:.7; }
-
-/* Icône de copie sobre */
-.ci-copy-btn{
-  width:40px; height:40px; display:grid; place-items:center;
-  border-radius:.9rem; border:1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 96%, var(--fg) 4%); color: var(--muted);
-  cursor:pointer; transition: transform .16s, border-color .16s, background .16s, color .16s;
-}
-.ci-copy-btn:hover{
-  transform: translateY(-1px);
-  border-color: color-mix(in oklab, var(--border), var(--brand) 26%);
-  background: color-mix(in oklab, var(--card) 90%, var(--brand) 10%); color:#fff;
-}
-
-/* Calendly plein format dans la popup */
-#calendly-inline{ position:relative; min-height:72vh; }
-#calendly-inline > .calendly-inline-widget,
-#calendly-inline iframe{
-  position:absolute; inset:0; width:100% !important; height:100% !important;
-  border:0 !important; min-height:0 !important; display:block;
-}
-
-/* Inline (desktop) plein format mais propre dans la card */
-#calendly-inline-embed{
-  position: relative;
-  min-height: clamp(640px, 70vh, 920px);
-  margin: 0 1rem 1rem;
-}
-#calendly-inline-embed > .calendly-inline-widget,
-#calendly-inline-embed iframe{
-  position:absolute; inset:0;
-  width:100% !important; height:100% !important;
-  border:0 !important; min-height:0 !important; display:block;
-}
-
-/* Hide/Show selon viewport */
-@media (max-width: 991px){
-  #calendly-inline-embed{ display:none; }              /* mobile : pas d’inline */
-  .contact-v2 .actions--center{ display:flex; }        /* mobile : bouton visible */
-}
-@media (min-width: 992px){
-  .contact-v2 .actions--center{ display:none; }        /* desktop : pas de bouton */
-}
-
-/* Inline (desktop) */
-#calendly-inline-embed{
-  position:relative; min-height: clamp(640px, 70vh, 920px);
-  margin: 0 1rem 1rem;
-}
-#calendly-inline-embed > .calendly-inline-widget,
-#calendly-inline-embed iframe{
-  position:absolute; inset:0;
-  width:100% !important; height:100% !important;
-  border:0 !important; min-height:0 !important; display:block;
-}
-
-/* Affichage : inline desktop / bouton mobile */
-@media (max-width: 991px){
-  #calendly-inline-embed{ display:none; }     /* mobile : pas d’inline */
-  .contact-v2 .actions--center{ display:flex; } /* bouton visible */
-}
-@media (min-width: 992px){
-  .contact-v2 .actions--center{ display:none; } /* desktop : bouton masqué */
-}
-
-/* Card alignée à gauche */
-.contact-v2 .calendly-card{
-  max-width: 760px;
-  margin-left: 0;
-  margin-right: auto;
-}
-
-/* Loader 3 points (même style que la popup) */
-.dots-loader{
-  position:absolute;
-  inset:0;
-  display:grid;
-  place-items:center;
-  padding:1rem;
-  z-index:0;
-}
-.dots-loader span{
-  display:inline-block;
-  width:8px; height:8px;
-  margin:0 4px; border-radius:999px;
-  background: color-mix(in oklab, var(--fg) 80%, #fff 0%);
-  opacity:.65;
-  animation: dl-bounce 1.2s infinite cubic-bezier(.6,.05,.4,.95);
-}
-.dots-loader span:nth-child(1){ animation-delay: 0s; }
-.dots-loader span:nth-child(2){ animation-delay: .15s; }
-.dots-loader span:nth-child(3){ animation-delay: .30s; }
-
-@keyframes dl-bounce{
-  0%, 80%, 100% { transform: translateY(0); opacity:.5; }
-  40%          { transform: translateY(-6px); opacity:1; }
-}
-
-/* Helper a11y */
-.sr-only{
-  position:absolute !important;
-  width:1px;height:1px;
-  padding:0;margin:-1px;overflow:hidden;
-  clip:rect(0,0,0,0); white-space:nowrap; border:0;
-}
-
-/* Inline Calendly desktop (taille + position) */
-#calendly-inline-embed{
-  position:relative;
-  min-height: clamp(640px, 70vh, 920px);
-  margin: 0 1rem 1rem;
-}
-#calendly-inline-embed > .calendly-inline-widget,
-#calendly-inline-embed iframe{
-  position:absolute; inset:0;
-  width:100% !important; height:100% !important;
-  border:0 !important; min-height:0 !important; display:block;
-}
-
-/* Affichage : inline desktop / bouton mobile */
-@media (max-width: 991px){
-  #calendly-inline-embed{ display:none; }          /* mobile : pas d’inline */
-  .contact-v2 .actions--center{ display:flex; }    /* mobile : bouton visible */
-}
-@media (min-width: 992px){
-  .contact-v2 .actions--center{ display:none; }    /* desktop : bouton masqué */
-}
-
-/* Card alignée à gauche */
-.contact-v2 .calendly-card{
-  max-width: 760px;
-  margin-left: 0;
-  margin-right: auto;
-}
-
-
-/* Loader 3 points */
-.dots-loader{
-  position:absolute; inset:0;
-  display:grid; place-items:center; padding:1rem; z-index:0;
-}
-.dots-loader span{
-  display:inline-block; width:8px; height:8px; margin:0 4px; border-radius:999px;
-  background: color-mix(in oklab, var(--fg) 80%, #fff 0%);
-  opacity:.65; animation: dl-bounce 1.2s infinite cubic-bezier(.6,.05,.4,.95);
-}
-.dots-loader span:nth-child(1){ animation-delay: 0s; }
-.dots-loader span:nth-child(2){ animation-delay: .15s; }
-.dots-loader span:nth-child(3){ animation-delay: .30s; }
-@keyframes dl-bounce{
-  0%, 80%, 100% { transform: translateY(0); opacity:.5; }
-  40%          { transform: translateY(-6px); opacity:1; }
-}
-.sr-only{ position:absolute!important; width:1px;height:1px; padding:0;margin:-1px;overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap;border:0; }
-
-/* Conteneur inline desktop */
-#calendly-inline-embed{
-  position:relative;
-  min-height: clamp(640px, 70vh, 920px);
-  margin: 0 1rem 1rem;
-}
-#calendly-inline-embed > .calendly-inline-widget,
-#calendly-inline-embed iframe{
-  position:absolute; inset:0;
-  width:100% !important; height:100% !important;
-  border:0 !important; min-height:0 !important; display:block;
-}
-
-/* Inline desktop / bouton mobile */
-@media (max-width: 991px){
-  #calendly-inline-embed{ display:none; }
-  .contact-v2 .actions--center{ display:flex; }
-}
-@media (min-width: 992px){
-  .contact-v2 .actions--center{ display:none; }
-}
-
-/* Card alignée à gauche */
-.contact-v2 .calendly-card{
-  max-width: 760px;
-  margin-left: 0;
-  margin-right: auto;
 }
