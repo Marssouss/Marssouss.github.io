@@ -706,11 +706,9 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   overflow: hidden;
 }
 
-/* ===== Correction bandeau Calendly ===== */
+/* ===== Correction bandeau Calendly (sobre) ===== */
 .calendly-head {
-  background: linear-gradient(180deg,
-              color-mix(in oklab, var(--card) 92%, transparent),
-              color-mix(in oklab, var(--card) 96%, transparent));
+  background: color-mix(in oklab, var(--card) 95%, var(--bg) 5%);
   border-bottom: 1px solid var(--border);
   padding: .9rem 1rem;
   display: flex;
