@@ -153,7 +153,7 @@ const Modal = (() => {
 })();
 
 /* ============ 5) Calendly modal (lazy load + idempotent) ============ */
-(() => {
+/*(() => {
   const calendlyBtn = document.querySelector('[data-calendly]');
   const modal       = $('#calendly-modal');
   const parent      = $('#calendly-inline');
@@ -184,7 +184,7 @@ const Modal = (() => {
 
   on(calendlyBtn, 'click', () => { Modal.open(modal); loadCalendly(); });
 })();
-
+*/
 /* ========== 6) Formspree AJAX + popup “Merci” (accessible) ========== */
 (() => {
   const form   = $('#contactForm');
