@@ -546,3 +546,48 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   .cert-card{ grid-template-columns:52px 1fr; }
   .cert-badge{ width:52px; height:52px; }
 }
+
+
+/* ===== Tagline rôle : gradient + underline + glow ===== */
+.role {
+  /* taille > lead, < h2 */
+  font-size: clamp(1.05rem, 0.9rem + 0.8vw, 1.35rem);
+  font-weight: 900;
+  letter-spacing: .01em;
+
+  /* texte en dégradé (CTA) */
+  background: var(--g-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* soulignement gradient (lisible partout) */
+  text-decoration-line: underline;
+  text-decoration-thickness: .14em;
+  text-underline-offset: .18em;
+  text-decoration-color: color-mix(in oklab, var(--brand) 55%, var(--brand-2) 45%);
+
+  /* glow discret (néon soft) */
+  text-shadow:
+    0 0 6px color-mix(in oklab, var(--brand) 40%, transparent),
+    0 0 14px color-mix(in oklab, var(--brand-2) 24%, transparent);
+}
+
+/* Hover/focus : léger boost du glow, sans être agressif */
+.role:is(:hover, :focus-visible) {
+  text-shadow:
+    0 0 8px color-mix(in oklab, var(--brand) 50%, transparent),
+    0 0 18px color-mix(in oklab, var(--brand-2) 36%, transparent);
+}
+
+/* Mode light : glow un poil plus doux pour éviter l’effet “fluo” */
+:root[data-theme="light"] .role {
+  text-shadow:
+    0 0 5px color-mix(in oklab, var(--brand) 28%, transparent),
+    0 0 12px color-mix(in oklab, var(--brand-2) 18%, transparent);
+}
+
+/* Si PRM (motion réduite) → garde l’effet statique, pas d’animation ici */
+@media (prefers-reduced-motion: reduce) {
+  .role { transition: none; }
+}
