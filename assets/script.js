@@ -1,34 +1,32 @@
 /* ===========================================================================
    ABM — JS unifié (premium, moderne & épuré)
-   - Utils (qs/qsa, on, store, mq, rAF)
-   - Nav mobile (burger, ARIA, breakpoints)
-   - Thème (persist + préférence système, label Light/Dark, aria-pressed, reset Alt+clic)
-   - Modals (focus-trap, Calendly lazy)
-   - Formspree (AJAX + feedback)
-   - Carousel certifications (dots + centrage)
-   - A11y & prefers-reduced-motion
+   1) Utils (qs/qsa, on/off, mq, rAF, store, flags)
+   2) Navigation mobile (burger, ARIA, breakpoint)
+   3) Thème (persist + préférence système, label/ARIA, Alt+clic reset)
+   4) Modals (focus-trap, esc, overlay)
+   5) Formulaire (Formspree AJAX + feedback + “merci” en modal)
+   6) Certifications (carousel mobile + dots + centrage)
+   7) Calendly (inline desktop + popup mobile/desktop, assets lazy, loader 3 pts, fallbacks)
    =========================================================================== */
 
 /* ========================= 1) Utils légers ========================= */
 const $  = (sel, scope=document) => scope.querySelector(sel);
 const $$ = (sel, scope=document) => Array.from(scope.querySelectorAll(sel));
-const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
+const on  = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
 const off = (el, ev, fn, opts) => el && el.removeEventListener(ev, fn, opts);
-const mq  = (q) => window.matchMedia ? window.matchMedia(q) : { matches:false, addListener(){}, removeListener(){} };
-const raf = (fn) => (window.requestAnimationFrame || setTimeout)(fn, 16);
+const mq  = (q) => window.matchMedia ? window.matchMedia(q) : { matches:false, addEventListener(){}, removeEventListener(){} };
+const raf = (fn) => (window.requestAnimationFrame || ((f)=>setTimeout(f,16)))(fn);
 const noop = () => {};
-
-/* Storage safe (pas d’erreur en mode privé) */
-const store = {
-  get(key){ try { return localStorage.getItem(key); } catch { return null; } },
-  set(key,val){ try { localStorage.setItem(key,val); } catch {} },
-  rm(key){ try { localStorage.removeItem(key); } catch {} }
-};
-
-/* Prefers reduced motion ? */
 const PREFERS_REDUCED = mq('(prefers-reduced-motion: reduce)').matches;
 
-/* =================== 2) Nav mobile (burger + ARIA) =================== */
+/* Storage safe (évite erreurs navigation privée) */
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch { return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch {} },
+  rm(k){ try { localStorage.removeItem(k); } catch {} }
+};
+
+/* =================== 2) Navigation mobile (burger + ARIA) =================== */
 (() => {
   const toggle = $('.nav-toggle');
   const panel  = $('#nav-collapsible');
@@ -44,14 +42,12 @@ const PREFERS_REDUCED = mq('(prefers-reduced-motion: reduce)').matches;
   toggle.setAttribute('aria-controls', 'nav-collapsible');
 
   on(toggle, 'click', () => setState(!panel.classList.contains('open')));
-
-  // Ferme au clic d’un lien/bouton dans le panneau
   on(panel, 'click', (e) => { if (e.target.closest('a,button')) setState(false); });
 
   // Ferme lors du passage en desktop
   const bp = mq('(min-width: 992px)');
   const onChange = () => { if (bp.matches) setState(false); };
-  bp.addEventListener ? bp.addEventListener('change', onChange) : bp.addListener(onChange);
+  bp.addEventListener('change', onChange);
 })();
 
 /* ==================== 3) Thème (persist + système + label) ==================== */
@@ -60,43 +56,34 @@ const PREFERS_REDUCED = mq('(prefers-reduced-motion: reduce)').matches;
   const root  = document.documentElement;
   const label = btn?.querySelector('.tt-label');
 
-  const getSystem = () => (mq('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-  const getStored = () => store.get('theme');
-
-  const setLabelAndAria = (mode) => {
+  const getSystem  = () => (mq('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  const getStored  = () => store.get('theme');
+  const setLabelAria = (mode) => {
     if (!btn) return;
     const isDark = mode === 'dark';
     btn.setAttribute('aria-pressed', String(isDark));
     btn.setAttribute('aria-label', isDark ? 'Basculer en mode clair' : 'Basculer en mode sombre');
     if (label) label.textContent = isDark ? 'Dark' : 'Light';
   };
+  const apply = (mode) => { root.setAttribute('data-theme', mode); setLabelAria(mode); };
 
-  const apply = (mode) => {
-    root.setAttribute('data-theme', mode);
-    setLabelAndAria(mode);
-  };
-
-  // init: storage -> système
+  // Init : storage sinon système
   apply(getStored() || getSystem());
 
-  // Sync système si l’utilisateur n’a PAS choisi manuellement
-  const sysPref = mq('(prefers-color-scheme: light)');
-  const syncSystem = () => {
-    if (getStored()) return; // on respecte le choix explicite
-    apply(getSystem());
-  };
-  sysPref.addEventListener ? sysPref.addEventListener('change', syncSystem)
-                           : sysPref.addListener(syncSystem);
+  // Sync système si pas de choix explicite
+  const sys = mq('(prefers-color-scheme: light)');
+  const syncSystem = () => { if (!getStored()) apply(getSystem()); };
+  sys.addEventListener('change', syncSystem);
 
-  // Toggle explicite + persistance
+  // Toggle + persist
   on(btn, 'click', (e) => {
-    const cur  = root.getAttribute('data-theme');
+    const cur = root.getAttribute('data-theme');
     const next = (cur === 'light') ? 'dark' : 'light';
     apply(next);
     store.set('theme', next);
   });
 
-  // Alt+clic => reset au thème système (supprime la préférence)
+  // Alt + clic → reset (revient au thème système)
   on(btn, 'click', (e) => {
     if (!e.altKey) return;
     store.rm('theme');
@@ -104,7 +91,7 @@ const PREFERS_REDUCED = mq('(prefers-reduced-motion: reduce)').matches;
   }, { capture:true });
 })();
 
-/* =================== 4) Modal utilitaire (focus-trap) =================== */
+/* =================== 4) Modals utilitaires (focus-trap & co) =================== */
 const Modal = (() => {
   const FOCUSABLE = [
     'a[href]','area[href]','button:not([disabled])','input:not([disabled])',
@@ -131,61 +118,27 @@ const Modal = (() => {
     el.hidden = false;
     const untrap = trap(el);
     el._untrap = untrap;
-    // focus premier élément focusable
-    const f = $(FOCUSABLE, el);
+    const f = el.querySelector(FOCUSABLE);
     (f || el).focus?.();
   };
+
   const close = (el) => {
     if (!el) return;
     el.hidden = true;
     el._untrap?.();
   };
+
   const bind  = (modal) => {
     if (!modal) return;
-    // fermer par clic fond
     on(modal, 'click', (e) => { if (e.target === modal) close(modal); }, { passive:true });
-    // close buttons + attribut data-close
     $$('.modal__close,[data-close]', modal).forEach(btn => on(btn, 'click', () => close(modal)));
-    // ESC
     on(document, 'keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) close(modal); });
   };
+
   return { open, close, bind };
 })();
 
-/* ============ 5) Calendly modal (lazy load + idempotent) ============ */
-/*(() => {
-  const calendlyBtn = document.querySelector('[data-calendly]');
-  const modal       = $('#calendly-modal');
-  const parent      = $('#calendly-inline');
-  if (!calendlyBtn || !modal || !parent) return;
-
-  Modal.bind(modal);
-
-  const CALENDLY_URL = 'https://calendly.com/ton-calendly/30min'; // ← remplace
-  let loaded = false;
-
-  const loadCalendly = () => {
-    if (loaded) return; loaded = true;
-
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://assets.calendly.com/assets/external/widget.css';
-    document.head.appendChild(link);
-
-    const s = document.createElement('script');
-    s.src = 'https://assets.calendly.com/assets/external/widget.js';
-    s.onload = () => {
-      if (window.Calendly) {
-        window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
-      }
-    };
-    document.body.appendChild(s);
-  };
-
-  on(calendlyBtn, 'click', () => { Modal.open(modal); loadCalendly(); });
-})();
-*/
-/* ========== 6) Formspree AJAX + popup “Merci” (accessible) ========== */
+/* ========== 5) Formulaire (Formspree AJAX + modal “Merci”) ========== */
 (() => {
   const form   = $('#contactForm');
   if (!form) return;
@@ -219,18 +172,9 @@ const Modal = (() => {
     if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi…'; }
 
     try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: fd,
-      });
-
-      if (res.ok) {
-        form.reset();
-        Modal.open(modal);
-      } else {
-        setStatus("Oups, l’envoi a échoué. Réessayez ou contactez-moi par email.", true);
-      }
+      const res = await fetch(endpoint, { method:'POST', headers:{ 'Accept':'application/json' }, body:fd });
+      if (res.ok) { form.reset(); Modal.open(modal); }
+      else { setStatus("Oups, l’envoi a échoué. Réessayez ou contactez-moi par email.", true); }
     } catch {
       setStatus("Erreur réseau. Vérifiez votre connexion et réessayez.", true);
     } finally {
@@ -239,21 +183,19 @@ const Modal = (() => {
   });
 })();
 
-/* ====== 7) Carousel certifs mobile (dots + centrage propre) ====== */
+/* ====== 6) Carousel certifications (mobile : dots + centrage) ====== */
 (() => {
-  const rail    = $('#certs-rail');
-  const dotsWrap= $('.certs-dots');
+  const rail     = $('#certs-rail');
+  const dotsWrap = $('.certs-dots');
   if (!rail || !dotsWrap) return;
 
   const slides = Array.from(rail.children);
   if (!slides.length) return;
 
-  // Rôle défilant
   rail.setAttribute('tabindex', '0');
   rail.setAttribute('role', 'region');
   rail.setAttribute('aria-label', 'Certifications (carousel)');
 
-  // Crée les dots (une fois)
   const dots = slides.map((_, i) => {
     const b = document.createElement('button');
     b.type = 'button';
@@ -264,57 +206,46 @@ const Modal = (() => {
     return b;
   });
 
-  // Centrage d’un slide dans le viewport du rail
   const centerOffsetFor = (el) => el.offsetLeft - (rail.clientWidth - el.clientWidth) / 2;
   const scrollToSlide = (i) => {
     const el = slides[i];
-    const target = centerOffsetFor(el);
-    rail.scrollTo({ left: target, behavior: PREFERS_REDUCED ? 'auto' : 'smooth' });
+    rail.scrollTo({ left: centerOffsetFor(el), behavior: PREFERS_REDUCED ? 'auto' : 'smooth' });
   };
 
-  // Active le dot du slide majoritairement visible
   const setActive = (i) => dots.forEach((d, idx) => d.classList.toggle('is-active', idx === i));
 
-  // Observer pour déterminer le “meilleur” slide en vue
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       let bestI = null, bestRatio = 0;
       for (const e of entries) {
         const i = slides.indexOf(e.target);
-        if (e.isIntersecting && e.intersectionRatio > bestRatio) {
-          bestRatio = e.intersectionRatio; bestI = i;
-        }
+        if (e.isIntersecting && e.intersectionRatio > bestRatio) { bestRatio = e.intersectionRatio; bestI = i; }
       }
       if (bestI !== null) setActive(bestI);
     }, { root: rail, threshold: [0.5, 0.6, 0.7, 0.8] });
     slides.forEach(el => io.observe(el));
   } else {
     const onScroll = () => {
-      const centers = slides.map(el => Math.abs(centerOffsetFor(el) - rail.scrollLeft));
-      const bestI = centers.indexOf(Math.min(...centers));
-      setActive(bestI);
+      const deltas = slides.map(el => Math.abs(centerOffsetFor(el) - rail.scrollLeft));
+      setActive(deltas.indexOf(Math.min(...deltas)));
     };
     on(rail, 'scroll', onScroll, { passive:true });
   }
 
-  // État initial
   setActive(0);
 
-  // Clavier : flèches G/D
   on(rail, 'keydown', (e) => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
     e.preventDefault();
-    const current = dots.findIndex(d => d.classList.contains('is-active'));
-    const next = e.key === 'ArrowRight'
-      ? Math.min(current + 1, slides.length - 1)
-      : Math.max(current - 1, 0);
+    const cur = dots.findIndex(d => d.classList.contains('is-active'));
+    const next = e.key === 'ArrowRight' ? Math.min(cur + 1, slides.length - 1)
+                                        : Math.max(cur - 1, 0);
     scrollToSlide(next);
   });
 
-  // Recenter on resize (orientation, etc.)
   let resizeRaf;
   on(window, 'resize', () => {
-    cancelAnimationFrame(resizeRaf);
+    cancelAnimationFrame?.(resizeRaf);
     resizeRaf = raf(() => {
       const current = dots.findIndex(d => d.classList.contains('is-active')) || 0;
       scrollToSlide(current);
@@ -322,126 +253,25 @@ const Modal = (() => {
   }, { passive:true });
 })();
 
-/* ============ Calendly inline — plein format + overlays robustes ============ */
+/* ================== 7) Calendly (inline + popup unifiés) ================== */
 (() => {
-  const parent = document.getElementById('calendly-inline');
-  if (!parent) return;
+  const modal    = $('#calendly-modal');            // popup (mobile/desktop)
+  const parentM  = $('#calendly-inline');           // conteneur popup
+  const parentD  = $('#calendly-inline-embed');     // conteneur inline desktop
+  const triggers = $$('[data-calendly]');           // tous les boutons
+  const mqDesk   = mq('(min-width: 992px)');
 
-  const url = (parent.dataset.calendlyUrl || '').trim();
-  const skeleton = parent.querySelector('.calendly-skeleton');
-  const fallback = parent.querySelector('.calendly-fallback');
-
-  const hideOverlays = () => {
-    parent.classList.add('is-ready');
-    if (skeleton) skeleton.style.display = 'none';
-    if (fallback)  { fallback.hidden = true; fallback.style.display = 'none'; }
-  };
-  const showFallback = (why='') => {
-    console.warn('[Calendly] Fallback:', why);
-    parent.classList.remove('is-ready');
-    if (skeleton) skeleton.style.display = 'none';
-    if (fallback)  { fallback.hidden = false; fallback.style.display = 'grid'; }
-  };
-  const forceFullSize = () => {
-    const wr = parent.querySelector('.calendly-inline-widget');
-    const ifr = parent.querySelector('iframe');
-    if (wr) { wr.style.width='100%'; wr.style.height='100%'; wr.style.position='absolute'; wr.style.inset='0'; }
-    if (ifr){ ifr.style.width='100%'; ifr.style.height='100%'; ifr.style.position='absolute'; ifr.style.inset='0'; }
-  };
-
-  // 1) URL valide ?
-  if (!url) { showFallback('URL manquante (_config.yml)'); return; }
-  if (!/^https:\/\/calendly\.com\//i.test(url)) { showFallback('URL non Calendly'); return; }
-
-  // 2) Charge assets Calendly
-  const ensureCalendly = (cb) => {
-    let pending = 0, errored = false;
-    const done  = () => (--pending <= 0 && !errored) && cb();
-    const fail  = () => { errored = true; showFallback('Assets non chargés'); };
-
-    if (!document.querySelector('link[href*="calendly.com/assets/external/widget.css"]')) {
-      pending++;
-      const l = document.createElement('link');
-      l.rel = 'stylesheet'; l.href = 'https://assets.calendly.com/assets/external/widget.css';
-      l.onload = done; l.onerror = fail; document.head.appendChild(l);
-    }
-    if (!document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
-      pending++;
-      const s = document.createElement('script');
-      s.src = 'https://assets.calendly.com/assets/external/widget.js';
-      s.defer = true; s.onload = done; s.onerror = fail; document.body.appendChild(s);
-    }
-    if (pending === 0) cb();
-  };
-
-  const init = () => {
-    if (!window.Calendly) { showFallback('API absente'); return; }
-
-    // Démarre l’inline widget
-    try {
-      window.Calendly.initInlineWidget({ url, parentElement: parent });
-    } catch (e) {
-      console.error(e); showFallback('initInlineWidget error'); return;
-    }
-
-    // 3) Quand le widget apparaît → on masque les overlays et on force la taille
-    const observer = new MutationObserver(() => {
-      const ready = parent.querySelector('.calendly-inline-widget');
-      if (ready) {
-        hideOverlays();
-        forceFullSize();
-        observer.disconnect();
-      }
-    });
-    observer.observe(parent, { childList: true, subtree: true });
-
-    // 4) Poll de sécurité au cas où l’observer raterait l’événement
-    const poll = setInterval(() => {
-      const iframe = parent.querySelector('iframe');
-      if (iframe) {
-        hideOverlays();
-        forceFullSize();
-        clearInterval(poll);
-      }
-    }, 250);
-
-    // 5) Timeout : si rien après 8s → on montre le fallback (en overlay)
-    setTimeout(() => {
-      if (!parent.querySelector('iframe')) showFallback('timeout');
-    }, 8000);
-
-    // 6) Resize
-    window.addEventListener('resize', forceFullSize, { passive:true });
-  };
-
-  ensureCalendly(() => {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init, { once:true });
-    } else {
-      init();
-    }
-  });
-})();
-
-
-/* Calendly — inline desktop fiable + popup mobile + loader 3 points */
-(() => {
-  const modal    = document.getElementById('calendly-modal');        // popup
-  const parentM  = document.getElementById('calendly-inline');        // conteneur popup
-  const parentD  = document.getElementById('calendly-inline-embed');  // conteneur inline (desktop)
-  const triggers = document.querySelectorAll('[data-calendly]');      // tous les boutons
-  const mqDesk   = window.matchMedia('(min-width: 992px)');
-
-  // URL depuis _config.yml
+  // URL (priorité: inline desktop > inline modal > bouton)
   const url = (parentD?.dataset.calendlyUrl
             || parentM?.dataset.calendlyUrl
             || triggers[0]?.dataset.calendlyUrl
             || '').trim();
-  if (!url) { console.warn('[Calendly] URL absente'); return; }
+  if (!url) { console.warn('[Calendly] URL absente (data-calendly-url)'); return; }
+  if (!/^https:\/\/calendly\.com\//i.test(url)) { console.warn('[Calendly] URL non valide:', url); return; }
 
   if (modal) Modal.bind(modal);
 
-  // ---------- helpers assets ----------
+  // ----- Assets loader (idempotent) -----
   const ensureLink = (href) => new Promise(res => {
     if (document.querySelector(`link[href="${href}"]`)) return res();
     const l = document.createElement('link'); l.rel='stylesheet'; l.href=href;
@@ -449,7 +279,7 @@ const Modal = (() => {
   });
   const ensureScript = (src) => new Promise(res => {
     if (document.querySelector(`script[src="${src}"]`)) return res();
-    const s = document.createElement('script'); s.src = src;
+    const s = document.createElement('script'); s.src = src; s.defer = true;
     s.onload = res; s.onerror = res; document.body.appendChild(s);
   });
   const loadAssets = () => Promise.all([
@@ -457,10 +287,9 @@ const Modal = (() => {
     ensureScript('https://assets.calendly.com/assets/external/widget.js'),
   ]);
 
-  // ---------- loader 3 points ----------
+  // ----- Loader 3 points -----
   const addDotsLoader = (host) => {
-    if (!host) return;
-    removeDotsLoader(host);
+    if (!host || host.querySelector('.dots-loader')) return;
     const wrap = document.createElement('div');
     wrap.className = 'dots-loader';
     wrap.innerHTML = `
@@ -471,65 +300,61 @@ const Modal = (() => {
   };
   const removeDotsLoader = (host) => host?.querySelector('.dots-loader')?.remove();
 
-  // ---------- init inline (desktop) ----------
-  const initInlineDesktop = async () => {
-    if (!parentD) return;
+  // ----- Forcer le plein format (sécurité contre styles inline Calendly) -----
+  const forceFullSize = (host) => {
+    if (!host) return;
+    const wr = host.querySelector('.calendly-inline-widget');
+    const ifr = host.querySelector('iframe');
+    if (wr) Object.assign(wr.style, { position:'absolute', inset:'0', width:'100%', height:'100%', border:0 });
+    if (ifr) Object.assign(ifr.style, { position:'absolute', inset:'0', width:'100%', height:'100%', border:0 });
+  };
 
-    // sécurité: forcer l’affichage du conteneur
-    parentD.style.display = 'block';
-
-    addDotsLoader(parentD);
+  // ----- Initialiser un conteneur (inline widget) -----
+  const initInline = async (host) => {
+    if (!host) return;
+    addDotsLoader(host);
     await loadAssets();
+    host.innerHTML = ''; // nettoyage
+    window.Calendly?.initInlineWidget({ url, parentElement: host });
 
-    // Nettoie et injecte explicitement le widget inline
-    parentD.innerHTML = '';
-    // Méthode A: API officielle
-    window.Calendly?.initInlineWidget({
-      url,
-      parentElement: parentD
-    });
-
-    // Quand l'iframe apparaît, on retire le loader
+    // Retirer le loader dès qu’un iframe apparaît
     const obs = new MutationObserver(() => {
-      if (parentD.querySelector('iframe')) { removeDotsLoader(parentD); obs.disconnect(); }
+      if (host.querySelector('iframe')) {
+        removeDotsLoader(host);
+        forceFullSize(host);
+        obs.disconnect();
+      }
     });
-    obs.observe(parentD, { childList: true });
+    obs.observe(host, { childList: true, subtree: true });
 
-    // Fallback: si rien après 5s, on retente une fois
+    // Fallback : retente une fois si vide après 5s
     setTimeout(() => {
-      if (!parentD.querySelector('iframe')) {
-        parentD.innerHTML = '';
-        addDotsLoader(parentD);
-        window.Calendly?.initInlineWidget({ url, parentElement: parentD });
+      if (!host.querySelector('iframe')) {
+        host.innerHTML = '';
+        addDotsLoader(host);
+        window.Calendly?.initInlineWidget({ url, parentElement: host });
         const obs2 = new MutationObserver(() => {
-          if (parentD.querySelector('iframe')) { removeDotsLoader(parentD); obs2.disconnect(); }
+          if (host.querySelector('iframe')) { removeDotsLoader(host); forceFullSize(host); obs2.disconnect(); }
         });
-        obs2.observe(parentD, { childList: true });
+        obs2.observe(host, { childList: true, subtree: true });
       }
     }, 5000);
   };
 
-  // ---------- popup (mobile & boutons, et aussi OK sur desktop) ----------
+  // ----- Mode inline (desktop) -----
+  const bootInlineDesktop = () => { if (parentD) { parentD.style.display = 'block'; initInline(parentD); } };
+
+  // ----- Mode popup (mobile… et desktop si clic) -----
   const openPopup = async () => {
     if (!modal || !parentM) return;
-    addDotsLoader(parentM);
-    parentM.innerHTML = ''; // clean
-    await loadAssets();
     Modal.open(modal);
-    window.Calendly?.initInlineWidget({ url, parentElement: parentM });
-    const obs = new MutationObserver(() => {
-      if (parentM.querySelector('iframe')) { removeDotsLoader(parentM); obs.disconnect(); }
-    });
-    obs.observe(parentM, { childList: true });
+    initInline(parentM);
   };
 
-  // ---------- bootstrap ----------
-  const boot = async () => {
-    // Inline uniquement sur desktop
-    if (mqDesk.matches) initInlineDesktop();
-
-    // Tous les CTA ouvrent la popup (utile en mobile et OK en desktop)
-    triggers.forEach(btn => btn.addEventListener('click', openPopup, { passive:true }));
+  // ----- Bootstrap -----
+  const boot = () => {
+    if (mqDesk.matches) bootInlineDesktop();          // inline direct sur desktop
+    triggers.forEach(btn => on(btn, 'click', openPopup, { passive:true })); // popup sur action (mobile/desktop)
   };
 
   if (document.readyState === 'loading') {
@@ -537,4 +362,7 @@ const Modal = (() => {
   } else {
     boot();
   }
+
+  // Resize : s’assure que l’iframe garde le plein format
+  on(window, 'resize', () => { forceFullSize(parentD); forceFullSize(parentM); }, { passive:true });
 })();
