@@ -554,3 +554,84 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 
 .stack { display: grid; gap: .6rem; }
 .btn--calendar { font-weight: 800; }
+
+/* ===== Contact v2 — look & ergonomie premium ===== */
+.contact-v2 .section-head { margin-bottom: .8rem; }
+
+.contact-grid { align-items: start; }
+.contact-left { min-width: 0; }
+
+.calendly-card { padding: 0; overflow: hidden; }
+.calendly-head{
+  display:flex; justify-content:space-between; align-items:center; gap:.8rem;
+  padding: .9rem 1rem;
+  border-bottom:1px solid var(--border);
+  background: linear-gradient(180deg,
+              color-mix(in oklab, var(--card) 90%, transparent),
+              color-mix(in oklab, var(--card) 94%, transparent));
+}
+.calendly-title{ display:flex; align-items:center; gap:.6rem; }
+.calendly-title h3{ margin:0; font-size:var(--step-1); line-height:1.2; }
+.calendly-dot{
+  width:.8rem; height:.8rem; border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand) 20%, transparent);
+}
+
+.calendly-switch{ display:flex; gap:.35rem; }
+.chip--seg{
+  padding:.45rem .7rem; border-radius:.7rem;
+  background: color-mix(in oklab, var(--card) 96%, var(--brand) 4%);
+  border:1px solid color-mix(in oklab, var(--border), var(--brand) 8%);
+  font-weight:700; font-size:var(--step--1);
+}
+.chip--seg:hover{ transform:translateY(-1px); }
+.chip--seg.is-active{
+  color:#fff; border-color: transparent;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow: 0 8px 22px color-mix(in oklab, var(--brand) 24%, transparent);
+}
+
+.calendly-inline{ min-height: 660px; display:grid; place-items:center; background:var(--card); }
+.calendly-skeleton{
+  width:100%; padding:1.25rem;
+  border-top:1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 90%, var(--bg));
+}
+.calendly-note{ margin: .6rem 1rem 1rem; }
+
+.contact-cta .cta-title{ margin:0 0 .3rem; font-size:var(--step-1); }
+
+.stack{ display:grid; gap:.65rem; }
+
+/* Boutons mieux hiérarchisés */
+.btn--icon{
+  justify-content: flex-start;
+  padding:.85rem 1rem;
+  font-weight:700;
+}
+.btn__icon{
+  width:2rem; height:2rem; border-radius:.7rem;
+  display:grid; place-items:center;
+  border:1px solid color-mix(in oklab, var(--border), var(--brand) 8%);
+  background: color-mix(in oklab, var(--card) 92%, var(--brand) 8%);
+}
+:root[data-theme="light"] .btn__icon{
+  background: color-mix(in oklab, #fff 90%, var(--brand) 10%);
+}
+.btn--primary{
+  color:#fff; border:0;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow: 0 12px 26px color-mix(in oklab, var(--brand) 30%, transparent);
+}
+.btn--primary:hover{ transform:translateY(-1px); box-shadow:0 16px 32px color-mix(in oklab, var(--brand) 36%, transparent); }
+
+/* Sticky (desktop) pour une ergonomie “2 colonnes” */
+@media (min-width: 992px){
+  .contact-sticky{ position: sticky; top: 88px; }
+}
+
+/* Meilleure respiration mobile */
+@media (max-width: 699px){
+  .calendly-inline{ min-height: 560px; }
+}

@@ -33,7 +33,8 @@ author:
   linkedin: "https://www.linkedin.com/in/martial-bodet/"
   phone: "+33 6 00 00 00 00"          # ← remplace
   calendly_url: "https://calendly.com/bodetmartial/30min" # ← remplace
-
+  calendly_30:  "https://calendly.com/bodetmartial/30min"     # option
+  calendly_15:  "https://calendly.com/bodetmartial/15min"     # option
 
 
 

@@ -1,50 +1,77 @@
-<section id="contact" class="section" aria-labelledby="contact-title">
-  <h2 id="contact-title">Contact</h2>
-  <p class="lead">Parlons de vos flux Talend et de vos tableaux de bord Power BI.</p>
+<section id="contact" class="section contact-v2" aria-labelledby="contact-title">
+  <header class="section-head">
+    <h2 id="contact-title">Contact</h2>
+    <p class="lead">Planifions un créneau pour parler ETL Talend & dashboards Power BI.</p>
+  </header>
 
   <div class="grid cols-2 contact-grid">
-    <!-- Calendly inline -->
-    <div>
-      <div id="calendly-inline"
-           class="card calendly-card"
-           role="region"
-           aria-label="Calendrier de réservation"
-           data-calendly-url="{{ site.author.calendly_url | escape }}">
-        <div class="calendly-skeleton" aria-hidden="true">
-          <p class="muted" style="margin:0">Chargement du calendrier…</p>
+    <!-- Colonne 1 : Calendly -->
+    <div class="contact-left">
+      <div class="card calendly-card" role="region" aria-label="Calendrier de réservation">
+        <div class="calendly-head">
+          <div class="calendly-title">
+            <span class="calendly-dot" aria-hidden="true"></span>
+            <h3>Réserver un créneau</h3>
+          </div>
+
+          <!-- Switch durées (optionnel) -->
+          <div class="calendly-switch" role="tablist" aria-label="Durée du rendez-vous">
+            <button type="button" role="tab" aria-selected="true"
+                    class="chip chip--seg is-active"
+                    data-calendly-url="{{ site.author.calendly_30 | default: site.author.calendly_url | escape }}">
+              30&nbsp;min
+            </button>
+            <button type="button" role="tab" aria-selected="false"
+                    class="chip chip--seg"
+                    data-calendly-url="{{ site.author.calendly_15 | escape }}">
+              15&nbsp;min
+            </button>
+          </div>
         </div>
+
+        <!-- Conteneur inline -->
+        <div id="calendly-inline"
+             class="calendly-inline"
+             data-calendly-url="{{ site.author.calendly_url | escape }}">
+          <div class="calendly-skeleton" aria-hidden="true">
+            <p class="muted" style="margin:0">Chargement du calendrier…</p>
+          </div>
+        </div>
+
+        <p class="note muted calendly-note">
+          Calendrier intégré via Calendly (ressources externes).
+        </p>
       </div>
-      <p class="note muted" style="margin-top:.6rem">
-        Le calendrier est chargé depuis Calendly (ressources externes).
-      </p>
     </div>
 
-    <!-- Liens directs -->
-    <aside class="card contact-cta">
-      <h3>Autres moyens</h3>
-      <p class="lead">Vous préférez échanger rapidement&nbsp;? Choisissez une option :</p>
+    <!-- Colonne 2 : CTA -->
+    <aside class="card contact-cta contact-sticky" aria-label="Autres moyens de contact">
+      <h3 class="cta-title">Autres moyens</h3>
+      <p class="lead">Besoin d’un échange rapide ?</p>
 
-      <div class="stack">
-        <button class="btn btn--icon btn--calendar" data-scroll-calendly>
-          <span class="btn__icon" aria-hidden="true">📅</span> Ouvrir le calendrier
+      <nav class="stack">
+        <button class="btn btn--icon btn--primary" data-scroll-calendly>
+          <span class="btn__icon" aria-hidden="true">📅</span>
+          Ouvrir le calendrier
         </button>
 
-        <a class="btn btn--icon"
-           href="{{ site.author.linkedin | default: 'https://www.linkedin.com/in/tonprofil/' }}"
-           target="_blank" rel="noopener">
-          <span class="btn__icon" aria-hidden="true">💼</span> Mon LinkedIn
+        <a class="btn btn--icon" href="{{ site.author.linkedin }}" target="_blank" rel="noopener">
+          <span class="btn__icon" aria-hidden="true">💼</span>
+          Mon LinkedIn
         </a>
 
         <a class="btn btn--icon" href="mailto:{{ site.author.email }}">
-          <span class="btn__icon" aria-hidden="true">✉️</span> {{ site.author.email }}
+          <span class="btn__icon" aria-hidden="true">✉️</span>
+          {{ site.author.email }}
         </a>
 
         <a class="btn btn--icon" href="tel:{{ site.author.phone | replace: ' ', '' }}">
-          <span class="btn__icon" aria-hidden="true">📞</span> {{ site.author.phone }}
+          <span class="btn__icon" aria-hidden="true">📞</span>
+          {{ site.author.phone }}
         </a>
-      </div>
+      </nav>
 
-      <p class="note">Je réponds généralement sous 24–48h ouvrées.</p>
+      <p class="note muted">Réponse sous 24–48h ouvrées.</p>
     </aside>
   </div>
 </section>

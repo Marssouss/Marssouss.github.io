@@ -322,50 +322,75 @@ const Modal = (() => {
   }, { passive:true });
 })();
 
-/* ============ Calendly inline (lazy loader + scroll) ============ */
+/* ============ Calendly inline v2 (lazy + switch durées) ============ */
 (() => {
   const parent = document.getElementById('calendly-inline');
   if (!parent) return;
 
-  const CALENDLY_URL = parent.dataset.calendlyUrl; // ← injecté depuis _config.yml
-  if (!CALENDLY_URL) {
-    console.warn('Calendly: URL manquante (site.author.calendly_url)');
-    return;
-  }
+  // URL initiale depuis data-*
+  let currentUrl = parent.dataset.calendlyUrl;
 
   let loaded = false;
-  const loadCalendly = () => {
-    if (loaded) return; loaded = true;
-
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://assets.calendly.com/assets/external/widget.css';
-    document.head.appendChild(link);
-
-    const s = document.createElement('script');
-    s.src = 'https://assets.calendly.com/assets/external/widget.js';
-    s.onload = () => {
-      if (window.Calendly) {
-        window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: parent });
-      }
-    };
-    document.body.appendChild(s);
+  const ensureCalendly = (cb) => {
+    if (window.Calendly) return cb();
+    // inject CSS
+    if (!document.querySelector('link[href*="calendly.com/assets/external/widget.css"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://assets.calendly.com/assets/external/widget.css';
+      document.head.appendChild(link);
+    }
+    // inject JS
+    if (!document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
+      const s = document.createElement('script');
+      s.src = 'https://assets.calendly.com/assets/external/widget.js';
+      s.onload = cb;
+      document.body.appendChild(s);
+    } else {
+      const tryReady = () => window.Calendly ? cb() : setTimeout(tryReady, 50);
+      tryReady();
+    }
   };
 
-  // Lazy quand visible
+  const init = (url) => {
+    if (!url) return;
+    ensureCalendly(() => {
+      parent.innerHTML = ''; // reset
+      window.Calendly.initInlineWidget({ url, parentElement: parent });
+    });
+  };
+
+  // Lazy load quand visible
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
-      if (entries.some(e => e.isIntersecting)) { loadCalendly(); io.disconnect(); }
+      if (entries.some(e => e.isIntersecting)) { init(currentUrl); io.disconnect(); }
     }, { rootMargin: '200px' });
     io.observe(parent);
   } else {
-    loadCalendly();
+    init(currentUrl);
   }
 
-  // Bouton “Ouvrir le calendrier” -> scroll
-  const btn = document.querySelector('[data-scroll-calendly]');
-  if (btn) btn.addEventListener('click', () => {
+  // Bouton scroll → calendrier
+  const openBtn = document.querySelector('[data-scroll-calendly]');
+  if (openBtn) openBtn.addEventListener('click', () => {
     parent.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    loadCalendly();
+    init(currentUrl);
   });
+
+  // Switch 15/30 min
+  const tabs = Array.from(document.querySelectorAll('.calendly-switch .chip--seg'));
+  const setActive = (btn) => {
+    tabs.forEach(b => {
+      const active = b === btn;
+      b.classList.toggle('is-active', active);
+      b.setAttribute('aria-selected', String(active));
+    });
+  };
+  tabs.forEach(btn => btn.addEventListener('click', () => {
+    const url = btn.dataset.calendlyUrl;
+    if (!url || url === currentUrl) return;
+    currentUrl = url;
+    setActive(btn);
+    init(currentUrl);
+  }));
 })();
