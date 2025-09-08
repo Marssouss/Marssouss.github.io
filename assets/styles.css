@@ -651,52 +651,41 @@ body.home .brand-logo {
   animation: logo-pulse 3s ease-in-out infinite;
 }
 
-/* ===== Placeholder certification : base ===== */
-.cert-ph{
-  display: block;
-  color: color-mix(in oklab, var(--brand) 58%, var(--brand-2) 42%);
-}
+/* ===== Placeholder certification ===== */
+.cert-ph{ display:block; color: color-mix(in oklab, var(--brand) 58%, var(--brand-2) 42%); }
 
-/* ===== Horloge (pending) — version lisible & discrète ===== */
-.cert-ph--clock{
-  color: color-mix(in oklab, var(--brand) 48%, var(--fg) 12%);
-}
+/* ===== Horloge (pending) — pivot centré + anim douce ===== */
+.cert-ph--clock{ color: color-mix(in oklab, var(--brand) 48%, var(--fg) 12%); }
+.cert-ph--clock .clock-face{ stroke: var(--brand-2); opacity:.95; }
 
-/* Cadran */
-.cert-ph--clock .clock-face{
-  stroke: var(--brand-2);     /* vert, bien visible */
-  opacity: .9;
-}
-
-/* Aiguilles */
+/* 🔧 centre de rotation = centre du viewBox (28,28) */
 .cert-ph--clock .clock-h,
-.cert-ph--clock .clock-m{
-  stroke: var(--fg);
-  /* centrer la rotation pour tous moteurs SVG */
+.cert-ph--clock .clock-m,
+.cert-ph--clock .clock-ring{
+  transform-box: view-box;   /* clé pour SVG */
   transform-origin: 28px 28px;
-  transform-box: fill-box;
+  will-change: transform;
 }
 
-/* Animations des aiguilles (subtiles) */
-.cert-ph--clock .clock-h{ animation: abm-clock-hour 36s linear infinite; }
-.cert-ph--clock .clock-m{ animation: abm-clock-minute 12s linear infinite; }
+/* Aiguilles (rotations lentes) */
+.cert-ph--clock .clock-h{ stroke: var(--fg); animation: abm-hour 36s linear infinite; }
+.cert-ph--clock .clock-m{ stroke: var(--fg); animation: abm-min  12s linear infinite; }
 
-/* Anneau externe — simple rotation (PAS de dashoffset) */
+/* Anneau externe — rotation simple (pas de dasharray/dashoffset) */
 .cert-ph--clock .clock-ring{
   stroke: var(--brand);
-  transform-origin: 28px 28px;
-  transform-box: fill-box;
-  animation: abm-clock-spin 8s linear infinite;
+  opacity:.85;
+  animation: abm-ring 10s linear infinite;
 }
 
 /* Keyframes uniques */
-@keyframes abm-clock-hour   { to { transform: rotate(360deg); } }
-@keyframes abm-clock-minute { to { transform: rotate(360deg); } }
-@keyframes abm-clock-spin   { to { transform: rotate(360deg); } }
+@keyframes abm-hour { to { transform: rotate(360deg); } }
+@keyframes abm-min  { to { transform: rotate(360deg); } }
+@keyframes abm-ring { to { transform: rotate(360deg); } }
 
-/* Accessibilité : couper les anims si demandé */
+/* Accessibilité */
 @media (prefers-reduced-motion: reduce){
-  .cert-ph--clock .clock-ring,
+  .cert-ph--clock .clock-h,
   .cert-ph--clock .clock-m,
-  .cert-ph--clock .clock-h { animation: none !important; }
+  .cert-ph--clock .clock-ring{ animation: none !important; }
 }
