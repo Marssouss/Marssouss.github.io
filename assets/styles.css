@@ -722,3 +722,44 @@ body.home .brand-logo {
   .cert-ph--clock .clock-m,
   .cert-ph--clock .clock-h { animation: none !important; }
 }
+
+
+/* ================== Horloge placeholder (certifications en cours) ================== */
+.cert-ph--clock .clock-face {
+  stroke: var(--brand-2); /* vert plus visible */
+  opacity: .9;
+}
+
+.cert-ph--clock .clock-h,
+.cert-ph--clock .clock-m {
+  stroke: var(--fg);
+  transform-origin: 28px 28px; /* centre */
+}
+
+/* Animation des aiguilles */
+.cert-ph--clock .clock-h {
+  animation: rotate-hour 12s linear infinite;
+}
+.cert-ph--clock .clock-m {
+  animation: rotate-minute 4s linear infinite;
+}
+
+/* Anneau externe en rotation douce */
+.cert-ph--clock .clock-ring {
+  stroke: var(--brand);
+  animation: spin-ring 6s linear infinite;
+}
+
+/* Keyframes */
+@keyframes rotate-hour {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes rotate-minute {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes spin-ring {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
