@@ -3,14 +3,12 @@
   <div class="container navbar">
     <!-- Marque -->
     <a class="brand" href="{{ '/' | relative_url }}">
-      <img src="{{ '/assets/img/logo_32.png' | relative_url }}" 
-           alt="{{ site.author.enterprise }} logo" 
+      <img src="{{ '/assets/img/logo_64.png' | relative_url }}" 
+           alt="Logo {{ site.author.enterprise }}" 
            class="brand-logo">
-      <span class="dot"></span>
-      {{ site.author.enterprise }}
     </a>
 
-    <!-- Nav desktop INSÉRÉE dans la même ligne -->
+    <!-- Nav desktop -->
     <nav class="nav-desktop" aria-label="Navigation principale">
       <ul class="nav-inline">
         <li><a class="chip" href="{{ '/#services' | relative_url }}">Services</a></li>
@@ -21,9 +19,9 @@
       </ul>
     </nav>
 
-    <!-- Actions à droite (même ligne) -->
+    <!-- Actions à droite -->
     <div class="nav-actions">
-      <!-- Thème toujours visible -->
+      <!-- Thème -->
       <button class="theme-toggle" aria-label="Basculer le thème" aria-pressed="false">
         <span class="tt-icon">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
