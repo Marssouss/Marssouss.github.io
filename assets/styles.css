@@ -443,3 +443,35 @@ body.home .brand-logo{ animation: logo-pulse 3s ease-in-out infinite; }
 /* Par sécurité, coupe tout débordement horizontal global */
 html, body{ overflow-x: clip; }
 img, svg, video{ max-width: 100%; height: auto; display: block; }
+
+
+/* Séparateur sous Calendly — propre et sans artefact */
+.soft-sep{
+  display:block;
+  width:100%;
+  height:1px;              /* ligne fine */
+  border:0;
+  margin:.25rem 0 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--fg) 12%, transparent) 25%,
+    color-mix(in oklab, var(--fg) 18%, transparent) 50%,
+    color-mix(in oklab, var(--fg) 12%, transparent) 75%,
+    transparent 100%
+  );
+}
+.soft-sep::before,
+.soft-sep::after{ content:none !important; }   /* tue tout pseudo-élément résiduel */
+
+/* Contact row: flèche à droite, texte flexible */
+.contact-item{ display:flex; align-items:center; gap:.75rem; }
+.ci-body{ flex:1 1 auto; min-width:0; }   /* prend l’espace central */
+.ci-cta{
+  margin-left:auto;                        /* pousse totalement à droite */
+  font-weight:800;
+  opacity:.7;
+}
+
+.calendly-card, .contact-inline { overflow-x: clip; }
+.contact-list { list-style: none; padding-left: 0; }  /* déjà présent, on réaffirme */
