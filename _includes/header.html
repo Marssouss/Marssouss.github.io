@@ -2,7 +2,13 @@
 <header class="site-header" role="banner">
   <div class="container navbar">
     <!-- Marque -->
-    <a class="brand" href="{{ '/' | relative_url }}"><span class="dot"></span> {{ site.author.enterprise }}</a>
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <img src="{{ '/assets/img/logo.png' | relative_url }}" 
+           alt="{{ site.author.enterprise }} logo" 
+           class="brand-logo">
+      <span class="dot"></span>
+      {{ site.author.enterprise }}
+    </a>
 
     <!-- Nav desktop INSÉRÉE dans la même ligne -->
     <nav class="nav-desktop" aria-label="Navigation principale">
@@ -18,26 +24,23 @@
     <!-- Actions à droite (même ligne) -->
     <div class="nav-actions">
       <!-- Thème toujours visible -->
-<button class="theme-toggle" aria-label="Basculer le thème" aria-pressed="false">
-  <span class="tt-icon">
-    <!-- Soleil (sun) — silhouette moderne, viewBox équilibré -->
-    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-      <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <path d="M12 2v2.5M12 19.5V22M4.22 4.22l1.77 1.77M18.01 18.01l1.77 1.77M2 12h2.5M19.5 12H22M4.22 19.78l1.77-1.77M18.01 6.99l1.77-1.77"/>
-      </g>
-    </svg>
-    <!-- Lune (moon) — croissant épuré -->
-    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M21 12.5A9 9 0 1 1 11.5 3a7.5 7.5 0 0 0 9.5 9.5Z"
-            stroke="currentColor" stroke-width="2" fill="none" />
-    </svg>
-  </span>
-  <span class="tt-label">Light</span>
-</button>
+      <button class="theme-toggle" aria-label="Basculer le thème" aria-pressed="false">
+        <span class="tt-icon">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+            <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M12 2v2.5M12 19.5V22M4.22 4.22l1.77 1.77M18.01 18.01l1.77 1.77M2 12h2.5M19.5 12H22M4.22 19.78l1.77-1.77M18.01 6.99l1.77-1.77"/>
+            </g>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 12.5A9 9 0 1 1 11.5 3a7.5 7.5 0 0 0 9.5 9.5Z"
+                  stroke="currentColor" stroke-width="2" fill="none" />
+          </svg>
+        </span>
+        <span class="tt-label">Light</span>
+      </button>
 
-
-      <!-- Toggle mobile (caché en desktop) -->
+      <!-- Toggle mobile -->
       <button class="nav-toggle" aria-controls="nav-collapsible" aria-expanded="false" aria-label="Afficher le menu">
         <span>Menu</span>
         <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -47,7 +50,7 @@
     </div>
   </div>
 
-  <!-- Menu mobile qui déroule sous la barre -->
+  <!-- Menu mobile -->
   <nav id="nav-collapsible" class="nav-collapsible" aria-label="Navigation mobile">
     <ul class="nav-list">
       <li><a href="{{ '/#services' | relative_url }}">Services</a></li>
