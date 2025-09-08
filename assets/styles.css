@@ -611,7 +611,25 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 
 
 .brand-logo {
-  height: 64px;   /* ajuste selon la taille du header */
+  height: 40px;     /* Mobile */
   width: auto;
   display: block;
+  object-fit: contain;
+  transition: transform .25s ease, filter .25s ease;
+}
+
+/* Tablette */
+@media (min-width: 600px) {
+  .brand-logo { height: 44px; }
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+  .brand-logo { height: 56px; }
+}
+
+/* Effet au survol */
+.brand:hover .brand-logo {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--brand) 60%, transparent));
 }
