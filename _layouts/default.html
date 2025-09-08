@@ -3,11 +3,12 @@
 <head>
   {% include head.html %}
 </head>
-<body>
+<body class="{% if page.url == '/' or page.url == '/index.html' %}home{% endif %}">
   {% include header.html %}
   <main id="main" tabindex="-1">
     {{ content }}
   </main>
   {% include footer.html %}
 </body>
+
 </html>

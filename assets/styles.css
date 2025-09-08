@@ -633,3 +633,20 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   transform: scale(1.08);
   filter: drop-shadow(0 0 6px color-mix(in oklab, var(--brand) 60%, transparent));
 }
+
+/* Animation respiration (pulse glow) */
+@keyframes logo-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 color-mix(in oklab, var(--brand) 0%, transparent));
+  }
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px color-mix(in oklab, var(--brand) 60%, transparent));
+  }
+}
+
+/* Active l’effet uniquement sur la page d’accueil */
+body.home .brand-logo {
+  animation: logo-pulse 3s ease-in-out infinite;
+}
