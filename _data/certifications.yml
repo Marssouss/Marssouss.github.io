@@ -16,7 +16,7 @@
   status: pending
   #verify_url: "https://learn.microsoft.com/xxxx"
   badge_url: "https://learn.microsoft.com/badges/xxxx"
-  logo: "/assets/img/certs/ms.png"
+  logo: ""
   skills: [DAX, Modélisation, Power Query]
   note: "Modèles étoile, DAX avancé, gouvernance Power BI."
 
@@ -25,5 +25,5 @@
   issuer: Microsoft
   status: pending
   planned_date: 2025-12-01
-  logo: "/assets/img/certs/microsoft-fabric.png"
+  logo: ""
   skills: [Microsoft Fabric,Power BI,Data Engineering,DAX]
