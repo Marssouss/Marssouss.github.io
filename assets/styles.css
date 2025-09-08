@@ -413,3 +413,33 @@ body.home .brand-logo{ animation: logo-pulse 3s ease-in-out infinite; }
   .cert-card{ grid-template-columns:52px 1fr; }
   .cert-badge{ width:52px; height:52px; }
 }
+
+/* ===== Fix scroll horizontal mobile (navbar) ===== */
+@media (max-width: 599px){
+  /* Empêche tout débordement visuel du header */
+  .site-header,
+  .navbar{ overflow: clip; max-width: 100vw; }
+
+  /* Le bloc marque peut rétrécir au lieu de pousser hors écran */
+  .brand{
+    flex: 1 1 auto;     /* ← autorise la réduction */
+    min-width: 0;       /* ← très important pour éviter l’overflow des flex-items */
+  }
+
+  /* Le logo ne peut pas dépasser ~la moitié de l’écran */
+  .brand-logo{
+    height: 36px;       /* un peu plus compact sur mobile */
+    max-width: 48vw;    /* ← borne la largeur intrinsèque */
+  }
+
+  /* Les actions à droite ne grossissent pas et ne poussent pas la ligne */
+  .nav-actions{ flex: 0 0 auto; }
+
+  /* Boutons compacts */
+  .theme-toggle,
+  .nav-toggle{ max-width: 44vw; }
+}
+
+/* Par sécurité, coupe tout débordement horizontal global */
+html, body{ overflow-x: clip; }
+img, svg, video{ max-width: 100%; height: auto; display: block; }
