@@ -650,3 +650,7 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 body.home .brand-logo {
   animation: logo-pulse 3s ease-in-out infinite;
 }
+
+/* Placeholder de certification (SVG) */
+.cert-ph { display:block; color: color-mix(in oklab, var(--brand) 60%, var(--brand-2) 40%); }
+.cert-ph--pending { color: color-mix(in oklab, var(--brand) 40%, var(--fg) 20%); }

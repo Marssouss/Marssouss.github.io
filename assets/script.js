@@ -458,3 +458,27 @@ const Modal = (() => {
     }, { passive:false });
   });
 })();
+
+
+// Fallback si un logo casse
+(() => {
+  document.querySelectorAll('.cert-logo').forEach(img => {
+    img.addEventListener('error', () => {
+      const wrap = img.closest('.cert-badge');
+      if (!wrap) return;
+      wrap.innerHTML = `
+        <svg class="cert-ph" width="56" height="56" viewBox="0 0 56 56" aria-hidden="true">
+          <defs>
+            <linearGradient id="gradABM" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="currentColor" stop-opacity=".25"/>
+              <stop offset="1" stop-color="currentColor" stop-opacity=".55"/>
+            </linearGradient>
+          </defs>
+          <rect x="0.5" y="0.5" width="55" height="55" rx="12" fill="url(#gradABM)" stroke="currentColor" opacity=".5"/>
+          <g transform="translate(0,1)">
+            <path d="M20 28h16M28 20v16" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+          </g>
+        </svg>`;
+    }, { once: true });
+  });
+})();
