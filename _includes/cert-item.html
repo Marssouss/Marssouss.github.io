@@ -55,7 +55,45 @@
   <!-- Statut + date alignés avec le logo -->
   <div class="cert-statusline">
     <span class="cert-chip {% if c.status == 'pending' %}chip-pending{% else %}chip-ok{% endif %}">
-      {% if c.status == 'pending' %}En cours{% else %}Certifié{% endif %}
+{% if c.status == 'pending' %}
+  <!-- Placeholder HORLOGE (en cours) -->
+  <svg class="cert-ph cert-ph--clock" width="56" height="56" viewBox="0 0 56 56" aria-hidden="true">
+    <!-- Fond arrondi dégradé -->
+    <defs>
+      <linearGradient id="certClockBg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="currentColor" stop-opacity=".20"/>
+        <stop offset="1" stop-color="currentColor" stop-opacity=".45"/>
+      </linearGradient>
+    </defs>
+    <rect x="0.5" y="0.5" width="55" height="55" rx="12" fill="url(#certClockBg)" stroke="currentColor" opacity=".55"/>
+    <!-- Cercle horloge -->
+    <circle class="clock-face" cx="28" cy="28" r="12" fill="none" stroke="currentColor" stroke-width="2.5" opacity=".85"/>
+    <!-- Aiguille heure + minute -->
+    <path class="clock-h" d="M28 28 L28 22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".95"/>
+    <path class="clock-m" d="M28 28 L33 28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".95"/>
+    <!-- Anneau de progression animé -->
+    <circle class="clock-ring" cx="28" cy="28" r="14.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".6"/>
+  </svg>
+{% else %}
+  <!-- Placeholder initiales si validée mais sans logo -->
+  <svg class="cert-ph" width="56" height="56" viewBox="0 0 56 56" aria-hidden="true">
+    <defs>
+      <linearGradient id="gradABM" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="currentColor" stop-opacity=".25"/>
+        <stop offset="1" stop-color="currentColor" stop-opacity=".55"/>
+      </linearGradient>
+    </defs>
+    <rect x="0.5" y="0.5" width="55" height="55" rx="12" fill="url(#gradABM)" stroke="currentColor" opacity=".5"/>
+    <text x="50%" y="54%" text-anchor="middle" font-size="20" font-weight="700" fill="currentColor" opacity=".95"
+          font-family="system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial">
+      {%- capture initials -%}
+        {%- assign words = (c.issuer | default: c.title) | split:' ' -%}
+        {%- for w in words -%}{{ w | slice:0,1 | upcase }}{%- endfor -%}
+      {%- endcapture -%}
+      {{ initials | strip | slice:0,2 }}
+    </text>
+  </svg>
+{% endif %}
     </span>
     {% if c.status == 'pending' and c.planned_date %}
       <time class="cert-date" datetime="{{ c.planned_date | date: "%Y-%m-%d" }}">

@@ -654,3 +654,37 @@ body.home .brand-logo {
 /* Placeholder de certification (SVG) */
 .cert-ph { display:block; color: color-mix(in oklab, var(--brand) 60%, var(--brand-2) 40%); }
 .cert-ph--pending { color: color-mix(in oklab, var(--brand) 40%, var(--fg) 20%); }
+
+
+/* Placeholder générique */
+.cert-ph{ display:block; color: color-mix(in oklab, var(--brand) 58%, var(--brand-2) 42%); }
+
+/* Horloge (pending) – lisible + progression animée */
+.cert-ph--clock{ color: color-mix(in oklab, var(--brand) 48%, var(--fg) 12%); }
+.cert-ph--clock .clock-ring{
+  /* longueur approx. du cercle r=14.5 → ~91 px * 2π ≈ 91 * 3.1416 = 287 (arrondi) */
+  stroke-dasharray: 287;
+  stroke-dashoffset: 215;            /* point de départ */
+  animation: cert-clock-sweep 3.2s ease-in-out infinite;
+}
+.cert-ph--clock .clock-m{ transform-origin:28px 28px; animation: cert-clock-minute 6s linear infinite; }
+.cert-ph--clock .clock-h{ transform-origin:28px 28px; animation: cert-clock-hour 18s linear infinite; }
+
+@keyframes cert-clock-sweep{
+  0%   { stroke-dashoffset: 260; opacity:.45 }
+  50%  { stroke-dashoffset: 80;  opacity:.9  }
+  100% { stroke-dashoffset: 260; opacity:.45 }
+}
+@keyframes cert-clock-minute{
+  to { transform: rotate(360deg); }
+}
+@keyframes cert-clock-hour{
+  to { transform: rotate(120deg); } /* plus lent */
+}
+
+/* Accessibilité : pas d’animation si l’utilisateur la réduit */
+@media (prefers-reduced-motion: reduce){
+  .cert-ph--clock .clock-ring,
+  .cert-ph--clock .clock-m,
+  .cert-ph--clock .clock-h { animation: none !important; }
+}
