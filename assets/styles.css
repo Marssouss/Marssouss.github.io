@@ -611,7 +611,7 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 
 
 .brand-logo {
-  height: 32px;   /* ajuste selon la taille du header */
+  height: 64px;   /* ajuste selon la taille du header */
   width: auto;
   display: block;
 }
