@@ -688,3 +688,37 @@ body.home .brand-logo {
   .cert-ph--clock .clock-m,
   .cert-ph--clock .clock-h { animation: none !important; }
 }
+
+/* ====== Certif "en cours" : horloge animée (subtile) ====== */
+.cert-ph--clock{ color: color-mix(in oklab, var(--brand) 48%, var(--fg) 12%); }
+.cert-ph--clock .clock-ring{
+  /* périmètre ~ 2πr ≈ 91.1*3.1416 ≈ 286.5 */
+  stroke-dasharray: 286.5;
+  stroke-dashoffset: 230;
+  animation: cert-clock-sweep 4.2s ease-in-out infinite;
+}
+.cert-ph--clock .clock-m{
+  transform-origin: 28px 28px;
+  animation: cert-clock-minute 12s linear infinite;   /* rotation très douce */
+  opacity: .95;
+}
+.cert-ph--clock .clock-h{
+  transform-origin: 28px 28px;
+  animation: cert-clock-hour 36s linear infinite;     /* encore plus lent */
+  opacity: .95;
+}
+
+@keyframes cert-clock-sweep{
+  0%   { stroke-dashoffset: 250; opacity:.45 }
+  50%  { stroke-dashoffset: 90;  opacity:.85 }
+  100% { stroke-dashoffset: 250; opacity:.45 }
+}
+@keyframes cert-clock-minute{ to { transform: rotate(360deg); } }
+@keyframes cert-clock-hour  { to { transform: rotate(120deg);  } }
+
+/* Accessibilité : désactive si l’utilisateur préfère moins d’animations */
+@media (prefers-reduced-motion: reduce){
+  .cert-ph--clock .clock-ring,
+  .cert-ph--clock .clock-m,
+  .cert-ph--clock .clock-h { animation: none !important; }
+}
