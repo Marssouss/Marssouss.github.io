@@ -1,17 +1,16 @@
 /* ===========================================================================
    ABM — CSS unifié (premium, moderne, mobile-first)
-   1) TOKENS (dark/light, surfaces, typo, rayons, ombres)
-   2) BASE & UTILITAIRES (reset, layout, grille, helpers)
-   3) HEADER & NAV (verre dépoli, thème, responsive)
-   4) COMPOSANTS (cards, boutons, chips, pills)
-   5) SECTIONS (Hero, Méthodes, Certifications)
-   6) CONTACT v2 (Calendly inline + popup, contacts)
-   7) FOOTER & MODAL
-   8) MOTION & A11Y
-   9) BREAKPOINTS
+   SEO TECH: structure claire, stabilité visuelle (CLS), focus visibles,
+   liens soulignés (CTR), a11y renforcée → meilleur crawl & UX.
    =========================================================================== */
 
-/* ========================= 1) TOKENS ========================= */
+/* ========================= 0) RESET MINIMAL ========================= */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { margin: 0; overflow-x: clip; }     /* stop scroll horizontal mobile */
+img, svg, video { max-width: 100%; height: auto; display: block; }
+
+/* ========================= 1) TOKENS / THEME ========================= */
 :root{
   /* Palette DARK */
   --bg:#070b18;
@@ -21,12 +20,12 @@
   --brand-2:#22c55e;
 
   /* Surfaces & relief (dark) */
-  --surface-0:#070b18; /* page */
-  --surface-1:#0e1428; /* card */
-  --surface-2:color-mix(in oklab, var(--surface-1) 90%, #000 10%); /* hover/active */
+  --surface-0:#070b18;
+  --surface-1:#0e1428;
+  --surface-2:color-mix(in oklab, var(--surface-1) 90%, #000 10%);
   --border:#1a2540;
 
-  /* Ombres (échelons) */
+  /* Ombres */
   --shadow-sm: 0 6px 18px rgba(2,6,23,.28);
   --shadow-md: 0 12px 28px rgba(2,6,23,.35);
   --shadow-lg: 0 16px 32px rgba(2,6,23,.45);
@@ -47,7 +46,7 @@
   --step-3:  clamp(1.8rem, 1.5rem + 1.6vw, 2.4rem);
   --step-4:  clamp(2.2rem, 1.9rem + 2.2vw, 3rem);
 
-  /* Dégradé marque */
+  /* Dégradé */
   --g-brand: linear-gradient(135deg, var(--brand), var(--brand-2));
 
   /* Pills */
@@ -60,65 +59,59 @@
   /* Toggle thème */
   --icon-size:1.2rem;
   --sun-nudge-y:-1px;
+
+  /* Liens */
+  --link-underline: underline;
+  --link-offset: 2px;
 }
 
-/* Thème LIGHT — relief + contraste maîtrisé */
 :root[data-theme="light"]{
-  --bg:#eef1f6;
-  --fg:#0b1324;
-  --muted:#5e6a80;
-
-  /* Surfaces (plus “papier” que blanc pur) */
+  --bg:#eef1f6; --fg:#0b1324; --muted:#5e6a80;
   --surface-0: color-mix(in oklab, #ffffff 86%, #dfe7f3 14%);
   --surface-1: color-mix(in oklab, #ffffff 95%, #dfe7f3 5%);
   --surface-2: color-mix(in oklab, #ffffff 90%, var(--brand) 10%);
   --border:#d9e1ee;
-
-  /* Ombres (soft) */
   --shadow-sm: 0 6px 18px rgba(15,23,42,.08);
   --shadow-md: 0 12px 26px rgba(15,23,42,.12);
   --shadow-lg: 0 16px 34px rgba(15,23,42,.16);
-
-  /* Pills */
   --pill-talend:  color-mix(in oklab, var(--brand)   90%, #fff 10%);
   --pill-powerbi: color-mix(in oklab, var(--brand-2) 90%, #fff 10%);
 }
-
-/* Suivre le système si data-theme absent */
 @media (prefers-color-scheme: light){
   :root:not([data-theme]){ color-scheme: light; }
 }
 
-/* ======================= 2) BASE & UTILITAIRES ======================= */
-*{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; }
-html,body{ overflow-x: clip; }          /* ← stop scroll horizontal mobile */
+/* ========================= 2) BASE / TYPO / ACCESS ========================= */
 body{
-  margin:0;
   font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji";
   background:var(--surface-0); color:var(--fg); text-rendering:optimizeLegibility;
 }
-img,svg,video{ max-width:100%; height:auto; } /* évite les débords */
 main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 1rem; }
-.section{ padding-block: clamp(1.8rem,3.2vw,3rem); }
+.section{ padding-block: clamp(1.8rem,3.2vw,3rem); content-visibility:auto; contain-intrinsic-size: 0 600px; } /* perf paint */
 .section h2{ font-size:var(--step-2); line-height:1.2; margin:0 0 .75rem; }
 .lead{ font-size:var(--step-0); color:var(--muted); max-width:70ch; }
 
-.muted{ color:var(--muted); }
-.hidden{ display:none !important; }
+/* Liens (SEO/CTR) */
+a{ color:inherit; text-underline-offset: var(--link-offset); text-decoration: var(--link-underline); }
+a:hover{ filter: brightness(1.08); }
+a:where(:focus-visible){ outline: 3px solid color-mix(in oklab, var(--brand) 45%, transparent); outline-offset: 2px; border-radius:.25rem; }
+
+/* Sr-only & helpers */
 .sr-only{
   position:absolute !important; width:1px;height:1px; padding:0;margin:-1px;overflow:hidden;
   clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
+.muted{ color:var(--muted); }
+.hidden{ display:none !important; }
 
-/* Grid utilitaires (mobile-first) */
+/* ========================= 3) LAYOUT / GRID ========================= */
 .grid{ display:grid; gap: clamp(1.1rem,2.8vw,1.7rem); }
 .grid.cols-2{ grid-template-columns:1fr; }
 .grid.cols-3{ grid-template-columns:1fr; }
 @media (min-width:700px){  .grid.cols-2{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (min-width:1100px){ .grid.cols-3{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
 
-/* ==================== 3) HEADER & NAV ==================== */
+/* ==================== 4) HEADER & NAV ==================== */
 .site-header{
   position:sticky; top:0; z-index:60;
   border-bottom:1px solid var(--border);
@@ -137,15 +130,14 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 
 /* Toggle thème */
 .theme-toggle{
-  position: relative;
-  display:inline-flex; align-items:center; gap:.55rem;
+  position: relative; display:inline-flex; align-items:center; gap:.55rem;
   height:40px; padding:.45rem .9rem .45rem calc(.7rem + var(--icon-size) + .5rem);
   border:1px solid var(--border); border-radius:12px;
   background:var(--surface-1); color:var(--fg); cursor:pointer;
   transition: background .18s, border-color .18s, transform .18s, box-shadow .18s;
   box-shadow: var(--shadow-sm);
 }
-.theme-toggle:hover{ background: color-mix(in oklab, var(--fg) 6%, var(--surface-1)); box-shadow: var(--shadow-md); }
+.theme-toggle:hover{ background: color-mix(in oklab, var(--fg) 6%, var(--surface-1)); box-shadow:var(--shadow-md); }
 .theme-toggle:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab, var(--brand) 45%, transparent); }
 .theme-toggle .tt-icon{ position:absolute; left:.7rem; top:50%; transform:translateY(-50%); width:var(--icon-size); height:var(--icon-size); display:grid; place-items:center; line-height:0; }
 .icon-sun,.icon-moon{ position:absolute; inset:0; display:grid; place-items:center; transform-origin:50% 50%; transition:opacity .28s ease, transform .38s ease; }
@@ -199,8 +191,7 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
   transform:translateY(-1px); box-shadow:0 16px 30px color-mix(in oklab, var(--brand) 36%, transparent);
 }
 
-/* ======================== 4) COMPOSANTS ======================== */
-/* Élévation & hover uniformes */
+/* ======================== 5) COMPOSANTS ======================== */
 .card, .btn, .chip, .contact-item, .ci-copy-btn{
   transition:transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease, color .18s ease;
   box-shadow: var(--shadow-sm);
@@ -238,11 +229,10 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 .pill--powerbi{ background:var(--pill-powerbi); color:var(--pill-fg); border:1px solid var(--pill-border-powerbi); }
 .pill--talend:is(:hover,:focus-visible), .pill--powerbi:is(:hover,:focus-visible){ filter:brightness(1.06); outline:none; box-shadow:0 0 0 3px color-mix(in oklab, currentColor 28%, transparent); }
 
-/* ========================== 5) SECTIONS ========================== */
+/* ========================== 6) SECTIONS ========================== */
 /* HERO */
 .hero{ display:grid; grid-template-columns:1fr; gap:clamp(1rem,2vw,1.5rem); align-items:center; }
 .hero .actions{ display:flex; gap:.7rem; margin-top:1rem; flex-wrap:wrap; }
-.hero img{ max-width:100%; border-radius:var(--radius-3); border:1px solid var(--border); }
 .hero__img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:var(--radius-3); border:1px solid var(--border); }
 .hero__viz{ width:100%; aspect-ratio:16/9; border-radius:var(--radius-3); border:1px solid var(--border); background:var(--surface-1); background-image:var(--hero-image); background-size:cover; background-position:50% 50%; box-shadow:var(--shadow-lg); }
 @media (min-width:900px){ .hero{ grid-template-columns:1.25fr .85fr; } }
@@ -308,11 +298,10 @@ main{ max-width:var(--container); margin:auto; padding:clamp(1.2rem,1.5vw,2rem) 
 @media (min-width:900px){ .certs-dots{ display:none; } }
 
 /* ===== Brand logo (header) ===== */
-.brand-logo{ height:40px; width:auto; display:block; object-fit:contain; transition: transform .25s ease, filter .25s ease; }
+.brand-logo{ height:40px; width:auto; object-fit:contain; transition: transform .25s ease, filter .25s ease; }
 @media (min-width:600px){ .brand-logo{ height:44px; } }
 @media (min-width:992px){ .brand-logo{ height:56px; } }
 .brand:hover .brand-logo{ transform: scale(1.08); filter: drop-shadow(0 0 6px color-mix(in oklab, var(--brand) 60%, transparent)); }
-/* Pulse douce sur la home */
 @keyframes logo-pulse{ 0%,100%{ transform:scale(1); filter:drop-shadow(0 0 0 color-mix(in oklab,var(--brand) 0%, transparent)); } 50%{ transform:scale(1.05); filter:drop-shadow(0 0 10px color-mix(in oklab,var(--brand) 60%, transparent)); } }
 body.home .brand-logo{ animation: logo-pulse 3s ease-in-out infinite; }
 
@@ -320,9 +309,7 @@ body.home .brand-logo{ animation: logo-pulse 3s ease-in-out infinite; }
 .cert-ph{ display:block; color: color-mix(in oklab, var(--brand) 58%, var(--brand-2) 42%); }
 .cert-ph--clock{ color: color-mix(in oklab, var(--brand) 48%, var(--fg) 12%); }
 .cert-ph--clock .clock-face{ stroke: var(--brand-2); opacity:.95; }
-/* pivot centré au viewBox */
 .cert-ph--clock .clock-h, .cert-ph--clock .clock-m, .cert-ph--clock .clock-ring{ transform-box: view-box; transform-origin: 28px 28px; will-change: transform; }
-/* aiguilles & anneau (subtil) */
 .cert-ph--clock .clock-h{ stroke: var(--fg); animation: abm-hour 36s linear infinite; }
 .cert-ph--clock .clock-m{ stroke: var(--fg); animation: abm-min  12s linear infinite; }
 .cert-ph--clock .clock-ring{ stroke: var(--brand); opacity:.85; animation: abm-ring 10s linear infinite; }
@@ -330,7 +317,7 @@ body.home .brand-logo{ animation: logo-pulse 3s ease-in-out infinite; }
 @keyframes abm-min { to{ transform: rotate(360deg); } }
 @keyframes abm-ring{ to{ transform: rotate(360deg); } }
 
-/* ========================== 6) CONTACT v2 ========================== */
+/* ========================== 7) CONTACT v2 ========================== */
 .contact-v2 .section-head{ margin-bottom:.8rem; }
 .contact-grid{ display:grid; gap:1rem; align-items:start; }
 .contact-left{ min-width:0; }
@@ -371,27 +358,25 @@ body.home .brand-logo{ animation: logo-pulse 3s ease-in-out infinite; }
 .contact-inline{ text-align:left; display:grid; gap:1rem; padding: 1rem 1.25rem 1.25rem; }
 .contact-list{ list-style:none; margin:0; padding:0; display:grid; gap:.8rem; }
 .contact-row{ display:flex; align-items:center; justify-content:flex-start; gap:.5rem; }
-
-.contact-item{ flex:1; display:flex; align-items:center; justify-content:flex-start; gap:.6rem; text-decoration:none; color:var(--fg); padding:.9rem 1rem; border:1px solid var(--border); border-radius:1rem; background: color-mix(in oklab, var(--surface-1) 98%, var(--brand) 2%); }
+.contact-item{ flex:1; display:flex; align-items:center; gap:.75rem; text-decoration:none; color:var(--fg); padding:.9rem 1rem; border:1px solid var(--border); border-radius:1rem; background: color-mix(in oklab, var(--surface-1) 98%, var(--brand) 2%); }
 .contact-item:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border), var(--brand) 28%); background: color-mix(in oklab, var(--surface-1) 94%, var(--brand) 6%); box-shadow: var(--shadow-md); }
 .ci-icon{ width:40px; height:40px; border-radius:.9rem; display:grid; place-items:center; background: var(--g-brand); color:#fff; box-shadow: 0 2px 6px rgba(0,0,0,.25); font-size:1.05rem; }
-.ci-body{ display:flex; flex-direction:column; align-items:flex-start; gap:.1rem; min-width:0; }
+.ci-body{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:.1rem; }
 .ci-body strong{ font-weight:800; color:var(--fg); line-height:1.2; }
 .ci-body small{ color:var(--muted); line-height:1.2; }
-.ci-cta{ font-weight:800; opacity:.7; }
-
+.ci-cta{ margin-left:auto; font-weight:800; opacity:.7; }
 .ci-copy-btn{ width:40px; height:40px; display:grid; place-items:center; border-radius:.9rem; border:1px solid var(--border); background: color-mix(in oklab, var(--surface-1) 96%, var(--fg) 4%); color: var(--muted); cursor:pointer; }
 .ci-copy-btn:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border), var(--brand) 26%); background: color-mix(in oklab, var(--surface-1) 90%, var(--brand) 10%); color:#fff; box-shadow: var(--shadow-md); }
 .ci-copy-btn.is-copied{ background: var(--g-brand); color:#fff; border-color: transparent; box-shadow: 0 8px 22px color-mix(in oklab, var(--brand) 24%, transparent); }
 
-/* ======================== 7) FOOTER & MODAL ======================== */
+/* ======================== 8) FOOTER & MODAL ======================== */
 .site-footer{ border-top:1px solid var(--border); padding:clamp(1.4rem,2vw,2rem) 1rem; text-align:center; color:var(--muted); }
 .modal{ position:fixed; inset:0; background:color-mix(in oklab,#000 60%,transparent); display:grid; place-items:center; padding:1rem; }
 .modal[hidden]{ display:none; }
 .modal__dialog{ background:var(--surface-0); border:1px solid var(--border); border-radius:var(--radius-3); width:min(900px,100%); max-width:min(900px,96vw); height:min(80vh,700px); max-height:90vh; padding:0; overflow:hidden; position:relative; box-shadow:var(--shadow-lg); }
 .modal__close{ position:absolute; top:.6rem; right:.8rem; background:none; color:var(--fg); font-size:1.8rem; border:none; cursor:pointer; }
 
-/* ======================== 8) MOTION & A11Y ======================== */
+/* ======================== 9) MOTION & A11Y ======================== */
 @media (prefers-reduced-motion: reduce){
   .nav-toggle .chev, .nav-collapsible, .btn, .card, .methode, .cert-card,
   .icon-sun, .icon-moon, .theme-toggle, .certs-dot, .chip--seg, .contact-item,
@@ -399,11 +384,18 @@ body.home .brand-logo{ animation: logo-pulse 3s ease-in-out infinite; }
   .cert-ph--clock .clock-h, .cert-ph--clock .clock-m, .cert-ph--clock .clock-ring { transition:none !important; animation:none !important; }
 }
 
-/* ===================== 9) BREAKPOINTS ===================== */
+/* ===================== 10) BREAKPOINTS & MOBILE FIXES ===================== */
 @media (min-width:1600px){
   .section{ padding-block: clamp(2.2rem, 2vw, 3.6rem); }
   .hero{ grid-template-columns: 1.1fr .9fr; gap: 2rem; }
   .card{ padding: clamp(1.2rem, 1.4vw, 1.8rem); }
+}
+@media (max-width: 599px){
+  .site-header, .navbar{ overflow: clip; max-width: 100vw; }
+  .brand{ flex: 1 1 auto; min-width: 0; }
+  .brand-logo{ height: 36px; max-width: 48vw; }
+  .nav-actions{ flex: 0 0 auto; }
+  .theme-toggle, .nav-toggle{ max-width: 44vw; }
 }
 @media (max-width:360px){
   .nav-toggle{ padding:0 .7rem; }
@@ -414,64 +406,17 @@ body.home .brand-logo{ animation: logo-pulse 3s ease-in-out infinite; }
   .cert-badge{ width:52px; height:52px; }
 }
 
-/* ===== Fix scroll horizontal mobile (navbar) ===== */
-@media (max-width: 599px){
-  /* Empêche tout débordement visuel du header */
-  .site-header,
-  .navbar{ overflow: clip; max-width: 100vw; }
-
-  /* Le bloc marque peut rétrécir au lieu de pousser hors écran */
-  .brand{
-    flex: 1 1 auto;     /* ← autorise la réduction */
-    min-width: 0;       /* ← très important pour éviter l’overflow des flex-items */
-  }
-
-  /* Le logo ne peut pas dépasser ~la moitié de l’écran */
-  .brand-logo{
-    height: 36px;       /* un peu plus compact sur mobile */
-    max-width: 48vw;    /* ← borne la largeur intrinsèque */
-  }
-
-  /* Les actions à droite ne grossissent pas et ne poussent pas la ligne */
-  .nav-actions{ flex: 0 0 auto; }
-
-  /* Boutons compacts */
-  .theme-toggle,
-  .nav-toggle{ max-width: 44vw; }
-}
-
-/* Par sécurité, coupe tout débordement horizontal global */
-html, body{ overflow-x: clip; }
-img, svg, video{ max-width: 100%; height: auto; display: block; }
-
-
-/* Séparateur sous Calendly — propre et sans artefact */
+/* ===================== 11) UTILITAIRES SEO/UI ===================== */
+/* Séparateur fin (évite artefacts, pas de pseudo-éléments inutiles) */
 .soft-sep{
-  display:block;
-  width:100%;
-  height:1px;              /* ligne fine */
-  border:0;
-  margin:.25rem 0 0;
-  background: linear-gradient(
-    90deg,
+  display:block; width:100%; height:1px; border:0; margin:.25rem 0 0;
+  background: linear-gradient(90deg,
     transparent 0%,
     color-mix(in oklab, var(--fg) 12%, transparent) 25%,
     color-mix(in oklab, var(--fg) 18%, transparent) 50%,
     color-mix(in oklab, var(--fg) 12%, transparent) 75%,
-    transparent 100%
-  );
-}
-.soft-sep::before,
-.soft-sep::after{ content:none !important; }   /* tue tout pseudo-élément résiduel */
-
-/* Contact row: flèche à droite, texte flexible */
-.contact-item{ display:flex; align-items:center; gap:.75rem; }
-.ci-body{ flex:1 1 auto; min-width:0; }   /* prend l’espace central */
-.ci-cta{
-  margin-left:auto;                        /* pousse totalement à droite */
-  font-weight:800;
-  opacity:.7;
+    transparent 100%);
 }
 
-.calendly-card, .contact-inline { overflow-x: clip; }
-.contact-list { list-style: none; padding-left: 0; }  /* déjà présent, on réaffirme */
+/* Ancre lisse sans masquage par header sticky (améliore SXO) */
+:target{ scroll-margin-top: 88px; }
