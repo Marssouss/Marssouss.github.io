@@ -1,53 +1,109 @@
-# Exclusions
-exclude:
-  - README.md
-  - node_modules
+# =====================================================================
+#  ABM — Configuration Jekyll (optimisée GitHub Pages + SEO)
+#  Docs: https://jekyllrb.com/docs/configuration/
+# =====================================================================
 
-title: "Martial BODET • Freelance Talend & Power BI"
+# ------------------------ 1) Métadonnées site ------------------------
+title: "Martial BODET • Freelance Talend & Power BI"       # <title> par défaut
 tagline: "Intégration de données, pipelines Talend, dashboards Power BI"
-description: "Freelance Talend & Power BI : intégrations robustes, pipelines ETL, modélisation DAX, rapports interactifs. Interventions rapides, orientées résultats."
-url: "https://username.github.io" # remplace si domaine custom
-baseurl: "" # ne rien mettre pour username.github.io
-lang: fr
+description: "Intégrations de données, ETL Talend, modèles DAX et dashboards Power BI performants."
+lang: fr                                                   # pour <html lang="fr">
+locale: fr_FR                                              # pour Open Graph/Schema
 timezone: Europe/Paris
-#nav_include: nav.html               # optionnel, si tu veux inclure nav.html
-locale: fr_FR
 
+# ------------------------ 2) URL & déploiement -----------------------
+# ⚠️ Remplace par ton domaine final. Si tu restes sur GitHub Pages user, mets:
+# url: "https://marssouss.github.io"
+url: "https://username.github.io"                          # domaine canonique (ABSOLU)
+baseurl: ""                                               # vide pour site user (username.github.io)
+# Si tu utilises un domaine custom: url: "https://ton-domaine.fr" et baseurl: ""
 
+# Image par défaut pour Open Graph/Twitter (fichier existant dans /assets/img)
+og_image: "/assets/img/logo_256.webp"
 
-
-theme: null
+# ------------------------ 3) Plugins supportés GH Pages --------------
+# (Tous sont compatibles avec GitHub Pages)
 plugins:
-  - jekyll-sitemap
-  - jekyll-seo-tag
-  - jekyll-feed
+  - jekyll-sitemap    # /sitemap.xml auto
+  - jekyll-seo-tag    # métadonnées SEO (⚠️ n’insère pas {% seo %} si tu as un head custom)
+  - jekyll-feed       # flux RSS/Atom des posts
 
-# Auteur (utilisé dans JSON-LD)
+# Astuce: on conserve jekyll-seo-tag installé (utile pour certains helpers),
+# mais comme ton `_includes/head.html` est custom et complet, NE PAS ajouter
+# `{% seo %}` dans le head pour éviter les doublons de <meta>.
+
+# ------------------------ 4) Auteur (pour JSON-LD & templates) -------
 author:
-  prenom_nom : "Martial BODET"
   name: "BODET Martial"
-  enterprise : "ABM"
+  prenom_nom: "Martial BODET"         # alias si tu l’utilises dans les includes
+  enterprise: "ABM"
   job_title: "Consultant Freelance Talend & Power BI"
-  email: "contact@tondomaine.fr" 
-  url: "https://username.github.io"
+  email: "contact@tondomaine.fr"      # ⚠️ remplace
+  phone: "+33 6 00 00 00 00"          # ⚠️ remplace
+  url: "https://marssouss.github.io"  # ou ton domaine custom
   linkedin: "https://www.linkedin.com/in/martial-bodet/"
-  phone: "+33 6 00 00 00 00"          # ← remplace
-  calendly_url: "https://calendly.com/bodetmartial/30min" # ← remplace
-  calendly_30:  "https://calendly.com/bodetmartial/30min"     # option
-  calendly_15:  "https://calendly.com/bodetmartial/15min"     # option
+  sameAs:
+    - "https://www.linkedin.com/in/martial-bodet/"
+    - "https://github.com/marssouss"
+  # Liens pris dans le HTML (contact & Calendly)
+  calendly_url: "https://calendly.com/bodetmartial/30min"
+  calendly_30:  "https://calendly.com/bodetmartial/30min"
+  calendly_15:  "https://calendly.com/bodetmartial/15min"
+  # Optionnel (si tu veux la meta twitter:creator)
+  # twitter: "ton_handle_sans@"
 
+# ------------------------ 5) Sortie & permaliens ---------------------
+permalink: /:categories/:title/          # URLs SEO-friendly (sans .html)
+# Pour un blog simple: "/blog/:title/" est aussi possible.
 
-
-# Markdown
-markdown: kramdown
-kramdown:
-  input: GFM
-
-# Layouts par défaut
+# ------------------------ 6) Defaults (front-matter auto) ------------
+# Valeurs appliquées si absentes dans les pages/posts.
 defaults:
   - scope: { path: "" }
     values:
       layout: "page"
+      lang: "fr"
+      image: "{{ site.og_image }}"      # image OG par défaut si page.image absent
+      robots: "index,follow"            # override page par page avec `noindex`
   - scope: { path: "", type: "posts" }
     values:
       layout: "post"
+      lang: "fr"
+      image: "{{ site.og_image }}"
+      robots: "index,follow"
+
+# ------------------------ 7) Markdown / Rendu ------------------------
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+
+# ------------------------ 8) Flux & Sitemap --------------------------
+# jekyll-feed et jekyll-sitemap n’exigent rien de plus par défaut.
+feed:
+  path: atom.xml                        # flux à /atom.xml (par défaut rss.xml)
+
+# ------------------------ 9) Build / perf ----------------------------
+# Ces options sont sûres pour GH Pages (pas d’outils non supportés).
+strict_front_matter: false
+future: false                           # n’affiche pas les posts datés dans le futur
+lsi: false                              # pas d’indexation LSI (perf)
+# incremental: true                     # utile en local (pas sur GH Pages build)
+
+# ------------------------ 10) Fichiers à exclure ---------------------
+exclude:
+  - README.md
+  - node_modules
+  - package.json
+  - package-lock.json
+  - yarn.lock
+  - .gitignore
+  - .github
+
+# ------------------------ 11) Divers (optionnel) ---------------------
+# Collections personnalisées (si besoin)
+# collections:
+#   projects:
+#     output: true
+#     permalink: /projets/:name/
