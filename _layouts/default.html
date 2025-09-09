@@ -3,12 +3,25 @@
 <head>
   {% include head.html %}
 </head>
-<body class="{% if page.url == '/' or page.url == '/index.md' %}home{% endif %}">
+<body
+  class="{% if page.url == '/' or page.url == '/index.md' %}home{% else %}page{% endif %} layout-{{ page.layout | default: 'page' }}{% if page.slug %} slug-{{ page.slug }}{% endif %}"
+  data-page-url="{{ page.url }}"
+  data-layout="{{ page.layout | default: 'page' }}"
+>
+  <!-- Ancre utilitaire pour remonter en haut -->
+  <a id="top" class="sr-only" href="#main">Aller au contenu</a>
+
   {% include header.html %}
-  <main id="main" tabindex="-1">
+
+  <!-- Contenu principal : micro-données WebPage -->
+  <main id="main" tabindex="-1"
+        itemscope itemtype="https://schema.org/WebPage">
+    <!-- Nom/description de la WebPage pour les pages non-article -->
+    <meta itemprop="name" content="{{ page.title | default: site.title }}">
+    <meta itemprop="description" content="{{ page.description | default: site.description }}">
     {{ content }}
   </main>
+
   {% include footer.html %}
 </body>
-
 </html>
