@@ -1,8 +1,10 @@
 ---
 layout: default
-title: Accueil
-description: Freelance Talend & Power BI – intégrations de données, pipelines ETL, modélisation DAX et dashboards performants. Disponibilité rapide, résultats mesurables.
+title: Freelance Talend & Power BI
+description: Intégrations de données, pipelines ETL Talend, modèles DAX et dashboards Power BI performants. Disponibilité rapide, résultats mesurables.
+permalink: /
 ---
+
 <!-- ABOUT ME -->
 {% include about-me.html %}
 

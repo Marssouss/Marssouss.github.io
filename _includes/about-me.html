@@ -1,30 +1,50 @@
-<section id="about" class="section" aria-labelledby="about-title">
+<section id="about" class="section" aria-labelledby="about-title"
+         itemscope itemtype="https://schema.org/Person">
   <h2 id="about-title" class="about-title">
-    Bonjour, je suis {{ site.author.prenom_nom }}
+    <span itemprop="name">Bonjour, je suis {{ site.author.prenom_nom }}</span>
   </h2>
-  <p class="role">Freelance Talend &amp; Power BI</p>
+  <p class="role"><span itemprop="jobTitle">Freelance Talend &amp; Power BI</span></p>
 
-  <div class="about-text">
+  <!-- micro-data utilitaires (non visibles) -->
+  <link itemprop="url" href="{{ site.author.url | default: site.url | default: site.github.url }}">
+  {% if site.author.email %}<meta itemprop="email" content="mailto:{{ site.author.email }}">{% endif %}
+  {% if site.author.phone %}<meta itemprop="telephone" content="{{ site.author.phone }}">{% endif %}
+  {% if site.author.enterprise %}
+    <span itemprop="worksFor" itemscope itemtype="https://schema.org/Organization" class="sr-only">
+      <meta itemprop="name" content="{{ site.author.enterprise }}">
+    </span>
+  {% endif %}
+  {% if site.author.linkedin %}
+    <link itemprop="sameAs" href="{{ site.author.linkedin }}">
+  {% endif %}
+  {% if site.author.sameAs %}
+    {% for p in site.author.sameAs %}
+      <link itemprop="sameAs" href="{{ p }}">
+    {% endfor %}
+  {% endif %}
+
+  <div class="about-text" itemprop="description">
     <p>
-      Je suis animé par une <strong>passion profonde pour la donnée</strong>.  
-      Pour moi, une donnée n’a de valeur que si elle est <strong>propre</strong>, 
-      <strong>structurée</strong> et <strong>au bon endroit</strong>.
+      Je suis animé par une <strong>passion pour la donnée</strong>. Pour moi, une donnée n’a de valeur que si elle est
+      <strong>propre</strong>, <strong>structurée</strong> et <strong>au bon endroit</strong>.
     </p>
     <p>
-      Chaque projet est une opportunité d’apporter de la clarté et de la robustesse 
-      dans vos systèmes d’information. J’aime transformer des flux complexes en 
-      pipelines simples et maîtrisés, où la <em>qualité</em> et la <em>fiabilité</em> 
-      priment sur la quantité.
+      Chaque projet est l’occasion d’apporter clarté et robustesse aux SI : transformer des flux complexes en
+      <strong>pipelines Talend</strong> simples et maîtrisés, et livrer des <strong>dashboards Power&nbsp;BI</strong>
+      lisibles où la <em>qualité</em> et la <em>fiabilité</em> priment.
     </p>
     <p>
-      Je crois également à une démarche d’<strong>apprentissage continu</strong> : 
-      le monde de la data évolue vite, et j’éprouve un réel plaisir à expérimenter, 
-      apprendre et améliorer mes pratiques pour rester à la pointe.
+      Je cultive une démarche d’<strong>apprentissage continu</strong> : bonnes pratiques <abbr title="Extract-Transform-Load">ETL</abbr>,
+      modélisation <abbr title="Data Analysis Expressions">DAX</abbr>, gouvernance et DataOps pour rester à la pointe.
     </p>
     <p>
-      Mon objectif est simple : vous aider à tirer le meilleur parti de vos données, 
-      en construisant des solutions <strong>durables</strong>, <strong>évolutives</strong> 
-      et <strong>fiables</strong>.
+      Mon objectif : vous aider à tirer le meilleur parti de vos données via des solutions <strong>durables</strong>,
+      <strong>évolutives</strong> et <strong>fiables</strong>.
+      <br>
+      <a href="#methodes">Voir mes méthodes</a> ·
+      <a href="#certifications">Certifications</a> ·
+      <a href="{{ '/portfolio' | relative_url }}">Portfolio</a> ·
+      <a href="#contact" rel="contact">Me contacter</a>
     </p>
   </div>
 </section>

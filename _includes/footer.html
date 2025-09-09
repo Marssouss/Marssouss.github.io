@@ -1,12 +1,23 @@
 <!-- _includes/footer.html -->
-<footer class="site-footer">
-  <p>© {{ site.time | date: "%Y" }} {{ site.author.name }} — Freelance Talend & Power BI</p>
+<footer class="site-footer" role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
   <p>
-    <a href="/sitemap.xml">Sitemap</a> ·
-    <a href="/robots.txt">Robots</a> ·
-    <a href="mailto:{{ site.author.email }}">Email</a> ·
-    <a href="{{ site.author.linkedin }}">LinkedIn</a>
+    © {{ site.time | date: "%Y" }}
+    <span itemprop="copyrightHolder">{{ site.author.name }}</span>
+    — <span itemprop="description">Consultant Freelance spécialisé Talend &amp; Power BI</span>
   </p>
+
+  <nav aria-label="Liens utiles du site">
+    <ul class="footer-links" role="list">
+      <li><a href="/sitemap.xml">Sitemap</a></li>
+      <li><a href="/robots.txt">Robots</a></li>
+      <li>
+        <a href="mailto:{{ site.author.email }}" itemprop="email">Email</a>
+      </li>
+      <li>
+        <a href="{{ site.author.linkedin }}" target="_blank" rel="noopener" itemprop="sameAs">LinkedIn</a>
+      </li>
+    </ul>
+  </nav>
 </footer>
 
 <!-- Calendly inline widget wrapper (chargé à la demande via script.js) -->

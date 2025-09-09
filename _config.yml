@@ -14,7 +14,7 @@ timezone: Europe/Paris
 # ------------------------ 2) URL & déploiement -----------------------
 # ⚠️ Remplace par ton domaine final. Si tu restes sur GitHub Pages user, mets:
 # url: "https://marssouss.github.io"
-url: "https://username.github.io"                          # domaine canonique (ABSOLU)
+url: "https://marssouss.github.io"                          # domaine canonique (ABSOLU)
 baseurl: ""                                               # vide pour site user (username.github.io)
 # Si tu utilises un domaine custom: url: "https://ton-domaine.fr" et baseurl: ""
 

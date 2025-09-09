@@ -1,21 +1,48 @@
 <!-- _includes/header.html -->
-<header class="site-header" role="banner">
+<header class="site-header" role="banner"
+        itemscope itemtype="https://schema.org/WPHeader">
+  <!-- Skip link (SXO/A11y) -->
+  <a class="sr-only" href="#main">Aller au contenu</a>
+
   <div class="container navbar">
     <!-- Marque -->
-<a class="brand" href="{{ '/' | relative_url }}">
-  <img src="{{ '/assets/img/logo_256.webp' | relative_url }}" 
-       alt="Logo {{ site.author.enterprise }}" 
-       class="brand-logo" 
-       width="256" height="256" loading="eager" decoding="async">
-</a>
+    <a class="brand" href="{{ '/' | relative_url }}" rel="home"
+       itemprop="publisher" itemscope itemtype="https://schema.org/Organization"
+       aria-label="Aller à l’accueil">
+      <img src="{{ '/assets/img/logo_256.webp' | relative_url }}"
+           alt="Logo {{ site.author.enterprise }}"
+           class="brand-logo"
+           width="256" height="256" loading="eager" decoding="async"
+           itemprop="logo">
+      <meta itemprop="name" content="{{ site.author.enterprise | default: site.title }}">
+      <meta itemprop="url"  content="{{ site.url | default: site.github.url }}">
+    </a>
+
     <!-- Nav desktop -->
-    <nav class="nav-desktop" aria-label="Navigation principale">
-      <ul class="nav-inline">
-        <li><a class="chip" href="{{ '/#services' | relative_url }}">Services</a></li>
-        <li><a class="chip" href="{{ '/#realisation' | relative_url }}">Réalisations</a></li>
-        <li><a class="chip" href="{{ '/blog/' | relative_url }}">Blog</a></li>
-        <li><a class="chip" href="{{ '/#contact' | relative_url }}">Contact</a></li>
-        <li><button class="btn cta" data-calendly>Réserver un créneau</button></li>
+    <nav class="nav-desktop" aria-label="Navigation principale"
+         itemscope itemtype="https://schema.org/SiteNavigationElement">
+      <ul class="nav-inline" role="list">
+        <li>
+          <a class="chip" href="{{ '/#services' | relative_url }}"
+             aria-label="Aller à la section Services">Services</a>
+        </li>
+        <li>
+          <a class="chip" href="{{ '/#realisation' | relative_url }}"
+             aria-label="Aller à la section Réalisations">Réalisations</a>
+        </li>
+        <li>
+          <a class="chip" href="{{ '/blog/' | relative_url }}"
+             {% if page.url contains '/blog/' %}aria-current="page"{% endif %}
+             aria-label="Aller au blog">Blog</a>
+        </li>
+        <li>
+          <a class="chip" href="{{ '/#contact' | relative_url }}"
+             aria-label="Aller à la section Contact">Contact</a>
+        </li>
+        <li>
+          <button class="btn cta" data-calendly
+                  aria-label="Réserver un créneau avec Calendly">Réserver un créneau</button>
+        </li>
       </ul>
     </nav>
 
@@ -23,7 +50,7 @@
     <div class="nav-actions">
       <!-- Thème -->
       <button class="theme-toggle" aria-label="Basculer le thème" aria-pressed="false">
-        <span class="tt-icon">
+        <span class="tt-icon" aria-hidden="true">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
             <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -39,23 +66,31 @@
       </button>
 
       <!-- Toggle mobile -->
-      <button class="nav-toggle" aria-controls="nav-collapsible" aria-expanded="false" aria-label="Afficher le menu">
+      <button class="nav-toggle"
+              aria-controls="nav-collapsible"
+              aria-expanded="false"
+              aria-label="Afficher le menu">
         <span>Menu</span>
         <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
     </div>
   </div>
 
   <!-- Menu mobile -->
-  <nav id="nav-collapsible" class="nav-collapsible" aria-label="Navigation mobile">
-    <ul class="nav-list">
-      <li><a href="{{ '/#services' | relative_url }}">Services</a></li>
-      <li><a href="{{ '/#realisation' | relative_url }}">Réalisations</a></li>
-      <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
-      <li><a href="{{ '/#contact' | relative_url }}">Contact</a></li>
-      <li><button class="btn cta block" data-calendly>Réserver un créneau</button></li>
+  <nav id="nav-collapsible" class="nav-collapsible" aria-label="Navigation mobile"
+       itemscope itemtype="https://schema.org/SiteNavigationElement">
+    <ul class="nav-list" role="list">
+      <li><a href="{{ '/#services' | relative_url }}" aria-label="Aller à la section Services">Services</a></li>
+      <li><a href="{{ '/#realisation' | relative_url }}" aria-label="Aller à la section Réalisations">Réalisations</a></li>
+      <li><a href="{{ '/blog/' | relative_url }}"
+             {% if page.url contains '/blog/' %}aria-current="page"{% endif %}
+             aria-label="Aller au blog">Blog</a></li>
+      <li><a href="{{ '/#contact' | relative_url }}" aria-label="Aller à la section Contact">Contact</a></li>
+      <li><button class="btn cta block" data-calendly
+                  aria-label="Réserver un créneau avec Calendly">Réserver un créneau</button></li>
     </ul>
   </nav>
 </header>
