@@ -20,7 +20,7 @@
   weekend_price: 220
 
 - title: Pack DJ
-  description: Pour DJ set : enceintes, console, éclairage dynamique.
+  description: "Pour DJ set : enceintes, console, éclairage dynamique."
   items:
     - 2x enceintes 12"
     - 1x contrôleur DJ (USB)
