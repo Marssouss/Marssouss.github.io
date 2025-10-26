@@ -7,6 +7,13 @@ description: "Location de jeux de lumière, sonorisation et packs DJ – install
 url: ""
 baseurl: ""
 
+status_banner:
+  enabled: true
+  text: "Site en version de test — certaines informations peuvent évoluer avant le lancement officiel."
+  link:
+    label: "Nous contacter"
+    url: "mailto:contact@loclights.example"
+
 navigation:
   - label: "Accueil"
     url: "/"
