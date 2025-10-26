@@ -4,27 +4,29 @@ title: Catalogue
 description: Catalogue de matériel audio et lumière disponible à la location.
 ---
 
-# Catalogue
-
-<ul class="cards">
-  {% for g in site.data.gear %}
-  <li class="card">
-    <img src="{{ g.image | default: '/assets/placeholder-gear.jpg' }}" alt="{{ g.name }}" class="rounded">
-    <h3>{{ g.name }}</h3>
-    <p class="muted">{{ g.category }}</p>
-    <p>{{ g.description }}</p>
-    <p><strong>{{ g.price_per_day }} {{ site.pricing.currency }}</strong> / jour</p>
-    {% if g.specs %}
-    <details>
-      <summary>Spécifications</summary>
-      <ul>
-        {% for s in g.specs %}
-        <li>{{ s }}</li>
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h1>Catalogue matériel</h1>
+      <p class="muted">{{ site.catalogue.intro }}</p>
+    </div>
+    {% for category in site.catalogue.categories %}
+    <div class="section-block">
+      <h2>{{ category.name }}</h2>
+      <ul class="cards">
+        {% for item in category.items %}
+        <li class="card">
+          <h3>{{ item.name }}</h3>
+          <p class="muted">{{ item.description }}</p>
+          <p class="price">{{ item.price_per_day }} {{ site.pricing.currency }} <span class="muted">/ jour</span></p>
+          <a class="button button--ghost" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Réserver</a>
+        </li>
         {% endfor %}
       </ul>
-    </details>
-    {% endif %}
-    <a class="btn" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Réserver</a>
-  </li>
-  {% endfor %}
-</ul>
+    </div>
+    {% endfor %}
+    <div class="section-actions">
+      <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander un devis personnalisé</a>
+    </div>
+  </div>
+</section>

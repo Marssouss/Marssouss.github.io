@@ -1,12 +1,17 @@
 <!-- _layouts/default.html -->
 <!doctype html>
-<html lang="fr" data-theme="light">
+<html lang="fr">
   <head>
     {% include head.html %}
   </head>
   <body>
-    {% include header.html %}
-    {{ content }}
-    {% include footer.html %}
+    <a class="skip-link" href="#content">Passer au contenu principal</a>
+    <div class="page-shell">
+      {% include header.html %}
+      <main id="content" class="page-content">
+        {{ content }}
+      </main>
+      {% include footer.html %}
+    </div>
   </body>
 </html>

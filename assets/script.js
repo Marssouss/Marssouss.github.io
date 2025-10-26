@@ -1,70 +1,175 @@
-// assets/js/main.js
-(function(){
-  // Theme handling
-  const key = 'theme-preference';
-  const getTheme = () => localStorage.getItem(key) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  const setTheme = t => { document.documentElement.setAttribute('data-theme', t); localStorage.setItem(key, t); };
-  setTheme(getTheme());
-  document.addEventListener('click', (e)=>{
-    const btn = e.target.closest('[data-action="toggle-theme"]');
-    if(btn){ setTheme(getTheme()==='dark'?'light':'dark'); }
+// assets/script.js
+(function () {
+  const root = document.documentElement;
+  const storageKey = 'theme-preference';
+
+  const readStorage = () => {
+    try {
+      return localStorage.getItem(storageKey);
+    } catch (err) {
+      return null;
+    }
+  };
+
+  const writeStorage = (value) => {
+    try {
+      localStorage.setItem(storageKey, value);
+    } catch (err) {
+      /* storage might be disabled – ignore */
+    }
+  };
+
+  const systemPrefersDark = () =>
+    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  const applyTheme = (theme, persist = true) => {
+    if (theme !== 'light' && theme !== 'dark') {
+      theme = systemPrefersDark() ? 'dark' : 'light';
+    }
+    root.setAttribute('data-theme', theme);
+    if (persist) {
+      writeStorage(theme);
+    }
+  };
+
+  const storedTheme = readStorage();
+  if (storedTheme) {
+    applyTheme(storedTheme, false);
+  }
+
+  const updateMetaTheme = (theme) => {
+    const metaTags = document.querySelectorAll('meta[name="theme-color"]');
+    metaTags.forEach((tag) => {
+      const media = tag.getAttribute('media');
+      if (!media || media.includes(theme)) {
+        tag.setAttribute('content', getComputedStyle(document.body).backgroundColor);
+      }
+    });
+  };
+
+  updateMetaTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+
+  const toggleTheme = () => {
+    const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    updateMetaTheme(next);
+  };
+
+  document.querySelectorAll('[data-action="toggle-theme"]').forEach((btn) => {
+    btn.addEventListener('click', toggleTheme);
   });
 
-  // Lazy-load Leaflet when a map is present
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+      const stored = readStorage();
+      if (!stored || stored === 'system') {
+        applyTheme(event.matches ? 'dark' : 'light', false);
+        updateMetaTheme(event.matches ? 'dark' : 'light');
+      }
+    });
+  }
+
+  const navToggle = document.querySelector('[data-action="toggle-nav"]');
+  const nav = document.querySelector('[data-nav]');
+
+  const closeNav = () => {
+    if (!nav || !navToggle) return;
+    nav.classList.remove('is-open');
+    navToggle.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  };
+
+  if (nav && navToggle) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('is-open');
+      navToggle.classList.toggle('is-open', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen) {
+        nav.querySelector('a')?.focus({ preventScroll: true });
+      }
+    });
+
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => closeNav());
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!nav.contains(event.target) && !navToggle.contains(event.target)) {
+        closeNav();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeNav();
+      }
+    });
+  }
+
   const mapEl = document.getElementById('map');
-  if(!mapEl) return;
+  if (!mapEl) {
+    return;
+  }
 
-  const loadLeaflet = () => new Promise((resolve)=>{
-    if(window.L) return resolve();
-    const link = document.createElement('link');
-    link.rel='stylesheet';
-    link.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-    document.head.appendChild(link);
-    const s = document.createElement('script');
-    s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-    s.defer = true;
-    s.onload = resolve;
-    document.head.appendChild(s);
-  });
+  const loadLeaflet = () =>
+    new Promise((resolve) => {
+      if (window.L) {
+        resolve();
+        return;
+      }
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      document.head.appendChild(link);
+
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+      script.defer = true;
+      script.onload = resolve;
+      document.head.appendChild(script);
+    });
 
   const initMap = () => {
+    if (!window.L) return;
     const lat = parseFloat(mapEl.dataset.centerLat);
     const lng = parseFloat(mapEl.dataset.centerLng);
     const tiers = JSON.parse(mapEl.dataset.tiers || '[]');
     const city = mapEl.dataset.city || 'Centre';
 
-    const map = L.map('map', { scrollWheelZoom:false }).setView([lat, lng], 10);
+    const map = L.map('map', { scrollWheelZoom: false }).setView([lat, lng], 10);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      attribution: '&copy; OpenStreetMap'
+      attribution: '&copy; OpenStreetMap',
     }).addTo(map);
 
-    const marker = L.marker([lat, lng]).addTo(map).bindPopup(`<strong>${city}</strong> — centre des zones`);
+    L.marker([lat, lng]).addTo(map).bindPopup(`<strong>${city}</strong> — centre des zones`);
 
-    tiers.forEach((t, idx)=>{
+    tiers.forEach((tier, index) => {
       const circle = L.circle([lat, lng], {
-        radius: t.radius_km * 1000,
-        color: '#2d6cdf',
-        fillColor: '#2d6cdf',
-        fillOpacity: 0.08,
-        weight: 1
+        radius: tier.radius_km * 1000,
+        color: '#6756ff',
+        fillColor: '#6756ff',
+        fillOpacity: 0.12,
+        weight: 1.2,
       }).addTo(map);
-      circle.bindPopup(`${t.label} — ${t.radius_km} km — ${t.price_eur} €`);
-      if(idx === tiers.length - 1) {
-        map.fitBounds(circle.getBounds(), { padding:[20,20] });
+      circle.bindPopup(`${tier.label} — ${tier.radius_km} km — ${tier.price_eur} €`);
+      if (index === tiers.length - 1) {
+        map.fitBounds(circle.getBounds(), { padding: [28, 28] });
       }
     });
   };
 
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(async (entry)=>{
-      if(entry.isIntersecting){
-        observer.disconnect();
-        await loadLeaflet();
-        initMap();
-      }
-    });
-  }, { threshold: 0.1 });
+  const observer = new IntersectionObserver(
+    async (entries) => {
+      const firstVisible = entries.find((entry) => entry.isIntersecting);
+      if (!firstVisible) return;
+      observer.disconnect();
+      await loadLeaflet();
+      initMap();
+    },
+    { threshold: 0.12 }
+  );
 
   observer.observe(mapEl);
 })();

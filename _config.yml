@@ -1,10 +1,29 @@
 # _config.yml
 title: "LOCALUM - E2M"
 brand: "LOCALUM - E2M"
-logo_path: "/assets/logo.png" # remplacez par votre logo
+brand_tagline: "Location sono & lumières événementielles en Gironde"
+logo_path: "/assets/logo.png"
 description: "Location de jeux de lumière, sonorisation et packs DJ – installation possible – gironde et alentours."
-url: "" # https://<user>.github.io (à compléter après déploiement)
-baseurl: "" # laisser vide si à la racine
+url: ""
+baseurl: ""
+
+navigation:
+  - label: "Accueil"
+    url: "/"
+  - label: "Services"
+    url: "/services/"
+  - label: "Catalogue"
+    url: "/catalogue/"
+  - label: "Packs"
+    url: "/packs/"
+  - label: "Galerie"
+    url: "/galerie/"
+  - label: "Contact"
+    url: "/contact/"
+  - label: "Réserver"
+    url: "https://forms.gle/votre-form"
+    external: true
+    style: "button"
 
 contact:
   phone: "+33 6 12 34 56 78"
@@ -14,20 +33,22 @@ contact:
   legal_contact: "Jean Exemple"
 
 social:
-  youtube: "https://youtube.com/@votre-chaine" # à remplacer
+  youtube: "https://youtube.com/@votre-chaine"
+  instagram: "https://instagram.com/votrecompte"
+  facebook: "https://facebook.com/votrepage"
 
 delivery:
   base_city: "Espiet"
   center_lat: 44.785
   center_lng: -0.265
   tiers:
-    - { radius_km: 10, price_eur: 0,  label: "Zone 1" }
-    - { radius_km: 25, price_eur: 20, label: "Zone 2" }
-    - { radius_km: 50, price_eur: 45, label: "Zone 3" }
+    - { radius_km: 10, price_eur: 0,  label: "Zone 1 — retrait ou livraison locale" }
+    - { radius_km: 25, price_eur: 20, label: "Zone 2 — Bordeaux & Libourne" }
+    - { radius_km: 50, price_eur: 45, label: "Zone 3 — Gironde élargie" }
   install_price_from_eur: 49
 
 forms:
-  booking_google_form_url: "https://forms.gle/votre-form" # à remplacer
+  booking_google_form_url: "https://forms.gle/votre-form"
 
 pricing:
   currency: "EUR"
@@ -35,13 +56,227 @@ pricing:
   weekend: "Tarif week-end = retrait vendredi, retour lundi matin."
   notes: "Remises pour associations et étudiants sur justificatif."
 
+ui:
+  theme:
+    default: "system"
+    light:
+      background: "#f4f5fb"
+      surface: "#ffffff"
+      elevated: "#f7f8ff"
+      text: "#0f1426"
+      text_muted: "#5c637e"
+      accent: "#6756ff"
+      accent_soft: "rgba(103, 86, 255, 0.12)"
+      border: "rgba(15, 20, 38, 0.08)"
+      shadow: "0 18px 40px rgba(26, 33, 54, 0.12)"
+      gradient: "linear-gradient(135deg, rgba(101, 86, 255, 0.75) 0%, rgba(232, 73, 155, 0.75) 100%)"
+    dark:
+      background: "#05060d"
+      surface: "#0f1327"
+      elevated: "#151b36"
+      text: "#f2f4ff"
+      text_muted: "#a5add6"
+      accent: "#867aff"
+      accent_soft: "rgba(134, 122, 255, 0.16)"
+      border: "rgba(165, 173, 214, 0.18)"
+      shadow: "0 24px 60px rgba(5, 6, 13, 0.5)"
+      gradient: "linear-gradient(135deg, rgba(86, 76, 255, 0.65) 0%, rgba(228, 60, 149, 0.65) 100%)"
+    glass: "rgba(255, 255, 255, 0.08)"
+  fonts:
+    primary: "'Poppins', 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif"
+    display: "'Archivo', 'Poppins', 'Inter', sans-serif"
+    google: "https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap"
+
+branding:
+  hero:
+    eyebrow: "Location sono & lumières"
+    highlight_badge: "Nouveau : pack mariage 2024"
+    title: "Illuminez vos événements, sans stress"
+    subtitle: "Sono puissante, effets lumineux immersifs, packs clés en main et installation rapide en Gironde."
+    image: "/assets/hero-rig.jpg"
+    stats:
+      - value: "180+"
+        label: "soirées animées"
+      - value: "4.9/5"
+        label: "avis clients"
+      - value: "48h"
+        label: "de délai moyen"
+    ctas:
+      primary:
+        label: "Demander un devis"
+        url: "https://forms.gle/votre-form"
+        external: true
+      secondary:
+        label: "Voir les packs"
+        url: "/packs/"
+        external: false
+  features:
+    - title: "Matériel pro calibré"
+      description: "Enceintes puissantes, contrôleurs DJ, lumières intelligentes prêtes à mixer."
+    - title: "Livraison & installation"
+      description: "Zones tarifaires claires, option technicien et reprise en fin de soirée."
+    - title: "Support réactif"
+      description: "Hotline week-end et assistance à distance pour un événement sans accroc."
+  differentiators:
+    title: "Votre ambiance, notre savoir-faire"
+    items:
+      - icon: "spark"
+        title: "Pack personnalisable"
+        text: "Ajustez chaque pack selon votre événement : mariage, anniversaire, corporate."
+      - icon: "beam"
+        title: "Effets lumière scénarisés"
+        text: "Jeux de lumières synchronisés, lasers, machines à effets pour des moments forts."
+      - icon: "shield"
+        title: "Sécurité & assurance"
+        text: "Matériel révisé, assistance incluse, caution sécurisée par empreinte bancaire."
+
+home:
+  video:
+    playlist_url: "https://www.youtube.com/embed?listType=playlist&list=PLPLACEHOLDER"
+    caption: "Extrait de nos installations et ambiances DJ."
+  process:
+    title: "Comment ça marche"
+    steps:
+      - title: "Choisissez votre pack"
+        description: "Réservez un pack existant ou demandez une combinaison sur mesure."
+      - title: "Livraison & installation"
+        description: "Nous livrons, installons et testons avec vous le matériel."
+      - title: "Profitez & restituez"
+        description: "Support pendant l’événement, reprise le lendemain ou le lundi."
+  testimonials:
+    title: "Ils nous font confiance"
+    items:
+      - quote: "La prestation lumière a transformé notre salle, et le son était impeccable !"
+        author: "Camille & Léo — Mariage à Bordeaux"
+      - quote: "Installation rapide, matériel simple à utiliser, nos 200 invités ont adoré."
+        author: "Association NightRun — Libourne"
+
+catalogue:
+  intro: "Sélectionnez le matériel qui correspond à votre événement. Chaque élément est contrôlé avant départ."
+  categories:
+    - name: "Sono & diffusion"
+      items:
+        - name: "Enceintes actives 12''"
+          description: "Idéal pour 80 à 120 personnes, entrée XLR/Jack."
+          price_per_day: 45
+        - name: "Caisson de basses 15''"
+          description: "Renforce les basses pour DJ set, 1000W RMS."
+          price_per_day: 55
+    - name: "Contrôle & mix"
+      items:
+        - name: "Contrôleur DJ USB"
+          description: "Plug & play Serato/Rekordbox, fourni avec flight-case."
+          price_per_day: 69
+    - name: "Lumières & effets"
+      items:
+        - name: "Lyres LED 150W"
+          description: "Mouvements automatiques ou DMX, couleurs saturées."
+          price_per_day: 59
+        - name: "Machine à fumée heavy"
+          description: "Effet fumée dense pour lasers et lights."
+          price_per_day: 35
+
+packs:
+  intro: "Des packs prêts à mixer, optimisés pour la taille de votre événement. Ajustez chaque pack selon vos besoins."
+  items:
+    - title: "Pack Soirée 50 pers."
+      description: "Sono + lumières pour anniversaire ou afterwork."
+      duration: "1 jour"
+      price_per_day: 89
+      weekend_price: 140
+      includes:
+        - "2x enceintes actives 12'' + pieds"
+        - "1x barre LED RGB"
+        - "1x machine à fumée compacte"
+        - "Câblage + multiprises"
+    - title: "Pack Mariage Signature"
+      description: "Ambiance élégante, son premium, lumières connectées."
+      duration: "Week-end"
+      price_per_day: 149
+      weekend_price: 220
+      includes:
+        - "2x enceintes actives 12'' + sub 15''"
+        - "2x projecteurs LED sur pont"
+        - "1x micro HF"
+        - "1x console mixage"
+    - title: "Pack DJ Club"
+      description: "Contrôleur DJ, lyres intelligentes et laser multi-faisceaux."
+      duration: "Week-end"
+      price_per_day: 169
+      weekend_price: 249
+      includes:
+        - "2x enceintes 12''"
+        - "1x contrôleur DJ (USB)"
+        - "2x lyres LED + 1x laser"
+
+gallery:
+  intro: "Ambiances lumineuses, scénographie et installations sur mesure."
+  images:
+    - src: "/assets/gal1.jpg"
+      alt: "Installation lumière violette dans une salle voûtée"
+    - src: "/assets/gal2.jpg"
+      alt: "DJ booth avec lyres et laser vert"
+    - src: "/assets/gal3.jpg"
+      alt: "Dancefloor mariage avec projecteurs LED"
+  video_cta:
+    label: "Voir la chaîne YouTube"
+    url: "https://youtube.com/@votre-chaine"
+
+contact_page:
+  intro: "Discutons de votre prochain événement : nous répondons sous 24h."
+  booking_cta:
+    label: "Remplir le formulaire de réservation"
+    url: "https://forms.gle/votre-form"
+  notes:
+    - "Option technicien pour installation sur site."
+    - "Retrait gratuit sur rendez-vous à Espiet."
+    - "Assurance casse et vol disponible sur demande."
+
+services_page:
+  highlights:
+    - title: "Livraison par zones"
+      text: "Trois zones tarifaires couvrant Espiet, Bordeaux et la Gironde."
+    - title: "Installation clé en main"
+      text: "Nous installons, testons et vous accompagnons dans la prise en main."
+    - title: "Support pendant l’événement"
+      text: "Hotline week-end, assistance téléphonique et options technicien."
+  extras:
+    - title: "Location longue durée"
+      text: "Tarifs dégressifs à partir de 3 jours."
+    - title: "Scénographie lumière"
+      text: "Création de scénarios DMX personnalisés."
+    - title: "Pack micro conférence"
+      text: "Micro HF, pupitre, retour scène."
+
+footer:
+  callout:
+    eyebrow: "Prêt à allumer votre soirée ?"
+    title: "Réservez votre pack sono & lumière"
+    subtitle: "Réponse rapide sous 24h, livraison partout en Gironde."
+    button:
+      label: "Vérifier une date"
+      url: "https://forms.gle/votre-form"
+  info:
+    hours: "Lun - Sam · 9h – 19h"
+    service_area: "Livraison jusqu'à 50 km autour d'Espiet"
+  links:
+    - label: "Mentions légales"
+      url: "/mentions-legales/"
+    - label: "Contact"
+      url: "/contact/"
+  social_intro: "Suivez nos démos"
+
+legal:
+  host: "GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA."
+  data_policy: "Les informations du formulaire sont utilisées pour la gestion des demandes, conformément au RGPD."
+  intellectual: "Tous les textes et médias sont la propriété de LOCALUM - E2M ou de leurs auteurs."
+
 seo:
   keywords: ["location sono", "location jeux de lumière", "DJ", "soirée", "mariage", "anniversaire", "Gironde", "Espiet"]
   city_targets: ["Espiet", "Bordeaux", "Libourne", "Entre-Deux-Mers", "Gironde"]
   open_graph_image: "/assets/og.jpg"
   enable_jsonld: true
 
-theme: null
 markdown: kramdown
 
 plugins:

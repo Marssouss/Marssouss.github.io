@@ -4,20 +4,38 @@ title: Mentions légales
 description: Mentions légales et informations de l’éditeur du site.
 ---
 
-# Mentions légales
-
-**Éditeur** : {{ site.brand }}  
-**Responsable de publication** : {{ site.contact.legal_contact }}  
-**Adresse** : {{ site.contact.address }}  
-**Email** : {{ site.contact.email }}  
-**Téléphone** : {{ site.contact.phone }}  
-**SIRET** : {{ site.contact.siret }}
-
-## Hébergeur
-GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA.
-
-## Données personnelles
-Les informations saisies via le formulaire de réservation (Google Forms) sont traitées par {{ site.brand }} dans le seul but de gérer les demandes. Vous pouvez demander l’accès ou la suppression de vos données par email à {{ site.contact.email }}.
-
-## Propriété intellectuelle
-Tous les textes et médias de ce site sont la propriété de {{ site.brand }} ou de leurs auteurs respectifs.
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h1>Mentions légales</h1>
+      <p class="muted">Informations sur l’éditeur du site {{ site.brand }} et sur l’hébergement.</p>
+    </div>
+    <div class="note">
+      <h2>Éditeur du site</h2>
+      <p><strong>{{ site.brand }}</strong></p>
+      <p>Responsable de publication : {{ site.contact.legal_contact }}</p>
+      <p>{{ site.contact.address }}</p>
+      <p>Téléphone : <a href="tel:{{ site.contact.phone | replace: ' ', '' }}">{{ site.contact.phone }}</a></p>
+      <p>Email : <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a></p>
+      <p>SIRET : {{ site.contact.siret }}</p>
+    </div>
+    <div class="section-block">
+      <div class="note">
+        <h2>Hébergement</h2>
+        <p>{{ site.legal.host }}</p>
+      </div>
+    </div>
+    <div class="section-block">
+      <div class="note">
+        <h2>Données personnelles</h2>
+        <p>{{ site.legal.data_policy }}</p>
+      </div>
+    </div>
+    <div class="section-block">
+      <div class="note">
+        <h2>Propriété intellectuelle</h2>
+        <p>{{ site.legal.intellectual }}</p>
+      </div>
+    </div>
+  </div>
+</section>
