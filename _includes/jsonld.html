@@ -1,0 +1,28 @@
+<!-- _includes/jsonld.html -->
+{% assign yt = site.social.youtube | default: "" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": {{ site.brand | jsonify }},
+  "image": [{{ site.seo.open_graph_image | default: site.logo_path | jsonify }}],
+  "url": {{ site.url | append: site.baseurl | jsonify }},
+  "telephone": {{ site.contact.phone | jsonify }},
+  "email": {{ site.contact.email | jsonify }},
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": {{ site.contact.address | jsonify }},
+    "addressLocality": {{ site.delivery.base_city | jsonify }},
+    "addressCountry": "FR"
+  },
+  "areaServed": {{ site.seo.city_targets | jsonify }},
+  "priceRange": "€€",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": {{ site.delivery.center_lat | default: 0 }},
+    "longitude": {{ site.delivery.center_lng | default: 0 }}
+  }{% if yt != "" %},
+  "sameAs": [{{ yt | jsonify }}]
+  {% endif %}
+}
+</script>
