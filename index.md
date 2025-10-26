@@ -1,76 +1,67 @@
 ---
 layout: default
-title: Freelance Talend & Power BI
-description: Intégrations de données, pipelines ETL Talend, modèles DAX et dashboards Power BI performants. Disponibilité rapide, résultats mesurables.
+title: Accueil
 permalink: /
+description: Location de sonorisation et jeux de lumière à Espiet et en Gironde. Packs prêts à l’emploi, livraison par zones, installation en option.
 ---
 
-<!-- ABOUT ME -->
-{% include about-me.html %}
+# Location Sono & Jeux de Lumière
 
-<!-- CERTS -->
-{% include certs.html %}
+**Matériel pro, packs simples, prix clairs.**  
+Réservez en 2 minutes : <a class="btn" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Formulaire de réservation</a>
 
-<!-- METHODES -->
-{% include methodes.html %}
-
-
-<!-- SERVICES -->
-<section id="services" class="section" aria-labelledby="services-title">
-  <h2 id="services-title">Services</h2>
-  <div class="grid cols-2">
-    {% for service in site.data.services %}
-      <div class="card">
-        <h3>{{ service.title }}</h3>
-        <p>{{ service.text }}</p>
-        {% if service.badges %}
-          <p>
-            {% for badge in service.badges %}
-              <span class="badge">{{ badge }}</span>
-            {% endfor %}
-          </p>
-        {% endif %}
-      </div>
-    {% endfor %}
+<div class="grid two">
+  <div>
+    ## Pourquoi nous ?
+    - Sonorisation claire et puissante
+    - Effets lumineux LED, lasers et machines (fumée, bulles…)
+    - **Packs** clés en main (DJ, soirée privée, mariage)
+    - **Livraison par zones** autour de {{ site.delivery.base_city }} — installation possible dès **{{ site.delivery.install_price_from_eur }}€**
   </div>
-</section>
-<!-- END SERVICES -->
-
-
-<!-- REALISATIONS -->
-<section id="realisation" class="section" aria-labelledby="work-title">
-  <h2 id="work-title">Réalisations récentes</h2>
-  <div class="grid cols-2">
-    {% for projet in site.data.projets %}
-      <article class="card">
-        <h3>{{ projet.title }}</h3>
-        <p class="lead">{{ projet.text }}</p>
-        <a class="btn" href="{{ projet.link }}">Voir les projets</a>
-      </article>
-    {% endfor %}
-  </div>
-</section>
-
-<!-- END REALISATIONS -->
-
-{% include contact.html %}
-
-
-<!-- Modal Calendly -->
-<div id="calendly-modal" class="modal" hidden>
-  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="calendlyTitle">
-    <button class="modal__close" aria-label="Fermer">×</button>
-    <div style="padding:.75rem 1rem; border-bottom:1px solid var(--border)">
-      <h3 id="calendlyTitle" style="margin:0">Réserver un créneau</h3>
-    </div>
-    <!-- Le widget s’injecte ici -->
-    <div id="calendly-inline"
-         class="calendly-inline"
-         data-calendly-url="{{ site.author.calendly_url }}"
-         style="position:relative; min-height:72vh;">
-      <div class="calendly-skeleton" aria-hidden="true" style="display:grid;place-items:center;height:100%;">
-        <p class="muted" style="margin:0">Chargement du calendrier…</p>
-      </div>
-    </div>
+  <div>
+    <img src="/assets/hero.jpg" alt="Matériel sono et lumières prêt à l’emploi" class="rounded shadow">
   </div>
 </div>
+
+## Zones desservies
+<div id="map" class="map"
+     data-center-lat="{{ site.delivery.center_lat }}"
+     data-center-lng="{{ site.delivery.center_lng }}"
+     data-tiers='{{ site.delivery.tiers | jsonify }}'
+     data-city="{{ site.delivery.base_city }}">
+  <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
+</div>
+
+## Nos packs populaires
+<ul class="cards">
+  {% for pack in site.data.packs %}
+  <li class="card">
+    <h3>{{ pack.title }}</h3>
+    <p class="muted">{{ pack.description }}</p>
+    <p><strong>{{ pack.price_per_day }} {{ site.pricing.currency }}</strong> / jour — {{ pack.weekend_price }} {{ site.pricing.currency }} week-end</p>
+    <details>
+      <summary>Contenu</summary>
+      <ul>
+        {% for item in pack.items %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </details>
+    <a class="btn" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Réserver ce pack</a>
+  </li>
+  {% endfor %}
+</ul>
+
+## Chaîne YouTube
+<div class="video">
+  <iframe title="YouTube" width="560" height="315"
+    src="https://www.youtube.com/embed?listType=playlist&list=PLPLACEHOLDER"
+    allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</div>
+
+<section class="note">
+  <h2>Infos tarifs</h2>
+  <p>{{ site.pricing.weekend }}</p>
+  <p>{{ site.pricing.caution_policy }}</p>
+  <p>{{ site.pricing.notes }}</p>
+</section>

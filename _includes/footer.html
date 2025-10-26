@@ -1,29 +1,9 @@
 <!-- _includes/footer.html -->
-<footer class="site-footer" role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
-  <p>
-    © {{ site.time | date: "%Y" }}
-    <span itemprop="copyrightHolder">{{ site.author.name }}</span>
-    — <span itemprop="description">Consultant Freelance spécialisé Talend &amp; Power BI</span>
-  </p>
-
-  <nav aria-label="Liens utiles du site">
-    <ul class="footer-links" role="list">
-      <li><a href="/sitemap.xml">Sitemap</a></li>
-      <li><a href="/robots.txt">Robots</a></li>
-      <li>
-        <a href="mailto:{{ site.author.email }}" itemprop="email">Email</a>
-      </li>
-      <li>
-        <a href="{{ site.author.linkedin }}" target="_blank" rel="noopener" itemprop="sameAs">LinkedIn</a>
-      </li>
-    </ul>
-  </nav>
-</footer>
-
-<!-- Calendly inline widget wrapper (chargé à la demande via script.js) -->
-<div id="calendly-modal" class="modal" hidden>
-  <div class="modal__dialog" role="dialog" aria-modal="true" aria-label="Prendre rendez-vous">
-    <button class="modal__close" aria-label="Fermer">×</button>
-    <div id="calendly-inline"></div>
+</main>
+<footer>
+  <div class="container">
+    <p><strong>{{ site.brand }}</strong> — {{ site.contact.phone }} — <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a></p>
+    <p>{{ site.contact.address }}</p>
+    <p><a href="/mentions-legales/">Mentions légales</a> • &copy; {{ "now" | date: "%Y" }}</p>
   </div>
-</div>
+</footer>

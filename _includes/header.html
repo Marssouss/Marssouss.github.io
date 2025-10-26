@@ -1,96 +1,21 @@
 <!-- _includes/header.html -->
-<header class="site-header" role="banner"
-        itemscope itemtype="https://schema.org/WPHeader">
-  <!-- Skip link (SXO/A11y) -->
-  <a class="sr-only" href="#main">Aller au contenu</a>
-
-  <div class="container navbar">
-    <!-- Marque -->
-    <a class="brand" href="{{ '/' | relative_url }}" rel="home"
-       itemprop="publisher" itemscope itemtype="https://schema.org/Organization"
-       aria-label="Aller à l’accueil">
-      <img src="{{ '/assets/img/logo_256.webp' | relative_url }}"
-           alt="Logo {{ site.author.enterprise }}"
-           class="brand-logo"
-           width="256" height="256" loading="eager" decoding="async"
-           itemprop="logo">
-      <meta itemprop="name" content="{{ site.author.enterprise | default: site.title }}">
-      <meta itemprop="url"  content="{{ site.url | default: site.github.url }}">
+<header>
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding: .8rem 0;">
+    <a href="/" class="brand">
+      <img src="{{ site.logo_path }}" alt="Logo {{ site.brand }}">
+      <span>{{ site.brand }}</span>
     </a>
-
-    <!-- Nav desktop -->
-    <nav class="nav-desktop" aria-label="Navigation principale"
-         itemscope itemtype="https://schema.org/SiteNavigationElement">
-      <ul class="nav-inline" role="list">
-        <li>
-          <a class="chip" href="{{ '/#services' | relative_url }}"
-             aria-label="Aller à la section Services">Services</a>
-        </li>
-        <li>
-          <a class="chip" href="{{ '/#realisation' | relative_url }}"
-             aria-label="Aller à la section Réalisations">Réalisations</a>
-        </li>
-        <li>
-          <a class="chip" href="{{ '/blog/' | relative_url }}"
-             {% if page.url contains '/blog/' %}aria-current="page"{% endif %}
-             aria-label="Aller au blog">Blog</a>
-        </li>
-        <li>
-          <a class="chip" href="{{ '/#contact' | relative_url }}"
-             aria-label="Aller à la section Contact">Contact</a>
-        </li>
-        <li>
-          <button class="btn cta" data-calendly
-                  aria-label="Réserver un créneau avec Calendly">Réserver un créneau</button>
-        </li>
-      </ul>
+    <nav aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/services/">Services</a>
+      <a href="/catalogue/">Catalogue</a>
+      <a href="/packs/">Packs</a>
+      <a href="/galerie/">Galerie</a>
+      <a href="/contact/">Contact</a>
+      <a class="btn" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Réserver</a>
     </nav>
-
-    <!-- Actions à droite -->
-    <div class="nav-actions">
-      <!-- Thème -->
-      <button class="theme-toggle" aria-label="Basculer le thème" aria-pressed="false">
-        <span class="tt-icon" aria-hidden="true">
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-            <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <path d="M12 2v2.5M12 19.5V22M4.22 4.22l1.77 1.77M18.01 18.01l1.77 1.77M2 12h2.5M19.5 12H22M4.22 19.78l1.77-1.77M18.01 6.99l1.77-1.77"/>
-            </g>
-          </svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M21 12.5A9 9 0 1 1 11.5 3a7.5 7.5 0 0 0 9.5 9.5Z"
-                  stroke="currentColor" stroke-width="2" fill="none" />
-          </svg>
-        </span>
-        <span class="tt-label">Light</span>
-      </button>
-
-      <!-- Toggle mobile -->
-      <button class="nav-toggle"
-              aria-controls="nav-collapsible"
-              aria-expanded="false"
-              aria-label="Afficher le menu">
-        <span>Menu</span>
-        <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </div>
+    <button class="theme-toggle" type="button" aria-label="Basculer clair/sombre" data-action="toggle-theme">🌓</button>
   </div>
-
-  <!-- Menu mobile -->
-  <nav id="nav-collapsible" class="nav-collapsible" aria-label="Navigation mobile"
-       itemscope itemtype="https://schema.org/SiteNavigationElement">
-    <ul class="nav-list" role="list">
-      <li><a href="{{ '/#services' | relative_url }}" aria-label="Aller à la section Services">Services</a></li>
-      <li><a href="{{ '/#realisation' | relative_url }}" aria-label="Aller à la section Réalisations">Réalisations</a></li>
-      <li><a href="{{ '/blog/' | relative_url }}"
-             {% if page.url contains '/blog/' %}aria-current="page"{% endif %}
-             aria-label="Aller au blog">Blog</a></li>
-      <li><a href="{{ '/#contact' | relative_url }}" aria-label="Aller à la section Contact">Contact</a></li>
-      <li><button class="btn cta block" data-calendly
-                  aria-label="Réserver un créneau avec Calendly">Réserver un créneau</button></li>
-    </ul>
-  </nav>
 </header>
+<main class="container" id="content">
+  <a class="skip" href="#content">Aller au contenu</a>

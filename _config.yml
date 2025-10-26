@@ -1,109 +1,54 @@
-# =====================================================================
-#  ABM — Configuration Jekyll (optimisée GitHub Pages + SEO)
-#  Docs: https://jekyllrb.com/docs/configuration/
-# =====================================================================
+# _config.yml
+title: "LOCALUM - E2M"
+brand: "LOCALUM - E2M"
+logo_path: "/assets/logo.png" # remplacez par votre logo
+description: "Location de jeux de lumière, sonorisation et packs DJ – installation possible – gironde et alentours."
+url: "" # https://<user>.github.io (à compléter après déploiement)
+baseurl: "" # laisser vide si à la racine
 
-# ------------------------ 1) Métadonnées site ------------------------
-title: "Martial BODET • Freelance Talend & Power BI"       # <title> par défaut
-tagline: "Intégration de données, pipelines Talend, dashboards Power BI"
-description: "Intégrations de données, ETL Talend, modèles DAX et dashboards Power BI performants."
-lang: fr                                                   # pour <html lang="fr">
-locale: fr_FR                                              # pour Open Graph/Schema
-timezone: Europe/Paris
+contact:
+  phone: "+33 6 12 34 56 78"
+  email: "contact@loclights.example"
+  address: "12 rue des Fêtes, 33370 Espiet"
+  siret: "123 456 789 00012"
+  legal_contact: "Jean Exemple"
 
-# ------------------------ 2) URL & déploiement -----------------------
-# ⚠️ Remplace par ton domaine final. Si tu restes sur GitHub Pages user, mets:
-# url: "https://marssouss.github.io"
-url: "https://marssouss.github.io"                          # domaine canonique (ABSOLU)
-baseurl: ""                                               # vide pour site user (username.github.io)
-# Si tu utilises un domaine custom: url: "https://ton-domaine.fr" et baseurl: ""
+social:
+  youtube: "https://youtube.com/@votre-chaine" # à remplacer
 
-# Image par défaut pour Open Graph/Twitter (fichier existant dans /assets/img)
-og_image: "/assets/img/logo_256.webp"
+delivery:
+  base_city: "Espiet"
+  center_lat: 44.785
+  center_lng: -0.265
+  tiers:
+    - { radius_km: 10, price_eur: 0,  label: "Zone 1" }
+    - { radius_km: 25, price_eur: 20, label: "Zone 2" }
+    - { radius_km: 50, price_eur: 45, label: "Zone 3" }
+  install_price_from_eur: 49
 
-# ------------------------ 3) Plugins supportés GH Pages --------------
-# (Tous sont compatibles avec GitHub Pages)
-plugins:
-  - jekyll-sitemap    # /sitemap.xml auto
-  - jekyll-seo-tag    # métadonnées SEO (⚠️ n’insère pas {% seo %} si tu as un head custom)
-  - jekyll-feed       # flux RSS/Atom des posts
+forms:
+  booking_google_form_url: "https://forms.gle/votre-form" # à remplacer
 
-# Astuce: on conserve jekyll-seo-tag installé (utile pour certains helpers),
-# mais comme ton `_includes/head.html` est custom et complet, NE PAS ajouter
-# `{% seo %}` dans le head pour éviter les doublons de <meta>.
+pricing:
+  currency: "EUR"
+  caution_policy: "Caution par chèque ou empreinte CB, restituée au retour du matériel."
+  weekend: "Tarif week-end = retrait vendredi, retour lundi matin."
+  notes: "Remises pour associations et étudiants sur justificatif."
 
-# ------------------------ 4) Auteur (pour JSON-LD & templates) -------
-author:
-  name: "BODET Martial"
-  prenom_nom: "Martial BODET"         # alias si tu l’utilises dans les includes
-  enterprise: "ABM"
-  job_title: "Consultant Freelance Talend & Power BI"
-  email: "contact@tondomaine.fr"      # ⚠️ remplace
-  phone: "+33 6 00 00 00 00"          # ⚠️ remplace
-  url: "https://marssouss.github.io"  # ou ton domaine custom
-  linkedin: "https://www.linkedin.com/in/martial-bodet/"
-  sameAs:
-    - "https://www.linkedin.com/in/martial-bodet/"
-    - "https://github.com/marssouss"
-  # Liens pris dans le HTML (contact & Calendly)
-  calendly_url: "https://calendly.com/bodetmartial/30min"
-  calendly_30:  "https://calendly.com/bodetmartial/30min"
-  calendly_15:  "https://calendly.com/bodetmartial/15min"
-  # Optionnel (si tu veux la meta twitter:creator)
-  # twitter: "ton_handle_sans@"
+seo:
+  keywords: ["location sono", "location jeux de lumière", "DJ", "soirée", "mariage", "anniversaire", "Gironde", "Espiet"]
+  city_targets: ["Espiet", "Bordeaux", "Libourne", "Entre-Deux-Mers", "Gironde"]
+  open_graph_image: "/assets/og.jpg"
+  enable_jsonld: true
 
-# ------------------------ 5) Sortie & permaliens ---------------------
-permalink: /:categories/:title/          # URLs SEO-friendly (sans .html)
-# Pour un blog simple: "/blog/:title/" est aussi possible.
-
-# ------------------------ 6) Defaults (front-matter auto) ------------
-# Valeurs appliquées si absentes dans les pages/posts.
-defaults:
-  - scope: { path: "" }
-    values:
-      layout: "page"
-      lang: "fr"
-      image: "{{ site.og_image }}"      # image OG par défaut si page.image absent
-      robots: "index,follow"            # override page par page avec `noindex`
-  - scope: { path: "", type: "posts" }
-    values:
-      layout: "post"
-      lang: "fr"
-      image: "{{ site.og_image }}"
-      robots: "index,follow"
-
-# ------------------------ 7) Markdown / Rendu ------------------------
+theme: null
 markdown: kramdown
-kramdown:
-  input: GFM
-  hard_wrap: false
-  auto_ids: true
 
-# ------------------------ 8) Flux & Sitemap --------------------------
-# jekyll-feed et jekyll-sitemap n’exigent rien de plus par défaut.
-feed:
-  path: atom.xml                        # flux à /atom.xml (par défaut rss.xml)
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
-# ------------------------ 9) Build / perf ----------------------------
-# Ces options sont sûres pour GH Pages (pas d’outils non supportés).
-strict_front_matter: false
-future: false                           # n’affiche pas les posts datés dans le futur
-lsi: false                              # pas d’indexation LSI (perf)
-# incremental: true                     # utile en local (pas sur GH Pages build)
-
-# ------------------------ 10) Fichiers à exclure ---------------------
 exclude:
   - README.md
-  - node_modules
-  - package.json
-  - package-lock.json
-  - yarn.lock
-  - .gitignore
-  - .github
 
-# ------------------------ 11) Divers (optionnel) ---------------------
-# Collections personnalisées (si besoin)
-# collections:
-#   projects:
-#     output: true
-#     permalink: /projets/:name/
+permalink: /:title/
