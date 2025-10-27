@@ -38,6 +38,12 @@ contact:
   address: "12 rue des Fêtes, 33370 Espiet"
   siret: "123 456 789 00012"
   legal_contact: "Jean Exemple"
+  legal_name: "LOCALUM - E2M"
+  legal_status: "Entreprise individuelle (micro-entrepreneur)"
+  siren: "123 456 789"
+  rcs: "Dispense d'immatriculation au RCS et au RM conforme a l'article L123-1-1 du Code de commerce."
+  vat: "TVA non applicable, article 293 B du CGI."
+  insurance: "Responsabilite civile professionnelle AXA - Police 123456789"
 
 social:
   youtube: "https://youtube.com/@votre-chaine"
