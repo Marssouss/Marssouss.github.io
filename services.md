@@ -34,7 +34,7 @@ description: Location sono & lumières avec livraison, installation sur demande 
           <h2>Livraison flexible, installation sur demande</h2>
           <p class="muted">Retrait gratuit à {{ site.delivery.base_city }} ou livraison dans votre zone. Installation complète disponible à partir de {{ site.delivery.install_price_from_eur }} €.</p>
         </div>
-        <div class="feature-grid" style="margin-top: 1.75rem;">
+        <div class="feature-grid" style="margin-top: 1.75rem; grid-template-columns: repeat(3, minmax(0, 1fr));">
           <article class="feature-card">
             <h3>Retrait rapide</h3>
             <p class="muted">Créneau sur rendez-vous, pack prêt à partir avec check-list.</p>
@@ -72,15 +72,20 @@ description: Location sono & lumières avec livraison, installation sur demande 
             </tr>
           </thead>
           <tbody>
-            {% for tier in site.delivery.tiers %}
-            <tr>
-              <td>{{ tier.label }}</td>
-              <td>{{ tier.radius_km }} km</td>
-              <td>{{ tier.price_eur }} €</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+          {% for tier in site.delivery.tiers %}
+          <tr>
+            <td>{{ tier.label }}</td>
+            <td>{{ tier.radius_km }} km</td>
+            <td>{{ tier.price_eur }} €</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td>Hors zone</td>
+            <td>Sur devis</td>
+            <td><a href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Contactez-moi</a></td>
+          </tr>
+        </tbody>
+      </table>
       </div>
       <div class="map-shell">
         <div class="map js-delivery-map"
