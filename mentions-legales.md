@@ -23,14 +23,14 @@ description: Mentions legales conformes aux obligations applicables au micro-ent
     <div class="section-block">
       <div class="note">
         <h2>Statut et immatriculation</h2>
-        <p>Statut juridique : {{ site.contact.legal_status | default: 'Entreprise individuelle (micro-entrepreneur)' }}</p>
+        <p>Statut juridique : {{ site.contact.legal_status }}</p>
         <p>Responsable de publication : {{ site.contact.legal_contact }}</p>
         <p>Numero SIRET : {{ site.contact.siret }}</p>
         {% if site.contact.siren %}
         <p>Numero SIREN : {{ site.contact.siren }}</p>
         {% endif %}
-        <p>{{ site.contact.rcs | default: 'Dispense d''immatriculation au RCS et au RM conforme a l''article L123-1-1 du Code de commerce.' }}</p>
-        <p>TVA : {{ site.contact.vat | default: 'TVA non applicable, article 293 B du CGI.' }}</p>
+        <p>{{ site.contact.rcs }}</p>
+        <p>TVA : {{ site.contact.vat }}</p>
         {% if site.contact.insurance %}
         <p>Assurance professionnelle : {{ site.contact.insurance }}</p>
         {% endif %}
@@ -64,20 +64,20 @@ description: Mentions legales conformes aux obligations applicables au micro-ent
     <div class="section-block">
       <div class="note">
         <h2>Donnees personnelles</h2>
-        <p>{{ site.legal.data_policy | default: 'Les informations personnelles collectees via le site servent uniquement a traiter les demandes formulees. Elles sont conservees pendant la duree necessaire a leur traitement et ne sont pas communiquees a des tiers sans consentement explicite.' }}</p>
+        <p>{{ site.legal.data_policy }}</p>
         <p>Conformement au RGPD et a la loi Informatique et Libertes, vous disposez d''un droit d''acces, de rectification, d''opposition et de suppression. Pour exercer ces droits, ecrivez a <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>.</p>
       </div>
     </div>
     <div class="section-block">
       <div class="note">
         <h2>Propriete intellectuelle</h2>
-        <p>{{ site.legal.intellectual | default: 'L''ensemble des elements composant le site (textes, visuels, logos, icones, etc.) est la propriete exclusive de l''editeur ou fait l''objet d''une autorisation. Toute reproduction totale ou partielle sans autorisation ecrite est strictement interdite.' }}</p>
+        <p>{{ site.legal.intellectual }}</p>
       </div>
     </div>
     <div class="section-block">
       <div class="note">
         <h2>Responsabilites</h2>
-        <p>{{ site.legal.liability | default: 'Malgre les soins apportes a la mise a jour du site, des inexactitudes peuvent subsister. L''editeur ne saurait etre tenu responsable des dommages directs ou indirects consecutifs a la consultation ou a l''utilisation du site ou de l''impossibilite d''y acceder.' }}</p>
+        <p>{{ site.legal.liability }}</p>
       </div>
     </div>
   </div>

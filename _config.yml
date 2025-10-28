@@ -3,13 +3,13 @@ title: "LOCALUM - E2M"
 brand: "LOCALUM - E2M"
 brand_tagline: "Location sono & lumières événementielles en Gironde"
 logo_path: "/assets/logo.png"
-description: "Location de jeux de lumière, sonorisation et packs DJ – installation possible – gironde et alentours."
+description: "Location de jeux de lumière, sonorisation et packs DJ, installation possible en Gironde et alentours."
 url: ""
 baseurl: ""
 
 status_banner:
   enabled: true
-  text: "Site en version de test — certaines informations peuvent évoluer avant le lancement officiel."
+  text: "Site en version de test : certaines informations peuvent évoluer avant le lancement officiel."
   link:
     label: "Nous contacter"
     url: "mailto:contact@loclights.example"
@@ -41,9 +41,9 @@ contact:
   legal_name: "LOCALUM - E2M"
   legal_status: "Entreprise individuelle (micro-entrepreneur)"
   siren: "123 456 789"
-  rcs: "Dispense d'immatriculation au RCS et au RM conforme a l'article L123-1-1 du Code de commerce."
+  rcs: "Dispense d'immatriculation au RCS et au RM, conforme à l'article L123-1-1 du Code de commerce."
   vat: "TVA non applicable, article 293 B du CGI."
-  insurance: "Responsabilite civile professionnelle AXA - Police 123456789"
+  insurance: "Responsabilité civile professionnelle AXA - Police 123456789"
 
 social:
   youtube: "https://youtube.com/@votre-chaine"
@@ -55,9 +55,9 @@ delivery:
   center_lat: 44.785
   center_lng: -0.265
   tiers:
-    - { radius_km: 10, price_eur: 0,  label: "Zone 1 — retrait ou livraison locale" }
-    - { radius_km: 25, price_eur: 20, label: "Zone 2 — Bordeaux & Libourne" }
-    - { radius_km: 50, price_eur: 45, label: "Zone 3 — Gironde élargie" }
+    - { radius_km: 10, price_eur: 0, label: "Zone 1 : retrait ou livraison locale" }
+    - { radius_km: 25, price_eur: 20, label: "Zone 2 : Bordeaux & Libourne" }
+    - { radius_km: 50, price_eur: 45, label: "Zone 3 : Gironde élargie" }
   install_price_from_eur: 49
 
 forms:
@@ -155,7 +155,7 @@ home:
       - title: "Livraison & installation"
         description: "Nous livrons, installons et testons avec vous le matériel."
       - title: "Profitez & restituez"
-        description: "Support pendant l’événement, reprise le lendemain ou le lundi."
+        description: "Support pendant l'événement, reprise le lendemain ou le lundi."
   testimonials:
     title: "Ils nous font confiance"
     items:
@@ -170,7 +170,7 @@ catalogue:
     - name: "Sono & diffusion"
       items:
         - name: "Enceintes actives 12''"
-          description: "Idéal pour 80 à 120 personnes, entrée XLR/Jack."
+          description: "Idéal pour 80 à 120 personnes, entrées XLR/Jack."
           price_per_day: 45
         - name: "Caisson de basses 15''"
           description: "Renforce les basses pour DJ set, 1000W RMS."
@@ -251,7 +251,7 @@ services_page:
       text: "Trois zones tarifaires couvrant Espiet, Bordeaux et la Gironde."
     - title: "Installation clé en main"
       text: "Nous installons, testons et vous accompagnons dans la prise en main."
-    - title: "Support pendant l’événement"
+    - title: "Support pendant l'événement"
       text: "Hotline week-end, assistance téléphonique et options technicien."
   extras:
     - title: "Location longue durée"
@@ -270,7 +270,7 @@ footer:
       label: "Vérifier une date"
       url: "https://forms.gle/votre-form"
   info:
-    hours: "Lun - Sam · 9h – 19h"
+    hours: "Lun - Sam : 9h à 19h"
     service_area: "Livraison jusqu'à 50 km autour d'Espiet"
   links:
     - label: "Mentions légales"
@@ -280,9 +280,14 @@ footer:
   social_intro: "Suivez nos démos"
 
 legal:
-  host: "GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA."
+  host:
+    name: "GitHub, Inc."
+    address: "88 Colin P Kelly Jr St, San Francisco, CA 94107, USA"
+    website: "https://github.com"
+    phone: "+1 877 448 4820"
   data_policy: "Les informations du formulaire sont utilisées pour la gestion des demandes, conformément au RGPD."
   intellectual: "Tous les textes et médias sont la propriété de LOCALUM - E2M ou de leurs auteurs."
+  liability: "Malgré tous les efforts pour garantir l'exactitude des informations publiées, l'éditeur ne saurait être tenu responsable des dommages directs ou indirects résultant de l'utilisation du site."
 
 seo:
   keywords: ["location sono", "location jeux de lumière", "DJ", "soirée", "mariage", "anniversaire", "Gironde", "Espiet"]
