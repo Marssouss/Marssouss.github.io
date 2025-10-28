@@ -28,14 +28,19 @@ description: Location sono & lumières avec livraison, installation sur demande 
 
 <section class="section">
   <div class="container">
-    <div style="display: grid; gap: 2.5rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start;">
+    <div style="display: grid; gap: 2.5rem; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start;">
       <div>
         <div class="section-header">
           <h2>Livraison flexible, installation sur demande</h2>
           <p class="muted">Retrait gratuit à {{ site.delivery.base_city }} ou livraison dans votre zone. Installation complète disponible à partir de {{ site.delivery.install_price_from_eur }} €.</p>
         </div>
+        <ul class="muted" style="margin-top: 1.5rem;">
+          <li>Retrait préparé : matériel testé, check-list fournie.</li>
+          <li>Livraison par {{ site.owner_name }} avec mise en route sur place.</li>
+          <li>Assistance jour J et reprise programmée après votre soirée.</li>
+        </ul>
       </div>
-      <aside class="note" style="max-width: 380px; margin: 0;">
+      <aside class="note" style="margin: 0;">
         <h3>Installation & reprise</h3>
         <p>Je m’occupe de la mise en place, je réalise les tests et je planifie le démontage avec vous.</p>
         <ul>
