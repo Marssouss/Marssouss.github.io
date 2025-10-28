@@ -1,8 +1,8 @@
----
+﻿---
 layout: default
 title: Accueil
 permalink: /
-description: Location de sonorisation et jeux de lumière à Espiet et en Gironde. Packs prêts à l’emploi, livraison par zones, installation en option.
+description: Location de sonorisation et jeux de lumiÃ¨re en Gironde. Packs prÃªts Ã  l'emploi, livraison par zones et installation sur demande.
 ---
 
 {% assign hero = site.branding.hero %}
@@ -36,6 +36,13 @@ description: Location de sonorisation et jeux de lumière à Espiet et en Girond
             {% assign secondary_url = hero.ctas.secondary.url | relative_url %}
           {% endunless %}
           <a class="button button--ghost" href="{{ secondary_url }}" {% if hero.ctas.secondary.external %}target="_blank" rel="noopener"{% endif %}>{{ hero.ctas.secondary.label }}</a>
+        {% endif %}
+        {% if hero.ctas.catalogue %}
+          {% assign catalogue_url = hero.ctas.catalogue.url %}
+          {% unless hero.ctas.catalogue.external %}
+            {% assign catalogue_url = hero.ctas.catalogue.url | relative_url %}
+          {% endunless %}
+          <a class="button button--outline" href="{{ catalogue_url }}" {% if hero.ctas.catalogue.external %}target="_blank" rel="noopener"{% endif %}>{{ hero.ctas.catalogue.label }}</a>
         {% endif %}
       </div>
     </div>
@@ -86,11 +93,11 @@ description: Location de sonorisation et jeux de lumière à Espiet et en Girond
   <div class="container differentiators">
     {% for diff in differentiators %}
     {% case diff.icon %}
-      {% when 'spark' %}{% assign icon_char = '✨' %}
-      {% when 'beam' %}{% assign icon_char = '🔆' %}
-      {% when 'shield' %}{% assign icon_char = '🛡' %}
-      {% when 'wave' %}{% assign icon_char = '🌊' %}
-      {% else %}{% assign icon_char = '🎵' %}
+      {% when 'spark' %}{% assign icon_char = 'âœ¨' %}
+      {% when 'beam' %}{% assign icon_char = 'ðŸ”†' %}
+      {% when 'shield' %}{% assign icon_char = 'ðŸ›¡' %}
+      {% when 'wave' %}{% assign icon_char = 'ðŸŒŠ' %}
+      {% else %}{% assign icon_char = 'ðŸŽµ' %}
     {% endcase %}
     <article class="diff-card">
       <span class="diff-icon" aria-hidden="true">{{ icon_char }}</span>
@@ -106,16 +113,16 @@ description: Location de sonorisation et jeux de lumière à Espiet et en Girond
   <div class="container split-grid">
     <div>
       <div class="section-header">
-        <h2>Livraison & installation autour de {{ site.delivery.base_city }}</h2>
-        <p class="muted">Des zones tarifaires claires, installation en option dès {{ site.delivery.install_price_from_eur }} € et assistance pendant votre événement.</p>
+        <h2>Livraison & installation</h2>
+        <p class="muted">Des zones tarifaires claires, installation sur demande &agrave; partir de {{ site.delivery.install_price_from_eur }} &euro; et pr&eacute;sence possible le jour J.</p>
       </div>
       <div class="note">
         <ul>
           {% for tier in site.delivery.tiers %}
-          <li><strong>{{ tier.label }}</strong> — {{ tier.radius_km }} km · {{ tier.price_eur }} €</li>
+          <li><strong>{{ tier.label }}</strong> - {{ tier.radius_km }} km &mdash; {{ tier.price_eur }} &euro;</li>
           {% endfor %}
         </ul>
-        <p class="muted">Retrait gratuit sur rendez-vous à {{ site.delivery.base_city }}.</p>
+        <p class="muted">Retrait gratuit sur rendez-vous.</p>
       </div>
       <div class="section-block">
         <div class="note">
@@ -128,7 +135,7 @@ description: Location de sonorisation et jeux de lumière à Espiet et en Girond
     </div>
     <div>
       <div class="map-shell">
-        <div id="map" class="map"
+        <div class="map js-delivery-map" data-map-id="home"
              data-center-lat="{{ site.delivery.center_lat }}"
              data-center-lng="{{ site.delivery.center_lng }}"
              data-tiers='{{ site.delivery.tiers | jsonify }}'
@@ -159,13 +166,13 @@ description: Location de sonorisation et jeux de lumière à Espiet et en Girond
           <li>{{ item }}</li>
           {% endfor %}
         </ul>
-        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Réserver ce pack</a>
+        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">RÃ©server ce pack</a>
       </li>
       {% endfor %}
     </ul>
     <div class="section-actions">
       <a class="button button--ghost" href="{{ '/packs/' | relative_url }}">Voir tous les packs</a>
-      <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander une disponibilité</a>
+      <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander une disponibilitÃ©</a>
     </div>
   </div>
 </section>
@@ -176,7 +183,7 @@ description: Location de sonorisation et jeux de lumière à Espiet et en Girond
   <div class="container">
     <div class="section-header">
       <h2>{{ process.title }}</h2>
-      <p class="muted">Un accompagnement complet, de la réservation à la reprise du matériel.</p>
+      <p class="muted">Un accompagnement complet, de la rÃ©servation Ã  la reprise du matÃ©riel.</p>
     </div>
     <div class="process-steps">
       {% for step in process.steps %}
@@ -196,7 +203,7 @@ description: Location de sonorisation et jeux de lumière à Espiet et en Girond
   <div class="container">
     <div class="section-header">
       <h2>{{ testimonials.title }}</h2>
-      <p class="muted">Des mariages, anniversaires et événements pros qui passent en mode club.</p>
+      <p class="muted">Des mariages, anniversaires et Ã©vÃ©nements pros qui passent en mode club.</p>
     </div>
     <div class="testimonials">
       {% for item in testimonials.items %}
@@ -209,3 +216,9 @@ description: Location de sonorisation et jeux de lumière à Espiet et en Girond
   </div>
 </section>
 {% endif %}
+
+
+
+
+
+

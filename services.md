@@ -1,4 +1,4 @@
----
+﻿---
 layout: default
 title: Services
 description: Livraison par zones, installation et reprise, assistance technique. Location à la journée ou au week-end.
@@ -8,7 +8,7 @@ description: Livraison par zones, installation et reprise, assistance technique.
   <div class="container">
     <div class="section-header">
       <h1>Services & accompagnement</h1>
-      <p class="muted">Une prestation complète : préparation du matériel, livraison, installation et assistance pendant votre événement.</p>
+      <p class="muted">Prestation complète assurée par un interlocuteur unique : préparation, livraison, installation et suivi personnalisé.</p>
     </div>
     <div class="feature-grid">
       {% for highlight in site.services_page.highlights %}
@@ -26,7 +26,7 @@ description: Livraison par zones, installation et reprise, assistance technique.
     <div>
       <div class="section-header">
         <h2>Livraison par zones</h2>
-        <p class="muted">Basée à {{ site.delivery.base_city }}, notre équipe couvre la Gironde avec trois zones tarifaires claires. Installation disponible dès {{ site.delivery.install_price_from_eur }} €.</p>
+        <p class="muted">Basé à {{ site.delivery.base_city }}, je couvre la Gironde avec trois zones tarifaires transparentes. Installation disponible à partir de {{ site.delivery.install_price_from_eur }} &euro;.</p>
       </div>
       <table>
         <thead>
@@ -41,19 +41,30 @@ description: Livraison par zones, installation et reprise, assistance technique.
           <tr>
             <td>{{ tier.label }}</td>
             <td>{{ tier.radius_km }} km</td>
-            <td>{{ tier.price_eur }} €</td>
+            <td>{{ tier.price_eur }} &euro;</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
+      <div class="map-shell">
+        <div class="map js-delivery-map"
+             data-map-id="services"
+             data-center-lat="{{ site.delivery.center_lat }}"
+             data-center-lng="{{ site.delivery.center_lng }}"
+             data-tiers='{{ site.delivery.tiers | jsonify }}'
+             data-city="{{ site.delivery.base_city }}">
+          <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
+        </div>
+        <p class="muted">Zoomer pour visualiser le rayon exact de chaque zone.</p>
+      </div>
     </div>
     <div class="note">
       <h3>Installation & reprise</h3>
-      <p>Nous installons, testons et vous formons à l’utilisation du matériel. Option technicien sur place possible pendant l’événement.</p>
+      <p>J'installe, je teste et je vous montre comment profiter du matériel sereinement. Option présence sur place possible sur demande.</p>
       <ul>
-        <li>Calage sonore et lumière en fonction du lieu.</li>
-        <li>Assistance téléphonique et dépannage week-end.</li>
-        <li>Reprise du matériel à l’heure convenue.</li>
+        <li>Calage sonore et lumière adapté à votre lieu.</li>
+        <li>Je reste joignable directement en cas de question pendant la soirée.</li>
+        <li>Reprise du matériel à l'horaire qui vous arrange.</li>
       </ul>
       <a class="button button--ghost" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Planifier une installation</a>
     </div>

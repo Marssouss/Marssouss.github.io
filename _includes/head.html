@@ -48,6 +48,7 @@
   --circle-primary: {{ theme.light.bubble_primary | default: 'rgba(103, 86, 255, 0.12)' }};
   --circle-secondary: {{ theme.light.bubble_secondary | default: 'rgba(232, 73, 155, 0.22)' }};
   --circle-tertiary: {{ theme.light.bubble_tertiary | default: 'rgba(103, 86, 255, 0.18)' }};
+  --hero-gradient: linear-gradient(130deg, rgba(24, 27, 46, 0.94) 0%, rgba(103, 86, 255, 0.72) 55%, rgba(232, 73, 155, 0.58) 100%);
   --glass-overlay: {{ theme.glass | default: 'rgba(255, 255, 255, 0.08)' }};
   --font-primary: {{ site.ui.fonts.primary | default: "system-ui, sans-serif" }};
   --font-display: {{ site.ui.fonts.display | default: "system-ui, sans-serif" }};
@@ -71,6 +72,7 @@
   --circle-primary: {{ theme.dark.bubble_primary | default: 'rgba(86, 76, 255, 0.26)' }};
   --circle-secondary: {{ theme.dark.bubble_secondary | default: 'rgba(228, 60, 149, 0.28)' }};
   --circle-tertiary: {{ theme.dark.bubble_tertiary | default: 'rgba(86, 76, 255, 0.32)' }};
+  --hero-gradient: linear-gradient(130deg, rgba(5, 6, 13, 0.95) 0%, rgba(86, 76, 255, 0.7) 55%, rgba(228, 60, 149, 0.55) 100%);
 }
 </style>
 <link rel="preload" href="{{ '/assets/styles.css' | relative_url }}" as="style">

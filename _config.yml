@@ -56,7 +56,7 @@ delivery:
   center_lng: -0.248
   tiers:
     - { radius_km: 5, price_eur: 10, label: "Zone 1 : retrait ou livraison locale", color: "#ef4444", contact_note: "Contactez-nous pour planifier votre retrait ou une livraison locale." }
-    - { radius_km: 10, price_eur: 25, label: "Zone 2 : Bordeaux & Libourne", color: "#facc15", contact_note: "Contactez-nous pour organiser la livraison sur Bordeaux ou Libourne." }
+    - { radius_km: 15, price_eur: 25, label: "Zone 2 : Bordeaux & Libourne", color: "#facc15", contact_note: "Contactez-nous pour organiser la livraison sur Bordeaux ou Libourne." }
     - { radius_km: 20, price_eur: 40, label: "Zone 3 : Gironde élargie", color: "#2563eb", contact_note: "Contactez-nous afin de vérifier la disponibilité et les frais pour la Gironde élargie." }
   install_price_from_eur: 49
 
@@ -112,7 +112,7 @@ branding:
     highlight_badge: "Nouveau : pack mariage 2024"
     title: "Illuminez vos événements, sans stress"
     subtitle: "Sono puissante, effets lumineux immersifs, packs clés en main et installation rapide en Gironde."
-    image: "/assets/hero-rig.jpg"
+    image: "/assets/img/webp/logo.webp"
     stats:
       - value: "180+"
         label: "soirées animées"
@@ -129,13 +129,17 @@ branding:
         label: "Voir les packs"
         url: "/packs/"
         external: false
+      catalogue:
+        label: "Voir le catalogue"
+        url: "/catalogue/"
+        external: false
   features:
     - title: "Matériel pro calibré"
-      description: "Enceintes puissantes, contrôleurs DJ, lumières intelligentes prêtes à mixer."
+      description: "Enceintes puissantes, contrôleurs DJ et lumières intelligentes révisés par mes soins."
     - title: "Livraison & installation"
-      description: "Zones tarifaires claires, option technicien et reprise en fin de soirée."
-    - title: "Support réactif"
-      description: "Hotline week-end et assistance à distance pour un événement sans accroc."
+      description: "Zones tarifaires claires, mise en place sur site et reprise après votre événement."
+    - title: "Interlocuteur unique"
+      description: "Un seul contact du devis au démontage, assistance directe par téléphone ou sur place."
   differentiators:
     title: "Votre ambiance, notre savoir-faire"
     items:
@@ -147,7 +151,7 @@ branding:
         text: "Jeux de lumières synchronisés, lasers, machines à effets pour des moments forts."
       - icon: "shield"
         title: "Sécurité & assurance"
-        text: "Matériel révisé, assistance incluse, caution sécurisée par empreinte bancaire."
+        text: "Matériel révisé avant chaque sortie, assurance incluse et briefing personnalisé."
 
 home:
   process:
@@ -156,9 +160,9 @@ home:
       - title: "Choisissez votre pack"
         description: "Réservez un pack existant ou demandez une combinaison sur mesure."
       - title: "Livraison & installation"
-        description: "Nous livrons, installons et testons avec vous le matériel."
+        description: "Je livre, j'installe et je teste avec vous le matériel."
       - title: "Profitez & restituez"
-        description: "Support pendant l'événement, reprise le lendemain ou le lundi."
+        description: "Contact direct pendant l'événement, reprise le lendemain ou le lundi."
   testimonials:
     title: "Ils nous font confiance"
     items:
@@ -182,16 +186,31 @@ catalogue:
       video_gallery:
         title: "Voir les lumières en action"
         intro: "Chaque vidéo présente un effet phare : comparez les rendus avant de réserver."
-        videos:
-          - title: "CONTEST LED BEAMER"
-            description: "Fonctionnement automatique sur le rythme de la musique."
-            embed_url: "https://www.youtube.com/embed/57o72ctb7OM?si=sfp-itHsa7rTlYEH"
-          - title: "Barre LED RGB"
-            description: "Gradations pastel ou couleurs saturées pour habiller la piste."
-            embed_url: "https://www.youtube.com/embed/57o72ctb7OM"
-          - title: "Laser multi-faisceaux"
-            description: "Effets tunnel et balayages rapides pour les moments forts."
-            embed_url: "https://www.youtube.com/embed/VIDEO_LASER"
+      showcases:
+        - name: "CONTEST LED BEAMER"
+          description: "Lyres motorisées compactes pour des dancefloors dynamiques."
+          video_embed: "https://www.youtube.com/embed/57o72ctb7OM?si=sfp-itHsa7rTlYEH"
+          photos:
+            - src: "/assets/gal1.jpg"
+              alt: "Lyres LED illuminant une piste violette"
+            - src: "/assets/gal2.jpg"
+              alt: "Lyres et laser vert en animation"
+        - name: "Barre LED RGB"
+          description: "Barre LED pour éclairages d'ambiance pastel ou punchy."
+          video_embed: "https://www.youtube.com/embed/57o72ctb7OM"
+          photos:
+            - src: "/assets/gal3.jpg"
+              alt: "Barre LED créant une ambiance chaleureuse"
+            - src: "/assets/gal1.jpg"
+              alt: "Ambiance colorée sur un dancefloor"
+        - name: "Laser multi-faisceaux"
+          description: "Effets tunnel et faisceaux rapides pour les temps forts."
+          video_embed: "https://www.youtube.com/embed/VIDEO_LASER"
+          photos:
+            - src: "/assets/gal2.jpg"
+              alt: "Laser vert projeté dans la salle"
+            - src: "/assets/gal3.jpg"
+              alt: "Laser et projecteurs LED sur une piste de danse"
       items:
         - name: "Lyres LED 150W"
           description: "Mouvements automatiques ou DMX, couleurs saturées."
@@ -261,9 +280,9 @@ services_page:
     - title: "Livraison par zones"
       text: "Trois zones tarifaires couvrant Bordeaux, Libourne et la Gironde."
     - title: "Installation clé en main"
-      text: "Nous installons, testons et vous accompagnons dans la prise en main."
-    - title: "Support pendant l'événement"
-      text: "Hotline week-end, assistance téléphonique et options technicien."
+      text: "Je livre, j'installe et je vous montre comment profiter du matériel sereinement."
+    - title: "Accompagnement direct"
+      text: "Contact unique avant, pendant et après l'événement, avec option présence sur place."
   extras:
     - title: "Location longue durée"
       text: "Tarifs dégressifs à partir de 3 jours."

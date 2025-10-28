@@ -1,4 +1,4 @@
-// assets/script.js
+﻿// assets/script.js
 (function () {
   const root = document.documentElement;
   const storageKey = 'theme-preference';
@@ -15,7 +15,7 @@
     try {
       localStorage.setItem(storageKey, value);
     } catch (err) {
-      /* storage might be disabled – ignore */
+      /* storage might be disabled - ignore */
     }
   };
 
@@ -61,20 +61,24 @@
   });
 
   if (window.matchMedia) {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-      const stored = readStorage();
-      if (!stored || stored === 'system') {
-        applyTheme(event.matches ? 'dark' : 'light', false);
-        updateMetaTheme(event.matches ? 'dark' : 'light');
-      }
-    });
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (event) => {
+        const stored = readStorage();
+        if (!stored || stored === 'system') {
+          applyTheme(event.matches ? 'dark' : 'light', false);
+          updateMetaTheme(event.matches ? 'dark' : 'light');
+        }
+      });
   }
 
   const navToggle = document.querySelector('[data-action="toggle-nav"]');
   const nav = document.querySelector('[data-nav]');
 
   const closeNav = () => {
-    if (!nav || !navToggle) return;
+    if (!nav || !navToggle) {
+      return;
+    }
     nav.classList.remove('is-open');
     navToggle.classList.remove('is-open');
     navToggle.setAttribute('aria-expanded', 'false');
@@ -86,12 +90,15 @@
       navToggle.classList.toggle('is-open', isOpen);
       navToggle.setAttribute('aria-expanded', String(isOpen));
       if (isOpen) {
-        nav.querySelector('a')?.focus({ preventScroll: true });
+        const firstLink = nav.querySelector('a');
+        if (firstLink) {
+          firstLink.focus({ preventScroll: true });
+        }
       }
     });
 
     nav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => closeNav());
+      link.addEventListener('click', closeNav);
     });
 
     document.addEventListener('click', (event) => {
@@ -107,10 +114,8 @@
     });
   }
 
-  const mapEl = document.getElementById('map');
-  if (!mapEl) {
-    return;
-  }
+  const mapElements = Array.from(document.querySelectorAll('.js-delivery-map'));
+  const modal = document.querySelector('[data-media-modal]');
 
   const loadLeaflet = () =>
     new Promise((resolve) => {
@@ -130,28 +135,31 @@
       document.head.appendChild(script);
     });
 
-  const initMap = () => {
-    if (!window.L) return;
-    const lat = parseFloat(mapEl.dataset.centerLat);
-    const lng = parseFloat(mapEl.dataset.centerLng);
-    const tiers = JSON.parse(mapEl.dataset.tiers || '[]');
-    const city = mapEl.dataset.city || 'Centre';
+  const initMap = (element) => {
+    if (!window.L || !element) {
+      return;
+    }
 
-    const map = L.map('map', { scrollWheelZoom: false }).setView([lat, lng], 10);
+    const lat = parseFloat(element.dataset.centerLat);
+    const lng = parseFloat(element.dataset.centerLng);
+    const tiers = JSON.parse(element.dataset.tiers || '[]');
+    const city = element.dataset.city || 'Centre';
+
+    const map = L.map(element, { scrollWheelZoom: false }).setView([lat, lng], 10);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; OpenStreetMap',
     }).addTo(map);
 
-    L.marker([lat, lng]).addTo(map).bindPopup(`<strong>${city}</strong> — centre des zones`);
+    L.marker([lat, lng])
+      .addTo(map)
+      .bindPopup('<strong>' + city + '</strong> - centre des zones');
 
     const defaultColors = ['#ef4444', '#facc15', '#2563eb', '#f97316'];
-
     const tiersWithDefaults = tiers.map((tier, index) => ({
       ...tier,
       __defaultColor: defaultColors[index % defaultColors.length],
     }));
-
     const sortedTiers = tiersWithDefaults.slice().sort((a, b) => b.radius_km - a.radius_km);
 
     let largestBounds = null;
@@ -165,10 +173,18 @@
         fillOpacity: 0.22,
         weight: 1.4,
       }).addTo(map);
-      const contactNote = tier.contact_note || 'Contactez-nous pour plus d’informations.';
-      circle.bindPopup(
-        `<strong>${tier.label}</strong><br>${tier.radius_km} km − ${tier.price_eur} €<br><em>${contactNote}</em>`
-      );
+      const contactNote = tier.contact_note || 'Contactez-nous pour plus d\'informations.';
+      const popupHtml =
+        '<strong>' +
+        tier.label +
+        '</strong><br>' +
+        tier.radius_km +
+        ' km - ' +
+        tier.price_eur +
+        ' &euro;<br><em>' +
+        contactNote +
+        '</em>';
+      circle.bindPopup(popupHtml);
       if (index === 0) {
         largestBounds = circle.getBounds();
       }
@@ -179,16 +195,79 @@
     }
   };
 
-  const observer = new IntersectionObserver(
-    async (entries) => {
-      const firstVisible = entries.find((entry) => entry.isIntersecting);
-      if (!firstVisible) return;
-      observer.disconnect();
-      await loadLeaflet();
-      initMap();
-    },
-    { threshold: 0.12 }
-  );
+  if (mapElements.length) {
+    mapElements.forEach((element) => {
+      const observer = new IntersectionObserver(
+        async (entries, obs) => {
+          const isVisible = entries.some((entry) => entry.isIntersecting);
+          if (!isVisible) {
+            return;
+          }
+          obs.disconnect();
+          await loadLeaflet();
+          initMap(element);
+        },
+        { threshold: 0.12 }
+      );
 
-  observer.observe(mapEl);
+      observer.observe(element);
+    });
+  }
+
+  if (modal) {
+    const titleEl = modal.querySelector('[data-media-title]');
+    const galleryEl = modal.querySelector('[data-media-gallery]');
+    const closeEls = modal.querySelectorAll('[data-media-close]');
+    const openButtons = document.querySelectorAll('[data-action="open-showcase"]');
+    const backdropEl = modal.querySelector('.media-modal__backdrop');
+    const originalBodyOverflow = document.body.style.overflow;
+
+    const closeModal = () => {
+      modal.setAttribute('hidden', '');
+      galleryEl.innerHTML = '';
+      document.body.style.overflow = originalBodyOverflow;
+    };
+
+    closeEls.forEach((btn) => btn.addEventListener('click', closeModal));
+
+    if (backdropEl) {
+      backdropEl.addEventListener('click', closeModal);
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !modal.hasAttribute('hidden')) {
+        closeModal();
+      }
+    });
+
+    openButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const rawPhotos = button.getAttribute('data-showcase-photos') || '[]';
+        let photos = [];
+        try {
+          photos = JSON.parse(rawPhotos);
+        } catch (err) {
+          photos = [];
+        }
+        galleryEl.innerHTML = '';
+        photos.forEach((photo) => {
+          const figure = document.createElement('figure');
+          const img = document.createElement('img');
+          img.src = photo.src;
+          img.alt = photo.alt || button.getAttribute('data-showcase-title') || 'Photo de materiel';
+          figure.appendChild(img);
+          if (photo.caption) {
+            const figcap = document.createElement('figcaption');
+            figcap.textContent = photo.caption;
+            figure.appendChild(figcap);
+          }
+          galleryEl.appendChild(figure);
+        });
+        titleEl.textContent = button.getAttribute('data-showcase-title') || 'Galerie media';
+        modal.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+  }
 })();
+
