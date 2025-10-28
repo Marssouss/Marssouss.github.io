@@ -6,6 +6,7 @@ logo_path: "/assets/img/webp/logo.webp"
 description: "Location de jeux de lumière, sonorisation et packs DJ avec accompagnement personnalisé en Gironde."
 url: ""
 baseurl: ""
+owner_name: "Timothy"
 
 status_banner:
   enabled: true
