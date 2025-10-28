@@ -46,7 +46,7 @@ description: Catalogue de matériel audio et lumière disponible à la location.
               </div>
             </div>
             {% elsif first_photo %}
-            <button class="media-card__visual" type="button" data-fullscreen-src="{{ first_photo }}" data-fullscreen-alt="{{ showcase.name }}">
+            <button class="media-card__visual" type="button" data-fullscreen-src="{{ first_photo }}" data-fullscreen-alt="{{ showcase.name | escape }}">
               <img src="{{ first_photo }}" alt="{{ showcase.name }}">
               <span class="media-card__visual-cta">Voir en plein écran</span>
             </button>
@@ -94,11 +94,11 @@ description: Catalogue de matériel audio et lumière disponible à la location.
               {% if showcase.photos %}
               <button class="button button--outline" type="button"
                       data-action="open-showcase"
-                      data-showcase-title="{{ showcase.name }}"
-                      data-showcase-summary="{{ showcase.summary | escape }}"
-                      data-showcase-details='{{ showcase.details | default: "" | jsonify }}'
-                      data-showcase-specs='{{ showcase.specs | default: "" | jsonify }}'
-                      data-showcase-photos='{{ showcase.photos | jsonify }}'>Voir les photos en grand</button>
+                      data-showcase-title="{{ showcase.name | escape }}"
+                      data-showcase-summary="{{ showcase.summary | default: "" | escape }}"
+                      data-showcase-details="{{ showcase.details | default: "" | jsonify | escape }}"
+                      data-showcase-specs="{{ showcase.specs | default: "" | jsonify | escape }}"
+                      data-showcase-photos="{{ showcase.photos | jsonify | escape }}">Voir les photos en grand</button>
               {% endif %}
             </div>
           </div>
