@@ -145,7 +145,7 @@
 
     L.marker([lat, lng]).addTo(map).bindPopup(`<strong>${city}</strong> — centre des zones`);
 
-    const defaultColors = ['#4cc9f0', '#ffb74d', '#90ee90', '#f97316'];
+    const defaultColors = ['#2563eb', '#facc15', '#ef4444', '#f97316'];
 
     tiers.forEach((tier, index) => {
       const color = tier.color || defaultColors[index % defaultColors.length];
@@ -153,10 +153,13 @@
         radius: tier.radius_km * 1000,
         color,
         fillColor: color,
-        fillOpacity: 0.18,
+        fillOpacity: 0.22,
         weight: 1.4,
       }).addTo(map);
-      circle.bindPopup(`${tier.label} − ${tier.radius_km} km − ${tier.price_eur} €`);
+      const contactNote = tier.contact_note || 'Contactez-nous pour plus d’informations.';
+      circle.bindPopup(
+        `<strong>${tier.label}</strong><br>${tier.radius_km} km − ${tier.price_eur} €<br><em>${contactNote}</em>`
+      );
       if (index === tiers.length - 1) {
         map.fitBounds(circle.getBounds(), { padding: [28, 28] });
       }

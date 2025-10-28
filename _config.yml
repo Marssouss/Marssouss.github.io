@@ -55,9 +55,9 @@ delivery:
   center_lat: 44.785
   center_lng: -0.265
   tiers:
-    - { radius_km: 10, price_eur: 0, label: "Zone 1 : retrait ou livraison locale", color: "#4cc9f0" }
-    - { radius_km: 25, price_eur: 20, label: "Zone 2 : Bordeaux & Libourne", color: "#ffb74d" }
-    - { radius_km: 50, price_eur: 45, label: "Zone 3 : Gironde élargie", color: "#90ee90" }
+    - { radius_km: 10, price_eur: 0, label: "Zone 1 : retrait ou livraison locale", color: "#2563eb", contact_note: "Contactez-nous pour planifier votre retrait ou une livraison locale." }
+    - { radius_km: 25, price_eur: 20, label: "Zone 2 : Bordeaux & Libourne", color: "#facc15", contact_note: "Contactez-nous pour organiser la livraison sur Bordeaux ou Libourne." }
+    - { radius_km: 50, price_eur: 45, label: "Zone 3 : Gironde élargie", color: "#ef4444", contact_note: "Contactez-nous afin de vérifier la disponibilité et les frais pour la Gironde élargie." }
   install_price_from_eur: 49
 
 forms:
@@ -156,10 +156,10 @@ home:
     videos:
       - title: "CONTEST LED BEAMER"
         description: "Fonctionnement automatique sur le rythme de la musique."
-        embed_url: "https://www.youtube.com/watch?v=57o72ctb7OM"
+        embed_url: "https://www.youtube.com/embed/57o72ctb7OM?si=sfp-itHsa7rTlYEH"
       - title: "Barre LED RGB"
         description: "Gradations pastel ou couleurs saturées pour habiller la piste."
-        embed_url: "https://www.youtube.com/embed/VIDEO_BARRE"
+        embed_url: "https://www.youtube.com/embed/57o72ctb7OM"
       - title: "Laser multi-faisceaux"
         description: "Effets tunnel et balayages rapides pour les moments forts."
         embed_url: "https://www.youtube.com/embed/VIDEO_LASER"
@@ -258,7 +258,7 @@ contact_page:
     url: "https://forms.gle/votre-form"
   notes:
     - "Option technicien pour installation sur site."
-    - "Retrait gratuit sur rendez-vous à Espiet."
+    - "Retrait gratuit sur rendez-vous à"
     - "Assurance casse et vol disponible sur demande."
 
 services_page:
