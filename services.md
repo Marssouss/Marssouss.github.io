@@ -11,11 +11,11 @@ description: Location sono & lumières avec livraison, installation sur demande 
       <p class="muted">Je suis {{ site.owner_name }}, interlocuteur unique pour la sono et la lumière de vos soirées en Gironde.</p>
     </div>
     <p>Je prépare le pack choisi, je fournis tous les câbles et je reste joignable le jour J. Vous gérez la playlist, je sécurise la technique.</p>
-    <div class="section-actions" style="gap: 1rem;">
+    <div class="section-actions" style="margin: 2.5rem 0; gap: 1.25rem;">
       <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander un devis rapide</a>
       <a class="button button--ghost" href="/packs/">Voir les packs disponibles</a>
     </div>
-    <div class="feature-grid">
+    <div class="feature-grid" style="margin-top: 2.5rem;">
       {% for highlight in site.services_page.highlights %}
       <article class="feature-card">
         <h3>{{ highlight.title }}</h3>
@@ -27,7 +27,7 @@ description: Location sono & lumières avec livraison, installation sur demande 
 </section>
 
 <section class="section">
-  <div class="container split-grid">
+  <div class="container split-grid" style="align-items: start;">
     <div>
       <div class="section-header">
         <h2>Livraison flexible, installation sur demande</h2>
@@ -66,19 +66,8 @@ description: Location sono & lumières avec livraison, installation sur demande 
           {% endfor %}
         </tbody>
       </table>
-      <div class="map-shell">
-        <div class="map js-delivery-map"
-             data-map-id="services"
-             data-center-lat="{{ site.delivery.center_lat }}"
-             data-center-lng="{{ site.delivery.center_lng }}"
-             data-tiers='{{ site.delivery.tiers | jsonify }}'
-             data-city="{{ site.delivery.base_city }}">
-          <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
-        </div>
-        <p class="muted map-caption">Hors zone ? Contactez-moi pour un devis personnalisé.</p>
-      </div>
     </div>
-    <div class="note">
+    <div class="note" style="max-width: 360px;">
       <h3>Installation & reprise</h3>
       <p>Je m’occupe de la mise en place, je réalise les tests et je planifie le démontage avec vous.</p>
       <ul>
@@ -87,6 +76,22 @@ description: Location sono & lumières avec livraison, installation sur demande 
         <li>Reprise à l’horaire qui vous convient.</li>
       </ul>
       <a class="button button--ghost" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Planifier une installation</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="map-shell" style="max-width: 680px; margin-inline: auto;">
+      <div class="map js-delivery-map"
+           data-map-id="services"
+           data-center-lat="{{ site.delivery.center_lat }}"
+           data-center-lng="{{ site.delivery.center_lng }}"
+           data-tiers='{{ site.delivery.tiers | jsonify }}'
+           data-city="{{ site.delivery.base_city }}">
+        <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
+      </div>
+      <p class="muted map-caption">Hors zone ? Contactez-moi pour un devis personnalisé.</p>
     </div>
   </div>
 </section>
