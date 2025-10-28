@@ -1,8 +1,8 @@
-# _config.yml
+﻿# _config.yml
 title: "LOCALUM - E2M"
 brand: "LOCALUM - E2M"
 brand_tagline: "Location sono & lumières événementielles en Gironde"
-logo_path: "/assets/logo.png"
+logo_path: "/assets/webp/logo.webp"
 description: "Location de jeux de lumière, sonorisation et packs DJ, installation possible en Gironde et alentours."
 url: ""
 baseurl: ""
