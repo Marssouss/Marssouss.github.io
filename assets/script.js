@@ -145,10 +145,19 @@
 
     L.marker([lat, lng]).addTo(map).bindPopup(`<strong>${city}</strong> — centre des zones`);
 
-    const defaultColors = ['#2563eb', '#facc15', '#ef4444', '#f97316'];
+    const defaultColors = ['#ef4444', '#facc15', '#2563eb', '#f97316'];
 
-    tiers.forEach((tier, index) => {
-      const color = tier.color || defaultColors[index % defaultColors.length];
+    const tiersWithDefaults = tiers.map((tier, index) => ({
+      ...tier,
+      __defaultColor: defaultColors[index % defaultColors.length],
+    }));
+
+    const sortedTiers = tiersWithDefaults.slice().sort((a, b) => b.radius_km - a.radius_km);
+
+    let largestBounds = null;
+
+    sortedTiers.forEach((tier, index) => {
+      const color = tier.color || tier.__defaultColor;
       const circle = L.circle([lat, lng], {
         radius: tier.radius_km * 1000,
         color,
@@ -160,10 +169,14 @@
       circle.bindPopup(
         `<strong>${tier.label}</strong><br>${tier.radius_km} km − ${tier.price_eur} €<br><em>${contactNote}</em>`
       );
-      if (index === tiers.length - 1) {
-        map.fitBounds(circle.getBounds(), { padding: [28, 28] });
+      if (index === 0) {
+        largestBounds = circle.getBounds();
       }
     });
+
+    if (largestBounds) {
+      map.fitBounds(largestBounds, { padding: [28, 28] });
+    }
   };
 
   const observer = new IntersectionObserver(

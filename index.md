@@ -190,42 +190,6 @@ description: Location de sonorisation et jeux de lumière à Espiet et en Girond
 </section>
 {% endif %}
 
-{% assign video_gallery = site.home.video_gallery %}
-{% if video_gallery.videos %}
-<section class="section">
-  <div class="container split-grid">
-    <div>
-      <div class="section-header">
-        <h2>{{ video_gallery.title | default: "Plongez dans l'ambiance" }}</h2>
-        {% if video_gallery.intro %}<p class="muted">{{ video_gallery.intro }}</p>{% endif %}
-      </div>
-      <div class="video-gallery">
-        {% for video in video_gallery.videos %}
-        <article class="video-card">
-          <div class="video-frame">
-            <iframe
-              title="{{ video.title | default: 'Vidéo de démonstration' }}"
-              src="{{ video.embed_url }}"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              referrerpolicy="strict-origin-when-cross-origin"></iframe>
-          </div>
-          {% if video.title %}<h3>{{ video.title }}</h3>{% endif %}
-          {% if video.description %}<p class="muted">{{ video.description }}</p>{% endif %}
-        </article>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="note">
-      <h3>Besoin d'un pack sur mesure ?</h3>
-      <p>Expliquez-nous votre lieu, le nombre d'invités et l'ambiance souhaitée. Nous préparons une configuration sono & lumière sur mesure.</p>
-      <a class="button button--ghost" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Envoyer votre brief</a>
-    </div>
-  </div>
-</section>
-{% endif %}
-
 {% assign testimonials = site.home.testimonials %}
 {% if testimonials.items %}
 <section class="section">
