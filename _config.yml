@@ -169,19 +169,6 @@ home:
 
 catalogue:
   intro: "Sélectionnez le matériel qui correspond à votre événement. Chaque élément est contrôlé avant départ."
-  video_gallery:
-    title: "Voir les lumières en action"
-    intro: "Chaque vidéo présente un effet phare : comparez les rendus avant de réserver."
-    videos:
-      - title: "CONTEST LED BEAMER"
-        description: "Fonctionnement automatique sur le rythme de la musique."
-        embed_url: "https://www.youtube.com/embed/57o72ctb7OM?si=sfp-itHsa7rTlYEH"
-      - title: "Barre LED RGB"
-        description: "Gradations pastel ou couleurs saturées pour habiller la piste."
-        embed_url: "https://www.youtube.com/embed/57o72ctb7OM"
-      - title: "Laser multi-faisceaux"
-        description: "Effets tunnel et balayages rapides pour les moments forts."
-        embed_url: "https://www.youtube.com/embed/VIDEO_LASER"
   categories:
     - name: "Sono & diffusion"
       items:
@@ -192,6 +179,19 @@ catalogue:
           description: "Renforce les basses pour DJ set, 1000W RMS."
           price_per_day: 55
     - name: "Lumières & effets"
+      video_gallery:
+        title: "Voir les lumières en action"
+        intro: "Chaque vidéo présente un effet phare : comparez les rendus avant de réserver."
+        videos:
+          - title: "CONTEST LED BEAMER"
+            description: "Fonctionnement automatique sur le rythme de la musique."
+            embed_url: "https://www.youtube.com/embed/57o72ctb7OM?si=sfp-itHsa7rTlYEH"
+          - title: "Barre LED RGB"
+            description: "Gradations pastel ou couleurs saturées pour habiller la piste."
+            embed_url: "https://www.youtube.com/embed/57o72ctb7OM"
+          - title: "Laser multi-faisceaux"
+            description: "Effets tunnel et balayages rapides pour les moments forts."
+            embed_url: "https://www.youtube.com/embed/VIDEO_LASER"
       items:
         - name: "Lyres LED 150W"
           description: "Mouvements automatiques ou DMX, couleurs saturées."

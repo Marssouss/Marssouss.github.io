@@ -10,13 +10,14 @@ description: Catalogue de matériel audio et lumière disponible à la location.
       <h1>Catalogue matériel</h1>
       <p class="muted">{{ site.catalogue.intro }}</p>
     </div>
-    {% assign video_gallery = site.catalogue.video_gallery %}
-    {% if video_gallery.videos %}
+    {% for category in site.catalogue.categories %}
     <div class="section-block">
-      <h2>{{ video_gallery.title | default: "Voir les effets vidéo" }}</h2>
-      {% if video_gallery.intro %}<p class="muted">{{ video_gallery.intro }}</p>{% endif %}
+      <h2>{{ category.name }}</h2>
+      {% if category.video_gallery.videos %}
+      {% if category.video_gallery.title %}<h3>{{ category.video_gallery.title }}</h3>{% endif %}
+      {% if category.video_gallery.intro %}<p class="muted">{{ category.video_gallery.intro }}</p>{% endif %}
       <div class="video-gallery">
-        {% for video in video_gallery.videos %}
+        {% for video in category.video_gallery.videos %}
         <article class="video-card">
           <div class="video-frame">
             <iframe
@@ -32,11 +33,7 @@ description: Catalogue de matériel audio et lumière disponible à la location.
         </article>
         {% endfor %}
       </div>
-    </div>
-    {% endif %}
-    {% for category in site.catalogue.categories %}
-    <div class="section-block">
-      <h2>{{ category.name }}</h2>
+      {% endif %}
       <ul class="cards">
         {% for item in category.items %}
         <li class="card">
