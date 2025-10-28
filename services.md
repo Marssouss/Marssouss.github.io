@@ -34,20 +34,6 @@ description: Location sono & lumières avec livraison, installation sur demande 
           <h2>Livraison flexible, installation sur demande</h2>
           <p class="muted">Retrait gratuit à {{ site.delivery.base_city }} ou livraison dans votre zone. Installation complète disponible à partir de {{ site.delivery.install_price_from_eur }} €.</p>
         </div>
-        <div class="feature-grid" style="margin-top: 1.75rem; grid-template-columns: repeat(3, minmax(0, 1fr));">
-          <article class="feature-card">
-            <h3>Retrait rapide</h3>
-            <p class="muted">Créneau sur rendez-vous, pack prêt à partir avec check-list.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Livraison maîtrisée</h3>
-            <p class="muted">Transport assuré par mes soins, tests de fonctionnement sur place.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Installation à la carte</h3>
-            <p class="muted">Calage lumière et son, briefing express pour une utilisation sereine.</p>
-          </article>
-        </div>
       </div>
       <aside class="note" style="max-width: 380px; margin: 0;">
         <h3>Installation & reprise</h3>
@@ -59,6 +45,20 @@ description: Location sono & lumières avec livraison, installation sur demande 
         </ul>
         <a class="button button--ghost" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Planifier une installation</a>
       </aside>
+    </div>
+    <div class="feature-grid" style="margin-top: 2.75rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+      <article class="feature-card">
+        <h3>Retrait rapide</h3>
+        <p class="muted">Créneau sur rendez-vous, pack prêt à partir avec check-list.</p>
+      </article>
+      <article class="feature-card">
+        <h3>Livraison maîtrisée</h3>
+        <p class="muted">Transport assuré par mes soins, tests de fonctionnement sur place.</p>
+      </article>
+      <article class="feature-card">
+        <h3>Installation à la carte</h3>
+        <p class="muted">Calage lumière et son, briefing express pour une utilisation sereine.</p>
+      </article>
     </div>
     <div style="display: grid; gap: 1.75rem; margin-top: 3rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); align-items: start;">
       <div>
