@@ -129,13 +129,13 @@ description: Catalogue de matériel audio et lumière disponible à la location.
   <div class="media-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="media-modal-title">
     <button class="media-modal__close" type="button" data-media-close aria-label="Fermer la galerie">&times;</button>
     <h3 id="media-modal-title" data-media-title></h3>
-    <div class="media-modal__layout">
-      <div class="media-modal__grid" data-media-gallery></div>
-      <aside class="media-modal__info">
-        <p class="muted" data-media-summary></p>
-        <div class="media-modal__details" data-media-details></div>
-        <ul class="media-modal__specs" data-media-specs></ul>
-      </aside>
-    </div>
+      <div class="media-modal__layout">
+        <div class="media-modal__grid" data-media-gallery></div>
+        <aside class="media-modal__info">
+          <p class="muted media-modal__summary" data-media-summary></p>
+          <div class="media-modal__details" data-media-details></div>
+          <ul class="media-modal__specs" data-media-specs></ul>
+        </aside>
+      </div>
   </div>
 </div>

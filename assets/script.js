@@ -212,6 +212,9 @@
     const prevBtn = carousel.querySelector("[data-carousel-prev]");
     const nextBtn = carousel.querySelector("[data-carousel-next]");
     const dots = Array.from(carousel.querySelectorAll("[data-carousel-dot]"));
+    const images = slides
+      .map((slide) => slide.querySelector("img"))
+      .filter((img) => Boolean(img));
     let index = slides.findIndex((slide) => slide.classList.contains("is-active"));
     if (index < 0) index = 0;
 
