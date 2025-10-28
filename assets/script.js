@@ -300,6 +300,52 @@
     });
   });
 
+  const packCards = Array.from(document.querySelectorAll("[data-pack-card]"));
+  if (packCards.length) {
+    const desktopQuery = window.matchMedia("(min-width: 960px)");
+
+    const setPackState = (card, expanded) => {
+      card.dataset.packOpen = expanded ? "true" : "false";
+      const toggle = card.querySelector("[data-pack-toggle]");
+      const label = toggle?.querySelector("[data-pack-toggle-label]");
+      const content = card.querySelector("[data-pack-content]");
+      if (toggle) {
+        toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+        if (label) {
+          label.textContent = expanded ? "Masquer le détail" : "Voir le détail";
+        }
+      }
+      if (content) {
+        content.setAttribute("aria-hidden", expanded ? "false" : "true");
+      }
+    };
+
+    const syncWithViewport = (matches) => {
+      packCards.forEach((card) => {
+        const toggle = card.querySelector("[data-pack-toggle]");
+        const shouldExpand = matches || !toggle;
+        setPackState(card, shouldExpand);
+      });
+    };
+
+    packCards.forEach((card) => {
+      const toggle = card.querySelector("[data-pack-toggle]");
+      if (!toggle) {
+        setPackState(card, true);
+        return;
+      }
+      toggle.addEventListener("click", () => {
+        const isExpanded = card.dataset.packOpen === "true";
+        setPackState(card, !isExpanded);
+      });
+    });
+
+    syncWithViewport(desktopQuery.matches);
+    desktopQuery.addEventListener("change", (event) => {
+      syncWithViewport(event.matches);
+    });
+  }
+
   const modal = document.querySelector("[data-media-modal]");
   if (modal) {
     const titleEl = modal.querySelector("[data-media-title]");
