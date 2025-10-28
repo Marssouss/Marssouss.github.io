@@ -1,4 +1,4 @@
-# _config.yml
+﻿# _config.yml
 title: "LOCALUM - E2M"
 brand: "LOCALUM - E2M"
 brand_tagline: "Location sono & lumières événementielles en Gironde"
@@ -55,7 +55,7 @@ delivery:
   tiers:
     - { radius_km: 5, price_eur: 10, label: "Zone 1 : retrait ou livraison locale", color: "#ef4444", contact_note: "Contactez-moi pour planifier un retrait ou une livraison très proche." }
     - { radius_km: 15, price_eur: 25, label: "Zone 2 : Bordeaux & Libourne", color: "#facc15", contact_note: "Contactez-moi pour organiser la livraison sur Bordeaux ou Libourne." }
-    - { radius_km: 40, price_eur: 40, label: "Zone 3 : Gironde élargie", color: "#2563eb", contact_note: "Contactez-moi afin de valider la disponibilité et les frais en Gironde élargie." }
+    - { radius_km: 20, price_eur: 40, label: "Zone 3 : Gironde élargie", color: "#2563eb", contact_note: "Contactez-moi afin de valider la disponibilité et les frais en Gironde élargie." }
   install_price_from_eur: 49
 
 forms:
@@ -107,10 +107,10 @@ ui:
 branding:
   hero:
     eyebrow: "Location sono & lumières"
-    highlight_badge: "Micro-entreprise locale"
+    highlight_badge: "Pour une soirée impeccable"
     title: "Illuminez vos événements sans stress"
     subtitle: "Sono puissante, lumières immersives et installation clé en main partout en Gironde."
-    image: "/assets/img/webp/logo.webp"
+    image: "/assets/img/webp/hero.webp"
     stats:
       - value: "180+"
         label: "soirées animées"

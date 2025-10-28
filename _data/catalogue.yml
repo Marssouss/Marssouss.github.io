@@ -1,12 +1,45 @@
 intro: "Sélectionnez le matériel qui correspond à votre événement. Chaque élément est contrôlé avant départ."
 categories:
   - name: "Sono & diffusion"
+    showcases:
+      - name: "Enceintes actives 12''"
+        summary: "Idéal pour 80 à 120 personnes, couverture homogène et connectique XLR/Jack."
+        details:
+          - title: "Description complète"
+            text: "Enceintes amplifiées 12'' de 500 W RMS. Elles délivrent un son précis et puissant pour les soirées privées et les discours."
+          - title: "Utilisation"
+            text: "Mariages, anniversaires, conférences, DJ set. Adaptées aux salles de taille moyenne."
+        specs:
+          - "Puissance : 500 W RMS / 1000 W peak"
+          - "Entrées : XLR, Jack 6.35 mm, RCA"
+          - "Poids : 16 kg"
+        photos:
+          - src: "/assets/gal1.jpg"
+            alt: "Enceintes actives 12 pouces installées en salle"
+          - src: "/assets/gal2.jpg"
+            alt: "Enceintes 12 pouces avec caisson de basses"
+      - name: "Caisson de basses 15''"
+        summary: "Renforce les basses pour DJ set, concerts intimistes ou soirées dansantes."
+        details:
+          - title: "Description complète"
+            text: "Caisson bass-reflex 15'' de 700 W RMS. Apporte de la profondeur et un impact ressenti sur la piste de danse."
+          - title: "Utilisation"
+            text: "Idéal pour DJ, groupes live et soirées club jusqu’à 150 personnes."
+        specs:
+          - "Puissance : 700 W RMS"
+          - "Filtre : passe-bas ajustable"
+          - "Connectique : XLR in/out"
+        photos:
+          - src: "/assets/gal3.jpg"
+            alt: "Caisson de basses 15 pouces en prestation"
+          - src: "/assets/gal2.jpg"
+            alt: "Setup sono avec caisson 15 pouces"
     items:
       - name: "Enceintes actives 12''"
         description: "Idéal pour 80 à 120 personnes, entrées XLR/Jack."
         price_per_day: 45
       - name: "Caisson de basses 15''"
-        description: "Renforce les basses pour DJ set, 1000W RMS."
+        description: "Renforce les basses pour DJ set, 1000 W RMS."
         price_per_day: 55
   - name: "Lumières & effets"
     video_gallery:
@@ -14,26 +47,60 @@ categories:
       intro: "Chaque vidéo présente un effet phare : comparez les rendus avant de réserver."
     showcases:
       - name: "CONTEST LED BEAMER"
-        description: "Lyres motorisées compactes pour des dancefloors dynamiques."
+        summary: "Lyres motorisées compactes pour des dancefloors dynamiques."
+        details:
+          - title: "Description complète"
+            text: "Projecteur à LED avec faisceaux multidirectionnels, programmes automatiques et pilotage DMX."
+          - title: "Rendu"
+            text: "Effets beam colorés, parfait pour les transitions rapides et les moments forts."
+          - title: "Utilisation"
+            text: "Mariages festifs, soirées club, DJ mobile souhaitant une installation compacte."
+        specs:
+          - "Source : 8 LED 10 W RGBW"
+          - "Modes : Auto, Son, DMX 8/14 canaux"
+          - "Poids : 3,5 kg"
         video_embed: "https://www.youtube.com/embed/57o72ctb7OM?si=sfp-itHsa7rTlYEH"
         photos:
           - src: "/assets/img/webp/Catalogue/CONTEST-LED-BEAMER/led-beamer-contest-1.webp"
-            alt: "Contest LED Beamer en action"
+            alt: "Contest LED Beamer sur scène"
           - src: "/assets/img/webp/Catalogue/CONTEST-LED-BEAMER/led-beamer-contest-2.webp"
-            alt: "Contest LED Beamer - faisceau violet"
+            alt: "Faisceaux violets du Contest LED Beamer"
       - name: "Barre LED RGB"
-        description: "IBIZA LED STROBE LS 005"
+        summary: "Stroboscope et panneau wash pour booster la piste."
+        details:
+          - title: "Description complète"
+            text: "Panneau LED tricolore offrant strobe, wash et chase pour dynamiser vos shows."
+          - title: "Rendu"
+            text: "Éclairages flash ou nappes colorées pour accentuer les breaks musicaux."
+          - title: "Utilisation"
+            text: "DJ, soirées étudiantes, animations nécessitant un stroboscope contrôlable."
+        specs:
+          - "Modèle : Ibiza LED Strobe LS 005"
+          - "LED : 86 rouges, 87 vertes, 87 bleues"
+          - "Modes : Auto, Son, DMX 7 canaux"
+          - "Alimentation : 230 V"
         video_embed: "https://www.youtube.com/embed/pQGpmqJxH8s?si=zip80f65PHcuQfXg"
         photos:
           - src: "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-1.webp"
-            alt: "Ibiza Led Strobe LS 005"
+            alt: "Ibiza LED Strobe LS 005 sur pied"
           - src: "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-2.webp"
-            alt: "Ibiza Led Strobe LS 005"
+            alt: "Ibiza LED Strobe LS 005 en pleine démonstration"
       - name: "Laser multi-faisceaux"
-        description: "Effets tunnel et faisceaux rapides pour les temps forts."
+        summary: "Effets tunnel et faisceaux rapides pour les temps forts."
+        details:
+          - title: "Description complète"
+            text: "Laser RGB multizone avec motifs animés, idéal pour une ambiance club spectaculaire."
+          - title: "Rendu"
+            text: "Tunnel, éventail, grilles dynamiques synchronisées avec la musique."
+          - title: "Utilisation"
+            text: "Soirées DJ, clubs éphémères, animations scéniques."
+        specs:
+          - "Couleurs : RGB"
+          - "Pilotage : DMX / ILDA"
+          - "Sécurité : clé + interlock"
         video_embed: "https://www.youtube.com/embed/VIDEO_LASER"
         photos:
           - src: "/assets/gal2.jpg"
-            alt: "Laser vert projeté dans la salle"
+            alt: "Laser multi-faisceaux vert en soirée"
           - src: "/assets/gal3.jpg"
-            alt: "Laser et projecteurs LED sur la piste"
+            alt: "Laser multi-faisceaux coloré sur piste"
