@@ -101,7 +101,6 @@ description: Location sono & lumières avec livraison, installation sur demande 
              data-city="{{ site.delivery.base_city }}">
           <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
         </div>
-        <p class="muted map-caption">Hors zone ? Contactez-moi pour un devis personnalisé.</p>
       </div>
     </div>
   </div>

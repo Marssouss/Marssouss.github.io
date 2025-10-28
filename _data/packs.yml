@@ -1,31 +1,107 @@
-intro: "Des packs prêts à mixer, optimisés pour la taille de votre événement. Chaque pack renvoie vers le matériel compatible dans le catalogue."
+intro: "Des packs lumière & sono prêts à brancher, pensés pour la taille de votre événement. Chaque pack renvoie vers le matériel correspondant dans le catalogue."
 items:
-  - title: "Pack Soirée 50 pers."
-    description: "Sono + lumières pour anniversaire ou afterwork."
-    duration: "1 jour"
-    price_per_day: 89
-    weekend_price: 140
+  - id: pack-1
+    title: "Pack Ambiance 40"
+    tagline: "1 pied + 3 jeux de lumière LED"
+    capacity: "Jusqu'à 40 personnes"
+    weekend_price: 50
+    description: "Idéal pour les salons, anniversaires à domicile et petites soirées conviviales."
     includes:
-      - "[Enceintes actives 12''](#sono-diffusion)"
-      - "[Barre LED RGB](#lumieres-effets)"
-      - "[Machine à fumée compacte](#lumieres-effets)"
-      - "Câblage + multiprises"
-  - title: "Pack Mariage Signature"
-    description: "Ambiance élégante, son premium, lumières connectées."
-    duration: "Week-end"
-    price_per_day: 149
-    weekend_price: 220
+      - label: "Jeux de lumière LED compacts"
+        href: "/catalogue/#showcase-jeux-de-lumiere-led-compacts"
+      - label: "Pied T-bar + crochets sécurité"
+        href: "/catalogue/#showcase-pieds-t-bar"
+      - label: "Câblages & multiprises fournis"
+        href: "/catalogue/#showcase-cablage-evenementiel"
+    notes:
+      - "Panachage des effets possible selon vos envies."
+  - id: pack-2
+    title: "Pack Ambiance 60"
+    tagline: "2 pieds + 6 jeux de lumière LED"
+    capacity: "Jusqu'à 60 personnes"
+    weekend_price: 80
+    description: "Pour dynamiser une piste dans une salle des fêtes ou une grange aménagée."
     includes:
-      - "[Enceintes actives 12'' + sub 15''](#sono-diffusion)"
-      - "[Projecteurs LED sur pont](#lumieres-effets)"
-      - "[Micro HF](#sono-diffusion)"
-      - "[Console mixage](#sono-diffusion)"
-  - title: "Pack DJ Club"
-    description: "Contrôleur DJ, lyres intelligentes et laser multi-faisceaux."
-    duration: "Week-end"
-    price_per_day: 169
-    weekend_price: 249
+      - label: "Jeux de lumière LED variés"
+        href: "/catalogue/#showcase-jeux-de-lumiere-led-compacts"
+      - label: "2 pieds T-bar avec crochets"
+        href: "/catalogue/#showcase-pieds-t-bar"
+      - label: "Câblages & multiprises fournis"
+        href: "/catalogue/#showcase-cablage-evenementiel"
+    notes:
+      - "Installation possible sur demande."
+  - id: pack-3
+    title: "Pack Ambiance 100"
+    tagline: "3 pieds + 9 jeux de lumière LED"
+    capacity: "Jusqu'à 100 personnes"
+    weekend_price: 110
+    description: "Couverture lumineuse généreuse pour grandes pièces et salles municipales."
     includes:
-      - "[Enceintes actives 12''](#sono-diffusion)"
-      - "[Contrôleur DJ USB](#sono-diffusion)"
-      - "[Lyres LED + laser](#lumieres-effets)"
+      - label: "9 effets LED synchronisables"
+        href: "/catalogue/#showcase-jeux-de-lumiere-led-compacts"
+      - label: "3 structures T-bar renforcées"
+        href: "/catalogue/#showcase-pieds-t-bar"
+      - label: "Câblages & multiprises fournis"
+        href: "/catalogue/#showcase-cablage-evenementiel"
+    notes:
+      - "Prévoir une prise 230 V dédiée."
+  - id: pack-4
+    title: "Pack Sono Stage Line"
+    tagline: "Système Triton + table de mixage"
+    capacity: "Jusqu'à 100 personnes"
+    weekend_price: 100
+    description: "Une diffusion robuste pour discours et soirées dansantes."
+    includes:
+      - label: "Stage Line Triton (caisson + satellites)"
+        href: "/catalogue/#showcase-stage-line-triton"
+      - label: "Table de mixage 4 entrées"
+        href: "/catalogue/#showcase-table-de-mixage-4-entrees"
+      - label: "Câble mini-jack vers mixette"
+        href: "/catalogue/#showcase-cablage-evenementiel"
+    notes:
+      - "Compatible PC, tablette ou contrôleur DJ."
+  - id: pack-5
+    title: "Pack Mur LED"
+    tagline: "5 barres LED multicolores"
+    capacity: "Effet décoratif"
+    weekend_price: 40
+    description: "Habillez vos murs d'une teinte fixe ou d'un dégradé coloré."
+    includes:
+      - label: "5 barres LED RGB"
+        href: "/catalogue/#showcase-barre-led-rgb"
+      - label: "Télécommande & boîtier DMX"
+        href: "/catalogue/#showcase-controle-lumieres-dmx"
+      - label: "Câblages & multiprises fournis"
+        href: "/catalogue/#showcase-cablage-evenementiel"
+    notes:
+      - "Idéal en complément d'un pack ambiance."
+  - id: pack-6
+    title: "Pack Sono FBT"
+    tagline: "2 enceintes + ampli"
+    capacity: "Jusqu'à 60 personnes"
+    weekend_price: 80
+    description: "Solution mobile pour garden-party, vin d'honneur ou conférence."
+    includes:
+      - label: "Enceintes FBT + amplificateur"
+        href: "/catalogue/#showcase-sonorisation-fbt"
+      - label: "Table de mixage 4 entrées"
+        href: "/catalogue/#showcase-table-de-mixage-4-entrees"
+      - label: "Câbles audio & alimentation"
+        href: "/catalogue/#showcase-cablage-evenementiel"
+    notes:
+      - "Livraison et installation sur devis."
+  - id: pack-7
+    title: "Pack Boule à facettes"
+    tagline: "Boule + projecteur (couleur ou blanc)"
+    capacity: "2 exemplaires disponibles"
+    weekend_price: 15
+    description: "L'effet disco incontournable pour compléter une ambiance festive."
+    includes:
+      - label: "Boule à facettes motorisée"
+        href: "/catalogue/#showcase-boule-a-facettes-motorisee"
+      - label: "Projecteur dédié"
+        href: "/catalogue/#showcase-boule-a-facettes-motorisee"
+      - label: "Crochet & câble d'alimentation"
+        href: "/catalogue/#showcase-cablage-evenementiel"
+    notes:
+      - "Se combine parfaitement avec les packs lumière."

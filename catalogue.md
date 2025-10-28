@@ -31,7 +31,7 @@ description: Catalogue de matériel audio et lumière disponible à la location.
             {% assign first_photo = first_photo_obj.src | relative_url %}
           {% endif %}
         {% endif %}
-        <article class="media-card media-card--modern">
+        <article class="media-card media-card--modern" id="showcase-{{ showcase.name | slugify }}">
           <div class="media-card__header">
             {% if showcase.video_embed %}
             <div class="media-card__video">
