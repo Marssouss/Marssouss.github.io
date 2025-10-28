@@ -290,43 +290,6 @@
     }
   });
 
-  const initialiseCarousel = (carousel) => {
-    const slides = Array.from(carousel.querySelectorAll(".media-card__slide"));
-    if (!slides.length) return;
-
-    const prevBtn = carousel.querySelector("[data-carousel-prev]");
-    const nextBtn = carousel.querySelector("[data-carousel-next]");
-    const dots = Array.from(carousel.querySelectorAll("[data-carousel-dot]"));
-    const images = slides
-      .map((slide) => slide.querySelector("img"))
-      .filter((img) => Boolean(img));
-    let index = slides.findIndex((slide) => slide.classList.contains("is-active"));
-    if (index < 0) index = 0;
-
-    const setActive = (target) => {
-      index = (target + slides.length) % slides.length;
-      slides.forEach((slide, idx) => {
-        slide.classList.toggle("is-active", idx === index);
-      });
-      dots.forEach((dot, idx) => {
-        dot.classList.toggle("is-active", idx === index);
-        dot.setAttribute("aria-pressed", idx === index ? "true" : "false");
-      });
-    };
-
-    prevBtn?.addEventListener("click", () => setActive(index - 1));
-    nextBtn?.addEventListener("click", () => setActive(index + 1));
-    dots.forEach((dot) => {
-      dot.addEventListener("click", () => {
-        const targetIndex = Number(dot.dataset.index || 0);
-        setActive(targetIndex);
-      });
-    });
-    images.forEach((img) => {
-      img.addEventListener("click", () => toggleLightbox(true, img.src, img.alt));
-    });
-  };
-
   document.querySelectorAll("[data-carousel]").forEach(initialiseCarousel);
 
   document.querySelectorAll("[data-fullscreen-src]").forEach((btn) => {
