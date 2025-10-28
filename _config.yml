@@ -57,6 +57,8 @@ delivery:
     - { radius_km: 5, price_eur: 10, label: "Zone 1 : retrait ou livraison locale", color: "#ef4444", contact_note: "Contactez-moi pour planifier un retrait ou une livraison très proche." }
     - { radius_km: 10, price_eur: 25, label: "Zone 2 : Bordeaux & Libourne", color: "#facc15", contact_note: "Contactez-moi pour organiser la livraison sur Bordeaux ou Libourne." }
     - { radius_km: 15, price_eur: 40, label: "Zone 3 : Gironde élargie", color: "#2563eb", contact_note: "Contactez-moi afin de valider la disponibilité et les frais en Gironde élargie." }
+    - {label: "Hors zone ?", contact_note: "Contactez-moi pour un devis personnalisé." }
+
   install_price_from_eur: 49
 
 forms:
