@@ -1,8 +1,8 @@
-﻿---
+---
 layout: default
 title: Accueil
 permalink: /
-description: Location de sonorisation et jeux de lumiÃ¨re en Gironde. Packs prÃªts Ã  l'emploi, livraison par zones et installation sur demande.
+description: Location de sonorisation et jeux de lumière en Gironde. Packs prêts à l’emploi, livraison par zones et installation sur demande.
 ---
 
 {% assign hero = site.branding.hero %}
@@ -93,11 +93,11 @@ description: Location de sonorisation et jeux de lumiÃ¨re en Gironde. Packs pr
   <div class="container differentiators">
     {% for diff in differentiators %}
     {% case diff.icon %}
-      {% when 'spark' %}{% assign icon_char = 'âœ¨' %}
-      {% when 'beam' %}{% assign icon_char = 'ðŸ”†' %}
-      {% when 'shield' %}{% assign icon_char = 'ðŸ›¡' %}
-      {% when 'wave' %}{% assign icon_char = 'ðŸŒŠ' %}
-      {% else %}{% assign icon_char = 'ðŸŽµ' %}
+      {% when 'spark' %}{% assign icon_char = '✦' %}
+      {% when 'beam' %}{% assign icon_char = '☄︎' %}
+      {% when 'shield' %}{% assign icon_char = '🛡︎' %}
+      {% when 'wave' %}{% assign icon_char = '〰︎' %}
+      {% else %}{% assign icon_char = '★' %}
     {% endcase %}
     <article class="diff-card">
       <span class="diff-icon" aria-hidden="true">{{ icon_char }}</span>
@@ -114,12 +114,12 @@ description: Location de sonorisation et jeux de lumiÃ¨re en Gironde. Packs pr
     <div>
       <div class="section-header">
         <h2>Livraison & installation</h2>
-        <p class="muted">Des zones tarifaires claires, installation sur demande &agrave; partir de {{ site.delivery.install_price_from_eur }} &euro; et pr&eacute;sence possible le jour J.</p>
+        <p class="muted">Des zones tarifaires claires, installation sur demande à partir de {{ site.delivery.install_price_from_eur }} € et présence possible le jour J.</p>
       </div>
       <div class="note">
         <ul>
           {% for tier in site.delivery.tiers %}
-          <li><strong>{{ tier.label }}</strong> - {{ tier.radius_km }} km &mdash; {{ tier.price_eur }} &euro;</li>
+          <li><strong>{{ tier.label }}</strong> – {{ tier.radius_km }} km — {{ tier.price_eur }} €</li>
           {% endfor %}
         </ul>
         <p class="muted">Retrait gratuit sur rendez-vous.</p>
@@ -142,6 +142,7 @@ description: Location de sonorisation et jeux de lumiÃ¨re en Gironde. Packs pr
              data-city="{{ site.delivery.base_city }}">
           <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
         </div>
+        <p class="muted map-caption">Pour toute demande hors zone, merci de me contacter directement.</p>
       </div>
     </div>
   </div>
@@ -151,10 +152,10 @@ description: Location de sonorisation et jeux de lumiÃ¨re en Gironde. Packs pr
   <div class="container">
     <div class="section-header">
       <h2>Nos packs populaires</h2>
-      <p class="muted">{{ site.packs.intro }}</p>
+      <p class="muted">{{ site.data.packs.intro }}</p>
     </div>
     <ul class="cards">
-      {% for pack in site.packs.items %}
+      {% for pack in site.data.packs.items %}
       <li class="card">
         <h3>{{ pack.title }}</h3>
         <p class="muted">{{ pack.description }}</p>
@@ -163,16 +164,16 @@ description: Location de sonorisation et jeux de lumiÃ¨re en Gironde. Packs pr
         <p class="muted">Week-end : {{ pack.weekend_price }} {{ site.pricing.currency }}</p>
         <ul>
           {% for item in pack.includes %}
-          <li>{{ item }}</li>
+          <li>{{ item | markdownify | strip_newlines }}</li>
           {% endfor %}
         </ul>
-        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">RÃ©server ce pack</a>
+        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Réserver ce pack</a>
       </li>
       {% endfor %}
     </ul>
     <div class="section-actions">
       <a class="button button--ghost" href="{{ '/packs/' | relative_url }}">Voir tous les packs</a>
-      <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander une disponibilitÃ©</a>
+      <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander une disponibilité</a>
     </div>
   </div>
 </section>
@@ -183,7 +184,7 @@ description: Location de sonorisation et jeux de lumiÃ¨re en Gironde. Packs pr
   <div class="container">
     <div class="section-header">
       <h2>{{ process.title }}</h2>
-      <p class="muted">Un accompagnement complet, de la rÃ©servation Ã  la reprise du matÃ©riel.</p>
+      <p class="muted">Un accompagnement complet, de la réservation à la reprise du matériel.</p>
     </div>
     <div class="process-steps">
       {% for step in process.steps %}
@@ -203,7 +204,7 @@ description: Location de sonorisation et jeux de lumiÃ¨re en Gironde. Packs pr
   <div class="container">
     <div class="section-header">
       <h2>{{ testimonials.title }}</h2>
-      <p class="muted">Des mariages, anniversaires et Ã©vÃ©nements pros qui passent en mode club.</p>
+      <p class="muted">Mariages, anniversaires et événements pros : ils racontent leur expérience.</p>
     </div>
     <div class="testimonials">
       {% for item in testimonials.items %}
@@ -216,9 +217,3 @@ description: Location de sonorisation et jeux de lumiÃ¨re en Gironde. Packs pr
   </div>
 </section>
 {% endif %}
-
-
-
-
-
-

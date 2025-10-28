@@ -1,0 +1,39 @@
+intro: "Sélectionnez le matériel qui correspond à votre événement. Chaque élément est contrôlé avant départ."
+categories:
+  - name: "Sono & diffusion"
+    items:
+      - name: "Enceintes actives 12''"
+        description: "Idéal pour 80 à 120 personnes, entrées XLR/Jack."
+        price_per_day: 45
+      - name: "Caisson de basses 15''"
+        description: "Renforce les basses pour DJ set, 1000W RMS."
+        price_per_day: 55
+  - name: "Lumières & effets"
+    video_gallery:
+      title: "Voir les lumières en action"
+      intro: "Chaque vidéo présente un effet phare : comparez les rendus avant de réserver."
+    showcases:
+      - name: "CONTEST LED BEAMER"
+        description: "Lyres motorisées compactes pour des dancefloors dynamiques."
+        video_embed: "https://www.youtube.com/embed/57o72ctb7OM?si=sfp-itHsa7rTlYEH"
+        photos:
+          - src: "/assets/img/webp/Catalogue/CONTEST-LED-BEAMER/led-beamer-contest-1.webp"
+            alt: "Contest LED Beamer en action"
+          - src: "/assets/img/webp/Catalogue/CONTEST-LED-BEAMER/led-beamer-contest-2.webp"
+            alt: "Contest LED Beamer - faisceau violet"
+      - name: "Barre LED RGB"
+        description: "IBIZA LED STROBE LS 005"
+        video_embed: "https://www.youtube.com/embed/pQGpmqJxH8s?si=zip80f65PHcuQfXg"
+        photos:
+          - src: "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-1.webp"
+            alt: "Ibiza Led Strobe LS 005"
+          - src: "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-2.webp"
+            alt: "Ibiza Led Strobe LS 005"
+      - name: "Laser multi-faisceaux"
+        description: "Effets tunnel et faisceaux rapides pour les temps forts."
+        video_embed: "https://www.youtube.com/embed/VIDEO_LASER"
+        photos:
+          - src: "/assets/gal2.jpg"
+            alt: "Laser vert projeté dans la salle"
+          - src: "/assets/gal3.jpg"
+            alt: "Laser et projecteurs LED sur la piste"

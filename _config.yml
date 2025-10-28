@@ -1,9 +1,9 @@
-﻿# _config.yml
+# _config.yml
 title: "LOCALUM - E2M"
 brand: "LOCALUM - E2M"
 brand_tagline: "Location sono & lumières événementielles en Gironde"
 logo_path: "/assets/img/webp/logo.webp"
-description: "Location de jeux de lumière, sonorisation et packs DJ, installation possible en Gironde et alentours."
+description: "Location de jeux de lumière, sonorisation et packs DJ avec accompagnement personnalisé en Gironde."
 url: ""
 baseurl: ""
 
@@ -23,8 +23,6 @@ navigation:
     url: "/catalogue/"
   - label: "Packs"
     url: "/packs/"
-  - label: "Galerie"
-    url: "/galerie/"
   - label: "Contact"
     url: "/contact/"
   - label: "Réserver"
@@ -55,9 +53,9 @@ delivery:
   center_lat: 44.799
   center_lng: -0.248
   tiers:
-    - { radius_km: 5, price_eur: 10, label: "Zone 1 : retrait ou livraison locale", color: "#ef4444", contact_note: "Contactez-nous pour planifier votre retrait ou une livraison locale." }
-    - { radius_km: 15, price_eur: 25, label: "Zone 2 : Bordeaux & Libourne", color: "#facc15", contact_note: "Contactez-nous pour organiser la livraison sur Bordeaux ou Libourne." }
-    - { radius_km: 20, price_eur: 40, label: "Zone 3 : Gironde élargie", color: "#2563eb", contact_note: "Contactez-nous afin de vérifier la disponibilité et les frais pour la Gironde élargie." }
+    - { radius_km: 5, price_eur: 10, label: "Zone 1 : retrait ou livraison locale", color: "#ef4444", contact_note: "Contactez-moi pour planifier un retrait ou une livraison très proche." }
+    - { radius_km: 15, price_eur: 25, label: "Zone 2 : Bordeaux & Libourne", color: "#facc15", contact_note: "Contactez-moi pour organiser la livraison sur Bordeaux ou Libourne." }
+    - { radius_km: 40, price_eur: 40, label: "Zone 3 : Gironde élargie", color: "#2563eb", contact_note: "Contactez-moi afin de valider la disponibilité et les frais en Gironde élargie." }
   install_price_from_eur: 49
 
 forms:
@@ -73,19 +71,19 @@ ui:
   theme:
     default: "system"
     light:
-      background: "#f4f5fb"
+      background: "#fdfcff"
       surface: "#ffffff"
-      elevated: "#f7f8ff"
-      text: "#0f1426"
-      text_muted: "#5c637e"
-      accent: "#6756ff"
-      accent_soft: "rgba(103, 86, 255, 0.12)"
-      border: "rgba(15, 20, 38, 0.08)"
-      shadow: "0 18px 40px rgba(26, 33, 54, 0.12)"
-      gradient: "linear-gradient(135deg, rgba(101, 86, 255, 0.75) 0%, rgba(232, 73, 155, 0.75) 100%)"
-      bubble_primary: "rgba(76, 201, 240, 0.20)"
-      bubble_secondary: "rgba(255, 183, 77, 0.24)"
-      bubble_tertiary: "rgba(144, 238, 144, 0.18)"
+      elevated: "#f7f7ff"
+      text: "#1b1d2c"
+      text_muted: "#555b75"
+      accent: "#5b3ff6"
+      accent_soft: "rgba(91, 63, 246, 0.15)"
+      border: "rgba(27, 29, 44, 0.12)"
+      shadow: "0 22px 44px rgba(27, 29, 44, 0.12)"
+      gradient: "linear-gradient(130deg, rgba(91, 63, 246, 0.88) 0%, rgba(230, 92, 162, 0.78) 48%, rgba(255, 190, 92, 0.72) 100%)"
+      bubble_primary: "rgba(91, 63, 246, 0.12)"
+      bubble_secondary: "rgba(230, 92, 162, 0.18)"
+      bubble_tertiary: "rgba(79, 209, 197, 0.16)"
     dark:
       background: "#05060d"
       surface: "#0f1327"
@@ -109,9 +107,9 @@ ui:
 branding:
   hero:
     eyebrow: "Location sono & lumières"
-    highlight_badge: "Nouveau : pack mariage 2024"
-    title: "Illuminez vos événements, sans stress"
-    subtitle: "Sono puissante, effets lumineux immersifs, packs clés en main et installation rapide en Gironde."
+    highlight_badge: "Micro-entreprise locale"
+    title: "Illuminez vos événements sans stress"
+    subtitle: "Sono puissante, lumières immersives et installation clé en main partout en Gironde."
     image: "/assets/img/webp/logo.webp"
     stats:
       - value: "180+"
@@ -119,7 +117,7 @@ branding:
       - value: "4.9/5"
         label: "avis clients"
       - value: "48h"
-        label: "de délai moyen"
+        label: "délai moyen"
     ctas:
       primary:
         label: "Demander un devis"
@@ -135,23 +133,23 @@ branding:
         external: false
   features:
     - title: "Matériel pro calibré"
-      description: "Enceintes puissantes, contrôleurs DJ et lumières intelligentes révisés par mes soins."
+      description: "Enceintes, contrôleurs DJ et lumières révisés avant chaque sortie."
     - title: "Livraison & installation"
-      description: "Zones tarifaires claires, mise en place sur site et reprise après votre événement."
+      description: "Zones tarifaires transparentes, mise en place sur site et reprise après l’événement."
     - title: "Interlocuteur unique"
       description: "Un seul contact du devis au démontage, assistance directe par téléphone ou sur place."
   differentiators:
-    title: "Votre ambiance, notre savoir-faire"
+    title: "Votre ambiance, mon savoir-faire"
     items:
       - icon: "spark"
         title: "Pack personnalisable"
         text: "Ajustez chaque pack selon votre événement : mariage, anniversaire, corporate."
       - icon: "beam"
         title: "Effets lumière scénarisés"
-        text: "Jeux de lumières synchronisés, lasers, machines à effets pour des moments forts."
+        text: "Jeux de lumières synchronisés, lasers et machines à effets pour vos temps forts."
       - icon: "shield"
         title: "Sécurité & assurance"
-        text: "Matériel révisé avant chaque sortie, assurance incluse et briefing personnalisé."
+        text: "Matériel révisé avant chaque prestation, assurance incluse et briefing personnalisé."
 
 home:
   process:
@@ -160,129 +158,25 @@ home:
       - title: "Choisissez votre pack"
         description: "Réservez un pack existant ou demandez une combinaison sur mesure."
       - title: "Livraison & installation"
-        description: "Je livre, j'installe et je teste avec vous le matériel."
+        description: "Je livre, j’installe et je teste le matériel avec vous."
       - title: "Profitez & restituez"
-        description: "Contact direct pendant l'événement, reprise le lendemain ou le lundi."
+        description: "Contact direct pendant l’événement, reprise le lendemain ou le lundi."
   testimonials:
-    title: "Ils nous font confiance"
+    title: "Ils me font confiance"
     items:
-      - quote: "La prestation lumière a transformé notre salle, et le son était impeccable !"
-        author: "Camille & Léo — Mariage à Bordeaux"
-      - quote: "Installation rapide, matériel simple à utiliser, nos 200 invités ont adoré."
-        author: "Association NightRun — Libourne"
-
-catalogue:
-  intro: "Sélectionnez le matériel qui correspond à votre événement. Chaque élément est contrôlé avant départ."
-  categories:
-    - name: "Sono & diffusion"
-      items:
-        - name: "Enceintes actives 12''"
-          description: "Idéal pour 80 à 120 personnes, entrées XLR/Jack."
-          price_per_day: 45
-        - name: "Caisson de basses 15''"
-          description: "Renforce les basses pour DJ set, 1000W RMS."
-          price_per_day: 55
-    - name: "Lumières & effets"
-      video_gallery:
-        title: "Voir les lumières en action"
-        intro: "Chaque vidéo présente un effet phare : comparez les rendus avant de réserver."
-      showcases:
-        - name: "CONTEST LED BEAMER"
-          description: "Lyres motorisées compactes pour des dancefloors dynamiques."
-          video_embed: "https://www.youtube.com/embed/57o72ctb7OM?si=sfp-itHsa7rTlYEH"
-          photos:
-            - src: "/assets/gal1.jpg"
-              alt: "Lyres LED illuminant une piste violette"
-            - src: "/assets/gal2.jpg"
-              alt: "Lyres et laser vert en animation"
-        - name: "Barre LED RGB"
-          description: "Barre LED pour éclairages d'ambiance pastel ou punchy."
-          video_embed: "https://www.youtube.com/embed/57o72ctb7OM"
-          photos:
-            - src: "/assets/gal3.jpg"
-              alt: "Barre LED créant une ambiance chaleureuse"
-            - src: "/assets/gal1.jpg"
-              alt: "Ambiance colorée sur un dancefloor"
-        - name: "Laser multi-faisceaux"
-          description: "Effets tunnel et faisceaux rapides pour les temps forts."
-          video_embed: "https://www.youtube.com/embed/VIDEO_LASER"
-          photos:
-            - src: "/assets/gal2.jpg"
-              alt: "Laser vert projeté dans la salle"
-            - src: "/assets/gal3.jpg"
-              alt: "Laser et projecteurs LED sur une piste de danse"
-      items:
-        - name: "Lyres LED 150W"
-          description: "Mouvements automatiques ou DMX, couleurs saturées."
-          price_per_day: 59
-        - name: "Machine à fumée heavy"
-          description: "Effet fumée dense pour lasers et lights."
-          price_per_day: 35
-
-packs:
-  intro: "Des packs prêts à mixer, optimisés pour la taille de votre événement. Ajustez chaque pack selon vos besoins."
-  items:
-    - title: "Pack Soirée 50 pers."
-      description: "Sono + lumières pour anniversaire ou afterwork."
-      duration: "1 jour"
-      price_per_day: 89
-      weekend_price: 140
-      includes:
-        - "2x enceintes actives 12'' + pieds"
-        - "1x barre LED RGB"
-        - "1x machine à fumée compacte"
-        - "Câblage + multiprises"
-    - title: "Pack Mariage Signature"
-      description: "Ambiance élégante, son premium, lumières connectées."
-      duration: "Week-end"
-      price_per_day: 149
-      weekend_price: 220
-      includes:
-        - "2x enceintes actives 12'' + sub 15''"
-        - "2x projecteurs LED sur pont"
-        - "1x micro HF"
-        - "1x console mixage"
-    - title: "Pack DJ Club"
-      description: "Contrôleur DJ, lyres intelligentes et laser multi-faisceaux."
-      duration: "Week-end"
-      price_per_day: 169
-      weekend_price: 249
-      includes:
-        - "2x enceintes 12''"
-        - "1x contrôleur DJ (USB)"
-        - "2x lyres LED + 1x laser"
-
-gallery:
-  intro: "Ambiances lumineuses, scénographie et installations sur mesure."
-  images:
-    - src: "/assets/gal1.jpg"
-      alt: "Installation lumière violette dans une salle voûtée"
-    - src: "/assets/gal2.jpg"
-      alt: "DJ booth avec lyres et laser vert"
-    - src: "/assets/gal3.jpg"
-      alt: "Dancefloor mariage avec projecteurs LED"
-  video_cta:
-    label: "Voir la chaîne YouTube"
-    url: "https://youtube.com/@votre-chaine"
-
-contact_page:
-  intro: "Discutons de votre prochain événement : nous répondons sous 24h."
-  booking_cta:
-    label: "Remplir le formulaire de réservation"
-    url: "https://forms.gle/votre-form"
-  notes:
-    - "Option technicien pour installation sur site."
-    - "Retrait gratuit sur rendez-vous au dépôt."
-    - "Assurance casse et vol disponible sur demande."
+      - quote: "Installation impeccable et ambiance lumineuse parfaite, tout était prêt très rapidement."
+        author: "Camille & Léo – Mariage à Bordeaux"
+      - quote: "Matériel simple à utiliser, communication ultra fluide, nos 200 invités ont adoré."
+        author: "Association NightRun – Libourne"
 
 services_page:
   highlights:
     - title: "Livraison par zones"
       text: "Trois zones tarifaires couvrant Bordeaux, Libourne et la Gironde."
     - title: "Installation clé en main"
-      text: "Je livre, j'installe et je vous montre comment profiter du matériel sereinement."
+      text: "Je livre, j’installe et je vous montre comment profiter du matériel sereinement."
     - title: "Accompagnement direct"
-      text: "Contact unique avant, pendant et après l'événement, avec option présence sur place."
+      text: "Contact unique avant, pendant et après l’événement, avec option présence sur place."
   extras:
     - title: "Location longue durée"
       text: "Tarifs dégressifs à partir de 3 jours."
@@ -295,13 +189,13 @@ footer:
   callout:
     eyebrow: "Prêt à allumer votre soirée ?"
     title: "Réservez votre pack sono & lumière"
-    subtitle: "Réponse rapide sous 24h, livraison partout en Gironde."
+    subtitle: "Réponse rapide sous 24 h, livraison partout en Gironde."
     button:
       label: "Vérifier une date"
       url: "https://forms.gle/votre-form"
   info:
-    hours: "Lun - Sam : 9h à 19h"
-    service_area: "Livraison jusqu'à 50 km autour de notre dépôt"
+    hours: "Lun - Sam : 9 h à 19 h"
+    service_area: "Livraison jusqu’à 50 km autour de notre dépôt"
   links:
     - label: "Mentions légales"
       url: "/mentions-legales/"
@@ -320,8 +214,16 @@ legal:
   liability: "Malgré tous les efforts pour garantir l'exactitude des informations publiées, l'éditeur ne saurait être tenu responsable des dommages directs ou indirects résultant de l'utilisation du site."
 
 seo:
-  keywords: ["location sono", "location jeux de lumière", "DJ", "soirée", "mariage", "anniversaire", "Gironde", "Daignac"]
-  city_targets: ["Daignac", "Bordeaux", "Libourne", "Entre-Deux-Mers", "Gironde"]
+  keywords:
+    - "location sono Gironde"
+    - "location lumière événementielle"
+    - "DJ Daignac"
+    - "éclairage mariage Bordeaux"
+    - "sonorisation soirée privée"
+    - "pack sono lumière clé en main"
+    - "installation lumière DJ"
+    - "location lyres LED Gironde"
+  city_targets: ["Daignac", "Bordeaux", "Libourne", "Entre-Deux-Mers", "Gironde", "Nouvelle-Aquitaine"]
   open_graph_image: "/assets/og.jpg"
   enable_jsonld: true
 

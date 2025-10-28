@@ -1,0 +1,31 @@
+intro: "Des packs prêts à mixer, optimisés pour la taille de votre événement. Chaque pack renvoie vers le matériel compatible dans le catalogue."
+items:
+  - title: "Pack Soirée 50 pers."
+    description: "Sono + lumières pour anniversaire ou afterwork."
+    duration: "1 jour"
+    price_per_day: 89
+    weekend_price: 140
+    includes:
+      - "[Enceintes actives 12''](#sono-diffusion)"
+      - "[Barre LED RGB](#lumieres-effets)"
+      - "[Machine à fumée compacte](#lumieres-effets)"
+      - "Câblage + multiprises"
+  - title: "Pack Mariage Signature"
+    description: "Ambiance élégante, son premium, lumières connectées."
+    duration: "Week-end"
+    price_per_day: 149
+    weekend_price: 220
+    includes:
+      - "[Enceintes actives 12'' + sub 15''](#sono-diffusion)"
+      - "[Projecteurs LED sur pont](#lumieres-effets)"
+      - "[Micro HF](#sono-diffusion)"
+      - "[Console mixage](#sono-diffusion)"
+  - title: "Pack DJ Club"
+    description: "Contrôleur DJ, lyres intelligentes et laser multi-faisceaux."
+    duration: "Week-end"
+    price_per_day: 169
+    weekend_price: 249
+    includes:
+      - "[Enceintes actives 12''](#sono-diffusion)"
+      - "[Contrôleur DJ USB](#sono-diffusion)"
+      - "[Lyres LED + laser](#lumieres-effets)"

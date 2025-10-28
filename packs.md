@@ -8,10 +8,10 @@ description: Packs sono et lumière prêts à l’emploi pour soirées, mariages
   <div class="container">
     <div class="section-header">
       <h1>Packs sono & lumière</h1>
-      <p class="muted">{{ site.packs.intro }}</p>
+      <p class="muted">{{ site.data.packs.intro }}</p>
     </div>
     <ul class="cards">
-      {% for pack in site.packs.items %}
+      {% for pack in site.data.packs.items %}
       <li class="card">
         <h3>{{ pack.title }}</h3>
         <p class="muted">{{ pack.description }}</p>
@@ -20,7 +20,7 @@ description: Packs sono et lumière prêts à l’emploi pour soirées, mariages
         <p class="muted">Week-end : {{ pack.weekend_price }} {{ site.pricing.currency }}</p>
         <ul>
           {% for item in pack.includes %}
-          <li>{{ item }}</li>
+          <li>{{ item | markdownify | strip_newlines }}</li>
           {% endfor %}
         </ul>
         <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander ce pack</a>
