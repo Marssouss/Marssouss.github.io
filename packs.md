@@ -100,24 +100,32 @@ description: Packs sono et lumière prêts à l’emploi pour soirées, mariages
     <article class="pack-compose-card">
       <div class="pack-compose-card__content">
         <h2>Composez votre pack</h2>
-        <p class="muted">Associez un pack Ambiance (1, 2 ou 3) avec les options sono et déco pour créer une configuration sur mesure.</p>
-        <ul class="pack-compose-card__rules">
-          <li><strong>Pack Ambiance 40</strong> + options 4 • 5 • 6 • 7</li>
-          <li><strong>Pack Ambiance 60</strong> + options 4 • 5 • 6 • 7</li>
-          <li><strong>Pack Ambiance 100</strong> + options 4 • 5 • 6 • 7</li>
-        </ul>
-        <p class="muted">Mixez librement les packs 4, 5, 6 et 7 pour compléter votre ambiance. Chaque combinaison est testée avant départ.</p>
+        <p class="muted">Choisissez un pack Ambiance ou louez uniquement la sono/les effets selon vos besoins, puis mixez librement.</p>
+        <div class="pack-compose-card__matrix">
+          <div class="pack-compose-card__column">
+            <h3>Combinaisons Ambiance</h3>
+            <ul class="pack-compose-card__rules">
+              <li><strong>Pack Ambiance 40</strong> + packs 4 • 5 • 6 • 7</li>
+              <li><strong>Pack Ambiance 60</strong> + packs 4 • 5 • 6 • 7</li>
+              <li><strong>Pack Ambiance 100</strong> + packs 4 • 5 • 6 • 7</li>
+            </ul>
+          </div>
+          <div class="pack-compose-card__column">
+            <h3>Packs autonomes</h3>
+            <ul class="pack-compose-card__rules">
+              <li><strong>Pack 4</strong> : Sono Stage Line</li>
+              <li><strong>Pack 5</strong> : Mur LED décoratif</li>
+              <li><strong>Pack 6</strong> : Sono FBT + mixage</li>
+              <li><strong>Pack 7</strong> : Boule à facettes & projecteur</li>
+            </ul>
+          </div>
+        </div>
+        <p class="muted">Combinez les packs 4, 5, 6 et 7 entre eux ou ajoutez-les à un pack Ambiance. Chaque configuration est préparée et testée avant retrait ou livraison.</p>
       </div>
       <div class="pack-compose-card__actions">
         <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Composer votre pack</a>
-        <p class="pack-compose-card__note muted">Bientôt : formulaire Microsoft/Google dédié pour finaliser la réservation.</p>
+        <p class="pack-compose-card__note muted">Bientôt : formulaire Microsoft/Google pour sélectionner vos packs et lancer la réservation.</p>
       </div>
     </article>
-    <div class="note">
-      <h3>Infos pratiques</h3>
-      <p>{{ site.pricing.weekend }}</p>
-      <p>{{ site.pricing.caution_policy }}</p>
-      <p>{{ site.pricing.notes }}</p>
-    </div>
   </div>
 </section>
