@@ -35,7 +35,7 @@ navigation:
 contact:
   phone: "+33 6 12 34 56 78"
   email: "contact@loclights.example"
-  address: "12 rue des Fêtes, 33370 Espiet"
+  address: "12 rue des Fêtes, 33370 Daignac"
   siret: "123 456 789 00012"
   legal_contact: "Jean Exemple"
   legal_name: "LOCALUM - E2M"
@@ -51,13 +51,13 @@ social:
   facebook: "https://facebook.com/votrepage"
 
 delivery:
-  base_city: "Espiet"
-  center_lat: 44.785
-  center_lng: -0.265
+  base_city: "Daignac"
+  center_lat: 44.799
+  center_lng: -0.248
   tiers:
-    - { radius_km: 10, price_eur: 0, label: "Zone 1 : retrait ou livraison locale", color: "#ef4444", contact_note: "Contactez-nous pour planifier votre retrait ou une livraison locale." }
-    - { radius_km: 25, price_eur: 20, label: "Zone 2 : Bordeaux & Libourne", color: "#facc15", contact_note: "Contactez-nous pour organiser la livraison sur Bordeaux ou Libourne." }
-    - { radius_km: 50, price_eur: 45, label: "Zone 3 : Gironde élargie", color: "#2563eb", contact_note: "Contactez-nous afin de vérifier la disponibilité et les frais pour la Gironde élargie." }
+    - { radius_km: 5, price_eur: 10, label: "Zone 1 : retrait ou livraison locale", color: "#ef4444", contact_note: "Contactez-nous pour planifier votre retrait ou une livraison locale." }
+    - { radius_km: 10, price_eur: 25, label: "Zone 2 : Bordeaux & Libourne", color: "#facc15", contact_note: "Contactez-nous pour organiser la livraison sur Bordeaux ou Libourne." }
+    - { radius_km: 20, price_eur: 40, label: "Zone 3 : Gironde élargie", color: "#2563eb", contact_note: "Contactez-nous afin de vérifier la disponibilité et les frais pour la Gironde élargie." }
   install_price_from_eur: 49
 
 forms:
@@ -253,13 +253,13 @@ contact_page:
     url: "https://forms.gle/votre-form"
   notes:
     - "Option technicien pour installation sur site."
-    - "Retrait gratuit sur rendez-vous à"
+    - "Retrait gratuit sur rendez-vous au dépôt."
     - "Assurance casse et vol disponible sur demande."
 
 services_page:
   highlights:
     - title: "Livraison par zones"
-      text: "Trois zones tarifaires couvrant Espiet, Bordeaux et la Gironde."
+      text: "Trois zones tarifaires couvrant Bordeaux, Libourne et la Gironde."
     - title: "Installation clé en main"
       text: "Nous installons, testons et vous accompagnons dans la prise en main."
     - title: "Support pendant l'événement"
@@ -282,7 +282,7 @@ footer:
       url: "https://forms.gle/votre-form"
   info:
     hours: "Lun - Sam : 9h à 19h"
-    service_area: "Livraison jusqu'à 50 km autour d'Espiet"
+    service_area: "Livraison jusqu'à 50 km autour de notre dépôt"
   links:
     - label: "Mentions légales"
       url: "/mentions-legales/"
@@ -301,8 +301,8 @@ legal:
   liability: "Malgré tous les efforts pour garantir l'exactitude des informations publiées, l'éditeur ne saurait être tenu responsable des dommages directs ou indirects résultant de l'utilisation du site."
 
 seo:
-  keywords: ["location sono", "location jeux de lumière", "DJ", "soirée", "mariage", "anniversaire", "Gironde", "Espiet"]
-  city_targets: ["Espiet", "Bordeaux", "Libourne", "Entre-Deux-Mers", "Gironde"]
+  keywords: ["location sono", "location jeux de lumière", "DJ", "soirée", "mariage", "anniversaire", "Gironde", "Daignac"]
+  city_targets: ["Daignac", "Bordeaux", "Libourne", "Entre-Deux-Mers", "Gironde"]
   open_graph_image: "/assets/og.jpg"
   enable_jsonld: true
 
