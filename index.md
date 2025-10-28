@@ -229,14 +229,6 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
           </div>
           <footer class="pack-card__footer">
             <a class="button button--ghost" href="{{ '/packs/' | relative_url }}">Découvrir ce pack</a>
-            {% if first_include_href %}
-            <a class="button button--outline" href="{{ first_include_href }}">
-              Voir le matériel
-              {% if first_include_label %}<span class="sr-only">: {{ first_include_label }}</span>{% endif %}
-            </a>
-            {% else %}
-            <a class="button button--outline" href="{{ '/catalogue/' | relative_url }}">Explorer le catalogue</a>
-            {% endif %}
           </footer>
         </article>
       </li>

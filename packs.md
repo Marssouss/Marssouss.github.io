@@ -83,48 +83,47 @@ description: Packs sono et lumière prêts à l’emploi pour soirées, mariages
             </button>
             {% endif %}
           </div>
-          <footer class="pack-card__footer pack-card__footer--single">
-            {% if first_include_href %}
-            <a class="button button--outline" href="{{ first_include_href }}">
-              Voir le matériel
-              {% if first_include_label %}<span class="sr-only">: {{ first_include_label }}</span>{% endif %}
-            </a>
-            {% else %}
-            <a class="button button--ghost" href="{{ '/catalogue/' | relative_url }}">Explorer le catalogue</a>
-            {% endif %}
+          <footer class="pack-card__footer">
+            <a class="button button--ghost" href="{{ '/catalogue/' | relative_url }}">Voir tout le matériel</a>
           </footer>
         </article>
       </li>
       {% endfor %}
     </ul>
-    <article class="pack-compose-card">
-      <div class="pack-compose-card__content">
-        <h2>Composez votre pack</h2>
-        <p class="muted">Choisissez un pack Ambiance ou louez uniquement la sono/les effets selon vos besoins, puis mixez librement.</p>
-        <div class="pack-compose-card__matrix">
-          <div class="pack-compose-card__column">
-            <h3>Combinaisons Ambiance</h3>
-            <ul class="pack-compose-card__rules">
-              <li><strong>Pack Ambiance 40</strong> + packs 4 • 5 • 6 • 7</li>
-              <li><strong>Pack Ambiance 60</strong> + packs 4 • 5 • 6 • 7</li>
-              <li><strong>Pack Ambiance 100</strong> + packs 4 • 5 • 6 • 7</li>
+    <article class="pack-formula-card">
+      <div class="pack-formula-card__content">
+        <h2>Sélectionnez votre formule</h2>
+        <p class="muted">Choisissez librement vos packs : lumières, son, ou un mix complet. Chaque formule est préparée et testée pour votre événement.</p>
+        <div class="pack-formula-card__groups">
+          <section class="pack-formula-card__group">
+            <header>
+              <span class="pack-formula-card__badge">Lumières</span>
+              <h3>Packs Ambiance & Effets</h3>
+            </header>
+            <ul>
+              <li><strong>Pack 1 – Ambiance 40</strong> : 1 pied + 3 jeux LED</li>
+              <li><strong>Pack 2 – Ambiance 60</strong> : 2 pieds + 6 jeux LED</li>
+              <li><strong>Pack 3 – Ambiance 100</strong> : 3 pieds + 9 jeux LED</li>
+              <li><strong>Pack 5</strong> : 5 barres LED multicolores</li>
+              <li><strong>Pack 7</strong> : Boule à facettes + projecteur</li>
             </ul>
-          </div>
-          <div class="pack-compose-card__column">
-            <h3>Packs autonomes</h3>
-            <ul class="pack-compose-card__rules">
-              <li><strong>Pack 4</strong> : Sono Stage Line</li>
-              <li><strong>Pack 5</strong> : Mur LED décoratif</li>
-              <li><strong>Pack 6</strong> : Sono FBT + mixage</li>
-              <li><strong>Pack 7</strong> : Boule à facettes & projecteur</li>
+          </section>
+          <section class="pack-formula-card__group">
+            <header>
+              <span class="pack-formula-card__badge">Son</span>
+              <h3>Diffusion & mixage</h3>
+            </header>
+            <ul>
+              <li><strong>Pack 4</strong> : Sono Stage Line Triton</li>
+              <li><strong>Pack 6</strong> : Sono FBT + amplificateur</li>
             </ul>
-          </div>
+          </section>
         </div>
-        <p class="muted">Combinez les packs 4, 5, 6 et 7 entre eux ou ajoutez-les à un pack Ambiance. Chaque configuration est préparée et testée avant retrait ou livraison.</p>
+        <p class="muted">Besoin de combiner plusieurs packs ? Indiquez-le lors de la réservation, on valide la compatibilité et la logistique avec vous.</p>
       </div>
-      <div class="pack-compose-card__actions">
-        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Composer votre pack</a>
-        <p class="pack-compose-card__note muted">Bientôt : formulaire Microsoft/Google pour sélectionner vos packs et lancer la réservation.</p>
+      <div class="pack-formula-card__actions">
+        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Sélectionner mes packs</a>
+        <p class="pack-formula-card__note muted">Bientôt : formulaire Microsoft/Google pour choisir vos packs et lancer la réservation.</p>
       </div>
     </article>
   </div>
