@@ -10,42 +10,6 @@ description: Packs sono et lumière prêts à l’emploi pour soirées, mariages
       <h1>Packs sono & lumière</h1>
       <p class="muted">{{ site.data.packs.intro }}</p>
     </div>
-    <article class="pack-formula-card">
-      <div class="pack-formula-card__content">
-        <h2>Sélectionnez votre formule</h2>
-        <p class="muted">Choisissez librement vos packs : lumières, son ou mix complet. Chaque formule est préparée et testée pour votre événement.</p>
-        <div class="pack-formula-card__groups">
-          <section class="pack-formula-card__group">
-            <header>
-              <span class="pack-formula-card__badge">Lumières</span>
-              <h3>Packs Ambiance & Effets</h3>
-            </header>
-            <ul class="pack-formula-card__rules">
-              <li><strong>Pack 1 – Ambiance 40</strong> : 1 pied + 3 jeux LED</li>
-              <li><strong>Pack 2 – Ambiance 60</strong> : 2 pieds + 6 jeux LED</li>
-              <li><strong>Pack 3 – Ambiance 100</strong> : 3 pieds + 9 jeux LED</li>
-              <li><strong>Pack 5</strong> : 5 barres LED multicolores</li>
-              <li><strong>Pack 7</strong> : Boule à facettes + projecteur</li>
-            </ul>
-          </section>
-          <section class="pack-formula-card__group">
-            <header>
-              <span class="pack-formula-card__badge">Son</span>
-              <h3>Diffusion & mixage</h3>
-            </header>
-            <ul class="pack-formula-card__rules">
-              <li><strong>Pack 4</strong> : Sono Stage Line Triton</li>
-              <li><strong>Pack 6</strong> : Sono FBT + amplificateur</li>
-            </ul>
-          </section>
-        </div>
-        <p class="muted">Besoin de plusieurs packs ? Mentionnez-les à la réservation, nous validons la compatibilité et organisons la logistique avec vous.</p>
-      </div>
-      <div class="pack-formula-card__actions">
-        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Sélectionner mes packs</a>
-        <p class="pack-formula-card__note muted">Bientôt : formulaire Microsoft/Google pour choisir vos packs et lancer la réservation.</p>
-      </div>
-    </article>
     <div class="pack-slider" data-pack-slider data-slides-visible="3">
       <button class="pack-slider__control pack-slider__control--prev" type="button" data-pack-prev aria-label="Pack précédent">‹</button>
       <div class="pack-slider__viewport" data-pack-viewport>
@@ -117,5 +81,41 @@ description: Packs sono et lumière prêts à l’emploi pour soirées, mariages
       <button class="pack-slider__control pack-slider__control--next" type="button" data-pack-next aria-label="Pack suivant">›</button>
       <div class="pack-slider__dots" data-pack-dots aria-label="Sélecteur de packs"></div>
     </div>
+    <article class="pack-formula-card">
+      <div class="pack-formula-card__content">
+        <h2>Sélectionnez votre formule</h2>
+        <p class="muted">Choisissez librement vos packs : lumières, son ou mix complet. Chaque formule est préparée et testée pour votre événement.</p>
+        <div class="pack-formula-card__groups">
+          <section class="pack-formula-card__group">
+            <header>
+              <span class="pack-formula-card__badge">Lumières</span>
+              <h3>Packs Ambiance & Effets</h3>
+            </header>
+            <ul class="pack-formula-card__rules">
+              <li><strong>Pack 1 – Ambiance 40</strong> : 1 pied + 3 jeux LED</li>
+              <li><strong>Pack 2 – Ambiance 60</strong> : 2 pieds + 6 jeux LED</li>
+              <li><strong>Pack 3 – Ambiance 100</strong> : 3 pieds + 9 jeux LED</li>
+              <li><strong>Pack 5</strong> : 5 barres LED multicolores</li>
+              <li><strong>Pack 7</strong> : Boule à facettes + projecteur</li>
+            </ul>
+          </section>
+          <section class="pack-formula-card__group">
+            <header>
+              <span class="pack-formula-card__badge">Son</span>
+              <h3>Diffusion & mixage</h3>
+            </header>
+            <ul class="pack-formula-card__rules">
+              <li><strong>Pack 4</strong> : Sono Stage Line Triton</li>
+              <li><strong>Pack 6</strong> : Sono FBT + amplificateur</li>
+            </ul>
+          </section>
+        </div>
+        <p class="muted">Besoin de plusieurs packs ? Mentionnez-les à la réservation, nous validons la compatibilité et organisons la logistique avec vous.</p>
+      </div>
+      <div class="pack-formula-card__actions">
+        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Sélectionner mes packs</a>
+        <p class="pack-formula-card__note muted">Bientôt : formulaire Microsoft/Google pour choisir vos packs et lancer la réservation.</p>
+      </div>
+    </article>
   </div>
 </section>
