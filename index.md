@@ -227,9 +227,7 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
             </button>
             {% endif %}
           </div>
-          <footer class="pack-card__footer">
-            <a class="button button--ghost" href="{{ '/packs/' | relative_url }}">Découvrir ce pack</a>
-          </footer>
+          <footer class="pack-card__footer"></footer>
         </article>
       </li>
       {% endfor %}

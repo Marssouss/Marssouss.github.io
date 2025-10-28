@@ -300,35 +300,44 @@
     });
   });
 
-  const packCards = Array.from(document.querySelectorAll("[data-pack-card]"));
-  if (packCards.length) {
-    const desktopQuery = window.matchMedia("(min-width: 960px)");
+  const packCardRegistry = new Set();
+  const packDesktopQuery = window.matchMedia("(min-width: 960px)");
 
-    const setPackState = (card, expanded) => {
-      card.dataset.packOpen = expanded ? "true" : "false";
-      const toggle = card.querySelector("[data-pack-toggle]");
-      const label = toggle?.querySelector("[data-pack-toggle-label]");
-      const content = card.querySelector("[data-pack-content]");
-      if (toggle) {
-        toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
-        if (label) {
-          label.textContent = expanded ? "Masquer le détail" : "Voir le détail";
-        }
+  const setPackState = (card, expanded) => {
+    card.dataset.packOpen = expanded ? "true" : "false";
+    const toggle = card.querySelector("[data-pack-toggle]");
+    const label = toggle?.querySelector("[data-pack-toggle-label]");
+    const content = card.querySelector("[data-pack-content]");
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+      if (label) {
+        label.textContent = expanded ? "Masquer le détail" : "Voir le détail";
       }
-      if (content) {
-        content.setAttribute("aria-hidden", expanded ? "false" : "true");
+    }
+    if (content) {
+      content.setAttribute("aria-hidden", expanded ? "false" : "true");
+    }
+  };
+
+  const syncCardWithViewport = (card, matches) => {
+    const toggle = card.querySelector("[data-pack-toggle]");
+    const shouldExpand = matches || !toggle;
+    setPackState(card, shouldExpand);
+  };
+
+  const syncAllPackCards = (matches) => {
+    packCardRegistry.forEach((card) => {
+      syncCardWithViewport(card, matches);
+    });
+  };
+
+  const initialisePackCards = (cards) => {
+    cards.forEach((card) => {
+      if (!card || card.dataset.packInitialised === "true") {
+        return;
       }
-    };
-
-    const syncWithViewport = (matches) => {
-      packCards.forEach((card) => {
-        const toggle = card.querySelector("[data-pack-toggle]");
-        const shouldExpand = matches || !toggle;
-        setPackState(card, shouldExpand);
-      });
-    };
-
-    packCards.forEach((card) => {
+      card.dataset.packInitialised = "true";
+      packCardRegistry.add(card);
       const toggle = card.querySelector("[data-pack-toggle]");
       if (!toggle) {
         setPackState(card, true);
@@ -339,12 +348,204 @@
         setPackState(card, !isExpanded);
       });
     });
+    const matches = packDesktopQuery.matches;
+    cards.forEach((card) => syncCardWithViewport(card, matches));
+  };
 
-    syncWithViewport(desktopQuery.matches);
-    desktopQuery.addEventListener("change", (event) => {
-      syncWithViewport(event.matches);
+  initialisePackCards(Array.from(document.querySelectorAll("[data-pack-card]")));
+  packDesktopQuery.addEventListener("change", (event) => {
+    syncAllPackCards(event.matches);
+  });
+
+  const initialisePackSlider = (slider) => {
+    const track = slider.querySelector("[data-pack-track]");
+    const viewport = slider.querySelector("[data-pack-viewport]");
+    const prevBtn = slider.querySelector("[data-pack-prev]");
+    const nextBtn = slider.querySelector("[data-pack-next]");
+    const dotsContainer = slider.querySelector("[data-pack-dots]");
+    if (!track || !viewport) {
+      return;
+    }
+
+    const slides = Array.from(track.children);
+    const totalSlides = slides.length;
+    const visibleTarget = Number(slider.dataset.slidesVisible || "3");
+    if (totalSlides <= visibleTarget) {
+      slider.classList.add("is-static");
+      if (dotsContainer) {
+        dotsContainer.hidden = true;
+      }
+      return;
+    }
+
+    let order = slides.map((_, idx) => idx);
+    let isAnimating = false;
+    let slideOffset = 0;
+
+    const computeOffset = () => {
+      const first = track.children[0];
+      const second = track.children[1];
+      if (!first) {
+        slideOffset = 0;
+        return;
+      }
+      const firstRect = first.getBoundingClientRect();
+      if (second) {
+        const secondRect = second.getBoundingClientRect();
+        slideOffset = secondRect.left - firstRect.left;
+      } else {
+        slideOffset = firstRect.width;
+      }
+    };
+
+    const resetTransform = () => {
+      computeOffset();
+      track.style.transition = "none";
+      track.style.transform = "translateX(0)";
+      requestAnimationFrame(() => {
+        track.style.transition = "transform 0.5s ease";
+      });
+    };
+
+    const updateDots = () => {
+      if (!dotsContainer) {
+        return;
+      }
+      dotsContainer.querySelectorAll(".pack-slider__dot").forEach((dot) => {
+        const idx = Number(dot.dataset.index || "0");
+        dot.classList.toggle("is-active", order[0] === idx);
+      });
+    };
+
+    const createDots = () => {
+      if (!dotsContainer) {
+        return;
+      }
+      dotsContainer.innerHTML = "";
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "pack-slider__dot";
+        dot.dataset.index = String(i);
+        dot.setAttribute("aria-label", `Afficher le pack ${i + 1}`);
+        dot.addEventListener("click", () => {
+          goToIndex(i);
+        });
+        dotsContainer.appendChild(dot);
+      }
+      updateDots();
+    };
+
+    const shiftForward = () => {
+      const firstChild = track.firstElementChild;
+      if (!firstChild) {
+        return;
+      }
+      track.appendChild(firstChild);
+      order.push(order.shift());
+    };
+
+    const shiftBackward = () => {
+      const lastChild = track.lastElementChild;
+      if (!lastChild) {
+        return;
+      }
+      track.insertBefore(lastChild, track.firstElementChild);
+      order.unshift(order.pop());
+    };
+
+    const goToNext = () => {
+      if (isAnimating) {
+        return;
+      }
+      isAnimating = true;
+      computeOffset();
+      track.style.transition = "transform 0.5s ease";
+      track.style.transform = `translateX(-${slideOffset}px)`;
+      const handleTransitionEnd = (event) => {
+        if (event.propertyName !== "transform") {
+          return;
+        }
+        track.removeEventListener("transitionend", handleTransitionEnd);
+        track.style.transition = "none";
+        shiftForward();
+        track.style.transform = "translateX(0)";
+        requestAnimationFrame(() => {
+          track.style.transition = "transform 0.5s ease";
+        });
+        isAnimating = false;
+        updateDots();
+      };
+      track.addEventListener("transitionend", handleTransitionEnd);
+    };
+
+    const goToPrev = () => {
+      if (isAnimating) {
+        return;
+      }
+      isAnimating = true;
+      track.style.transition = "none";
+      shiftBackward();
+      computeOffset();
+      track.style.transform = `translateX(-${slideOffset}px)`;
+      requestAnimationFrame(() => {
+        track.style.transition = "transform 0.5s ease";
+        track.style.transform = "translateX(0)";
+      });
+      const handleTransitionEnd = (event) => {
+        if (event.propertyName !== "transform") {
+          return;
+        }
+        track.removeEventListener("transitionend", handleTransitionEnd);
+        isAnimating = false;
+        updateDots();
+      };
+      track.addEventListener("transitionend", handleTransitionEnd);
+    };
+
+    const goToIndex = (targetIndex) => {
+      if (isAnimating) {
+        return;
+      }
+      if (order[0] === targetIndex) {
+        return;
+      }
+      const currentPosition = order.indexOf(targetIndex);
+      if (currentPosition === -1) {
+        return;
+      }
+      const forwardSteps = currentPosition;
+      const backwardSteps = order.length - currentPosition;
+      if (forwardSteps <= backwardSteps) {
+        for (let i = 0; i < forwardSteps; i++) {
+          shiftForward();
+        }
+      } else {
+        for (let i = 0; i < backwardSteps; i++) {
+          shiftBackward();
+        }
+      }
+      resetTransform();
+      updateDots();
+    };
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", goToPrev);
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", goToNext);
+    }
+
+    window.addEventListener("resize", () => {
+      resetTransform();
     });
-  }
+
+    createDots();
+    resetTransform();
+  };
+
+  document.querySelectorAll("[data-pack-slider]").forEach(initialisePackSlider);
+
 
   const modal = document.querySelector("[data-media-modal]");
   if (modal) {

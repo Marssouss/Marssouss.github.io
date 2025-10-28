@@ -1787,10 +1787,6 @@ tbody tr:hover {
   min-width: 160px;
 }
 
-.pack-card__footer--single .button {
-  flex: 0 0 auto;
-}
-
 .pack-card[data-pack-open="true"] .pack-card__chevron {
   transform: rotate(-135deg);
 }
@@ -1848,6 +1844,98 @@ tbody tr:hover {
   flex: 0 0 auto;
 }
 
+.pack-slider {
+  position: relative;
+  margin-top: clamp(2rem, 3vw, 3rem);
+  --pack-slider-visible: 3;
+  --pack-slider-gap: clamp(1.5rem, 2vw, 2.1rem);
+}
+
+.pack-slider__viewport {
+  overflow: hidden;
+}
+
+.pack-slider__track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--pack-slider-gap);
+  will-change: transform;
+  transition: transform 0.5s ease;
+}
+
+.pack-slider__slide {
+  flex: 0 0 calc((100% - (var(--pack-slider-gap) * (var(--pack-slider-visible) - 1))) / var(--pack-slider-visible));
+  min-width: 0;
+  display: flex;
+}
+
+.pack-slider__slide > * {
+  width: 100%;
+}
+
+.pack-slider__control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(10, 15, 28, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform var(--transition, 0.25s ease), box-shadow var(--transition, 0.25s ease), background var(--transition, 0.25s ease);
+  z-index: 2;
+}
+
+.pack-slider__control:hover,
+.pack-slider__control:focus-visible {
+  transform: translateY(-50%) scale(1.05);
+  background: rgba(103, 86, 255, 0.45);
+  box-shadow: 0 12px 24px rgba(12, 15, 36, 0.35);
+}
+
+.pack-slider__control--prev {
+  left: -1.75rem;
+}
+
+.pack-slider__control--next {
+  right: -1.75rem;
+}
+
+.pack-slider__dots {
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-top: clamp(1.6rem, 2vw, 2rem);
+}
+
+.pack-slider__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: transform var(--transition, 0.2s ease), background var(--transition, 0.2s ease);
+}
+
+.pack-slider__dot.is-active {
+  background: rgba(126, 242, 204, 0.9);
+  transform: scale(1.15);
+}
+
+.pack-slider.is-static .pack-slider__control,
+.pack-slider.is-static .pack-slider__dots {
+  display: none;
+}
+
 .pack-formula-card {
   margin-top: clamp(2.4rem, 4vw, 3.5rem);
   padding: clamp(1.9rem, 3vw, 2.8rem);
@@ -1866,11 +1954,29 @@ tbody tr:hover {
   font-size: clamp(1.6rem, 2vw, 1.8rem);
 }
 
+.pack-formula-card__rules {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.55rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.pack-formula-card__rules li {
+  padding: 0.55rem 0.85rem;
+  border-radius: var(--radius-md, 16px);
+  background: rgba(9, 16, 28, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(126, 242, 204, 0.15);
+}
+
 .pack-formula-card__groups {
   display: grid;
   gap: clamp(1.2rem, 2vw, 1.8rem);
   align-items: start;
   margin: 1.2rem 0 1.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .pack-formula-card__group header {
@@ -1896,23 +2002,6 @@ tbody tr:hover {
   font-size: 1.05rem;
   letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.88);
-}
-
-.pack-formula-card__rules {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 0.55rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.88);
-}
-
-.pack-formula-card__rules li {
-  padding: 0.55rem 0.85rem;
-  border-radius: var(--radius-md, 16px);
-  background: rgba(9, 16, 28, 0.6);
-  box-shadow: inset 0 0 0 1px rgba(126, 242, 204, 0.15);
 }
 
 .pack-formula-card__actions {
@@ -1943,6 +2032,20 @@ tbody tr:hover {
   }
 }
 
+@media (max-width: 1100px) {
+  .pack-slider {
+    --pack-slider-visible: 2;
+  }
+
+  .pack-slider__control--prev {
+    left: -1rem;
+  }
+
+  .pack-slider__control--next {
+    right: -1rem;
+  }
+}
+
 @media (max-width: 720px) {
   .pack-card {
     padding: clamp(1.4rem, 4vw, 1.8rem);
@@ -1963,6 +2066,24 @@ tbody tr:hover {
 
   .pack-card__footer .button {
     width: 100%;
+  }
+
+  .pack-slider {
+    --pack-slider-visible: 1;
+  }
+
+  .pack-slider__control {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+  }
+
+  .pack-slider__control--prev {
+    left: 0.5rem;
+  }
+
+  .pack-slider__control--next {
+    right: 0.5rem;
   }
 
   .pack-formula-card {
