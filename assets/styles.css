@@ -1594,8 +1594,7 @@ tbody tr:hover {
 .pack-card__tagline {
   margin: 0.2rem 0 0;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
 }
 
 .pack-card__index {
