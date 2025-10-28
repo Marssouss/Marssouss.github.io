@@ -45,6 +45,9 @@
   --color-border: {{ theme.light.border | default: 'rgba(0, 0, 0, 0.08)' }};
   --shadow-lg: {{ theme.light.shadow | default: '0 16px 40px rgba(15, 20, 38, 0.12)' }};
   --gradient-brand: {{ theme.light.gradient | default: 'linear-gradient(135deg, rgba(101, 86, 255, 0.7) 0%, rgba(232, 73, 155, 0.7) 100%)' }};
+  --circle-primary: {{ theme.light.bubble_primary | default: 'rgba(103, 86, 255, 0.12)' }};
+  --circle-secondary: {{ theme.light.bubble_secondary | default: 'rgba(232, 73, 155, 0.22)' }};
+  --circle-tertiary: {{ theme.light.bubble_tertiary | default: 'rgba(103, 86, 255, 0.18)' }};
   --glass-overlay: {{ theme.glass | default: 'rgba(255, 255, 255, 0.08)' }};
   --font-primary: {{ site.ui.fonts.primary | default: "system-ui, sans-serif" }};
   --font-display: {{ site.ui.fonts.display | default: "system-ui, sans-serif" }};
@@ -65,6 +68,9 @@
   --color-border: {{ theme.dark.border | default: 'rgba(157, 165, 210, 0.24)' }};
   --shadow-lg: {{ theme.dark.shadow | default: '0 28px 60px rgba(5, 6, 13, 0.55)' }};
   --gradient-brand: {{ theme.dark.gradient | default: 'linear-gradient(135deg, rgba(86, 76, 255, 0.65) 0%, rgba(228, 60, 149, 0.65) 100%)' }};
+  --circle-primary: {{ theme.dark.bubble_primary | default: 'rgba(86, 76, 255, 0.26)' }};
+  --circle-secondary: {{ theme.dark.bubble_secondary | default: 'rgba(228, 60, 149, 0.28)' }};
+  --circle-tertiary: {{ theme.dark.bubble_tertiary | default: 'rgba(86, 76, 255, 0.32)' }};
 }
 </style>
 <link rel="preload" href="{{ '/assets/styles.css' | relative_url }}" as="style">
