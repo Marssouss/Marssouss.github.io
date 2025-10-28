@@ -46,7 +46,7 @@ contact:
   insurance: "Responsabilité civile professionnelle AXA - Police 123456789"
 
 social:
-  youtube: "https://youtube.com/@votre-chaine"
+  youtube: "https://youtube.com/@timothy-party-lights"
   instagram: "https://instagram.com/votrecompte"
   facebook: "https://facebook.com/votrepage"
 
@@ -55,9 +55,9 @@ delivery:
   center_lat: 44.785
   center_lng: -0.265
   tiers:
-    - { radius_km: 10, price_eur: 0, label: "Zone 1 : retrait ou livraison locale" }
-    - { radius_km: 25, price_eur: 20, label: "Zone 2 : Bordeaux & Libourne" }
-    - { radius_km: 50, price_eur: 45, label: "Zone 3 : Gironde élargie" }
+    - { radius_km: 10, price_eur: 0, label: "Zone 1 : retrait ou livraison locale", color: "#4cc9f0" }
+    - { radius_km: 25, price_eur: 20, label: "Zone 2 : Bordeaux & Libourne", color: "#ffb74d" }
+    - { radius_km: 50, price_eur: 45, label: "Zone 3 : Gironde élargie", color: "#90ee90" }
   install_price_from_eur: 49
 
 forms:
@@ -154,9 +154,9 @@ home:
     title: "Plongez dans l'ambiance"
     intro: "Chaque jeu de lumière en action : comparez les rendus avant de réserver."
     videos:
-      - title: "Lyres LED 150W"
-        description: "Mode automatique et séquences DMX synchronisées pour les shows dansants."
-        embed_url: "https://www.youtube.com/embed/VIDEO_LYRE"
+      - title: "CONTEST LED BEAMER"
+        description: "Fonctionnement automatique sur le rythme de la musique."
+        embed_url: "https://www.youtube.com/watch?v=57o72ctb7OM"
       - title: "Barre LED RGB"
         description: "Gradations pastel ou couleurs saturées pour habiller la piste."
         embed_url: "https://www.youtube.com/embed/VIDEO_BARRE"

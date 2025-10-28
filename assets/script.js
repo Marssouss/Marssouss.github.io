@@ -145,15 +145,18 @@
 
     L.marker([lat, lng]).addTo(map).bindPopup(`<strong>${city}</strong> — centre des zones`);
 
+    const defaultColors = ['#4cc9f0', '#ffb74d', '#90ee90', '#f97316'];
+
     tiers.forEach((tier, index) => {
+      const color = tier.color || defaultColors[index % defaultColors.length];
       const circle = L.circle([lat, lng], {
         radius: tier.radius_km * 1000,
-        color: '#6756ff',
-        fillColor: '#6756ff',
-        fillOpacity: 0.12,
-        weight: 1.2,
+        color,
+        fillColor: color,
+        fillOpacity: 0.18,
+        weight: 1.4,
       }).addTo(map);
-      circle.bindPopup(`${tier.label} — ${tier.radius_km} km — ${tier.price_eur} €`);
+      circle.bindPopup(`${tier.label} − ${tier.radius_km} km − ${tier.price_eur} €`);
       if (index === tiers.length - 1) {
         map.fitBounds(circle.getBounds(), { padding: [28, 28] });
       }
