@@ -27,71 +27,72 @@ description: Location sono & lumières avec livraison, installation sur demande 
 </section>
 
 <section class="section">
-  <div class="container split-grid" style="align-items: start;">
-    <div>
-      <div class="section-header">
-        <h2>Livraison flexible, installation sur demande</h2>
-        <p class="muted">Retrait gratuit à {{ site.delivery.base_city }} ou livraison dans votre zone. Installation complète disponible à partir de {{ site.delivery.install_price_from_eur }} €.</p>
-      </div>
-      <div class="feature-grid">
-        <article class="feature-card">
-          <h3>Retrait rapide</h3>
-          <p class="muted">Créneau sur rendez-vous, pack prêt à partir avec check-list.</p>
-        </article>
-        <article class="feature-card">
-          <h3>Livraison maîtrisée</h3>
-          <p class="muted">Transport assuré par mes soins, tests de fonctionnement sur place.</p>
-        </article>
-        <article class="feature-card">
-          <h3>Installation à la carte</h3>
-          <p class="muted">Calage lumière et son, briefing express pour une utilisation sereine.</p>
-        </article>
-      </div>
-      <h3 class="muted">Frais de déplacement</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Zone</th>
-            <th>Rayon</th>
-            <th>Frais</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for tier in site.delivery.tiers %}
-          <tr>
-            <td>{{ tier.label }}</td>
-            <td>{{ tier.radius_km }} km</td>
-            <td>{{ tier.price_eur }} €</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div class="note" style="max-width: 360px;">
-      <h3>Installation & reprise</h3>
-      <p>Je m’occupe de la mise en place, je réalise les tests et je planifie le démontage avec vous.</p>
-      <ul>
-        <li>Réglages adaptés à la pièce et à votre ambiance.</li>
-        <li>Conseils utilisation et numéro direct en cas de question.</li>
-        <li>Reprise à l’horaire qui vous convient.</li>
-      </ul>
-      <a class="button button--ghost" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Planifier une installation</a>
-    </div>
-  </div>
-</section>
-
-<section class="section">
   <div class="container">
-    <div class="map-shell" style="max-width: 680px; margin-inline: auto;">
-      <div class="map js-delivery-map"
-           data-map-id="services"
-           data-center-lat="{{ site.delivery.center_lat }}"
-           data-center-lng="{{ site.delivery.center_lng }}"
-           data-tiers='{{ site.delivery.tiers | jsonify }}'
-           data-city="{{ site.delivery.base_city }}">
-        <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
+    <div style="display: grid; gap: 2.5rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start;">
+      <div>
+        <div class="section-header">
+          <h2>Livraison flexible, installation sur demande</h2>
+          <p class="muted">Retrait gratuit à {{ site.delivery.base_city }} ou livraison dans votre zone. Installation complète disponible à partir de {{ site.delivery.install_price_from_eur }} €.</p>
+        </div>
+        <div class="feature-grid" style="margin-top: 1.75rem;">
+          <article class="feature-card">
+            <h3>Retrait rapide</h3>
+            <p class="muted">Créneau sur rendez-vous, pack prêt à partir avec check-list.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Livraison maîtrisée</h3>
+            <p class="muted">Transport assuré par mes soins, tests de fonctionnement sur place.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Installation à la carte</h3>
+            <p class="muted">Calage lumière et son, briefing express pour une utilisation sereine.</p>
+          </article>
+        </div>
       </div>
-      <p class="muted map-caption">Hors zone ? Contactez-moi pour un devis personnalisé.</p>
+      <aside class="note" style="max-width: 380px; margin: 0;">
+        <h3>Installation & reprise</h3>
+        <p>Je m’occupe de la mise en place, je réalise les tests et je planifie le démontage avec vous.</p>
+        <ul>
+          <li>Réglages adaptés à la pièce et à votre ambiance.</li>
+          <li>Conseils utilisation et numéro direct en cas de question.</li>
+          <li>Reprise à l’horaire qui vous convient.</li>
+        </ul>
+        <a class="button button--ghost" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Planifier une installation</a>
+      </aside>
+    </div>
+    <div style="display: grid; gap: 1.75rem; margin-top: 3rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); align-items: start;">
+      <div>
+        <h3 class="muted">Frais de déplacement</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Zone</th>
+              <th>Rayon</th>
+              <th>Frais</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tier in site.delivery.tiers %}
+            <tr>
+              <td>{{ tier.label }}</td>
+              <td>{{ tier.radius_km }} km</td>
+              <td>{{ tier.price_eur }} €</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="map-shell">
+        <div class="map js-delivery-map"
+             data-map-id="services"
+             data-center-lat="{{ site.delivery.center_lat }}"
+             data-center-lng="{{ site.delivery.center_lng }}"
+             data-tiers='{{ site.delivery.tiers | jsonify }}'
+             data-city="{{ site.delivery.base_city }}">
+          <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
+        </div>
+        <p class="muted map-caption">Hors zone ? Contactez-moi pour un devis personnalisé.</p>
+      </div>
     </div>
   </div>
 </section>
