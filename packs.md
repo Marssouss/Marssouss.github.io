@@ -83,8 +83,7 @@ description: Packs sono et lumière prêts à l’emploi pour soirées, mariages
             </button>
             {% endif %}
           </div>
-          <footer class="pack-card__footer">
-            <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander ce pack</a>
+          <footer class="pack-card__footer pack-card__footer--single">
             {% if first_include_href %}
             <a class="button button--outline" href="{{ first_include_href }}">
               Voir le matériel
@@ -98,6 +97,22 @@ description: Packs sono et lumière prêts à l’emploi pour soirées, mariages
       </li>
       {% endfor %}
     </ul>
+    <article class="pack-compose-card">
+      <div class="pack-compose-card__content">
+        <h2>Composez votre pack</h2>
+        <p class="muted">Associez un pack Ambiance (1, 2 ou 3) avec les options sono et déco pour créer une configuration sur mesure.</p>
+        <ul class="pack-compose-card__rules">
+          <li><strong>Pack Ambiance 40</strong> + options 4 • 5 • 6 • 7</li>
+          <li><strong>Pack Ambiance 60</strong> + options 4 • 5 • 6 • 7</li>
+          <li><strong>Pack Ambiance 100</strong> + options 4 • 5 • 6 • 7</li>
+        </ul>
+        <p class="muted">Mixez librement les packs 4, 5, 6 et 7 pour compléter votre ambiance. Chaque combinaison est testée avant départ.</p>
+      </div>
+      <div class="pack-compose-card__actions">
+        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Composer votre pack</a>
+        <p class="pack-compose-card__note muted">Bientôt : formulaire Microsoft/Google dédié pour finaliser la réservation.</p>
+      </div>
+    </article>
     <div class="note">
       <h3>Infos pratiques</h3>
       <p>{{ site.pricing.weekend }}</p>

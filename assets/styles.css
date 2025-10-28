@@ -1593,6 +1593,9 @@ tbody tr:hover {
 
 .pack-card__tagline {
   margin: 0.2rem 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pack-card__index {
@@ -1778,6 +1781,10 @@ tbody tr:hover {
   min-width: 160px;
 }
 
+.pack-card__footer--single .button {
+  flex: 0 0 auto;
+}
+
 .pack-card[data-pack-open="true"] .pack-card__chevron {
   transform: rotate(-135deg);
 }
@@ -1835,6 +1842,56 @@ tbody tr:hover {
   flex: 0 0 auto;
 }
 
+.pack-compose-card {
+  margin-top: clamp(2.4rem, 4vw, 3.5rem);
+  padding: clamp(1.9rem, 3vw, 2.8rem);
+  border-radius: var(--radius-lg, 24px);
+  border: 1px solid rgba(126, 242, 204, 0.12);
+  background: linear-gradient(135deg, rgba(22, 30, 48, 0.92) 0%, rgba(24, 43, 64, 0.92) 48%, rgba(126, 242, 204, 0.18) 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: clamp(1.4rem, 3vw, 2.2rem);
+  align-items: center;
+  box-shadow: 0 30px 60px rgba(10, 18, 36, 0.35);
+}
+
+.pack-compose-card h2 {
+  margin: 0 0 0.8rem;
+  font-size: clamp(1.6rem, 2vw, 1.8rem);
+}
+
+.pack-compose-card__rules {
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0 1.4rem;
+  display: grid;
+  gap: 0.55rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.pack-compose-card__rules li {
+  padding: 0.55rem 0.85rem;
+  border-radius: var(--radius-md, 16px);
+  background: rgba(9, 16, 28, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(126, 242, 204, 0.15);
+}
+
+.pack-compose-card__actions {
+  display: grid;
+  gap: 0.8rem;
+  justify-items: start;
+}
+
+.pack-compose-card__actions .button {
+  min-width: 220px;
+}
+
+.pack-compose-card__note {
+  font-size: 0.85rem;
+  max-width: 24rem;
+}
+
 @media (min-width: 960px) {
   .pack-card__features {
     max-height: none !important;
@@ -1867,6 +1924,18 @@ tbody tr:hover {
   }
 
   .pack-card__footer .button {
+    width: 100%;
+  }
+
+  .pack-compose-card {
+    grid-template-columns: 1fr;
+  }
+
+  .pack-compose-card__actions {
+    justify-items: stretch;
+  }
+
+  .pack-compose-card__actions .button {
     width: 100%;
   }
 }
