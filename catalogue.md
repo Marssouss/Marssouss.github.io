@@ -10,20 +10,35 @@ description: Catalogue de matériel audio et lumière disponible à la location.
 
 <section class="section catalogue-hero">
   <div class="container">
-    <div class="section-header">
-      <h1>Catalogue &amp; médias</h1>
-      <p class="muted">{{ catalogue.intro }}</p>
-    </div>
-    <div class="cat-toolbar">
-      <div class="search">
-        <label class="sr-only" for="catSearch">Rechercher un matériel</label>
-        <input id="catSearch" type="search" placeholder="Rechercher un matériel, un pack ou un effet…" autocomplete="off">
+    <div class="catalogue-hero__layout">
+      <div class="catalogue-hero__intro">
+        <div class="section-header">
+          <h1>Catalogue &amp; médias</h1>
+          <p class="muted">{{ catalogue.intro }}</p>
+        </div>
       </div>
-      <div class="filters" id="catFilters">
-        <button type="button" class="chip is-active" data-filter="*">Tout</button>
-        {% for category in categories %}
-        <button type="button" class="chip" data-filter="{{ category.name | slugify }}">{{ category.name }}</button>
-        {% endfor %}
+      <div class="catalogue-hero__panel" aria-labelledby="catalogue-filters-title">
+        <div class="catalogue-hero__panel-inner">
+          <div class="catalogue-hero__panel-head">
+            <p id="catalogue-filters-title" class="catalogue-hero__title">Filtrez et trouvez en quelques secondes</p>
+            <p class="catalogue-hero__hint">Tapez un mot-clé ou parcourez les catégories pour révéler le matériel adapté.</p>
+          </div>
+          <div class="cat-toolbar">
+            <div class="search">
+              <label class="sr-only" for="catSearch">Rechercher un matériel</label>
+              <div class="search__field">
+                <span class="search__icon" aria-hidden="true"></span>
+                <input id="catSearch" type="search" placeholder="Rechercher un matériel, un pack ou un effet…" autocomplete="off">
+              </div>
+            </div>
+            <div class="filters" id="catFilters">
+              <button type="button" class="chip is-active" data-filter="*">Tout</button>
+              {% for category in categories %}
+              <button type="button" class="chip" data-filter="{{ category.name | slugify }}">{{ category.name }}</button>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
