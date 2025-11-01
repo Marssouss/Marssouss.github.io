@@ -112,9 +112,11 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
         {% else %}{% assign icon_char = '⭐' %}
       {% endcase %}
       <article class="diff-card home-diff-card">
-        <span class="diff-icon" aria-hidden="true">{{ icon_char }}</span>
-        <h3>{{ diff.title }}</h3>
-        <p class="muted">{{ diff.text }}</p>
+        <span class="home-diff-card__icon" aria-hidden="true">{{ icon_char }}</span>
+        <div class="home-diff-card__content">
+          <h3>{{ diff.title }}</h3>
+          <p class="muted">{{ diff.text }}</p>
+        </div>
       </article>
       {% endfor %}
     </div>

@@ -2919,21 +2919,59 @@ html[data-theme="light"] .tag {
 }
 .home-differentiators__cards {
   display: grid;
-  gap: clamp(1.2rem, 2vw, 1.6rem);
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(1.4rem, 3vw, 2rem);
+}
+@media (min-width: 720px) {
+  .home-differentiators__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
 }
 .home-diff-card {
-  min-height: 220px;
+  position: relative;
   display: grid;
-  gap: 0.6rem;
-  background: linear-gradient(160deg, rgba(26, 34, 56, 0.85), rgba(16, 24, 46, 0.9));
-  border: 1px solid rgba(126, 242, 204, 0.16);
-  border-radius: 1.35rem;
-  padding: 1.6rem;
-  box-shadow: 0 16px 30px rgba(5, 10, 20, 0.32);
+  gap: 1rem;
+  padding: clamp(1.6rem, 3vw, 2rem);
+  border-radius: 1.6rem;
+  background: linear-gradient(165deg, rgba(26, 38, 66, 0.92) 0%, rgba(10, 16, 30, 0.92) 65%);
+  border: 1px solid rgba(126, 242, 204, 0.14);
+  box-shadow: 0 24px 32px rgba(6, 12, 28, 0.35);
+  overflow: hidden;
 }
-.home-diff-card .diff-icon {
-  font-size: 1.5rem;
+.home-diff-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -40% -45% auto;
+  width: 160px;
+  height: 160px;
+  border-radius: 120px;
+  background: radial-gradient(circle at 40% 40%, rgba(91, 124, 250, 0.18), transparent 70%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+.home-diff-card__icon {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(126, 242, 204, 0.25), rgba(91, 124, 250, 0.3));
+  box-shadow: 0 14px 24px rgba(5, 10, 20, 0.35);
+  font-size: 1.8rem;
+}
+.home-diff-card__content {
+  position: relative;
+  display: grid;
+  gap: 0.5rem;
+}
+.home-diff-card__content h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+.home-diff-card__content p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .home-delivery__grid {

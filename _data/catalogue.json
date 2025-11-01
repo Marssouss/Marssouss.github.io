@@ -281,40 +281,45 @@
             }
           ]
         },
-        {
-          "name": "Laser multi-faisceaux",
-          "summary": "Effets tunnel et faisceaux rapides pour les temps forts.",
-          "details": [
-            {
-              "title": "Description complète",
-              "text": "Laser RGB multizone avec motifs animés, idéal pour une ambiance club spectaculaire."
-            },
-            {
-              "title": "Rendu",
-              "text": "Tunnel, éventail, grilles dynamiques synchronisées avec la musique."
-            },
-            {
-              "title": "Utilisation",
-              "text": "Soirées DJ, clubs éphémères, animations scéniques."
-            }
-          ],
-          "specs": [
-            "Couleurs : RGB",
-            "Pilotage : DMX / ILDA",
-            "Sécurité : clé + interlock"
-          ],
-          "video_embed": "https://www.youtube.com/embed/VIDEO_LASER",
-          "photos": [
-            {
-              "src": "/assets/gal2.jpg",
-              "alt": "Laser multi-faisceaux vert en soirée"
-            },
-            {
-              "src": "/assets/gal3.jpg",
-              "alt": "Laser multi-faisceaux coloré sur piste"
-            }
-          ]
-        },
+       {
+  "name": "Mac Mah SwingLED",
+  "summary": "Effet multi-faisceaux rotatif avec double optique, idéal pour dynamiser la piste.",
+  "details": [
+    {
+      "title": "Description complète",
+      "text": "Le Mac Mah SwingLED projette des faisceaux colorés puissants grâce à ses LED RGBW et ses miroirs rotatifs synchronisés. Compact et performant, il crée des effets de tunnel et d’éventail spectaculaires pour une ambiance club ou soirée privée."
+    },
+    {
+      "title": "Rendu",
+      "text": "Faisceaux nets et précis, balayages rapides, rotations fluides et motifs dynamiques visibles même dans les grandes salles. L’effet est saisissant sur une piste enfumée."
+    },
+    {
+      "title": "Utilisation",
+      "text": "Idéal pour DJ mobiles, soirées dansantes, clubs éphémères, ou événements nécessitant un rendu lumineux percutant sans installation complexe."
+    }
+  ],
+  "specs": [
+    "Source : 8 LED RGBW 10 W haute luminosité",
+    "Modes : Auto, Son, DMX 8/14 canaux, Master/Slave",
+    "Angle de faisceau : 5° par optique",
+    "Rotation : axe horizontal et vertical motorisé",
+    "Poids : 4,2 kg",
+    "Consommation : 60 W",
+    "Refroidissement : ventilé silencieux"
+  ],
+  "video_embed": "https://www.youtube.com/embed/Z0YfM6YvUzA",
+  "photos": [
+    {
+      "src": "/assets/img/webp/Catalogue/MACMAH-SWINGLED/macmah-swingled-1.webp",
+      "alt": "Mac Mah SwingLED en prestation avec faisceaux colorés"
+    },
+    {
+      "src": "/assets/img/webp/Catalogue/MACMAH-SWINGLED/macmah-swingled-2.webp",
+      "alt": "Mac Mah SwingLED en mode beam sur scène"
+    }
+  ]
+}
+,
         {
           "name": "Boule à facettes motorisée",
           "summary": "Classique indémodable avec projecteur dédié pour un rendu disco éclatant.",
