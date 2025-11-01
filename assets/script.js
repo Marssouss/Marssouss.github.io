@@ -80,9 +80,13 @@
     if (!nav || !navToggle) {
       return;
     }
+    const wasOpen = nav.classList.contains("is-open");
     nav.classList.remove("is-open");
     navToggle.classList.remove("is-open");
     navToggle.setAttribute("aria-expanded", "false");
+    if (wasOpen) {
+      document.body.classList.remove("is-nav-open");
+    }
   };
 
   if (nav && navToggle) {
@@ -90,6 +94,7 @@
       const isOpen = nav.classList.toggle("is-open");
       navToggle.classList.toggle("is-open", isOpen);
       navToggle.setAttribute("aria-expanded", String(isOpen));
+      document.body.classList.toggle("is-nav-open", isOpen);
       if (isOpen) {
         const firstLink = nav.querySelector("a");
         if (firstLink) {
