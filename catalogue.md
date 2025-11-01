@@ -35,19 +35,6 @@ description: Catalogue de matériel audio et lumière disponible à la location.
       <div id="catGrid" data-empty="Aucun matériel ne correspond à votre recherche pour le moment.">
         {% for category in categories %}
           {% assign cat_slug = category.name | slugify %}
-          {% if category.video_gallery %}
-          <article class="card card--category" data-category="{{ cat_slug }}" data-title="{{ category.video_gallery.title | default: category.name | escape }}" data-model="{{ category.name | escape }}" data-tags="{{ category.video_gallery.intro | default: '' | strip | strip_newlines | escape }}">
-            <div class="card-body">
-              <header class="card-head">
-                <span class="badge">{{ category.name }}</span>
-                <h3 class="card-title">{{ category.video_gallery.title | default: category.name }}</h3>
-              </header>
-              {% if category.video_gallery.intro %}
-              <p class="card-summary">{{ category.video_gallery.intro }}</p>
-              {% endif %}
-            </div>
-          </article>
-          {% endif %}
           {% if category.showcases %}
             {% for showcase in category.showcases %}
               {%- assign first_photo = nil -%}
@@ -165,43 +152,8 @@ description: Catalogue de matériel audio et lumière disponible à la location.
         {% endfor %}
       </div>
     </div>
-    <div class="section-actions">
-      <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander un devis personnalisé</a>
-    </div>
   </div>
 </section>
-
-{% assign categories_with_items = categories | where_exp: 'cat', 'cat.items' %}
-{% if categories_with_items %}
-<section class="section section--subtle">
-  <div class="container">
-    <div class="section-header">
-      <h2>Location à la carte</h2>
-      <p class="muted">Combinez librement les éléments unitaires pour composer votre solution sur mesure.</p>
-    </div>
-    {% for category in categories_with_items %}
-    <div class="section-block">
-      <h3>{{ category.name }}</h3>
-      <ul class="catalogue-list">
-        {% for item in category.items %}
-        <li class="catalogue-list__item">
-          <div class="catalogue-list__content">
-            <p class="catalogue-list__name">{{ item.name }}</p>
-            {% if item.description %}
-            <p class="muted">{{ item.description }}</p>
-            {% endif %}
-          </div>
-          {% if item.price_per_day %}
-          <p class="catalogue-list__price">{{ item.price_per_day }}€ / jour</p>
-          {% endif %}
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endfor %}
-  </div>
-</section>
-{% endif %}
 
 <dialog id="ytDialog" class="yt-dialog" aria-labelledby="ytDialogTitle">
   <div class="yt-frame-wrap">
