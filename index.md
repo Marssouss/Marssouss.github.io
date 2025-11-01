@@ -133,7 +133,7 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
         </div>
       </div>
     </div>
-    <div>
+    <div class="map-panel">
       <div class="map-shell">
         <div class="map js-delivery-map" data-map-id="home"
              data-center-lat="{{ site.delivery.center_lat }}"

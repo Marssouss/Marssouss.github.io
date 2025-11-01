@@ -599,6 +599,7 @@ a:focus {
   display: grid;
   gap: clamp(2rem, 4vw, 3rem);
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
 }
 
 .feature-grid {
@@ -721,7 +722,46 @@ a:focus {
 
 .map {
   width: 100%;
-  height: 420px;
+  min-height: 420px;
+  height: 100%;
+}
+
+.map-panel {
+  position: sticky;
+  top: clamp(4.5rem, 6vw, 6.5rem);
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.map-panel .map-shell {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+}
+
+.map-panel .map {
+  flex: 1 1 auto;
+}
+
+.map-panel .map-caption {
+  margin-top: 1rem;
+}
+
+@media (max-width: 900px) {
+  .map-panel {
+    position: static;
+    height: auto;
+  }
+  .map-panel .map-shell {
+    height: auto;
+    margin-top: 1.5rem;
+  }
+  .map-panel .map {
+    min-height: 360px;
+  }
 }
 
 .note {
@@ -2238,20 +2278,24 @@ tbody tr:hover {
   color: rgba(255, 255, 255, 0.72);
 }
 .cat-toolbar {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: clamp(0.9rem, 2vw, 1.3rem);
-  align-items: center;
+  align-items: stretch;
+  flex-wrap: wrap;
 }
 .cat-toolbar .search {
-  width: min(100%, 560px);
+  width: 100%;
 }
 @media (min-width: 900px) {
   .cat-toolbar {
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, auto);
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(1rem, 2.6vw, 1.6rem);
   }
   .cat-toolbar .search {
-    width: min(100%, 420px);
-    justify-self: flex-start;
+    flex: 1 1 320px;
+    max-width: 540px;
   }
 }
 .search__field {
