@@ -541,6 +541,58 @@
       nextBtn.addEventListener("click", goToNext);
     }
 
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchGesture = false;
+
+    const handleTouchStart = (event) => {
+      if (event.touches.length !== 1) {
+        return;
+      }
+      touchGesture = false;
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+    };
+
+    const handleTouchMove = (event) => {
+      if (event.touches.length !== 1) {
+        return;
+      }
+      const currentX = event.touches[0].clientX;
+      const currentY = event.touches[0].clientY;
+      const deltaX = currentX - touchStartX;
+      const deltaY = currentY - touchStartY;
+      if (!touchGesture && Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+        touchGesture = true;
+      }
+      if (touchGesture) {
+        event.preventDefault();
+      }
+    };
+
+    const handleTouchEnd = (event) => {
+      const touch = event.changedTouches && event.changedTouches[0];
+      if (!touch) {
+        return;
+      }
+      const deltaX = touch.clientX - touchStartX;
+      if (Math.abs(deltaX) > 40) {
+        if (deltaX < 0) {
+          goToNext();
+        } else {
+          goToPrev();
+        }
+      }
+      touchGesture = false;
+    };
+
+    viewport.addEventListener("touchstart", handleTouchStart, { passive: true });
+    viewport.addEventListener("touchmove", handleTouchMove, { passive: false });
+    viewport.addEventListener("touchend", handleTouchEnd, { passive: true });
+    viewport.addEventListener("touchcancel", () => {
+      touchGesture = false;
+    }, { passive: true });
+
     window.addEventListener("resize", () => {
       resetTransform();
     });
@@ -729,12 +781,36 @@
     next?.addEventListener('click', () => go(index + 1));
 
     // Swipe mobile
-    let sx = 0, dx = 0;
-    track.addEventListener('touchstart', e => sx = e.touches[0].clientX, {passive:true});
-    track.addEventListener('touchend', e => {
-      dx = e.changedTouches[0].clientX - sx;
-      if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
-    });
+    let sx = 0;
+    let sy = 0;
+    let isDragging = false;
+    track.addEventListener('touchstart', e => {
+      if (e.touches.length !== 1) return;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      isDragging = false;
+    }, {passive: true});
+    track.addEventListener('touchmove', e => {
+      if (e.touches.length !== 1) return;
+      const dx = e.touches[0].clientX - sx;
+      const dy = e.touches[0].clientY - sy;
+      if (!isDragging && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
+        isDragging = true;
+      }
+      if (isDragging) {
+        e.preventDefault();
+      }
+    }, {passive: false});
+    const finishSwipe = e => {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) {
+        go(index + (dx < 0 ? 1 : -1));
+      }
+      isDragging = false;
+    };
+    track.addEventListener('touchend', finishSwipe, {passive: true});
+    track.addEventListener('touchcancel', () => { isDragging = false; }, {passive: true});
   });
 
   // Dialog vidéo (lazy YouTube)

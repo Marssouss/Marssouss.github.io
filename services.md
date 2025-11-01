@@ -92,14 +92,16 @@ description: Location sono & lumières avec livraison, installation sur demande 
         </tbody>
       </table>
       </div>
-      <div class="map-shell">
-        <div class="map js-delivery-map"
-             data-map-id="services"
-             data-center-lat="{{ site.delivery.center_lat }}"
-             data-center-lng="{{ site.delivery.center_lng }}"
-             data-tiers='{{ site.delivery.tiers | jsonify }}'
-             data-city="{{ site.delivery.base_city }}">
-          <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
+      <div class="map-panel">
+        <div class="map-shell">
+          <div class="map js-delivery-map"
+               data-map-id="services"
+               data-center-lat="{{ site.delivery.center_lat }}"
+               data-center-lng="{{ site.delivery.center_lng }}"
+               data-tiers='{{ site.delivery.tiers | jsonify }}'
+               data-city="{{ site.delivery.base_city }}">
+            <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
+          </div>
         </div>
       </div>
     </div>
