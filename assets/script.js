@@ -666,3 +666,93 @@
     });
   }
 })();
+
+
+/* ===== Catalogue: recherche, filtres, carousel, vidéo ===== */
+(function () {
+  const $ = (sel, el=document) => el.querySelector(sel);
+  const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+  const grid = $('#catGrid');
+  if (!grid) return;
+
+  const search = $('#catSearch');
+  const chips  = $$('#catFilters .chip');
+
+  function applyFilters() {
+    const q = (search?.value || '').trim().toLowerCase();
+    const active = chips.find(c => c.classList.contains('is-active'));
+    const cat = active ? active.dataset.filter.toLowerCase() : '*';
+
+    let visibleCount = 0;
+    $$('#catGrid .card').forEach(card => {
+      const inCat = (cat === '*') || (card.dataset.category === cat);
+      const text = (card.dataset.title + ' ' + card.dataset.model + ' ' + card.dataset.tags).toLowerCase();
+      const inSearch = q === '' || text.includes(q);
+      const show = inCat && inSearch;
+      card.style.display = show ? '' : 'none';
+      if (show) visibleCount++;
+    });
+
+    grid.classList.toggle('is-empty', visibleCount === 0);
+  }
+
+  // Filtres
+  chips.forEach(chip => chip.addEventListener('click', e => {
+    chips.forEach(c => c.classList.remove('is-active'));
+    e.currentTarget.classList.add('is-active');
+    applyFilters();
+  }));
+  search?.addEventListener('input', applyFilters);
+
+  // Carousels
+  $$('.carousel').forEach(carousel => {
+    const track = $('.carousel-track', carousel);
+    const slides = $$('.slide', track);
+    if (!slides.length) return;
+
+    const prev = $('.prev', carousel);
+    const next = $('.next', carousel);
+    let index = 0;
+
+    function go(i) {
+      index = (i + slides.length) % slides.length;
+      track.style.transform = `translateX(${-index * 100}%)`;
+      carousel.dataset.index = index;
+    }
+    prev?.addEventListener('click', () => go(index - 1));
+    next?.addEventListener('click', () => go(index + 1));
+
+    // Swipe mobile
+    let sx = 0, dx = 0;
+    track.addEventListener('touchstart', e => sx = e.touches[0].clientX, {passive:true});
+    track.addEventListener('touchend', e => {
+      dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
+    });
+  });
+
+  // Dialog vidéo (lazy YouTube)
+  const dialog = $('#ytDialog');
+  const frame  = $('#ytFrame');
+  function openVideo(src) {
+    const url = new URL(src, window.location.origin);
+    if (!/youtube\.com|youtu\.be/.test(url.href)) return window.open(src, '_blank');
+    const embed = src
+      .replace('watch?v=','embed/')
+      .replace('youtu.be/','www.youtube.com/embed/');
+    frame.src = embed + (embed.includes('?') ? '&' : '?') + 'autoplay=1&rel=0';
+    dialog.showModal();
+  }
+  $('.yt-close', dialog)?.addEventListener('click', () => { frame.src = ''; dialog.close(); });
+  dialog?.addEventListener('cancel', () => { frame.src = ''; });
+
+  $$('.video-thumb').forEach(btn => btn.addEventListener('click', () => openVideo(btn.dataset.youtube)));
+  $$('.open-video').forEach(a => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    openVideo(a.href);
+  }));
+
+  // Première application
+  applyFilters();
+})();

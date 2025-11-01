@@ -1,141 +1,114 @@
 ---
 layout: default
 title: Catalogue
-description: Catalogue de matériel audio et lumière disponible à la location.
+permalink: /catalogue/
+description: Catalogue du matériel lumière & son — fiches, vidéos et photos.
 ---
 
-<section class="section">
+{% assign items = site.data.gear %}
+{% if items == nil %}
+<div class="container">
+  <p class="muted">Le fichier <code>_data/gear.yml</code> est vide. Ajoute-y tes articles pour peupler le catalogue.</p>
+</div>
+{% endif %}
+
+<section class="catalogue-hero">
   <div class="container">
-    <div class="section-header">
-      <h1>Catalogue & médias</h1>
-      <p class="muted">{{ site.data.catalogue.intro }}</p>
-    </div>
-    {% for category in site.data.catalogue.categories %}
-    <div class="section-block" id="{{ category.name | slugify }}">
-      <h2>{{ category.name }}</h2>
-      {% if category.video_gallery %}
-      <div class="section-subheader">
-        {% if category.video_gallery.title %}<h3>{{ category.video_gallery.title }}</h3>{% endif %}
-        {% if category.video_gallery.intro %}<p class="muted">{{ category.video_gallery.intro }}</p>{% endif %}
+    <h1>Catalogue matériel</h1>
+    <p class="muted">Parcourez les effets lumière, barres LED, stroboscopes, projecteurs PAR, enceintes et accessoires.</p>
+
+    <!-- Barre d'outils -->
+    <div class="cat-toolbar">
+      <div class="search">
+        <input id="catSearch" type="search" placeholder="Rechercher (nom, modèle, tags…)" aria-label="Rechercher dans le catalogue">
       </div>
-      {% endif %}
-      {% if category.showcases %}
-      <div class="media-grid">
-        {% for showcase in category.showcases %}
-        {% assign first_photo = nil %}
-        {% if showcase.photos and showcase.photos.size > 0 %}
-          {% assign first_photo_obj = showcase.photos[0] %}
-          {% if first_photo_obj.src contains '://' %}
-            {% assign first_photo = first_photo_obj.src %}
-          {% else %}
-            {% assign first_photo = first_photo_obj.src | relative_url %}
+      <div class="filters" id="catFilters" role="listbox" aria-label="Filtrer par catégorie">
+        {% assign allcats = "" | split: "," %}
+        {% for it in items %}
+          {% if it.category %}
+            {% assign allcats = allcats | push: it.category %}
           {% endif %}
-        {% endif %}
-        <article class="media-card media-card--modern" id="showcase-{{ showcase.name | slugify }}">
-          <div class="media-card__header">
-            {% if showcase.video_embed %}
-            <div class="media-card__video">
-              <div class="media-card__video-inner">
-                <iframe
-                  title="{{ showcase.name | default: 'Vidéo de démonstration' }}"
-                  src="{{ showcase.video_embed }}"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                  referrerpolicy="strict-origin-when-cross-origin"></iframe>
-              </div>
-            </div>
-            {% elsif first_photo %}
-            <button class="media-card__visual" type="button" data-fullscreen-src="{{ first_photo }}" data-fullscreen-alt="{{ showcase.name | escape }}">
-              <img src="{{ first_photo }}" alt="{{ showcase.name }}">
-              <span class="media-card__visual-cta">Voir en plein écran</span>
-            </button>
-            {% endif %}
-            {% if showcase.photos %}
-            <div class="media-card__carousel" data-carousel>
-              <button class="media-card__nav media-card__nav--prev" type="button" data-carousel-prev aria-label="Photo précédente">‹</button>
-              <div class="media-card__viewport">
-                {% for photo in showcase.photos %}
-                {% if photo.src contains '://' %}
-                  {% assign photo_src = photo.src %}
-                {% else %}
-                  {% assign photo_src = photo.src | relative_url %}
-                {% endif %}
-                <figure class="media-card__slide{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}">
-                  <img src="{{ photo_src }}" alt="{{ photo.alt | default: showcase.name }}">
-                  {% if photo.caption %}<figcaption>{{ photo.caption }}</figcaption>{% endif %}
-                </figure>
-                {% endfor %}
-              </div>
-              <button class="media-card__nav media-card__nav--next" type="button" data-carousel-next aria-label="Photo suivante">›</button>
-              <div class="media-card__indicators">
-                {% for photo in showcase.photos %}
-                <button type="button" class="media-card__dot{% if forloop.first %} is-active{% endif %}" data-carousel-dot data-index="{{ forloop.index0 }}" aria-label="Aller à la photo {{ forloop.index }}"></button>
-                {% endfor %}
-              </div>
-            </div>
-            {% endif %}
-          </div>
-          <div class="media-card__body">
-            <div class="media-card__text">
-              <h3>{{ showcase.name }}</h3>
-              {% if showcase.summary %}
-              <p class="muted">{{ showcase.summary }}</p>
-              {% endif %}
-              {% if showcase.specs %}
-              <ul class="media-card__specs">
-                {% for spec in showcase.specs %}
-                <li>{{ spec }}</li>
-                {% endfor %}
-              </ul>
-              {% endif %}
-            </div>
-            <div class="media-card__actions">
-              {% if showcase.photos %}
-              <button class="button button--outline" type="button"
-                      data-action="open-showcase"
-                      data-showcase-title="{{ showcase.name | escape }}"
-                      data-showcase-summary="{{ showcase.summary | default: "" | escape }}"
-                      data-showcase-details="{{ showcase.details | default: "" | jsonify | escape }}"
-                      data-showcase-specs="{{ showcase.specs | default: "" | jsonify | escape }}"
-                      data-showcase-photos="{{ showcase.photos | jsonify | escape }}">Voir les photos en grand</button>
-              {% endif %}
-            </div>
-          </div>
-        </article>
+        {% endfor %}
+        {% assign cats = allcats | uniq | sort_natural %}
+        <button class="chip is-active" data-filter="*">Tout</button>
+        {% for c in cats %}
+        <button class="chip" data-filter="{{ c | escape }}">{{ c }}</button>
         {% endfor %}
       </div>
-      {% endif %}
-      {% if category.items %}
-      <ul class="cards">
-        {% for item in category.items %}
-        <li class="card">
-          <h3>{{ item.name }}</h3>
-          <p class="muted">{{ item.description }}</p>
-        </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-    </div>
-    {% endfor %}
-    <div class="section-actions">
-      <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander un devis personnalisé</a>
     </div>
   </div>
 </section>
 
-<div class="media-modal" data-media-modal hidden>
-  <div class="media-modal__backdrop" data-media-close></div>
-  <div class="media-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="media-modal-title">
-    <button class="media-modal__close" type="button" data-media-close aria-label="Fermer la galerie">&times;</button>
-    <h3 id="media-modal-title" data-media-title></h3>
-      <div class="media-modal__layout">
-        <div class="media-modal__grid" data-media-gallery></div>
-        <aside class="media-modal__info">
-          <p class="muted media-modal__summary" data-media-summary></p>
-          <div class="media-modal__details" data-media-details></div>
-          <ul class="media-modal__specs" data-media-specs></ul>
-        </aside>
+<section class="catalogue-grid">
+  <div class="container" id="catGrid" data-empty="Aucun résultat. Essayez un autre mot-clé ou filtre.">
+    {% for it in items %}
+    {% assign images = it.images | default: empty %}
+    {% assign first_img = images[0] | default: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop' %}
+    <article class="card" data-title="{{ it.title | downcase }}" data-model="{{ it.model | downcase }}" data-tags="{{ it.tags | join: ' ' | downcase }}" data-category="{{ it.category | downcase }}">
+      <div class="card-media">
+        <div class="carousel" data-index="0">
+          <div class="carousel-track">
+            {% if it.video %}
+            <div class="slide">
+              <button class="video-thumb" data-youtube="{{ it.video | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' }}" aria-label="Lire la vidéo">
+                <img src="https://img.youtube.com/vi/{{ it.video | split: 'v=' | last | split: '&' | first | split: '/' | last }}/hqdefault.jpg" alt="Vidéo {{ it.title }}">
+                <span class="play">▶</span>
+              </button>
+            </div>
+            {% endif %}
+            {% for img in images %}
+            <div class="slide">
+              <img loading="lazy" src="{{ img }}" alt="{{ it.title }} — image {{ forloop.index }}">
+            </div>
+            {% endfor %}
+          </div>
+          {% if it.video or images.size > 1 %}
+          <button class="carousel-nav prev" aria-label="Image précédente">‹</button>
+          <button class="carousel-nav next" aria-label="Image suivante">›</button>
+          {% endif %}
+        </div>
       </div>
+
+      <div class="card-body">
+        <div class="card-head">
+          <h3 class="card-title">{{ it.title }}</h3>
+          {% if it.model %}<span class="badge">{{ it.model }}</span>{% endif %}
+        </div>
+
+        {% if it.short %}
+        <p class="card-text">{{ it.short }}</p>
+        {% endif %}
+
+        <ul class="meta">
+          {% if it.category %}<li><strong>Catégorie :</strong> {{ it.category }}</li>{% endif %}
+          {% if it.power %}<li><strong>Puissance :</strong> {{ it.power }}</li>{% endif %}
+          {% if it.source %}<li><strong>Source :</strong> {{ it.source }}</li>{% endif %}
+        </ul>
+
+        {% if it.tags %}
+        <div class="tags">
+          {% for t in it.tags %}
+            <span class="tag">{{ t }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="card-actions">
+          {% if it.video %}
+          <a class="button button--ghost open-video" href="{{ it.video }}" target="_blank" rel="noopener">Voir la vidéo</a>
+          {% endif %}
+          <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander ce matériel</a>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
   </div>
-</div>
+</section>
+
+<!-- Dialog vidéo (lazy YouTube) -->
+<dialog id="ytDialog" class="yt-dialog" aria-label="Lecture vidéo" inert>
+  <button class="yt-close" aria-label="Fermer">×</button>
+  <div class="yt-frame-wrap" role="document">
+    <iframe id="ytFrame" title="YouTube" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+</dialog>
