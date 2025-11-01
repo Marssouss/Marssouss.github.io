@@ -753,6 +753,32 @@
     openVideo(a.href);
   }));
 
+  // Détails pliables sur les cartes
+  $$('.card [data-action="toggle-details"]').forEach((btn) => {
+    const targetId = btn.dataset.target;
+    if (!targetId) {
+      return;
+    }
+    const target = document.getElementById(targetId);
+    if (!target) {
+      return;
+    }
+    const labelOpen = btn.dataset.labelOpen || btn.textContent.trim() || 'Voir les détails';
+    const labelClose = btn.dataset.labelClose || 'Masquer les détails';
+    btn.dataset.labelOpen = labelOpen;
+    btn.dataset.labelClose = labelClose;
+    btn.textContent = labelOpen;
+    target.hidden = true;
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const nextExpanded = !expanded;
+      btn.setAttribute('aria-expanded', String(nextExpanded));
+      btn.textContent = nextExpanded ? labelClose : labelOpen;
+      target.hidden = !nextExpanded;
+      target.classList.toggle('is-open', nextExpanded);
+    });
+  });
+
   // Première application
   applyFilters();
 })();

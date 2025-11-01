@@ -36,14 +36,14 @@ description: Catalogue de matériel audio et lumière disponible à la location.
         {% for category in categories %}
           {% assign cat_slug = category.name | slugify %}
           {% if category.video_gallery %}
-          <article class="card" data-category="{{ cat_slug }}" data-title="{{ category.video_gallery.title | default: category.name | escape }}" data-model="{{ category.name | escape }}" data-tags="{{ category.video_gallery.intro | default: '' | strip | strip_newlines | escape }}">
+          <article class="card card--category" data-category="{{ cat_slug }}" data-title="{{ category.video_gallery.title | default: category.name | escape }}" data-model="{{ category.name | escape }}" data-tags="{{ category.video_gallery.intro | default: '' | strip | strip_newlines | escape }}">
             <div class="card-body">
               <header class="card-head">
-                <h3 class="card-title">{{ category.video_gallery.title | default: category.name }}</h3>
                 <span class="badge">{{ category.name }}</span>
+                <h3 class="card-title">{{ category.video_gallery.title | default: category.name }}</h3>
               </header>
               {% if category.video_gallery.intro %}
-              <p class="card-text">{{ category.video_gallery.intro }}</p>
+              <p class="card-summary">{{ category.video_gallery.intro }}</p>
               {% endif %}
             </div>
           </article>
@@ -72,6 +72,7 @@ description: Catalogue de matériel audio et lumière disponible à la location.
                   {{ showcase.specs | join: ' ' }}
                 {%- endif -%}
               {%- endcapture -%}
+              {% assign detail_id = 'details-' | append: cat_slug | append: '-' | append: showcase.name | slugify %}
               <article class="card" data-category="{{ cat_slug }}" data-title="{{ showcase.name | escape }}" data-model="{{ showcase.summary | default: category.name | escape }}" data-tags="{{ searchable | strip | strip_newlines | escape }}">
                 <div class="card-media">
                   {% if showcase.video_embed %}
@@ -109,31 +110,41 @@ description: Catalogue de matériel audio et lumière disponible à la location.
                 </div>
                 <div class="card-body">
                   <header class="card-head">
-                    <h3 class="card-title">{{ showcase.name }}</h3>
                     <span class="badge">{{ category.name }}</span>
+                    <h3 class="card-title">{{ showcase.name }}</h3>
                   </header>
                   {% if showcase.summary %}
-                  <p class="card-text">{{ showcase.summary }}</p>
-                  {% endif %}
-                  {% if showcase.details %}
-                  <ul class="meta">
-                    {% for detail in showcase.details %}
-                      {% if detail.title and detail.text %}
-                      <li><strong>{{ detail.title }} :</strong> {{ detail.text }}</li>
-                      {% elsif detail.text %}
-                      <li>{{ detail.text }}</li>
-                      {% endif %}
-                    {% endfor %}
-                  </ul>
+                  <p class="card-summary">{{ showcase.summary }}</p>
                   {% endif %}
                   {% if showcase.specs %}
-                  <div class="tags">
+                  <div class="card-specs">
                     {% for spec in showcase.specs %}
                     <span class="tag">{{ spec }}</span>
                     {% endfor %}
                   </div>
                   {% endif %}
+                  {% if showcase.details %}
+                  <div class="card-details" id="{{ detail_id }}" hidden>
+                    {% for detail in showcase.details %}
+                      {% if detail.title or detail.text %}
+                      <article class="card-detail">
+                        {% if detail.title %}<h4>{{ detail.title }}</h4>{% endif %}
+                        {% if detail.text %}<p>{{ detail.text }}</p>{% endif %}
+                      </article>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                  {% endif %}
                   <div class="card-actions">
+                    {% if showcase.details %}
+                    <button class="button button--ghost"
+                            type="button"
+                            data-action="toggle-details"
+                            data-target="{{ detail_id }}"
+                            data-label-open="Voir les détails"
+                            data-label-close="Masquer les détails"
+                            aria-expanded="false">Voir les détails</button>
+                    {% endif %}
                     {% if has_photos %}
                     <button class="button button--ghost" type="button"
                             data-action="open-showcase"
