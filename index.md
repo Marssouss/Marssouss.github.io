@@ -2,7 +2,7 @@
 layout: default
 title: Accueil
 permalink: /
-description: Location de sonorisation et jeux de lumière en Gironde. Packs prêts à l’emploi, livraison par zones et installation sur demande.
+description: Location de sonorisation et jeux de lumière en Gironde. Packs prêts à l'emploi, livraison par zones et installation sur demande.
 ---
 
 {% assign hero = site.branding.hero %}
@@ -15,14 +15,19 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
   {% endif %}
 {% endif %}
 
-<section class="hero">
-  <div class="container hero-inner">
-    <div class="hero-copy">
-      {% if hero.eyebrow %}<p class="eyebrow">{{ hero.eyebrow }}</p>{% endif %}
-      {% if hero.highlight_badge %}<span class="badge badge--glow">{{ hero.highlight_badge }}</span>{% endif %}
+<section class="home-hero">
+  <div class="home-hero__sky" aria-hidden="true">
+    <span class="home-hero__orb home-hero__orb--one"></span>
+    <span class="home-hero__orb home-hero__orb--two"></span>
+    <span class="home-hero__orb home-hero__orb--three"></span>
+  </div>
+  <div class="container home-hero__grid">
+    <div class="home-hero__copy">
+      {% if hero.eyebrow %}<p class="home-hero__eyebrow">{{ hero.eyebrow }}</p>{% endif %}
+      {% if hero.highlight_badge %}<span class="badge badge--glow home-hero__badge">{{ hero.highlight_badge }}</span>{% endif %}
       <h1>{{ hero.title }}</h1>
-      <p>{{ hero.subtitle }}</p>
-      <div class="hero-actions">
+      <p class="home-hero__subtitle">{{ hero.subtitle }}</p>
+      <div class="home-hero__actions">
         {% if hero.ctas.primary %}
           {% assign primary_url = hero.ctas.primary.url %}
           {% unless hero.ctas.primary.external %}
@@ -45,42 +50,44 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
           <a class="button button--outline" href="{{ catalogue_url }}" {% if hero.ctas.catalogue.external %}target="_blank" rel="noopener"{% endif %}>{{ hero.ctas.catalogue.label }}</a>
         {% endif %}
       </div>
+      {% if hero.stats %}
+      <ul class="home-hero__stats">
+        {% for stat in hero.stats %}
+        <li>
+          <span class="home-hero__stat-value">{{ stat.value }}</span>
+          <span class="home-hero__stat-label">{{ stat.label }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
     </div>
-    <div class="hero-visual">
-      <div class="hero-visual__frame">
+    <div class="home-hero__visual">
+      <div class="home-hero__visual-frame">
         {% if hero_src %}
-        <div class="hero-visual__image">
-          <img src="{{ hero_src }}" alt="{{ hero.title }}">
-        </div>
+        <img src="{{ hero_src }}" alt="{{ hero.title }}">
         {% else %}
-        <div class="hero-visual__image hero-visual__image--placeholder" aria-hidden="true"></div>
+        <div class="home-hero__visual-placeholder" aria-hidden="true"></div>
         {% endif %}
-        {% if hero.stats %}
-        <ul class="stat-group">
-          {% for stat in hero.stats %}
-          <li>
-            <span class="stat-value">{{ stat.value }}</span>
-            <span class="stat-label">{{ stat.label }}</span>
-          </li>
-          {% endfor %}
-        </ul>
-        {% endif %}
+        <div class="home-hero__floating-card">
+          <p class="home-hero__floating-eyebrow">Support 7j/7</p>
+          <p>Briefing personnalisé, assistance à distance et reprise programmée.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section home-highlights">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header section-header--center">
       <h2>{{ site.branding.differentiators.title }}</h2>
       <p class="muted">{{ site.description }}</p>
     </div>
-    <div class="feature-grid">
+    <div class="home-highlights__grid">
       {% for feature in site.branding.features %}
-      <article class="feature-card">
+      <article class="home-highlight-card">
         <h3>{{ feature.title }}</h3>
-        <p>{{ feature.description }}</p>
+        <p class="muted">{{ feature.description }}</p>
       </article>
       {% endfor %}
     </div>
@@ -89,48 +96,58 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
 
 {% assign differentiators = site.branding.differentiators.items %}
 {% if differentiators %}
-<section class="section">
-  <div class="container differentiators">
-    {% for diff in differentiators %}
-    {% case diff.icon %}
-      {% when 'spark' %}{% assign icon_char = '✦' %}
-      {% when 'beam' %}{% assign icon_char = '☄︎' %}
-      {% when 'shield' %}{% assign icon_char = '🛡︎' %}
-      {% when 'wave' %}{% assign icon_char = '〰︎' %}
-      {% else %}{% assign icon_char = '★' %}
-    {% endcase %}
-    <article class="diff-card">
-      <span class="diff-icon" aria-hidden="true">{{ icon_char }}</span>
-      <h3>{{ diff.title }}</h3>
-      <p class="muted">{{ diff.text }}</p>
-    </article>
-    {% endfor %}
+<section class="section home-differentiators">
+  <div class="container home-differentiators__grid">
+    <div class="home-differentiators__intro">
+      <h2>{{ site.branding.differentiators.subtitle | default: "Une expérience premium sans stress" }}</h2>
+      <p class="muted">{{ site.branding.differentiators.description | default: "De la préparation à la reprise du matériel, nous restons présents sur toute la ligne." }}</p>
+    </div>
+    <div class="home-differentiators__cards">
+      {% for diff in differentiators %}
+      {% case diff.icon %}
+        {% when 'spark' %}{% assign icon_char = '✨' %}
+        {% when 'beam' %}{% assign icon_char = '🔊' %}
+        {% when 'shield' %}{% assign icon_char = '🛡️' %}
+        {% when 'wave' %}{% assign icon_char = '🌊' %}
+        {% else %}{% assign icon_char = '⭐' %}
+      {% endcase %}
+      <article class="diff-card home-diff-card">
+        <span class="diff-icon" aria-hidden="true">{{ icon_char }}</span>
+        <h3>{{ diff.title }}</h3>
+        <p class="muted">{{ diff.text }}</p>
+      </article>
+      {% endfor %}
+    </div>
   </div>
 </section>
 {% endif %}
 
-<section class="section">
-  <div class="container split-grid">
-    <div>
+<section class="section home-delivery">
+  <div class="container home-delivery__grid">
+    <div class="home-delivery__copy">
       <div class="section-header">
-        <h2>Livraison & installation</h2>
+        <h2>Livraison &amp; installation</h2>
         <p class="muted">Des zones tarifaires claires, installation sur demande à partir de {{ site.delivery.install_price_from_eur }} € et présence possible le jour J.</p>
       </div>
       <div class="note">
         <ul>
           {% for tier in site.delivery.tiers %}
-          <li><strong>{{ tier.label }}</strong> – {{ tier.radius_km }} km — {{ tier.price_eur }} €</li>
+          <li><strong>{{ tier.label }}</strong> — {{ tier.radius_km }} km — {{ tier.price_eur }} €</li>
           {% endfor %}
         </ul>
         <p class="muted">Retrait gratuit sur rendez-vous.</p>
       </div>
       <div class="section-block">
         <div class="note">
-          <h3>Tarifs & conditions</h3>
+          <h3>Tarifs &amp; conditions</h3>
           <p>{{ site.pricing.weekend }}</p>
           <p>{{ site.pricing.caution_policy }}</p>
           <p>{{ site.pricing.notes }}</p>
         </div>
+      </div>
+      <div class="home-delivery__cta">
+        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander une installation</a>
+        <a class="button button--ghost" href="{{ '/services/' | relative_url }}">Voir nos services</a>
       </div>
     </div>
     <div class="map-panel">
@@ -148,9 +165,9 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
   </div>
 </section>
 
-<section class="section">
+<section class="section home-packs">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header section-header--center">
       <h2>Nos packs populaires</h2>
       <p class="muted">{{ site.data.packs.intro }}</p>
     </div>
@@ -241,13 +258,13 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
 
 {% assign process = site.home.process %}
 {% if process %}
-<section class="section">
+<section class="section home-process">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header section-header--center">
       <h2>{{ process.title }}</h2>
       <p class="muted">Un accompagnement complet, de la réservation à la reprise du matériel.</p>
     </div>
-    <div class="process-steps">
+    <div class="process-steps home-process__steps">
       {% for step in process.steps %}
       <article class="process-step">
         <h3>{{ step.title }}</h3>
@@ -261,9 +278,9 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
 
 {% assign testimonials = site.home.testimonials %}
 {% if testimonials.items %}
-<section class="section">
+<section class="section home-testimonials">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header section-header--center">
       <h2>{{ testimonials.title }}</h2>
       <p class="muted">Mariages, anniversaires et événements pros : ils racontent leur expérience.</p>
     </div>
@@ -278,3 +295,18 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
   </div>
 </section>
 {% endif %}
+
+<section class="home-cta">
+  <div class="container">
+    <div class="home-cta__card">
+      <div class="home-cta__content">
+        <h2>Prêt à faire vibrer votre événement&nbsp;?</h2>
+        <p class="muted">Choisissez votre matériel, on s'occupe de la logistique et de votre tranquillité d'esprit.</p>
+      </div>
+      <div class="home-cta__actions">
+        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Réserver un créneau</a>
+        <a class="button button--ghost" href="{{ '/catalogue/' | relative_url }}">Explorer le catalogue</a>
+      </div>
+    </div>
+  </div>
+</section>
