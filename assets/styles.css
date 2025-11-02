@@ -54,23 +54,6 @@ a:focus {
   padding-inline: var(--page-gutter);
 }
 
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--color-text);
-  color: var(--color-bg);
-  padding: 0.6rem 1rem;
-  border-radius: var(--radius-sm);
-  z-index: 100;
-  transition: top var(--transition);
-}
-
-.skip-link:focus {
-  top: 16px;
-}
-
 .muted {
   color: var(--color-muted);
 }
@@ -269,6 +252,10 @@ a:focus {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.mobile-quick-nav {
+  display: none;
 }
 
 .theme-toggle,
@@ -1550,6 +1537,7 @@ tbody tr:hover {
 @media (max-width: 720px) {
   .page-content {
     padding-top: 2.5rem;
+    padding-bottom: calc(5.2rem + env(safe-area-inset-bottom, 0px));
   }
 
   .nav-container {
@@ -1559,6 +1547,67 @@ tbody tr:hover {
   .footer-cta__inner {
     flex-direction: column;
     text-align: center;
+  }
+
+  .mobile-quick-nav {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: clamp(0.45rem, 3vw, 0.75rem) clamp(1rem, 5vw, 1.6rem)
+      calc(env(safe-area-inset-bottom, 0px) + clamp(0.5rem, 3vw, 0.9rem));
+    background: color-mix(in srgb, var(--color-bg) 85%, rgba(6, 10, 24, 0.8));
+    backdrop-filter: blur(14px);
+    border-top: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+    box-shadow: 0 -18px 32px rgba(3, 6, 18, 0.45);
+    z-index: 110;
+    transition: transform var(--transition), opacity var(--transition);
+  }
+
+  .mobile-quick-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 0.6rem;
+  }
+
+  .mobile-quick-nav li {
+    margin: 0;
+  }
+
+  .mobile-quick-nav__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.65rem 0.75rem;
+    border-radius: 0.9rem;
+    background: color-mix(in srgb, var(--color-surface) 82%, rgba(12, 18, 34, 0.4));
+    border: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    min-height: 2.6rem;
+  }
+
+  .mobile-quick-nav__link--primary {
+    background: var(--gradient-brand);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 10px 22px rgba(103, 86, 255, 0.32);
+  }
+
+  .mobile-quick-nav__link span {
+    pointer-events: none;
+  }
+
+  body.is-nav-open .mobile-quick-nav {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(110%);
   }
 }
 
