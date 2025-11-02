@@ -1,4 +1,4 @@
----
+﻿---
 layout: default
 title: Accueil
 permalink: /
@@ -173,84 +173,52 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
       <h2>Nos packs populaires</h2>
       <p class="muted">{{ site.data.packs.intro }}</p>
     </div>
-    <ul class="pack-grid" role="list">
-      {% for pack in site.data.packs.items %}
-      {% assign first_include = pack.includes | first %}
-      {% assign first_include_href = nil %}
-      {% assign first_include_label = nil %}
-      {% if first_include %}
-        {% assign first_include_label = first_include.label | default: first_include %}
-        {% assign maybe_href = first_include.href | default: nil %}
-        {% if maybe_href %}
-          {% if maybe_href contains '://' %}
-            {% assign first_include_href = maybe_href %}
-          {% else %}
-            {% assign first_include_href = maybe_href | relative_url %}
-          {% endif %}
-        {% endif %}
-      {% endif %}
-      {% assign content_id = pack.id | default: 'pack-' | append: forloop.index | append: '-content-home' %}
-      <li>
-        <article class="pack-card" data-pack-card data-pack-open="true">
-          <header class="pack-card__header">
-            <div class="pack-card__heading">
-              <span class="pack-card__index">Pack {{ forloop.index }}</span>
-              <h3>{{ pack.title }}</h3>
-              {% if pack.tagline %}<p class="pack-card__tagline muted">{{ pack.tagline }}</p>{% endif %}
-            </div>
-            {% if pack.capacity %}
-            <span class="pack-card__capacity">{{ pack.capacity }}</span>
-            {% endif %}
-          </header>
-          <div class="pack-card__body">
-            {% if pack.weekend_price %}
-            <div class="pack-card__price">
-              <span class="pack-card__price-label">Forfait week-end</span>
-              <span class="pack-card__price-value">{{ pack.weekend_price }} {{ site.pricing.currency }}</span>
-            </div>
-            {% endif %}
-            {% if pack.description %}
-            <p class="pack-card__description">{{ pack.description }}</p>
-            {% endif %}
-            {% if pack.includes %}
-            <div class="pack-card__divider" aria-hidden="true"></div>
-            <div class="pack-card__features" id="{{ content_id }}" data-pack-content>
-              <h4>Compris dans le pack</h4>
-              <ul class="pack-card__includes">
-                {% for include in pack.includes %}
+    <div class="pack-slider pack-slider--compact" data-pack-slider data-slides-visible="3">
+      <button class="pack-slider__control pack-slider__control--prev" type="button" data-pack-prev aria-label="Pack précédent">&lsaquo;</button>
+      <div class="pack-slider__viewport" data-pack-viewport>
+        <ul class="pack-slider__track" data-pack-track role="list">
+          {% for pack in site.data.packs.items %}
+          {% assign summary_includes = pack.includes | slice: 0, 2 %}
+          <li class="pack-slider__slide" data-pack-slide data-pack-index="{{ forloop.index0 }}">
+            <article class="home-pack-card">
+              <header class="home-pack-card__header">
+                <div class="home-pack-card__meta">
+                  <span class="home-pack-card__index">Pack {{ forloop.index }}</span>
+                  {% if pack.capacity %}<span class="home-pack-card__capacity">{{ pack.capacity }}</span>{% endif %}
+                </div>
+                <h3>{{ pack.title }}</h3>
+                {% if pack.tagline %}<p class="home-pack-card__tagline muted">{{ pack.tagline }}</p>{% endif %}
+              </header>
+              <div class="home-pack-card__body">
+                {% if pack.weekend_price %}
+                <div class="home-pack-card__price">
+                  <span class="home-pack-card__price-label">Forfait week-end</span>
+                  <span class="home-pack-card__price-value">{{ pack.weekend_price }} {{ site.pricing.currency }}</span>
+                </div>
+                {% endif %}
+                {% if pack.description %}
+                <p class="home-pack-card__summary muted">{{ pack.description | truncatewords: 18, '...' }}</p>
+                {% endif %}
+                {% if summary_includes and summary_includes.size > 0 %}
+                <ul class="home-pack-card__highlights" role="list">
+                  {% for include in summary_includes %}
                   {% assign include_label = include.label | default: include %}
-                  {% assign include_href = include.href %}
-                  {% if include_href %}
-                    {% if include_href contains '://' %}
-                      {% assign include_url = include_href %}
-                    {% else %}
-                      {% assign include_url = include_href | relative_url %}
-                    {% endif %}
-                    <li><a class="pack-chip" href="{{ include_url }}">{{ include_label }}</a></li>
-                  {% else %}
-                    <li><span class="pack-chip">{{ include_label }}</span></li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-              {% if pack.notes %}
-              <ul class="pack-card__notes">
-                {% for note in pack.notes %}
-                <li>{{ note }}</li>
-                {% endfor %}
-              </ul>
-              {% endif %}
-            </div>
-            <button class="pack-card__toggle" type="button" data-pack-toggle aria-expanded="false" aria-controls="{{ content_id }}">
-              <span data-pack-toggle-label>Voir le détail</span>
-              <span class="pack-card__chevron" aria-hidden="true"></span>
-            </button>
-            {% endif %}
-          </div>
-          <footer class="pack-card__footer"></footer>
-        </article>
-      </li>
-      {% endfor %}
-    </ul>
+                  <li><span class="home-pack-card__chip">{{ include_label }}</span></li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+              </div>
+              <footer class="home-pack-card__footer">
+                <a class="button button--ghost" href="{{ '/packs/' | relative_url }}">Voir le pack</a>
+              </footer>
+            </article>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <button class="pack-slider__control pack-slider__control--next" type="button" data-pack-next aria-label="Pack suivant">&rsaquo;</button>
+      <div class="pack-slider__dots" data-pack-dots aria-label="Sélecteur de packs"></div>
+    </div>
     <div class="section-actions">
       <a class="button button--ghost" href="{{ '/packs/' | relative_url }}">Voir tous les packs</a>
       <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander une disponibilité</a>
