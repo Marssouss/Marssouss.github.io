@@ -336,6 +336,7 @@
     let dragStartX = 0;
     let dragCurrentX = 0;
     let dragMoved = false;
+    let tapImage = null;
 
     const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
@@ -518,6 +519,8 @@
       dragMoved = false;
       dragStartX = event.clientX;
       dragCurrentX = dragStartX;
+      const slide = event.target.closest("[data-showcase-slide]");
+      tapImage = slide?.querySelector("img") || null;
       if (viewport.setPointerCapture) {
         try {
           viewport.setPointerCapture(event.pointerId);
@@ -552,15 +555,24 @@
       const deltaX = dragCurrentX - dragStartX;
       const width = viewport.clientWidth || 1;
       const threshold = width * 0.18;
+      const absDelta = Math.abs(deltaX);
       track.style.transition = "";
-      if (dragMoved && Math.abs(deltaX) > threshold) {
+      if (dragMoved && absDelta > threshold) {
         goTo(index + (deltaX < 0 ? 1 : -1));
       } else {
         updateSlides(index, { immediate: true });
+        if (!dragMoved && tapImage) {
+          const src = tapImage.currentSrc || tapImage.src || "";
+          const alt = tapImage.alt || "";
+          if (src) {
+            toggleLightbox(true, src, alt);
+          }
+        }
       }
       dragMoved = false;
       dragStartX = 0;
       dragCurrentX = 0;
+      tapImage = null;
       resumeAutoplay();
     };
 
@@ -572,6 +584,7 @@
       releasePointer(event);
       updateSlides(index, { immediate: true });
       dragMoved = false;
+      tapImage = null;
       resumeAutoplay();
     };
 
