@@ -681,7 +681,7 @@
     const slides = Array.from(track.children);
     const totalSlides = slides.length;
     const defaultVisible = Math.max(1, Number(slider.dataset.slidesVisible || "3"));
-    const isCompact = slider.classList.contains("pack-slider--compact");
+    const isFinite = slider.classList.contains("pack-slider--finite");
 
     if (totalSlides <= 1) {
       slider.classList.add("is-static");
@@ -691,7 +691,7 @@
       return;
     }
 
-    if (isCompact) {
+    if (isFinite) {
       let currentIndex = 0;
       let visibleCount = defaultVisible;
       let maxIndex = 0;

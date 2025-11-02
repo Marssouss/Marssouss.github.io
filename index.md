@@ -173,7 +173,7 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
       <h2>Nos packs populaires</h2>
       <p class="muted">{{ site.data.packs.intro }}</p>
     </div>
-    <div class="pack-slider pack-slider--compact" data-pack-slider data-slides-visible="3">
+    <div class="pack-slider pack-slider--compact pack-slider--finite" data-pack-slider data-slides-visible="3">
       <button class="pack-slider__control pack-slider__control--prev" type="button" data-pack-prev aria-label="Pack précédent">&lsaquo;</button>
       <div class="pack-slider__viewport" data-pack-viewport>
         <ul class="pack-slider__track" data-pack-track role="list">

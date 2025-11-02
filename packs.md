@@ -1,4 +1,4 @@
----
+﻿---
 layout: default
 title: Packs
 description: Packs sono et lumière prêts à l’emploi pour soirées, mariages et événements.
@@ -10,8 +10,8 @@ description: Packs sono et lumière prêts à l’emploi pour soirées, mariages
       <h1>Packs sono & lumière</h1>
       <p class="muted">{{ site.data.packs.intro }}</p>
     </div>
-    <div class="pack-slider" data-pack-slider data-slides-visible="3">
-      <button class="pack-slider__control pack-slider__control--prev" type="button" data-pack-prev aria-label="Pack précédent">‹</button>
+    <div class="pack-slider pack-slider--finite" data-pack-slider data-slides-visible="3">
+      <button class="pack-slider__control pack-slider__control--prev" type="button" data-pack-prev aria-label="Pack pr&eacute;c&eacute;dent">&lsaquo;</button>
       <div class="pack-slider__viewport" data-pack-viewport>
         <ul class="pack-slider__track" data-pack-track role="list">
           {% for pack in site.data.packs.items %}
@@ -78,7 +78,7 @@ description: Packs sono et lumière prêts à l’emploi pour soirées, mariages
           {% endfor %}
         </ul>
       </div>
-      <button class="pack-slider__control pack-slider__control--next" type="button" data-pack-next aria-label="Pack suivant">›</button>
+      <button class="pack-slider__control pack-slider__control--next" type="button" data-pack-next aria-label="Pack suivant">&rsaquo;</button>
       <div class="pack-slider__dots" data-pack-dots aria-label="Sélecteur de packs"></div>
     </div>
     <article class="pack-formula-card">
