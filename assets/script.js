@@ -696,6 +696,9 @@
       let visibleCount = defaultVisible;
       let maxIndex = 0;
 
+      track.style.transition = "none";
+      track.style.transform = "translateX(0)";
+
       const getVisibleCount = () => {
         if (window.innerWidth <= 720) {
           return 1;
@@ -738,24 +741,6 @@
         }
       };
 
-      const updateTrackPosition = (animate = true) => {
-        const targetSlide = slides[currentIndex];
-        if (!targetSlide) {
-          return;
-        }
-        if (!animate) {
-          track.style.transition = "none";
-        }
-        const offset = targetSlide.offsetLeft;
-        track.style.transform = `translateX(-${offset}px)`;
-        if (!animate) {
-          requestAnimationFrame(() => {
-            track.style.transition = "transform 0.5s ease";
-          });
-        }
-        updateDots();
-      };
-
       const rebuildDots = () => {
         if (!dotsContainer) {
           return;
@@ -780,23 +765,59 @@
         updateDots();
       };
 
-      const recalculateLayout = (shouldAnimate = false) => {
-        visibleCount = getVisibleCount();
-        maxIndex = Math.max(0, totalSlides - visibleCount);
-        currentIndex = clampIndex(currentIndex);
-        rebuildDots();
-        updateControls();
-        updateTrackPosition(shouldAnimate);
-      };
+      let programmaticTarget = 0;
+      let isProgrammaticScroll = false;
+      let scrollRaf = 0;
+      let resizeRaf = 0;
 
-      const goToIndex = (target) => {
-        const clamped = clampIndex(target);
-        if (clamped === currentIndex) {
+      const scrollToIndex = (index, { smooth = true } = {}) => {
+        const targetSlide = slides[index];
+        if (!targetSlide) {
           return;
         }
+        const offset = targetSlide.offsetLeft;
+        if (smooth) {
+          programmaticTarget = index;
+          isProgrammaticScroll = true;
+          viewport.scrollTo({ left: offset, behavior: "smooth" });
+        } else {
+          viewport.scrollLeft = offset;
+          programmaticTarget = index;
+          isProgrammaticScroll = false;
+        }
+      };
+
+      const syncFromScroll = () => {
+        const scrollLeft = viewport.scrollLeft;
+        let nearestIndex = currentIndex;
+        let smallestDistance = Number.POSITIVE_INFINITY;
+        for (let i = 0; i <= maxIndex; i++) {
+          const slide = slides[i];
+          if (!slide) {
+            continue;
+          }
+          const distance = Math.abs(slide.offsetLeft - scrollLeft);
+          if (distance < smallestDistance) {
+            smallestDistance = distance;
+            nearestIndex = i;
+          }
+        }
+        if (nearestIndex !== currentIndex) {
+          currentIndex = nearestIndex;
+          updateControls();
+          updateDots();
+        }
+        if (isProgrammaticScroll && nearestIndex === programmaticTarget && smallestDistance <= 1) {
+          isProgrammaticScroll = false;
+        }
+      };
+
+      const goToIndex = (target, { smooth = true } = {}) => {
+        const clamped = clampIndex(target);
         currentIndex = clamped;
         updateControls();
-        updateTrackPosition();
+        updateDots();
+        scrollToIndex(clamped, { smooth });
       };
 
       const goToNext = () => {
@@ -808,56 +829,46 @@
       };
 
       if (prevBtn) {
-        prevBtn.addEventListener("click", goToPrev);
+        prevBtn.addEventListener("click", () => goToPrev());
       }
       if (nextBtn) {
-        nextBtn.addEventListener("click", goToNext);
+        nextBtn.addEventListener("click", () => goToNext());
       }
 
-      let touchStartX = 0;
+      const handleScroll = () => {
+        if (scrollRaf) {
+          cancelAnimationFrame(scrollRaf);
+        }
+        scrollRaf = requestAnimationFrame(() => {
+          scrollRaf = 0;
+          syncFromScroll();
+        });
+      };
 
-      viewport.addEventListener(
-        "touchstart",
-        (event) => {
-          if (event.touches.length !== 1) {
-            return;
-          }
-          touchStartX = event.touches[0].clientX;
-        },
-        { passive: true },
-      );
+      viewport.addEventListener("scroll", handleScroll, { passive: true });
 
-      viewport.addEventListener(
-        "touchend",
-        (event) => {
-          const touch = event.changedTouches && event.changedTouches[0];
-          if (!touch) {
-            return;
-          }
-          const deltaX = touch.clientX - touchStartX;
-          if (Math.abs(deltaX) > 40) {
-            if (deltaX < 0) {
-              goToNext();
-            } else {
-              goToPrev();
-            }
-          }
-        },
-        { passive: true },
-      );
+      const recalculateLayout = () => {
+        visibleCount = getVisibleCount();
+        maxIndex = Math.max(0, totalSlides - visibleCount);
+        currentIndex = clampIndex(currentIndex);
+        rebuildDots();
+        updateControls();
+        updateDots();
+        scrollToIndex(currentIndex, { smooth: false });
+      };
 
-      let resizeRaf = 0;
       const handleResize = () => {
         if (resizeRaf) {
           cancelAnimationFrame(resizeRaf);
         }
         resizeRaf = requestAnimationFrame(() => {
-          recalculateLayout(false);
+          recalculateLayout();
         });
       };
+
       window.addEventListener("resize", handleResize);
 
-      recalculateLayout(false);
+      recalculateLayout();
       return;
     }
 

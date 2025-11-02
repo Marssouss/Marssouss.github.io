@@ -2057,6 +2057,28 @@ tbody tr:hover {
   justify-content: center;
 }
 
+.pack-slider--finite .pack-slider__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.pack-slider--finite .pack-slider__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.pack-slider--finite .pack-slider__slide {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.pack-slider--finite .pack-slider__track {
+  transition: none;
+  gap: var(--pack-slider-gap);
+}
+
 .home-pack-card {
   display: flex;
   flex-direction: column;
