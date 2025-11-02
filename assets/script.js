@@ -508,6 +508,9 @@
       if (!viewport) {
         return;
       }
+      if (event.target.closest("[data-showcase-zoom]")) {
+        return;
+      }
       if (event.pointerType === "mouse" && event.button !== 0) {
         return;
       }

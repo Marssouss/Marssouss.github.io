@@ -69,6 +69,9 @@ description: Catalogue de matériel audio et lumière disponible à la location.
             <article class="action-showcase__slide{% if forloop.first %} is-active{% endif %}" id="action-slide-{{ slide_index }}" data-showcase-slide data-index="{{ slide_index }}" role="group" aria-roledescription="slide" aria-label="Scène {{ forloop.index }} sur {{ gallery_count }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}">
               <figure class="action-showcase__media">
                 <img src="{{ image_src }}" alt="Effets LOCALUM · {{ alt_base | capitalize }}">
+                <button class="action-showcase__zoom" type="button" data-showcase-zoom data-fullscreen-src="{{ image_src }}" data-fullscreen-alt="Effets LOCALUM · {{ alt_base | capitalize }}" aria-label="Afficher la photo en plein écran">
+                  <span aria-hidden="true">⤢</span>
+                </button>
               </figure>
             </article>
           {%- endfor -%}
