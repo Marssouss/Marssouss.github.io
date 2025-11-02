@@ -44,69 +44,34 @@ description: Catalogue de matériel audio et lumière disponible à la location.
   </div>
 </section>
 
-{% assign slides_markup = '' %}
-{% assign dots_markup = '' %}
-{% assign slide_count = 0 %}
-{% for category in categories %}
-  {% if category.showcases %}
-    {% for showcase in category.showcases %}
-      {% if showcase.photos %}
-        {% for photo in showcase.photos %}
-          {% if photo.src contains '://' %}
-            {% assign photo_src = photo.src %}
-          {% else %}
-            {% assign photo_src = photo.src | relative_url %}
-          {% endif %}
-          {% assign is_active = slide_count == 0 %}
-          {% assign slide_classes = 'action-showcase__slide' %}
-          {% if is_active %}
-            {% assign slide_classes = slide_classes | append: ' is-active' %}
-          {% endif %}
-          {% assign slide_id = 'action-slide-' | append: slide_count %}
-          {% capture slide %}
-<article class="{{ slide_classes }}" id="{{ slide_id }}" data-showcase-slide data-index="{{ slide_count }}" role="group" aria-roledescription="slide" aria-label="{{ category.name }} · {{ showcase.name }}" aria-hidden="{% if is_active %}false{% else %}true{% endif %}" tabindex="{% if is_active %}0{% else %}-1{% endif %}">
-  <figure class="action-showcase__media">
-    <img src="{{ photo_src }}" alt="{{ photo.alt | default: showcase.name | escape }}">
-  </figure>
-  <div class="action-showcase__overlay">
-    <span class="action-showcase__badge">{{ category.name }}</span>
-    <h3 class="action-showcase__title">{{ showcase.name }}</h3>
-    {% if showcase.summary %}<p class="action-showcase__caption">{{ showcase.summary }}</p>{% endif %}
-  </div>
-</article>
-          {% endcapture %}
-          {% assign slides_markup = slides_markup | append: slide %}
-          {% capture dot %}
-<button type="button" class="action-showcase__dot{% if is_active %} is-active{% endif %}" data-carousel-dot data-index="{{ slide_count }}" aria-controls="{{ slide_id }}" aria-label="Voir {{ showcase.name }}" aria-pressed="{% if is_active %}true{% else %}false{% endif %}" aria-selected="{% if is_active %}true{% else %}false{% endif %}"></button>
-          {% endcapture %}
-          {% assign dots_markup = dots_markup | append: dot %}
-          {% assign slide_count = slide_count | plus: 1 %}
-        {% endfor %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-{% endfor %}
-
-{% assign has_multiple_slides = slide_count > 1 %}
-{% if slide_count > 0 %}
+{% assign gallery_images = site.static_files | where_exp: "file", "file.path contains '/assets/img/webp/Catalogue/Gallery/'" %}
+{% assign gallery_images = gallery_images | sort: "path" %}
+{% assign gallery_count = gallery_images | size %}
+{% assign has_multiple_slides = gallery_count > 1 %}
+{% if gallery_count > 0 %}
 <section class="section action-showcase">
   <div class="container">
     <div class="action-showcase__head">
       <div class="action-showcase__intro">
         <p class="eyebrow">Découvrez nos effets en action</p>
-        <h2>Ultra premium, sensations garanties</h2>
-        <p class="action-showcase__lede">Plongez dans l’atmosphère de nos installations avant même votre événement. Chaque photo est capturée sur le terrain, avec nos équipes et notre matériel en pleine performance.</p>
-      </div>
-      <div class="action-showcase__meta">
-        <span class="action-showcase__meta-tag">Immersion 360°</span>
-        <span class="action-showcase__meta-tag">Mobile-first</span>
-        <span class="action-showcase__meta-tag">Ultra responsive</span>
+        <h2>Ambiances spectaculaires, émotions garanties</h2>
+        <p class="action-showcase__lede">Ces clichés sont capturés sur le terrain, au cœur des soirées que nous accompagnons. Laissez-vous inspirer par l’intensité de nos installations lumière et son.</p>
       </div>
     </div>
-    <div class="action-showcase__shell" data-showcase-carousel{% if has_multiple_slides %} data-autoplay="6500"{% endif %}>
+    <div class="action-showcase__shell" data-showcase-carousel{% if has_multiple_slides %} data-autoplay="6500"{% endif %} data-slide-count="{{ gallery_count }}">
       <div class="action-showcase__viewport" data-carousel-viewport>
         <div class="action-showcase__track" data-carousel-track>
-{{ slides_markup | strip }}
+          {%- for image in gallery_images -%}
+            {%- assign image_src = image.path | relative_url -%}
+            {%- assign filename = image.path | split: '/' | last -%}
+            {%- assign alt_base = filename | split: '.' | first | replace: '-', ' ' | replace: '_', ' ' | strip -%}
+            {%- assign slide_index = forloop.index0 -%}
+            <article class="action-showcase__slide{% if forloop.first %} is-active{% endif %}" id="action-slide-{{ slide_index }}" data-showcase-slide data-index="{{ slide_index }}" role="group" aria-roledescription="slide" aria-label="Scène {{ forloop.index }} sur {{ gallery_count }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}">
+              <figure class="action-showcase__media">
+                <img src="{{ image_src }}" alt="Effets LOCALUM · {{ alt_base | capitalize }}">
+              </figure>
+            </article>
+          {%- endfor -%}
         </div>
       </div>
       {% if has_multiple_slides %}
@@ -124,7 +89,10 @@ description: Catalogue de matériel audio et lumière disponible à la location.
         </button>
       </div>
       <div class="action-showcase__dots" role="tablist" data-carousel-dots>
-{{ dots_markup | strip }}
+        {%- for image in gallery_images -%}
+          {%- assign dot_index = forloop.index0 -%}
+          <button type="button" class="action-showcase__dot{% if forloop.first %} is-active{% endif %}" data-carousel-dot data-index="{{ dot_index }}" aria-controls="action-slide-{{ dot_index }}" aria-label="Accéder à la scène {{ forloop.index }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"></button>
+        {%- endfor -%}
       </div>
       {% endif %}
     </div>
