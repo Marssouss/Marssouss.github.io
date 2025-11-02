@@ -44,6 +44,94 @@ description: Catalogue de matériel audio et lumière disponible à la location.
   </div>
 </section>
 
+{% assign slides_markup = '' %}
+{% assign dots_markup = '' %}
+{% assign slide_count = 0 %}
+{% for category in categories %}
+  {% if category.showcases %}
+    {% for showcase in category.showcases %}
+      {% if showcase.photos %}
+        {% for photo in showcase.photos %}
+          {% if photo.src contains '://' %}
+            {% assign photo_src = photo.src %}
+          {% else %}
+            {% assign photo_src = photo.src | relative_url %}
+          {% endif %}
+          {% assign is_active = slide_count == 0 %}
+          {% assign slide_classes = 'action-showcase__slide' %}
+          {% if is_active %}
+            {% assign slide_classes = slide_classes | append: ' is-active' %}
+          {% endif %}
+          {% assign slide_id = 'action-slide-' | append: slide_count %}
+          {% capture slide %}
+<article class="{{ slide_classes }}" id="{{ slide_id }}" data-showcase-slide data-index="{{ slide_count }}" role="group" aria-roledescription="slide" aria-label="{{ category.name }} · {{ showcase.name }}" aria-hidden="{% if is_active %}false{% else %}true{% endif %}" tabindex="{% if is_active %}0{% else %}-1{% endif %}">
+  <figure class="action-showcase__media">
+    <img src="{{ photo_src }}" alt="{{ photo.alt | default: showcase.name | escape }}">
+  </figure>
+  <div class="action-showcase__overlay">
+    <span class="action-showcase__badge">{{ category.name }}</span>
+    <h3 class="action-showcase__title">{{ showcase.name }}</h3>
+    {% if showcase.summary %}<p class="action-showcase__caption">{{ showcase.summary }}</p>{% endif %}
+  </div>
+</article>
+          {% endcapture %}
+          {% assign slides_markup = slides_markup | append: slide %}
+          {% capture dot %}
+<button type="button" class="action-showcase__dot{% if is_active %} is-active{% endif %}" data-carousel-dot data-index="{{ slide_count }}" aria-controls="{{ slide_id }}" aria-label="Voir {{ showcase.name }}" aria-pressed="{% if is_active %}true{% else %}false{% endif %}" aria-selected="{% if is_active %}true{% else %}false{% endif %}"></button>
+          {% endcapture %}
+          {% assign dots_markup = dots_markup | append: dot %}
+          {% assign slide_count = slide_count | plus: 1 %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+{% assign has_multiple_slides = slide_count > 1 %}
+{% if slide_count > 0 %}
+<section class="section action-showcase">
+  <div class="container">
+    <div class="action-showcase__head">
+      <div class="action-showcase__intro">
+        <p class="eyebrow">Découvrez nos effets en action</p>
+        <h2>Ultra premium, sensations garanties</h2>
+        <p class="action-showcase__lede">Plongez dans l’atmosphère de nos installations avant même votre événement. Chaque photo est capturée sur le terrain, avec nos équipes et notre matériel en pleine performance.</p>
+      </div>
+      <div class="action-showcase__meta">
+        <span class="action-showcase__meta-tag">Immersion 360°</span>
+        <span class="action-showcase__meta-tag">Mobile-first</span>
+        <span class="action-showcase__meta-tag">Ultra responsive</span>
+      </div>
+    </div>
+    <div class="action-showcase__shell" data-showcase-carousel{% if has_multiple_slides %} data-autoplay="6500"{% endif %}>
+      <div class="action-showcase__viewport" data-carousel-viewport>
+        <div class="action-showcase__track" data-carousel-track>
+{{ slides_markup | strip }}
+        </div>
+      </div>
+      {% if has_multiple_slides %}
+      <div class="action-showcase__progress" aria-hidden="true">
+        <span class="action-showcase__progress-bar" data-carousel-progress></span>
+      </div>
+      <div class="action-showcase__nav-group">
+        <button class="action-showcase__nav action-showcase__nav--prev" type="button" data-carousel-prev aria-label="Afficher l’effet précédent">
+          <span aria-hidden="true">‹</span>
+          <span class="sr-only">Précédent</span>
+        </button>
+        <button class="action-showcase__nav action-showcase__nav--next" type="button" data-carousel-next aria-label="Afficher l’effet suivant">
+          <span aria-hidden="true">›</span>
+          <span class="sr-only">Suivant</span>
+        </button>
+      </div>
+      <div class="action-showcase__dots" role="tablist" data-carousel-dots>
+{{ dots_markup | strip }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
 <section class="section">
   <div class="container">
     <div class="catalogue-grid">

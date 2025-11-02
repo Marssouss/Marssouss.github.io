@@ -111,7 +111,15 @@
           ],
           "photos": [
             {
-              "src": "/assets/gal2.jpg",
+              "src": "/assets/img/webp/Catalogue/SONO-FBT/sono_FBT_1.webp",
+              "alt": "Sonorisation FBT prête à l'emploi"
+            },
+                        {
+              "src": "/assets/img/webp/Catalogue/SONO-FBT/sono_FBT_2.webp",
+              "alt": "Sonorisation FBT prête à l'emploi"
+            },
+                        {
+              "src": "/assets/img/webp/Catalogue/SONO-FBT/sono_FBT_3.webp",
               "alt": "Sonorisation FBT prête à l'emploi"
             }
           ]
