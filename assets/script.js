@@ -680,8 +680,188 @@
 
     const slides = Array.from(track.children);
     const totalSlides = slides.length;
-    const visibleTarget = Number(slider.dataset.slidesVisible || "3");
-    if (totalSlides <= visibleTarget) {
+    const defaultVisible = Math.max(1, Number(slider.dataset.slidesVisible || "3"));
+    const isCompact = slider.classList.contains("pack-slider--compact");
+
+    if (totalSlides <= 1) {
+      slider.classList.add("is-static");
+      if (dotsContainer) {
+        dotsContainer.hidden = true;
+      }
+      return;
+    }
+
+    if (isCompact) {
+      let currentIndex = 0;
+      let visibleCount = defaultVisible;
+      let maxIndex = 0;
+
+      const getVisibleCount = () => {
+        if (window.innerWidth <= 720) {
+          return 1;
+        }
+        if (window.innerWidth <= 1100) {
+          return Math.min(2, totalSlides);
+        }
+        return Math.min(defaultVisible, totalSlides);
+      };
+
+      const clampIndex = (index) => Math.max(0, Math.min(index, maxIndex));
+
+      const updateDots = () => {
+        if (!dotsContainer) {
+          return;
+        }
+        dotsContainer.querySelectorAll(".pack-slider__dot").forEach((dot) => {
+          const idx = Number(dot.dataset.index || "0");
+          dot.classList.toggle("is-active", idx === currentIndex);
+        });
+      };
+
+      const updateControls = () => {
+        const hasRange = maxIndex > 0;
+        slider.classList.toggle("is-static", !hasRange);
+        if (prevBtn) {
+          const disabled = !hasRange || currentIndex === 0;
+          prevBtn.disabled = disabled;
+          prevBtn.setAttribute("aria-disabled", disabled ? "true" : "false");
+          prevBtn.hidden = !hasRange;
+        }
+        if (nextBtn) {
+          const disabled = !hasRange || currentIndex === maxIndex;
+          nextBtn.disabled = disabled;
+          nextBtn.setAttribute("aria-disabled", disabled ? "true" : "false");
+          nextBtn.hidden = !hasRange;
+        }
+        if (dotsContainer) {
+          dotsContainer.hidden = maxIndex < 1;
+        }
+      };
+
+      const updateTrackPosition = (animate = true) => {
+        const targetSlide = slides[currentIndex];
+        if (!targetSlide) {
+          return;
+        }
+        if (!animate) {
+          track.style.transition = "none";
+        }
+        const offset = targetSlide.offsetLeft;
+        track.style.transform = `translateX(-${offset}px)`;
+        if (!animate) {
+          requestAnimationFrame(() => {
+            track.style.transition = "transform 0.5s ease";
+          });
+        }
+        updateDots();
+      };
+
+      const rebuildDots = () => {
+        if (!dotsContainer) {
+          return;
+        }
+        dotsContainer.innerHTML = "";
+        if (maxIndex < 1) {
+          dotsContainer.hidden = true;
+          return;
+        }
+        for (let i = 0; i <= maxIndex; i++) {
+          const dot = document.createElement("button");
+          dot.type = "button";
+          dot.className = "pack-slider__dot";
+          dot.dataset.index = String(i);
+          dot.setAttribute("aria-label", `Afficher le pack ${i + 1}`);
+          dot.addEventListener("click", () => {
+            goToIndex(i);
+          });
+          dotsContainer.appendChild(dot);
+        }
+        dotsContainer.hidden = false;
+        updateDots();
+      };
+
+      const recalculateLayout = (shouldAnimate = false) => {
+        visibleCount = getVisibleCount();
+        maxIndex = Math.max(0, totalSlides - visibleCount);
+        currentIndex = clampIndex(currentIndex);
+        rebuildDots();
+        updateControls();
+        updateTrackPosition(shouldAnimate);
+      };
+
+      const goToIndex = (target) => {
+        const clamped = clampIndex(target);
+        if (clamped === currentIndex) {
+          return;
+        }
+        currentIndex = clamped;
+        updateControls();
+        updateTrackPosition();
+      };
+
+      const goToNext = () => {
+        goToIndex(currentIndex + 1);
+      };
+
+      const goToPrev = () => {
+        goToIndex(currentIndex - 1);
+      };
+
+      if (prevBtn) {
+        prevBtn.addEventListener("click", goToPrev);
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener("click", goToNext);
+      }
+
+      let touchStartX = 0;
+
+      viewport.addEventListener(
+        "touchstart",
+        (event) => {
+          if (event.touches.length !== 1) {
+            return;
+          }
+          touchStartX = event.touches[0].clientX;
+        },
+        { passive: true },
+      );
+
+      viewport.addEventListener(
+        "touchend",
+        (event) => {
+          const touch = event.changedTouches && event.changedTouches[0];
+          if (!touch) {
+            return;
+          }
+          const deltaX = touch.clientX - touchStartX;
+          if (Math.abs(deltaX) > 40) {
+            if (deltaX < 0) {
+              goToNext();
+            } else {
+              goToPrev();
+            }
+          }
+        },
+        { passive: true },
+      );
+
+      let resizeRaf = 0;
+      const handleResize = () => {
+        if (resizeRaf) {
+          cancelAnimationFrame(resizeRaf);
+        }
+        resizeRaf = requestAnimationFrame(() => {
+          recalculateLayout(false);
+        });
+      };
+      window.addEventListener("resize", handleResize);
+
+      recalculateLayout(false);
+      return;
+    }
+
+    if (totalSlides <= defaultVisible) {
       slider.classList.add("is-static");
       if (dotsContainer) {
         dotsContainer.hidden = true;

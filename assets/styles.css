@@ -2014,6 +2014,11 @@ tbody tr:hover {
   right: -1.75rem;
 }
 
+.pack-slider__control[disabled] {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
 .pack-slider__dots {
   display: inline-flex;
   gap: 0.5rem;
