@@ -50,16 +50,6 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
           <a class="button button--outline" href="{{ catalogue_url }}" {% if hero.ctas.catalogue.external %}target="_blank" rel="noopener"{% endif %}>{{ hero.ctas.catalogue.label }}</a>
         {% endif %}
       </div>
-      {% if hero.stats %}
-      <ul class="home-hero__stats">
-        {% for stat in hero.stats %}
-        <li>
-          <span class="home-hero__stat-value">{{ stat.value }}</span>
-          <span class="home-hero__stat-label">{{ stat.label }}</span>
-        </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
     </div>
     <div class="home-hero__visual">
       <div class="home-hero__visual-frame">
@@ -69,23 +59,6 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
         <div class="home-hero__visual-placeholder" aria-hidden="true"></div>
         {% endif %}
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="section home-highlights">
-  <div class="container">
-    <div class="section-header section-header--center">
-      <h2>{{ site.branding.differentiators.title }}</h2>
-      <p class="muted">{{ site.description }}</p>
-    </div>
-    <div class="home-highlights__grid">
-      {% for feature in site.branding.features %}
-      <article class="home-highlight-card">
-        <h3>{{ feature.title }}</h3>
-        <p class="muted">{{ feature.description }}</p>
-      </article>
-      {% endfor %}
     </div>
   </div>
 </section>
@@ -120,80 +93,6 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
 </section>
 {% endif %}
 
-<section class="section home-delivery">
-  <div class="container home-delivery__grid">
-    <div class="home-delivery__copy">
-      <div class="section-header">
-        <h2>Livraison &amp; installation</h2>
-        <p class="muted">Des zones tarifaires claires, installation sur demande à partir de {{ site.delivery.install_price_from_eur }} € et présence possible le jour J.</p>
-      </div>
-      <div class="note">
-        <ul>
-          {% for tier in site.delivery.tiers %}
-          <li><strong>{{ tier.label }}</strong> — {{ tier.radius_km }} km — {{ tier.price_eur }} €</li>
-          {% endfor %}
-        </ul>
-        <p class="muted">Retrait gratuit sur rendez-vous.</p>
-      </div>
-      <div class="section-block">
-        <div class="note">
-          <h3>Tarifs &amp; conditions</h3>
-          <p>{{ site.pricing.weekend }}</p>
-          <p>{{ site.pricing.caution_policy }}</p>
-          <p>{{ site.pricing.notes }}</p>
-        </div>
-      </div>
-      <div class="home-delivery__cta">
-        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander une installation</a>
-        <a class="button button--ghost" href="{{ '/services/' | relative_url }}">Voir nos services</a>
-      </div>
-    </div>
-    <div class="map-panel">
-      <div class="map-shell">
-        <div class="map js-delivery-map" data-map-id="home"
-             data-center-lat="{{ site.delivery.center_lat }}"
-             data-center-lng="{{ site.delivery.center_lng }}"
-             data-tiers='{{ site.delivery.tiers | jsonify }}'
-             data-city="{{ site.delivery.base_city }}">
-          <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
-        </div>
-        <p class="muted map-caption">Pour toute demande hors zone, merci de me contacter directement.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section home-packs">
-  <div class="container">
-    <div class="section-header section-header--center">
-      <h2>Nos packs populaires</h2>
-      <p class="muted">{{ site.data.packs.intro }}</p>
-    </div>
-    <div class="pack-slider pack-slider--compact pack-slider--finite" data-pack-slider data-slides-visible="3">
-      <button class="pack-slider__control pack-slider__control--prev" type="button" data-pack-prev aria-label="Pack pr&eacute;c&eacute;dent">&lsaquo;</button>
-      <div class="pack-slider__viewport" data-pack-viewport>
-        <ul class="pack-slider__track" data-pack-track role="list">
-          {% for pack in site.data.packs.items %}
-          {% assign summary_includes = pack.includes | slice: 0, 2 %}
-          <li class="pack-slider__slide" data-pack-slide data-pack-index="{{ forloop.index0 }}">
-            <article class="home-pack-card">
-              <header class="home-pack-card__header">
-                <div class="home-pack-card__meta">
-                  <span class="home-pack-card__index">Pack {{ forloop.index }}</span>
-                  {% if pack.capacity %}<span class="home-pack-card__capacity">{{ pack.capacity }}</span>{% endif %}
-                </div>
-                <h3>{{ pack.title }}</h3>
-                {% if pack.tagline %}<p class="home-pack-card__tagline muted">{{ pack.tagline }}</p>{% endif %}
-              </header>
-              <div class="home-pack-card__body">
-                {% if pack.weekend_price %}
-                <div class="home-pack-card__price">
-                  <span class="home-pack-card__price-label">Forfait week-end</span>
-                  <span class="home-pack-card__price-value">{{ pack.weekend_price }} {{ site.pricing.currency }}</span>
-                </div>
-                {% endif %}
-                {% if pack.description %}
-                <p class="home-pack-card__summary muted">{{ pack.description | truncatewords: 18, '...' }}</p>
                 {% endif %}
                 {% if summary_includes and summary_includes.size > 0 %}
                 <ul class="home-pack-card__highlights" role="list">

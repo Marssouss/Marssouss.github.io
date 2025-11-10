@@ -113,13 +113,6 @@ branding:
     title: "Illuminez vos événements sans stress"
     subtitle: "Location de sonorisation et/ou de jeux de lumières pour une soirée réussie. Lancez votre playlist et enflammez votre dancefloor !"
     image: "/assets/img/webp/hero.webp"
-    stats:
-      - value: "180+"
-        label: "soirées animées"
-      - value: "4.9/5"
-        label: "avis clients"
-      - value: "48h"
-        label: "délai moyen"
     ctas:
       primary:
         label: "Nous contacter"
