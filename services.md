@@ -29,18 +29,6 @@ description: Location sono & lumières avec livraison, installation sur demande 
 <section class="section">
   <div class="container">
     <div class="feature-grid" style="margin-top: 2.75rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
-      <article class="feature-card">
-        <h3>Retrait rapide</h3>
-        <p class="muted">Créneau sur rendez-vous, pack prêt à partir avec check-list.</p>
-      </article>
-      <article class="feature-card">
-        <h3>Livraison maîtrisée</h3>
-        <p class="muted">Transport assuré par mes soins, tests de fonctionnement sur place.</p>
-      </article>
-      <article class="feature-card">
-        <h3>Installation à la carte</h3>
-        <p class="muted">Calage lumière et son, briefing express pour une utilisation sereine.</p>
-      </article>
     </div>
     <div style="display: grid; gap: 1.75rem; margin-top: 3rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); align-items: start;">
       <div>
