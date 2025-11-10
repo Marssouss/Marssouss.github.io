@@ -28,14 +28,6 @@ description: Location sono & lumières avec livraison, installation sur demande 
 
 <section class="section">
   <div class="container">
-    <div style="display: grid; gap: 2.5rem; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start;">
-      <div>
-        <div class="section-header">
-          <h2>Livraison flexible, installation sur demande</h2>
-          <p class="muted">Retrait gratuit au dépôt ou livraison dans votre zone (voir tarif ci-dessous)</p>
-        </div>
-      </div>
-    </div>
     <div class="feature-grid" style="margin-top: 2.75rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
       <article class="feature-card">
         <h3>Retrait rapide</h3>
