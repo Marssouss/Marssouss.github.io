@@ -102,39 +102,3 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
   </div>
 </section>
 {% endif %}
-
-{% assign testimonials = site.home.testimonials %}
-{% if testimonials.items %}
-<section class="section home-testimonials">
-  <div class="container">
-    <div class="section-header section-header--center">
-      <h2>{{ testimonials.title }}</h2>
-      <p class="muted">Mariages, anniversaires et événements pros : ils racontent leur expérience.</p>
-    </div>
-    <div class="testimonials">
-      {% for item in testimonials.items %}
-      <blockquote class="testimonial">
-        <p>{{ item.quote }}</p>
-        <strong>{{ item.author }}</strong>
-      </blockquote>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
-
-<section class="home-cta">
-  <div class="container">
-    <div class="home-cta__card">
-      <div class="home-cta__content">
-        <h2>Prêt à faire vibrer votre événement&nbsp;?</h2>
-        <p class="muted">Choisissez votre matériel, on s'occupe de la logistique et de votre tranquillité d'esprit.</p>
-      </div>
-      <div class="home-cta__actions">
-        <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Réserver un créneau</a>
-        <a class="button button--ghost" href="{{ '/catalogue/' | relative_url }}">Explorer le catalogue</a>
-      </div>
-    </div>
-  </div>
-</section>
-
