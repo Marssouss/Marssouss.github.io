@@ -196,9 +196,10 @@ description: Catalogue de matériel audio et lumière disponible à la location.
                         {% if detail.title %}<h4>{{ detail.title }}</h4>{% endif %}
                         {% if detail.text %}<p>{{ detail.text }}</p>{% endif %}
                       </article>
-            {% endfor %}
-          </div>
-          {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                  {% endif %}
         {% endfor %}
                   </div>
                   {% endif %}
