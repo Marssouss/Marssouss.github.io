@@ -92,35 +92,6 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
   </div>
 </section>
 {% endif %}
-
-                {% endif %}
-                {% if summary_includes and summary_includes.size > 0 %}
-                <ul class="home-pack-card__highlights" role="list">
-                  {% for include in summary_includes %}
-                  {% assign include_label = include.label | default: include %}
-                  <li><span class="home-pack-card__chip">{{ include_label }}</span></li>
-                  {% endfor %}
-                </ul>
-                {% endif %}
-              </div>
-              <footer class="home-pack-card__footer">
-                <a class="button button--ghost" href="{{ '/packs/' | relative_url }}">Voir le pack</a>
-              </footer>
-            </article>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      <button class="pack-slider__control pack-slider__control--next" type="button" data-pack-next aria-label="Pack suivant">&rsaquo;</button>
-      <div class="pack-slider__dots" data-pack-dots aria-label="Sélecteur de packs"></div>
-    </div>
-    <div class="section-actions">
-      <a class="button button--ghost" href="{{ '/packs/' | relative_url }}">Voir tous les packs</a>
-      <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Demander une disponibilité</a>
-    </div>
-  </div>
-</section>
-
 {% assign process = site.home.process %}
 {% if process %}
 <section class="section home-process">
