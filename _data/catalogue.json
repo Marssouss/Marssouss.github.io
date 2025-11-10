@@ -237,107 +237,42 @@
     { "src": "/assets/img/webp/Catalogue/CONTEST-LED-BEAMER/contest-ledbeamer-6.webp", "alt": "Effets de faisceaux dans la fumée" },
     { "src": "/assets/img/webp/Catalogue/CONTEST-LED-BEAMER/contest-ledbeamer-7.webp", "alt": "Contest LED Beamer en soirée DJ" }
   ]
-}
-,
-        {
-          "name": "Barre LED RGB",
-          "summary": "Stroboscope et panneau wash pour booster la piste.",
-          "details": [
-            {
-              "title": "Description complète",
-              "text": "Panneau LED tricolore offrant strobe, wash et chase pour dynamiser vos shows."
-            },
-            {
-              "title": "Rendu",
-              "text": "Éclairages flash ou nappes colorées pour accentuer les breaks musicaux."
-            },
-            {
-              "title": "Utilisation",
-              "text": "DJ, soirées étudiantes, animations nécessitant un stroboscope contrôlable."
-            }
-          ],
-          "specs": [
-            "Modèle : Ibiza LED Strobe LS 005",
-            "LED : 86 rouges, 87 vertes, 87 bleues",
-            "Modes : Auto, Son, DMX 7 canaux",
-            "Alimentation : 230 V"
-          ],
-          "video_embed": "https://www.youtube.com/embed/pQGpmqJxH8s?si=zip80f65PHcuQfXg",
-          "photos": [
-            {
-              "src": "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-1.webp",
-              "alt": "Ibiza LED Strobe LS 005 sur pied"
-            },
-            {
-              "src": "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-2.webp",
-              "alt": "Ibiza LED Strobe LS 005 en pleine démonstration"
-            }
-          ]
-        },
-        {
-          "name": "Contrôle lumières & DMX",
-          "summary": "Boîtier DMX compact et télécommande pour gérer vos scènes lumineuses.",
-          "details": [
-            {
-              "title": "Description complète",
-              "text": "Contrôleur DMX simple à prendre en main, livré avec une télécommande radio. Permet de créer des scènes statiques ou dynamiques en quelques minutes."
-            },
-            {
-              "title": "Utilisation",
-              "text": "Pilotage des barres LED murales, synchronisation des jeux de lumière, création d'ambiance décorative."
-            }
-          ],
-          "specs": [
-            "Protocoles : DMX 512, mode maître/esclave",
-            "Contrôle : télécommande RF, prises XLR",
-            "Présets : 8 scènes mémorisables"
-          ],
-          "photos": [
-            {
-              "src": "/assets/gal3.jpg",
-              "alt": "Contrôleur DMX avec télécommande"
-            }
-          ]
-        },
-       {
-  "name": "Mac Mah SwingLED",
-  "summary": "Effet multi-faisceaux rotatif avec double optique, idéal pour dynamiser la piste.",
+},
+
+{
+  "name": "IBIZA LED STROBE LS-005",
+  "summary": "Stroboscope LED multicolore à effet wash, idéal pour renforcer l’ambiance lumineuse d’une soirée.",
   "details": [
     {
       "title": "Description complète",
-      "text": "Le Mac Mah SwingLED projette des faisceaux colorés puissants grâce à ses LED RGBW et ses miroirs rotatifs synchronisés. Compact et performant, il crée des effets de tunnel et d’éventail spectaculaires pour une ambiance club ou soirée privée."
+      "text": "Le IBIZA LED STROBE LS-005 combine un effet stroboscope et un éclairage wash LED multicolore. Composé de 86 LED rouges, 87 LED vertes et 87 LED bleues, il crée une véritable douche de lumière avec des changements de couleurs dynamiques au rythme de la musique. Sa conception LED assure une faible consommation et une chauffe quasi nulle."
     },
     {
       "title": "Rendu",
-      "text": "Faisceaux nets et précis, balayages rapides, rotations fluides et motifs dynamiques visibles même dans les grandes salles. L’effet est saisissant sur une piste enfumée."
+      "text": "Effet visuel éclatant et homogène : alternance rapide de couleurs et lumière diffuse couvrant une large surface. Parfait pour accentuer les moments forts d’une soirée ou créer une ambiance de scène immersive."
     },
     {
       "title": "Utilisation",
-      "text": "Idéal pour DJ mobiles, soirées dansantes, clubs éphémères, ou événements nécessitant un rendu lumineux percutant sans installation complexe."
+      "text": "Convient aux DJ mobiles, soirées privées, bars, clubs et animations scéniques. Compact, fiable et économe, il s’intègre facilement dans tout pack lumière."
     }
   ],
   "specs": [
-    "Source : 8 LED RGBW 10 W haute luminosité",
-    "Modes : Auto, Son, DMX 8/14 canaux, Master/Slave",
-    "Angle de faisceau : 5° par optique",
-    "Rotation : axe horizontal et vertical motorisé",
-    "Poids : 4,2 kg",
-    "Consommation : 60 W",
-    "Refroidissement : ventilé silencieux"
+    "Source : 86 LED rouges, 87 LED vertes, 87 LED bleues",
+    "Effets : stroboscope + wash multicolore",
+    "Mode : automatique réactif à la musique",
+    "Faible consommation et chauffe minimale"
   ],
-  "video_embed": "https://www.youtube.com/embed/Z0YfM6YvUzA",
+  "video_embed": "https://www.youtube.com/embed/pQGpmqJxH8s?si=9v-oEbR2m6G__UVH", 
   "photos": [
-    {
-      "src": "/assets/img/webp/Catalogue/MACMAH-SWINGLED/macmah-swingled-1.webp",
-      "alt": "Mac Mah SwingLED en prestation avec faisceaux colorés"
-    },
-    {
-      "src": "/assets/img/webp/Catalogue/MACMAH-SWINGLED/macmah-swingled-2.webp",
-      "alt": "Mac Mah SwingLED en mode beam sur scène"
-    }
+    { "src": "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-1.webp", "alt": "IBIZA LED STROBE LS-005 en fonctionnement" },
+    { "src": "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-2.webp", "alt": "Effet wash multicolore du IBIZA LS-005" },
+    { "src": "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-3.webp", "alt": "IBIZA LED STROBE LS-005 en soirée" },
+    { "src": "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-4.webp", "alt": "Jeu de lumière IBIZA LS-005 vue avant" },
+    { "src": "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-5.webp", "alt": "Éclairage coloré du stroboscope IBIZA LS-005" }
   ]
 }
 ,
+      
         {
           "name": "Boule à facettes motorisée",
           "summary": "Classique indémodable avec projecteur dédié pour un rendu disco éclatant.",
