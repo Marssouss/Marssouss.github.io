@@ -13,7 +13,7 @@ status_banner:
   text: "Site en version de test : certaines informations peuvent évoluer avant le lancement officiel."
   link:
     label: "Nous contacter"
-    url: "mailto:contact@loclights.example"
+    url: "mailto:localum-e2m@outlook.fr"
 
 navigation:
   - label: "Accueil"
@@ -32,17 +32,18 @@ navigation:
     style: "button"
 
 contact:
-  phone: "+33 6 12 34 56 78"
-  email: "contact@loclights.example"
-  address: "12 rue des Fêtes, 33370 Daignac"
-  siret: "123 456 789 00012"
-  legal_contact: "Jean Exemple"
+  phone: "+33 6 30 68 68 25"
+  email: "localum-e2m@outlook.fr"
+  address: "27 Merlet 33420 Espiet FRANCE"
+  siret: "992 409 094 00016"
+  legal_contact: "RUHER Timothy"
   legal_name: "LOCALUM - E2M"
   legal_status: "Entreprise individuelle (micro-entrepreneur)"
-  siren: "123 456 789"
+  siren: "992 409 094"
   rcs: "Dispense d'immatriculation au RCS et au RM, conforme à l'article L123-1-1 du Code de commerce."
   vat: "TVA non applicable, article 293 B du CGI."
-  insurance: "Responsabilité civile professionnelle AXA - Police 123456789"
+  insurance: "Responsabilité civile professionnelle MAIF - Police 123456789"
+  ape: " 7729Z - Location et location-bail d'autres biens personnels et domestiques"
 
 social:
   youtube: "https://youtube.com/@timothy-party-lights"
@@ -50,9 +51,9 @@ social:
   facebook: "https://facebook.com/votrepage"
 
 delivery:
-  base_city: "Daignac"
-  center_lat: 44.799
-  center_lng: -0.248
+  base_city: "Espiet"
+  center_lat: 44.807
+  center_lng: -0.256
   tiers:
     - { radius_km: 5, price_eur: 10, label: "Zone 1", color: "#ef4444", contact_note: "Contactez-moi pour planifier une livraison très proche." }
     - { radius_km: 10, price_eur: 25, label: "Zone 2", color: "#facc15", contact_note: "Contactez-moi pour organiser la livraison." }

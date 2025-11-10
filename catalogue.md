@@ -110,6 +110,10 @@ description: Catalogue de matériel audio et lumière disponible à la location.
         {% for category in categories %}
           {% assign cat_slug = category.name | slugify %}
           {% if category.showcases %}
+          <div class="catalogue-category" data-category-group="{{ cat_slug }}">
+            <div class="catalogue-category__divider" data-category-divider data-category="{{ cat_slug }}">
+              <span>{{ category.name }}</span>
+            </div>
             {% for showcase in category.showcases %}
               {%- assign first_photo = nil -%}
               {%- assign has_photos = showcase.photos and showcase.photos.size > 0 -%}
@@ -192,8 +196,10 @@ description: Catalogue de matériel audio et lumière disponible à la location.
                         {% if detail.title %}<h4>{{ detail.title }}</h4>{% endif %}
                         {% if detail.text %}<p>{{ detail.text }}</p>{% endif %}
                       </article>
-                      {% endif %}
-                    {% endfor %}
+            {% endfor %}
+          </div>
+          {% endif %}
+        {% endfor %}
                   </div>
                   {% endif %}
                   <div class="card-actions">
@@ -219,6 +225,9 @@ description: Catalogue de matériel audio et lumière disponible à la location.
                     <a class="button button--primary open-video" href="{{ showcase.video_embed }}">Voir la vidéo</a>
                     {% endif %}
                   </div>
+                  {% if showcase.video_source %}
+                  <p class="card-video-source">{{ showcase.video_source }}</p>
+                  {% endif %}
                 </div>
               </article>
             {% endfor %}

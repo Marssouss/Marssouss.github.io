@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "pack-1",
-      "title": "Pack Ambiance 40",
+      "title": "Pack Light 40",
       "tagline": "1 pied + 3 jeux de lumière LED",
       "capacity": "Jusqu'à 40 personnes",
       "weekend_price": 50,
@@ -28,7 +28,7 @@
     },
     {
       "id": "pack-2",
-      "title": "Pack Ambiance 60",
+      "title": "Pack Light 60",
       "tagline": "2 pieds + 6 jeux de lumière LED",
       "capacity": "Jusqu'à 60 personnes",
       "weekend_price": 80,
@@ -53,7 +53,7 @@
     },
     {
       "id": "pack-3",
-      "title": "Pack Ambiance 100",
+      "title": "Pack Light 100",
       "tagline": "3 pieds + 9 jeux de lumière LED",
       "capacity": "Jusqu'à 100 personnes",
       "weekend_price": 110,
@@ -76,32 +76,36 @@
         "Prévoir une prise 230 V dédiée."
       ]
     },
+
+
+
     {
       "id": "pack-4",
-      "title": "Pack Sono Stage Line",
-      "tagline": "Système Triton + table de mixage",
-      "capacity": "Jusqu'à 100 personnes",
-      "weekend_price": 100,
-      "description": "Une diffusion robuste pour discours et soirées dansantes.",
+      "title": "Pack Boule à facettes",
+      "tagline": "Boule + projecteur (couleur ou blanc)",
+      "capacity": "2 exemplaires disponibles",
+      "weekend_price": 15,
+      "description": "L'effet disco incontournable pour compléter une ambiance festive.",
       "includes": [
         {
-          "label": "Stage Line Triton (caisson + satellites)",
-          "href": "/catalogue/#showcase-stage-line-triton"
+          "label": "Boule à facettes motorisée",
+          "href": "/catalogue/#showcase-boule-a-facettes-motorisee"
         },
         {
-          "label": "Table de mixage 4 entrées",
-          "href": "/catalogue/#showcase-table-de-mixage-4-entrees"
+          "label": "Projecteur dédié",
+          "href": "/catalogue/#showcase-boule-a-facettes-motorisee"
         },
         {
-          "label": "Câble mini-jack vers mixette",
+          "label": "Crochet & câble d'alimentation",
           "href": "/catalogue/#showcase-cablage-evenementiel"
         }
       ],
       "notes": [
-        "Compatible PC, tablette ou contrôleur DJ."
+        "Se combine parfaitement avec les packs lumière."
       ]
     },
-    {
+
+     {
       "id": "pack-5",
       "title": "Pack Mur LED",
       "tagline": "5 barres LED multicolores",
@@ -128,6 +132,32 @@
     },
     {
       "id": "pack-6",
+      "title": "Pack Sono Stage Line",
+      "tagline": "Système Triton + table de mixage",
+      "capacity": "Jusqu'à 100 personnes",
+      "weekend_price": 100,
+      "description": "Une diffusion robuste pour discours et soirées dansantes.",
+      "includes": [
+        {
+          "label": "Stage Line Triton (caisson + satellites)",
+          "href": "/catalogue/#showcase-stage-line-triton"
+        },
+        {
+          "label": "Table de mixage 4 entrées",
+          "href": "/catalogue/#showcase-table-de-mixage-4-entrees"
+        },
+        {
+          "label": "Câble mini-jack vers mixette",
+          "href": "/catalogue/#showcase-cablage-evenementiel"
+        }
+      ],
+      "notes": [
+        "Compatible PC, tablette ou contrôleur DJ."
+      ]
+    },
+   
+    {
+      "id": "pack-7",
       "title": "Pack Sono FBT",
       "tagline": "2 enceintes + ampli",
       "capacity": "Jusqu'à 60 personnes",
@@ -150,31 +180,7 @@
       "notes": [
         "Livraison et installation sur devis."
       ]
-    },
-    {
-      "id": "pack-7",
-      "title": "Pack Boule à facettes",
-      "tagline": "Boule + projecteur (couleur ou blanc)",
-      "capacity": "2 exemplaires disponibles",
-      "weekend_price": 15,
-      "description": "L'effet disco incontournable pour compléter une ambiance festive.",
-      "includes": [
-        {
-          "label": "Boule à facettes motorisée",
-          "href": "/catalogue/#showcase-boule-a-facettes-motorisee"
-        },
-        {
-          "label": "Projecteur dédié",
-          "href": "/catalogue/#showcase-boule-a-facettes-motorisee"
-        },
-        {
-          "label": "Crochet & câble d'alimentation",
-          "href": "/catalogue/#showcase-cablage-evenementiel"
-        }
-      ],
-      "notes": [
-        "Se combine parfaitement avec les packs lumière."
-      ]
     }
+    
   ]
 }

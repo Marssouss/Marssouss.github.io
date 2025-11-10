@@ -1232,6 +1232,8 @@
 
   const search = $('#catSearch');
   const chips  = $$('#catFilters .chip');
+  const cards = $$('#catGrid .card');
+  const dividers = $$('#catGrid [data-category-divider]');
 
   function applyFilters() {
     const q = (search?.value || '').trim().toLowerCase();
@@ -1239,13 +1241,23 @@
     const cat = active ? active.dataset.filter.toLowerCase() : '*';
 
     let visibleCount = 0;
-    $$('#catGrid .card').forEach(card => {
+    const visibleByCategory = {};
+    cards.forEach(card => {
       const inCat = (cat === '*') || (card.dataset.category === cat);
       const text = (card.dataset.title + ' ' + card.dataset.model + ' ' + card.dataset.tags).toLowerCase();
       const inSearch = q === '' || text.includes(q);
       const show = inCat && inSearch;
       card.style.display = show ? '' : 'none';
-      if (show) visibleCount++;
+      if (show) {
+        visibleCount++;
+        const slug = card.dataset.category;
+        visibleByCategory[slug] = (visibleByCategory[slug] || 0) + 1;
+      }
+    });
+
+    dividers.forEach(divider => {
+      const slug = divider.dataset.category;
+      divider.hidden = !visibleByCategory[slug];
     });
 
     grid.classList.toggle('is-empty', visibleCount === 0);

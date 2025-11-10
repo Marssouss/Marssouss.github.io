@@ -1,3 +1,4 @@
+---
 layout: default
 title: Contact
 description: Contact, adresse et carte des zones desservies.
@@ -47,18 +48,47 @@ description: Contact, adresse et carte des zones desservies.
       </div>
       {% endif %}
     </div>
-    <div>
-      <div class="section-header">
-        <h2>Zones desservies</h2>
-        <p class="muted">Autour de {{ site.delivery.base_city }} et jusqu’à {{ last_tier.radius_km }} km.</p>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="display: grid; gap: 1.75rem; margin-top: 3rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); align-items: start;">
+      <div>
+        <h3 class="muted">Frais de déplacement</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Zone</th>
+              <th>Rayon</th>
+              <th>Frais</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for tier in site.delivery.tiers %}
+          <tr>
+            <td>{{ tier.label }}</td>
+            <td>{{ tier.radius_km }} km</td>
+            <td>{{ tier.price_eur }} €</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td>Hors zone</td>
+            <td>Sur devis</td>
+            <td><a href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Contactez-moi</a></td>
+          </tr>
+        </tbody>
+      </table>
       </div>
-      <div class="map-shell">
-        <div id="map" class="map"
-             data-center-lat="{{ site.delivery.center_lat }}"
-             data-center-lng="{{ site.delivery.center_lng }}"
-             data-tiers='{{ site.delivery.tiers | jsonify }}'
-             data-city="{{ site.delivery.base_city }}">
-          <noscript>Activez JavaScript pour afficher la carte.</noscript>
+      <div class="map-panel">
+        <div class="map-shell">
+          <div class="map js-delivery-map"
+               data-map-id="services"
+               data-center-lat="{{ site.delivery.center_lat }}"
+               data-center-lng="{{ site.delivery.center_lng }}"
+               data-tiers='{{ site.delivery.tiers | jsonify }}'
+               data-city="{{ site.delivery.base_city }}">
+            <noscript>Activez JavaScript pour afficher la carte des zones de livraison.</noscript>
+          </div>
         </div>
       </div>
     </div>

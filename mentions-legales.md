@@ -29,6 +29,9 @@ description: Mentions legales conformes aux obligations applicables au micro-ent
         {% if site.contact.siren %}
         <p>Numero SIREN : {{ site.contact.siren }}</p>
         {% endif %}
+        {% if site.contact.ape %}
+        <p>Code APE : {{ site.contact.ape }}</p>
+        {% endif %}
         <p>{{ site.contact.rcs }}</p>
         <p>TVA : {{ site.contact.vat }}</p>
         {% if site.contact.insurance %}
