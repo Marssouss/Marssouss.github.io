@@ -136,15 +136,19 @@ branding:
   differentiators:
     title: "Votre ambiance, mon savoir-faire"
     items:
-      - icon: "spark"
-        title: "Pack personnalisable"
-        text: "Ajustez chaque pack selon votre événement : mariage, anniversaire, corporate."
-      - icon: "beam"
-        title: "Effets lumière scénarisés"
-        text: "Jeux de lumières synchronisés, lasers et machines à effets pour vos temps forts."
       - icon: "shield"
-        title: "Sécurité & assurance"
-        text: "Matériel révisé avant chaque prestation, assurance incluse et briefing personnalisé."
+        title: "Pack personnalisable"
+        text: "Prêt à l’emploi, modulable selon vos envies."
+      - icon: "spark"
+        title: "Livraison & installation possible"
+        text: "Je me déplace, j'installe et je récupère le matériel pour un service sans contraintes."
+      - icon: "beam"
+        title: "Jeux de lumière à faible consommation"
+        text: "Équipements LED modernes, brillants et économes en énergie."
+      - icon: "shield"
+        title: "Simplicité d'utilisation"
+        text: "Matériel prêt à l'emploi avec briefing clair et assistance si besoin."
+      
 
 home:
   process:

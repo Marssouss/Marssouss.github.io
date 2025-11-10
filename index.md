@@ -67,10 +67,7 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
 {% if differentiators %}
 <section class="section home-differentiators">
   <div class="container home-differentiators__grid">
-    <div class="home-differentiators__intro">
-      <h2>{{ site.branding.differentiators.subtitle | default: "Une expérience premium sans stress" }}</h2>
-      <p class="muted">{{ site.branding.differentiators.description | default: "De la préparation à la reprise du matériel, nous restons présents sur toute la ligne." }}</p>
-    </div>
+    <div class="home-differentiators__intro"></div>
     <div class="home-differentiators__cards">
       {% for diff in differentiators %}
       {% case diff.icon %}
