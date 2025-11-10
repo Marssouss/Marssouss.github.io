@@ -227,7 +227,6 @@ description: Catalogue de matériel audio et lumière disponible à la location.
                   {% if showcase.video_source %}
                   <p class="card-video-source">{{ showcase.video_source }}</p>
                   {% endif %}
-                </div>
               </article>
             {% endfor %}
           </div>
