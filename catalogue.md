@@ -200,7 +200,6 @@ description: Catalogue de matériel audio et lumière disponible à la location.
                     {% endfor %}
                   </div>
                   {% endif %}
-        {% endfor %}
                   </div>
                   {% endif %}
                   <div class="card-actions">
