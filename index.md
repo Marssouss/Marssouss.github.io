@@ -14,6 +14,14 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
     {% assign hero_src = hero_image | relative_url %}
   {% endif %}
 {% endif %}
+{% assign hero_overlay_logo = hero.overlay_logo %}
+{% if hero_overlay_logo %}
+  {% if hero_overlay_logo contains '://' %}
+    {% assign hero_overlay_logo_src = hero_overlay_logo %}
+  {% else %}
+    {% assign hero_overlay_logo_src = hero_overlay_logo | relative_url %}
+  {% endif %}
+{% endif %}
 
 <section class="home-hero">
   <div class="home-hero__sky" aria-hidden="true">
@@ -68,10 +76,11 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
         {% else %}
         <div class="home-hero__visual-placeholder" aria-hidden="true"></div>
         {% endif %}
-        <div class="home-hero__floating-card">
-          <p class="home-hero__floating-eyebrow">Support 7j/7</p>
-          <p>Briefing personnalisé, assistance à distance et reprise programmée.</p>
+        {% if hero_overlay_logo_src %}
+        <div class="home-hero__overlay-logo">
+          <img src="{{ hero_overlay_logo_src }}" alt="{{ hero.overlay_logo_alt | default: site.title }}">
         </div>
+        {% endif %}
       </div>
     </div>
   </div>
