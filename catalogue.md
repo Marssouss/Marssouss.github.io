@@ -230,6 +230,7 @@ description: Catalogue de matériel audio et lumière disponible à la location.
                 </div>
               </article>
             {% endfor %}
+          </div>
           {% endif %}
         {% endfor %}
       </div>

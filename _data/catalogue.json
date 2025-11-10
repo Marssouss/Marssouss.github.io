@@ -106,6 +106,8 @@
             "Faible consommation, chauffe minimale"
           ],
           "video_embed": "https://www.youtube.com/embed/7oNl0AbSTx8?si=K1w-JcImPQmUPb1s",
+          "video_source": "Source vidéo : Timothy party lights -Jeu de lumière LED : ADJ (American DJ) Majestic LED",
+
           "photos": [
             {
               "src": "/assets/img/webp/Catalogue/ADJ-MAJESTIC-LED/ADJ-MAJESTIC-LED-1.webp",
@@ -165,6 +167,8 @@
             "Faible consommation électrique et aucune chauffe notable"
           ],
           "video_embed": "https://www.youtube.com/embed/57o72ctb7OM?si=sfp-itHsa7rTlYEH",
+          "video_source": "Source vidéo : Timothy party lights - Jeu de lumière LED - CONTEST LED BEAMER",
+
           "photos": [
             {
               "src": "/assets/img/webp/Catalogue/CONTEST-LED-BEAMER/contest-ledbeamer-1.webp",
@@ -220,6 +224,7 @@
             "Faible consommation et chauffe minimale"
           ],
           "video_embed": "https://www.youtube.com/embed/pQGpmqJxH8s?si=9v-oEbR2m6G__UVH",
+          "video_source": "Source vidéo : Timothy party lights - IBIZA LED STROBE - LS 005 LED",
           "photos": [
             {
               "src": "/assets/img/webp/Catalogue/IBIZA-LED-STROBE-LS-005/ibiza-ls005led-1.webp",
@@ -268,6 +273,8 @@
             "Poids : 3,2 kg"
           ],
           "video_embed": "https://www.youtube.com/embed/3BDhn3-goJg?si=E8700VPkwg8A-iV6",
+          "video_source": "Source vidéo : Timothy party lights - MAC MAH swing led",
+
           "photos": [
             {
               "src": "/assets/img/webp/Catalogue/MACMAH-SWINGLED/macmah-swingled-1.webp",
@@ -320,6 +327,8 @@
             "2 unités disponibles"
           ],
           "video_embed": "https://www.youtube.com/embed/tbS9idOzmX8?si=cEWMHMGjI3QvLlaq",
+          "video_source": "Source vidéo : Timothy party lights - Jeu de lumière LED - JB SYSTEMS CALYPSO (x2)",
+
           "photos": [
             {
               "src": "/assets/img/webp/Catalogue/JB-SYSTEMS-CALYPSO/JB-SYSTEMS-CALYPSO-1.webp",
@@ -372,6 +381,7 @@
             "Faible consommation et chauffe minimale"
           ],
           "video_embed": "https://www.youtube.com/embed/O_Vj1vZcicA?si=amPUb7JpWLD1qJFh",
+          "video_source": "Source vidéo : Timothy party lights - Jeu de lumière LED - J.COLLYNS MIRAGE",
           "photos": [
             {
               "src": "/assets/img/webp/Catalogue/J.COLLYNS-MIRAGE/JCOLLYNS-MIRAGE-1.webp",
@@ -436,6 +446,7 @@
             "2 unités disponibles"
           ],
           "video_embed": "https://www.youtube.com/embed/tGzcsvNSL6k?si=8PgC_o7iYTvrk-6y",
+          "video_source": "Source vidéo : Timothy party lights - Jeu de lumière - NOVISTAR WASH LED RVBB (x2)",
           "photos": [
             {
               "src": "/assets/img/webp/Catalogue/NOVISTAR-WASH-LED-RVBB/Novistar-wash-led-rvbb-1.webp",
@@ -549,7 +560,6 @@
             "Poids : 1,8 kg environ"
           ],
           "video_embed": "https://www.youtube.com/embed/VIDEO_BOULE_DISCO",
-          "video_source": "Source vidéo : démonstration générique (YouTube, produit équivalent)",
           "photos": [
             {
               "src": "/assets/img/webp/Catalogue/BOULE-DISCO/placeholder.webp",
