@@ -79,12 +79,12 @@ description: Location sono & lumières avec livraison, installation sur demande 
     </div>
     <div class="feature-grid">
       <article class="feature-card">
-        <h3>1. Brief express</h3>
+        <h3>1. Premier contact</h3>
         <p class="muted">Vous me donnez la date, le lieu et le nombre d’invités.</p>
       </article>
       <article class="feature-card">
-        <h3>2. Pack prêt</h3>
-        <p class="muted">Matériel testé, accessoires réunis, consignes jointes.</p>
+        <h3>2. Choix de la formule</h3>
+        <p class="muted">Séléction parmis les packs disponibles et édition du contrat.</p>
       </article>
       <article class="feature-card">
         <h3>3. Livraison ou retrait</h3>
@@ -98,23 +98,3 @@ description: Location sono & lumières avec livraison, installation sur demande 
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Options complémentaires</h2>
-      <p class="muted">Personnalisez votre ambiance avec ces services additionnels.</p>
-    </div>
-    <div class="feature-grid">
-      {% for extra in site.services_page.extras %}
-      <article class="feature-card">
-        <h3>{{ extra.title }}</h3>
-        <p class="muted">{{ extra.text }}</p>
-      </article>
-      {% endfor %}
-    </div>
-    <div class="section-actions" style="gap: 1rem;">
-      <a class="button button--primary" href="{{ site.forms.booking_google_form_url }}" target="_blank" rel="noopener">Parler de votre projet</a>
-      <a class="button button--ghost" href="/catalogue/">Explorer le catalogue complet</a>
-    </div>
-  </div>
-</section>
