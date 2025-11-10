@@ -523,6 +523,39 @@
               "alt": "Rendu lumineux complet du BoomTone DJ LightShow 5FX"
             }
           ]
+        },
+        {
+          "name": "Boule à facettes 30 cm",
+          "summary": "Boule disco 30 cm avec moteur électrique ou à piles pour des effets de lumière rétro et festifs.",
+          "details": [
+            {
+              "title": "Description complète",
+              "text": "Indispensable pour toute ambiance festive, la boule à facettes 30 cm renvoie la lumière en centaines de reflets scintillants. Montée sur un moteur électrique ou à piles, elle tourne lentement pour créer un effet classique et intemporel. Utilisée avec un projecteur ou un spot LED, elle transforme instantanément une salle en piste de danse."
+            },
+            {
+              "title": "Rendu",
+              "text": "Effet miroir à 360°, projections lumineuses multiples sur les murs et le plafond. Idéal pour ajouter une touche rétro, élégante ou club à toute soirée."
+            },
+            {
+              "title": "Utilisation",
+              "text": "Convient pour mariages, anniversaires, soirées privées, bars ou scènes. Simple à installer et à associer avec un projecteur LED ou une lumière blanche. Existe en version avec moteur secteur ou à piles."
+            }
+          ],
+          "specs": [
+            "Diamètre : 30 cm",
+            "Miroirs haute réflexion pour un effet lumineux intense",
+            "Rotation motorisée (électrique ou à piles)",
+            "Installation simple au plafond ou sur pied",
+            "Poids : 1,8 kg environ"
+          ],
+          "video_embed": "https://www.youtube.com/embed/VIDEO_BOULE_DISCO",
+          "video_source": "Source vidéo : démonstration générique (YouTube, produit équivalent)",
+          "photos": [
+            {
+              "src": "/assets/img/webp/Catalogue/BOULE-DISCO/placeholder.webp",
+              "alt": "Boule à facettes 30 cm sur moteur"
+            }
+          ]
         }
       ]
     }
