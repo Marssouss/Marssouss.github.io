@@ -61,6 +61,7 @@ delivery:
 
 forms:
   booking_google_form_url: "https://forms.gle/votre-form"
+  contact_form_embed_url: "https://docs.google.com/forms/d/e/votre-form-id/viewform?embedded=true"
 
 pricing:
   currency: "EUR"
@@ -190,9 +191,9 @@ footer:
   callout:
     eyebrow: "Prêt à allumer votre soirée ?"
     title: "Réservez votre pack sono & lumière"
-    subtitle: "Réponse rapide sous 24 h, livraison partout en Gironde."
+    subtitle: ""
     button:
-      label: "Vérifier une date"
+      label: "Contactez moi"
       url: "https://forms.gle/votre-form"
   info:
     hours: "Lun - Sam : 9 h à 19 h"
