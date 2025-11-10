@@ -170,31 +170,40 @@
         "intro": "Chaque vidéo présente un effet phare : comparez les rendus avant de réserver."
       },
       "showcases": [
-        {
-          "name": "Jeux de lumière LED compacts",
-          "summary": "Effets moonflower, derby et beam pour animer une piste de danse.",
-          "details": [
-            {
-              "title": "Description complète",
-              "text": "Pack de projecteurs LED polyvalents : moonflower multicolore, beam rotatifs, derbys et effets stroboscopiques. Programmes automatiques et détection sonore."
-            },
-            {
-              "title": "Utilisation",
-              "text": "Anniversaires, soirées privées, cafés-concerts. Solution idéale quand on veut multiplier les effets sans se compliquer la vie."
-            }
-          ],
-          "specs": [
-            "Source : LEDs RGBW à faible consommation",
-            "Modes : Auto, Son, DMX",
-            "Fixation : platine ou barre T"
-          ],
-          "photos": [
-            {
-              "src": "/assets/gal1.jpg",
-              "alt": "Jeux de lumière LED installés sur pied"
-            }
-          ]
-        },
+{
+  "name": "ADJ MAJESTIC LED",
+  "summary": "Moonflower LED puissant pour des effets dynamiques et colorés.",
+  "details": [
+    {
+      "title": "Description complète",
+      "text": "Moonflower LED composé de 184 LED (64 rouges, 60 vertes, 60 bleues) offrant des effets multicolores vifs et un rendu puissant. Idéal pour dynamiser une piste de danse ou créer une ambiance festive."
+    },
+    {
+      "title": "Rendu",
+      "text": "Faisceaux colorés synchronisés sur la musique, effets en mouvement constant et couverture large de la salle."
+    },
+    {
+      "title": "Utilisation",
+      "text": "Convient parfaitement pour les soirées dansantes, anniversaires, mariages ou événements nécessitant un jeu de lumière compact et efficace."
+    }
+  ],
+  "specs": [
+    "184 LED (64 rouges, 60 vertes, 60 bleues)",
+    "Mode : Automatique et réactif à la musique",
+    "Faible consommation, chauffe minimale"
+  ],
+  "video_embed": "https://www.youtube.com/embed/7oNl0AbSTx8?si=K1w-JcImPQmUPb1s",
+  "photos": [
+    { "src": "/assets/img/webp/Catalogue/ADJ-MAJESTIC-LED/ADJ-MAJESTIC-LED-1.webp", "alt": "ADJ MAJESTIC LED vue avant" },
+    { "src": "/assets/img/webp/Catalogue/ADJ-MAJESTIC-LED/ADJ-MAJESTIC-LED-2.webp", "alt": "ADJ MAJESTIC LED en fonctionnement" },
+    { "src": "/assets/img/webp/Catalogue/ADJ-MAJESTIC-LED/ADJ-MAJESTIC-LED-3.webp", "alt": "Effets colorés du MAJESTIC LED" },
+    { "src": "/assets/img/webp/Catalogue/ADJ-MAJESTIC-LED/ADJ-MAJESTIC-LED-4.webp", "alt": "Jeu de lumière ADJ MAJESTIC LED" },
+    { "src": "/assets/img/webp/Catalogue/ADJ-MAJESTIC-LED/ADJ-MAJESTIC-LED-5.webp", "alt": "Moonflower LED en soirée" },
+    { "src": "/assets/img/webp/Catalogue/ADJ-MAJESTIC-LED/ADJ-MAJESTIC-LED-6.webp", "alt": "ADJ MAJESTIC LED vue arrière" },
+    { "src": "/assets/img/webp/Catalogue/ADJ-MAJESTIC-LED/ADJ-MAJESTIC-LED-7.webp", "alt": "Motifs lumineux du MAJESTIC LED" },
+    { "src": "/assets/img/webp/Catalogue/ADJ-MAJESTIC-LED/ADJ-MAJESTIC-LED-8.webp", "alt": "Rendu coloré du MAJESTIC LED en salle" }
+  ]
+},
         {
           "name": "CONTEST LED BEAMER",
           "summary": "Lyres motorisées compactes pour des dancefloors dynamiques.",
