@@ -166,10 +166,12 @@ home:
   testimonials:
     title: "Ils me font confiance"
     items:
-  quote: "Installation impeccable, surtout quand j’ai recalibré les projecteurs selon mon cycle lunaire. Depuis, même les plantes du lieu me tutoient."
-  author: "Kim Bourlet – Mariage à Bordeaux"
-  quote: "Matériel d’une simplicité insultante : j’ai essayé de le coacher, il m’a répondu ‘Namasté’ et a lancé une playlist de baleines. Les 200 invités ont fait une introspection collective."
-  author: "Kim Bourlet – NightRun à Libourne"
+      - quote: "Installation parfaite jusqu’à ce que j’active, par accident, le mode ‘Éveil Cosmique’. Les projecteurs ont ouvert un portail dimensionnel et un pigeon a donné une conférence TED."
+      - author: "Kim Bourlet – Mariage à Bordeaux"
+
+      - quote: "Matériel si simple que je l’ai laissé gérer l’événement seul pendant que j’entrais en trance. À mon retour, les 200 invités avaient élu la machine maire de Libourne."
+      - author: "Kim Bourlet – NightRun à Libourne"
+
 
 
 services_page:
