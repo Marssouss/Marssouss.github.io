@@ -70,13 +70,7 @@ description: Location de sonorisation et jeux de lumière en Gironde. Packs prê
     <div class="home-differentiators__intro"></div>
     <div class="home-differentiators__cards">
       {% for diff in differentiators %}
-      {% case diff.icon %}
-        {% when 'spark' %}{% assign icon_char = '✨' %}
-        {% when 'beam' %}{% assign icon_char = '🔊' %}
-        {% when 'shield' %}{% assign icon_char = '🛡️' %}
-        {% when 'wave' %}{% assign icon_char = '🌊' %}
-        {% else %}{% assign icon_char = '⭐' %}
-      {% endcase %}
+      {% assign icon_char = diff.icon | default: '⭐' %}
       <article class="diff-card home-diff-card">
         <span class="home-diff-card__icon" aria-hidden="true">{{ icon_char }}</span>
         <div class="home-diff-card__content">
