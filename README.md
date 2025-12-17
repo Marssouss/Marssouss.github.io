@@ -1,1 +1,53 @@
-Site de TEST
+# nintendo-hub-games
+
+Monorepo Vite + TypeScript (pnpm workspaces) pour un hub de mini-jeux déployable sur GitHub Pages. Le hub, la progression (XP/levels), les achievements et les jeux sont pilotés par des JSON.
+
+## Prérequis
+- Node 18+
+- pnpm (`corepack enable` puis `corepack prepare pnpm@latest --activate`)
+
+## Installation
+```bash
+pnpm install
+```
+
+## Développement
+```bash
+pnpm dev
+```
+Le hub est accessible sur `/apps/hub/`. Les pages jeux sont générées automatiquement à partir de `configs/games.registry.json`.
+
+## Build
+```bash
+pnpm build
+```
+`BASE_PATH` ou `VITE_BASE_PATH` peut définir un sous-dossier (par défaut `/nintendo-hub-games/` en production).
+
+## Ajouter un jeu (contrat)
+1) Copier `apps/games/_template` vers `apps/games/<id>` (ou `pnpm new:game <id>`).
+2) Ajouter l'entrée dans `configs/games.registry.json`.
+3) Créer `configs/games/<id>.config.json` (tu peux partir de `_template.config.json`).
+4) Optionnel : ajouter un thème `configs/themes/<themeId>.json`.
+5) Aucune autre modification du code n'est nécessaire (hub et routing se basent sur les JSON).
+
+## Structure
+- `apps/hub/` : hub Nintendo-like (profil, XP, achievements, save manager, grille de jeux).
+- `apps/games/*` : jeux canvas 2D (dodge, shooter, quest + template).
+- `packages/core` : loop, input, audio, event bus, utils.
+- `packages/storage` : schéma de sauvegarde, migrations, import/export.
+- `packages/progression` : moteur XP + achievements data-driven.
+- `packages/config` : loaders/validation des JSON.
+- `configs/` : registre des jeux, progression, achievements, thèmes, configs par jeu.
+- `scripts/new-game.ts` : bootstrap automatisé d'un jeu.
+
+## Sauvegarde & progression
+- `localStorage` (`nintendo-hub-save`) avec `schemaVersion` global + `saveSchemaVersion` par jeu.
+- Import/export JSON (validation), reset global ou par jeu.
+- Progression XP/levels et achievements réagissent aux events émis par les jeux (`packages/core/events`).
+
+## Déploiement GitHub Pages
+- Build MPA dans `dist/` (hub + pages jeux).
+- Workflow `.github/workflows/deploy.yml` pour Pages.
+
+## Contributions
+Voir `CONTRIBUTING.md`.
