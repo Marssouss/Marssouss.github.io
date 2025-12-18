@@ -50,6 +50,14 @@ export default defineConfig(({ mode }) => {
   return {
     base,
     plugins: [tsconfigPaths()],
+    resolve: {
+      alias: {
+        "@core": path.resolve(process.cwd(), "packages/core/src"),
+        "@storage": path.resolve(process.cwd(), "packages/storage/src"),
+        "@progression": path.resolve(process.cwd(), "packages/progression/src"),
+        "@config": path.resolve(process.cwd(), "packages/config/src"),
+      },
+    },
     build: {
       outDir: "dist",
       emptyOutDir: true,

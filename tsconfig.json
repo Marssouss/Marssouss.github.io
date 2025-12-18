@@ -17,9 +17,13 @@
     "types": ["vite/client"],
     "baseUrl": ".",
     "paths": {
+      "@core": ["packages/core/src/index.ts"],
       "@core/*": ["packages/core/src/*"],
+      "@storage": ["packages/storage/src/index.ts"],
       "@storage/*": ["packages/storage/src/*"],
+      "@progression": ["packages/progression/src/index.ts"],
       "@progression/*": ["packages/progression/src/*"],
+      "@config": ["packages/config/src/index.ts"],
       "@config/*": ["packages/config/src/*"]
     }
   },
