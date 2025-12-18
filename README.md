@@ -1,30 +1,30 @@
 # arcade-galaxy
 
-Monorepo Vite + TypeScript (pnpm workspaces) pour un hub de mini-jeux déployable sur GitHub Pages. Le hub, la progression (XP/levels), les achievements et les jeux sont pilotés par des JSON.
+Monorepo Vite + TypeScript pour un hub de mini-jeux déployable sur GitHub Pages. Le hub, la progression (XP/levels), les achievements et les jeux sont pilotés par des JSON.
 
 ## Prérequis
 - Node 18+
-- pnpm (`corepack enable` puis `corepack prepare pnpm@latest --activate`)
+- npm 10+
 
 ## Installation
 ```bash
-pnpm install
+npm install
 ```
 
 ## Développement
 ```bash
-pnpm dev
+npm run dev
 ```
 Le hub est accessible sur `/apps/hub/`. Les pages jeux sont générées automatiquement à partir de `configs/games.registry.json`.
 
 ## Build
 ```bash
-pnpm build
+npm run build
 ```
 `BASE_PATH` ou `VITE_BASE_PATH` peut définir un sous-dossier (par défaut `/` pour GitHub Pages utilisateur).
 
 ## Ajouter un jeu (contrat)
-1) Copier `apps/games/_template` vers `apps/games/<id>` (ou `pnpm new:game <id>`).
+1) Copier `apps/games/_template` vers `apps/games/<id>`.
 2) Ajouter l'entrée dans `configs/games.registry.json`.
 3) Créer `configs/games/<id>.config.json` (tu peux partir de `_template.config.json`).
 4) Optionnel : ajouter un thème `configs/themes/<themeId>.json`.
