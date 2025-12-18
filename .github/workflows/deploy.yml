@@ -21,7 +21,7 @@ jobs:
         run: pnpm install --frozen-lockfile=false
       - name: Build
         env:
-          BASE_PATH: /nintendo-hub-games/
+          BASE_PATH: /arcade-galaxy/
         run: pnpm build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

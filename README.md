@@ -1,4 +1,4 @@
-# nintendo-hub-games
+# arcade-galaxy
 
 Monorepo Vite + TypeScript (pnpm workspaces) pour un hub de mini-jeux déployable sur GitHub Pages. Le hub, la progression (XP/levels), les achievements et les jeux sont pilotés par des JSON.
 
@@ -31,7 +31,9 @@ pnpm build
 5) Aucune autre modification du code n'est nécessaire (hub et routing se basent sur les JSON).
 
 ## Structure
-- `apps/hub/` : hub Nintendo-like (profil, XP, achievements, save manager, grille de jeux).
+- `apps/home/` : page d'accueil.
+- `apps/hub/` et `apps/hub_de_jeux/` : hub (profil rapide, XP, achievements, save manager, grille de jeux).
+- `apps/profil/` : profil autonome (modif pseudo/avatar, import/export, reset).
 - `apps/games/*` : jeux canvas 2D (dodge, shooter, quest + template).
 - `packages/core` : loop, input, audio, event bus, utils.
 - `packages/storage` : schéma de sauvegarde, migrations, import/export.

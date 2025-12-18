@@ -30,10 +30,13 @@ export default defineConfig(({ mode }) => {
   const base =
     env.BASE_PATH ||
     env.VITE_BASE_PATH ||
-    (mode === "development" ? "/" : "/nintendo-hub-games/");
+    (mode === "development" ? "/" : "/arcade-galaxy/");
 
   const games = loadGamesRegistry();
   const input: Record<string, string> = {
+    index: path.resolve(process.cwd(), "apps/home/index.html"),
+    hub_de_jeux: path.resolve(process.cwd(), "apps/hub_de_jeux/index.html"),
+    profil: path.resolve(process.cwd(), "apps/profil/index.html"),
     hub: path.resolve(process.cwd(), "apps/hub/index.html"),
   };
 
@@ -55,7 +58,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      open: "/apps/hub/",
+      open: "/",
     },
   };
 });
