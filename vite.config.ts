@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => {
   const base =
     env.BASE_PATH ||
     env.VITE_BASE_PATH ||
-    (mode === "development" ? "/" : "/arcade-galaxy/");
+    "/";
 
   const games = loadGamesRegistry();
   const input: Record<string, string> = {

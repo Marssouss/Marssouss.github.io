@@ -21,7 +21,7 @@ Le hub est accessible sur `/apps/hub/`. Les pages jeux sont générées automati
 ```bash
 pnpm build
 ```
-`BASE_PATH` ou `VITE_BASE_PATH` peut définir un sous-dossier (par défaut `/nintendo-hub-games/` en production).
+`BASE_PATH` ou `VITE_BASE_PATH` peut définir un sous-dossier (par défaut `/` pour GitHub Pages utilisateur).
 
 ## Ajouter un jeu (contrat)
 1) Copier `apps/games/_template` vers `apps/games/<id>` (ou `pnpm new:game <id>`).
