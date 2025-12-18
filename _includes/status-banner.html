@@ -1,0 +1,13 @@
+{% if site.status_banner and site.status_banner.enabled %}
+<div class="status-banner" role="status" aria-live="polite">
+  <div class="container status-banner__inner">
+    <span class="status-banner__pill">Info</span>
+    <span class="status-banner__message">{{ site.status_banner.text }}</span>
+    {% if site.status_banner.link and site.status_banner.link.url %}
+      <a class="status-banner__link" href="{{ site.status_banner.link.url }}">
+        {{ site.status_banner.link.label | default: "En savoir plus" }}
+      </a>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
